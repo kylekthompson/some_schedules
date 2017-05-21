@@ -1,5 +1,8 @@
+require: rubocop-rspec
+
 AllCops:
   Exclude:
+    - 'Gemfile'
     - 'bin/**/*'
     - 'config/**/*'
     - 'log/**/*'
@@ -7,3 +10,6 @@ AllCops:
     - 'public/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
+
+Metrics/LineLength:
+  Max: 100

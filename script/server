@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# bin/server: Start the development server
+
+bin/foreman start -f Procfile.dev

@@ -1,0 +1,15 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'log/**/*'
+    - 'node_modules/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+
+Metrics/LineLength:
+  Max: 100

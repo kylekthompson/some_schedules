@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# script/cibuild: CI setup
+
+set -e
+
+bin/webpack
+bin/rails db:setup
+
+bin/rubocop -D
+bin/rspec

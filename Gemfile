@@ -19,6 +19,7 @@ group :development, :test do
   gem 'bundler-audit', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_girl_rails'
+  gem 'ffaker'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-doc'

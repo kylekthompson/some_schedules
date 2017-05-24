@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'users/create.json.jbuilder', type: :view do
+describe 'api/v1/users/create.json.jbuilder', type: :view do
   subject(:rendered_user) { JSON.parse(rendered).deep_symbolize_keys }
 
   let(:user) { create(:user) }

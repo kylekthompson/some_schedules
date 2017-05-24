@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :request do
+RSpec.describe Api::V1::UsersController, type: :request do
   describe 'POST #create' do
     let(:request) do
-      post('/users', params: { user: user_params }.to_json, headers: unauthenticated_headers)
+      post('/api/v1/users', params: { user: user_params }.to_json, headers: unauthenticated_headers)
     end
 
     context 'when passed invalid params' do

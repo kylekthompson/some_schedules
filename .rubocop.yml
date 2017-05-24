@@ -11,9 +11,16 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
 Metrics/LineLength:
   Max: 100
 
-Style/Documentation:
+Style/BlockDelimiters:
   Exclude:
-    - 'db/migrate/**/*'
+    - 'spec/**/*'
+
+Style/Documentation:
+  Enabled: false

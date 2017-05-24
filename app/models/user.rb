@@ -1,5 +1,3 @@
-##
-# The User model represents any user of the application
 class User < ApplicationRecord
   has_secure_password
 

@@ -7,7 +7,7 @@ module Api
         if @user.save
           render :create, status: :created
         else
-          render json: { errors: @user.errors }, status: :conflict
+          render :errors, status: :unprocessable_entity
         end
       end
 

@@ -11,7 +11,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
 
       it 'has the right status' do
         request
-        expect(response).to have_http_status(:conflict)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'does not create a user' do

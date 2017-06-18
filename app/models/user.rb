@@ -17,4 +17,37 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  ##
+  # Returns the payload representation of the user
+  #
+  # [1] pry(main)> User.new(email: 'someone@email.com').to_token_payload
+  # => {:sub=>"someone@email.com"}
+  def to_token_payload
+    { sub: self.email }
+  end
+
+  ##
+  # Returns the user that matches the auth params
+  #
+  # [1] pry(main)> request = ActionDispatch::Request.new(
+  # [1] pry(main)*   params: ActionController::Parameters.new(
+  # [1] pry(main)*     auth: { email: 'someone@email.com' }
+  # [1] pry(main)*   )
+  # [1] pry(main)* )
+  # => #<ActionDispatch::Request>
+  # [2] pry(main)> User.from_token_request(request)
+  # => #<User>
+  def self.from_token_request(request)
+    self.find_by(email: request.params[:auth] && request.params[:auth][:email]&.downcase)
+  end
+
+  ##
+  # Returns the user that matches the payload of a token
+  #
+  # [1] pry(main)> User.from_token_payload({ 'sub' => 'someone@email.com' })
+  # => #<User>
+  def self.from_token_payload(payload)
+    self.find_by(email: payload['sub']&.downcase)
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -17,7 +19,7 @@ RSpec.describe User, type: :model do
 
   describe '#to_token_payload' do
     it 'uses the user email as the subject' do
-      expect(user.to_token_payload).to eq({ sub: user.email })
+      expect(user.to_token_payload).to eq(sub: user.email)
     end
   end
 
@@ -26,13 +28,13 @@ RSpec.describe User, type: :model do
     let(:request) { instance_double(ActionDispatch::Request, params: params) }
 
     context 'when passed valid params' do
-      let(:params) { ActionController::Parameters.new({ auth: { email: user.email } }) }
+      let(:params) { ActionController::Parameters.new(auth: { email: user.email }) }
 
       specify { expect(described_class.from_token_request(request)).to eq(user) }
     end
 
     context 'when passed invalid params' do
-      let(:params) { ActionController::Parameters.new({ auth: { email: 'other@email.com' } }) }
+      let(:params) { ActionController::Parameters.new(auth: { email: 'other@email.com' }) }
 
       specify { expect(described_class.from_token_request(request)).to be_nil }
     end

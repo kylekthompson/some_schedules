@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def authenticated_headers(user: FactoryGirl.create(:user))
   {
     'CONTENT_TYPE' => 'application/json',

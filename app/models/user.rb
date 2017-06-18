@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_secure_password
 
@@ -24,7 +26,7 @@ class User < ApplicationRecord
   # [1] pry(main)> User.new(email: 'someone@email.com').to_token_payload
   # => {:sub=>"someone@email.com"}
   def to_token_payload
-    { sub: self.email }
+    { sub: email }
   end
 
   ##
@@ -39,7 +41,7 @@ class User < ApplicationRecord
   # [2] pry(main)> User.from_token_request(request)
   # => #<User>
   def self.from_token_request(request)
-    self.find_by(email: request.params[:auth] && request.params[:auth][:email]&.downcase)
+    find_by(email: request.params[:auth] && request.params[:auth][:email]&.downcase)
   end
 
   ##
@@ -48,6 +50,6 @@ class User < ApplicationRecord
   # [1] pry(main)> User.from_token_payload({ 'sub' => 'someone@email.com' })
   # => #<User>
   def self.from_token_payload(payload)
-    self.find_by(email: payload['sub']&.downcase)
+    find_by(email: payload['sub']&.downcase)
   end
 end

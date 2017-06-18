@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'api/v1/users/errors.json.jbuilder', type: :view do

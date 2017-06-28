@@ -1,1 +1,2 @@
 rails: bin/rails s
+react: cd client && npm run start

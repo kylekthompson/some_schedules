@@ -1,3 +1,6 @@
+client/node_modules
+client/build
+public/*
 
 # Created by https://www.gitignore.io/api/vim,ruby,node,macos,linux,rails,windows
 

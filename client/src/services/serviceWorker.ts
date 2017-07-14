@@ -8,13 +8,13 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
-export default function register() {
+export const registerServiceWorker = () => {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       navigator.serviceWorker
         .register(swUrl)
-        .then(registration => {
+        .then((registration) => {
           registration.onupdatefound = () => {
             const installingWorker = registration.installing;
             if (!installingWorker) {
@@ -39,17 +39,17 @@ export default function register() {
             };
           };
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error during service worker registration:', error); // tslint:disable-line
         });
     });
   }
-}
+};
 
-export function unregister() {
+export const unregisterServiceWorker = () => {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
+    navigator.serviceWorker.ready.then((registration) => {
       registration.unregister();
     });
   }
-}
+};

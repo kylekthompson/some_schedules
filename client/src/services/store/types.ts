@@ -1,6 +1,7 @@
-// tslint:disable-next-line:no-empty-interface
+import { IAuthenticationState } from './Authentication/model';
+
 export interface IApplicationState {
-  dummy: object;
+  authentication: IAuthenticationState;
 }
 
 export type IThunkAction =

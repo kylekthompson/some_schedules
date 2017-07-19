@@ -1,5 +1,7 @@
+import authenticationReducer from './Authentication/reducer';
+
 const reducers = {
-  dummy: (state = {}) => state,
+  authentication: authenticationReducer,
 };
 
 export default reducers;

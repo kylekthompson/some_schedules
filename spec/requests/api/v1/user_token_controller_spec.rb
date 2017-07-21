@@ -5,7 +5,11 @@ require 'rails_helper'
 RSpec.describe Api::V1::UserTokenController, type: :request do
   describe 'POST #create' do
     let(:request) do
-      post('/api/v1/user_token', params: { auth: auth_params }.to_json, headers: unauthenticated_headers)
+      post(
+        '/api/v1/sign_in',
+        params: { auth: auth_params }.to_json,
+        headers: unauthenticated_headers
+      )
     end
 
     context 'when passed invalid params' do

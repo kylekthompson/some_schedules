@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class UsersController < Api::ApplicationController
+      skip_before_action :authenticate_user, only: :create
+
       def create
         @user = User.new(create_params)
 

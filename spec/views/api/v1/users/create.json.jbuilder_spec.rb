@@ -3,26 +3,31 @@
 require 'spec_helper'
 
 describe 'api/v1/users/create.json.jbuilder', type: :view do
-  subject(:rendered_user) { JSON.parse(rendered).deep_symbolize_keys }
+  subject(:rendered_view) { JSON.parse(rendered).deep_symbolize_keys }
 
-  let(:user) { create(:user) }
+  let(:response) { APIResponse.new(status: status, errors: errors, value: value) }
+  let(:errors) { { email: [] } }
+  let(:status) { :created }
+  let(:value) { create(:user) }
   let(:expected_hash) do
     {
-      user: {
-        id: user.id,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email
+      errors: errors,
+      status: Rack::Utils::SYMBOL_TO_STATUS_CODE[status],
+      value: {
+        id: value.id,
+        first_name: value.first_name,
+        last_name: value.last_name,
+        email: value.email
       }
     }
   end
 
   before do
-    assign(:user, user)
+    assign(:api_response, response)
     render
   end
 
-  it 'properly renders the user' do
-    expect(rendered_user).to eq(expected_hash)
+  it 'properly renders' do
+    expect(rendered_view).to eq(expected_hash)
   end
 end

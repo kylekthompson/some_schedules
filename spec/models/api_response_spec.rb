@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe APIResponse, type: :model do
   subject(:api_response) { described_class.new(status: status, errors: errors, value: value) }
+
   let(:errors) { [] }
   let(:value) { nil }
 

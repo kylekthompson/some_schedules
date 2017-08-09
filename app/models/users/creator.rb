@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Users
   class Creator
     attr_reader :user_attributes

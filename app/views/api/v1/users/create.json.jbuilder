@@ -5,7 +5,5 @@ json.status @api_response.status
 json.value do
   if @api_response.value.present?
     json.partial! 'user_create', user: @api_response.value
-  else
-    nil
   end
 end

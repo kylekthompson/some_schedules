@@ -3,10 +3,10 @@ import * as React from 'react';
 import { Grid } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 
-import { Footer, Header } from './components/Layout';
+import Footer from './components/Footer';
+import Header from './scenes/Header';
 import Home from './scenes/Home';
-
-const Test = () => <p>test</p>;
+import SignIn from './scenes/SignIn';
 
 const App = () => (
   <div>
@@ -14,7 +14,7 @@ const App = () => (
     <Grid>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/test" component={Test} />
+        <Route exact path="/signIn" component={SignIn} />
       </Switch>
     </Grid>
     <Footer />

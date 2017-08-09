@@ -6,7 +6,7 @@ const Home = () => (
   <div>
     <Row>
       <Col xs={12}>
-        the body
+        A description of this amazing app will go here eventually
       </Col>
     </Row>
   </div>

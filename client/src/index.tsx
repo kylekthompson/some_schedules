@@ -7,7 +7,7 @@ import { injectGlobal } from 'styled-components';
 
 import App from './App';
 import { registerServiceWorker } from './services/serviceWorker';
-import { configureStore } from './services/store';
+import configureStore from './services/store/configureStore';
 
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/css/bootstrap.css';

@@ -7,7 +7,23 @@ import * as NavItem from 'react-bootstrap/lib/NavItem';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Header = () => (
+import { IHeaderProps } from './types';
+
+const renderSignInOrSignOut = (isSignedIn: boolean, requestSignOut: () => void) => {
+  if (isSignedIn) {
+    return (
+      <NavItem onClick={requestSignOut}>Test</NavItem>
+    );
+  }
+
+  return (
+    <LinkContainer exact to="/signIn">
+      <NavItem>Sign In</NavItem>
+    </LinkContainer>
+  );
+};
+
+const Header = ({ isSignedIn, requestSignOut }: IHeaderProps) => (
   <Navbar fixedTop collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
@@ -20,9 +36,7 @@ const Header = () => (
         <LinkContainer exact to="/">
           <NavItem>Home</NavItem>
         </LinkContainer>
-        <LinkContainer to="/test">
-          <NavItem>Test</NavItem>
-        </LinkContainer>
+        {renderSignInOrSignOut(isSignedIn, requestSignOut)}
       </Nav>
     </Navbar.Collapse>
   </Navbar>

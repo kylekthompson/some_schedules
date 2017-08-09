@@ -5,7 +5,7 @@ class APIResponse
 
   BadStatusError = Class.new(StandardError)
 
-  def initialize(status:, errors: [], value: nil)
+  def initialize(status:, errors: {}, value: nil)
     raise BadStatusError, 'status must be an http status symbol' unless valid_status?(status)
 
     @errors = errors

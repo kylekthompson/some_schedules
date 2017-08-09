@@ -1,37 +1,42 @@
 import * as actionTypes from './actionTypes';
-import { IAuthenticationState } from './model';
-
-const initialState: IAuthenticationState = {
-  isSignedIn: false,
-};
+import { IAuthenticationState, initialState } from './model';
 
 export default (state: IAuthenticationState = initialState, { type, payload }) => {
   let newState: IAuthenticationState;
 
   switch (type) {
-    case actionTypes.SIGNIN_FAILURE:
+    case actionTypes.RECEIVE_USER_SIGN_UP_FAILURE:
       newState = {
         ...state,
-        error: payload.error,
-        isSignedIn: false,
+        signUp: {
+          ...state.signUp,
+          errors: payload.errors,
+          loading: false,
+        },
       };
 
       return newState;
 
-    case actionTypes.SIGNIN_SUCCESS:
+    case actionTypes.RECEIVE_USER_SIGN_UP_SUCCESS:
       newState = {
         ...state,
-        error: undefined,
         isSignedIn: true,
+        signUp: {
+          ...state.signUp,
+          loading: false,
+          user: payload.value,
+        },
       };
 
       return newState;
 
-    case actionTypes.SIGNOUT_SUCCESS:
+    case actionTypes.REQUEST_USER_SIGN_UP:
       newState = {
         ...state,
-        error: undefined,
-        isSignedIn: false,
+        signUp: {
+          ...state.signUp,
+          loading: true,
+        },
       };
 
       return newState;

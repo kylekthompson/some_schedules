@@ -1,4 +1,4 @@
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 import { IAPIResponse } from '../api/types';
 import { getToken } from './authentication';
@@ -30,7 +30,7 @@ const fetcher = async <T extends {}> (request: Request): Promise<IAPIResponse<T>
 
 export const post = <T extends {}> (url, body): Promise<IAPIResponse<T>> => {
   const request = new Request(url, {
-    body: camelizeKeys(body),
+    body: body && JSON.stringify(decamelizeKeys(body)),
     cache: 'no-store',
     headers: getHeaders(),
     method: 'POST',

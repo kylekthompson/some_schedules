@@ -1,9 +1,5 @@
-import { IAuthentication } from './types';
+import { post } from '../utils/fetch';
+import { IAPIResponse, ICreatedUser, IUserForCreation } from './types';
 
-const authenticate = (email: string, password: string): IAuthentication => ({
-  token: `${email}:${password}`,
-});
-
-export const postSignIn = (email: string, password: string): Promise<IAuthentication> => (
-  new Promise<IAuthentication>((resolve) => (setTimeout(() => resolve(authenticate(email, password)), 500)))
-);
+export const postSignUp = (user: IUserForCreation): Promise<IAPIResponse<ICreatedUser>> =>
+  post<ICreatedUser>('/api/v1/users', { user });

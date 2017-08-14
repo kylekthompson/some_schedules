@@ -41,6 +41,14 @@ export default (state: IAuthenticationState = initialState, { type, payload }) =
 
       return newState;
 
+    case actionTypes.REQUEST_USER_SIGN_OUT:
+      newState = {
+        ...state,
+        isSignedIn: false,
+      };
+
+      return newState;
+
     default:
       return state;
   }

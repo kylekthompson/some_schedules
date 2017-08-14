@@ -1,9 +1,16 @@
 import { postSignUp } from '../../api/authentication';
 import { ICreatedUser, IUserForCreation } from '../../api/authentication/types';
 import { IAPIResponse } from '../../api/shared/types';
-import { setToken } from '../../utils/authentication';
+import { deleteToken, setToken } from '../../utils/authentication';
 import { IThunkAction } from '../types';
 import * as actionTypes from './actionTypes';
+
+export const requestSignOut = () => {
+  deleteToken();
+  return {
+    type: actionTypes.REQUEST_USER_SIGN_OUT,
+  };
+};
 
 export const requestSignUp = (user: IUserForCreation): IThunkAction => async (dispatch, _getState) => {
   dispatch({ type: actionTypes.REQUEST_USER_SIGN_UP });

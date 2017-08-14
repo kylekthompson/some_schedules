@@ -9,19 +9,24 @@ import { Link } from 'react-router-dom';
 
 import { IHeaderProps } from './types';
 
-const renderSignInOrSignOut = (isSignedIn: boolean, requestSignOut: () => void) => {
-  if (isSignedIn) {
-    return (
-      <NavItem onClick={requestSignOut}>Test</NavItem>
-    );
-  }
+const renderSignedInNavItems = (requestSignOut: () => void) => ([
+  (
+    <NavItem key="signOut" onClick={requestSignOut}>Sign Out</NavItem>
+  ),
+]);
 
-  return (
-    <LinkContainer exact to="/signIn">
+const renderSignedOutNavItems = () => ([
+  (
+    <LinkContainer exact key="signUp" to="/signUp">
+      <NavItem>Sign Up</NavItem>
+    </LinkContainer>
+  ),
+  (
+    <LinkContainer exact key="signIn" to="/signIn">
       <NavItem>Sign In</NavItem>
     </LinkContainer>
-  );
-};
+  ),
+]);
 
 const Header = ({ isSignedIn, requestSignOut }: IHeaderProps) => (
   <Navbar fixedTop collapseOnSelect>
@@ -32,11 +37,14 @@ const Header = ({ isSignedIn, requestSignOut }: IHeaderProps) => (
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
-      <Nav pullRight>
+      <Nav>
         <LinkContainer exact to="/">
           <NavItem>Home</NavItem>
         </LinkContainer>
-        {renderSignInOrSignOut(isSignedIn, requestSignOut)}
+      </Nav>
+      <Nav pullRight>
+        {isSignedIn && renderSignedInNavItems(requestSignOut)}
+        {!isSignedIn && renderSignedOutNavItems()}
       </Nav>
     </Navbar.Collapse>
   </Navbar>

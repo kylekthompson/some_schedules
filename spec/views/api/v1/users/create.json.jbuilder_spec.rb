@@ -9,6 +9,8 @@ describe 'api/v1/users/create.json.jbuilder', type: :view do
   let(:errors) { { email: [] } }
   let(:status) { :created }
   let(:value) { create(:user) }
+  let(:token) { instance_double(Knock::AuthToken) }
+  let(:token_string) { 'token' }
   let(:expected_hash) do
     {
       errors: errors,
@@ -17,13 +19,16 @@ describe 'api/v1/users/create.json.jbuilder', type: :view do
         id: value.id,
         first_name: value.first_name,
         last_name: value.last_name,
-        email: value.email
+        email: value.email,
+        token: token_string
       }
     }
   end
 
   before do
     assign(:api_response, response)
+    allow(Knock::AuthToken).to receive(:new).and_return(token)
+    allow(token).to receive(:token).and_return(token_string)
     render
   end
 

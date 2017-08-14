@@ -3,9 +3,12 @@
 class User < ApplicationRecord
   has_secure_password
 
+  before_validation :downcase_email
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true
+  validates :email, uniqueness: true
   validates :email, format: {
     with: /\A.+@.+\..+\z/,
     message: 'must be an email address'
@@ -51,5 +54,11 @@ class User < ApplicationRecord
   # => #<User>
   def self.from_token_payload(payload)
     find_by(email: payload['sub']&.downcase)
+  end
+
+  private
+
+  def downcase_email
+    self.email = email.downcase if email.present?
   end
 end

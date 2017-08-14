@@ -1,28 +1,79 @@
-import { postSignIn } from '../../api/authentication';
-import { deleteToken, getToken, isTokenExpired, setToken } from '../../utils/authentication';
+import { postSignIn, postSignUp } from '../../api/authentication';
+import {
+  IAuthenticationCredentials,
+  IAuthenticationToken,
+  ICreatedUser,
+  IUserForCreation
+} from '../../api/authentication/types';
+import { IAPIResponse } from '../../api/shared/types';
+import { deleteToken, setToken } from '../../utils/authentication';
 import { IThunkAction } from '../types';
 import * as actionTypes from './actionTypes';
 
-export const requestSignIn = (email: string, password: string): IThunkAction => async (dispatch, getState) => {
-  if (!getState().authentication.isSignedIn) {
-    dispatch({ type: actionTypes.SIGNIN_REQUEST });
+export const requestSignIn = (auth: IAuthenticationCredentials): IThunkAction => async (dispatch, _getState) => {
+  dispatch({ type: actionTypes.REQUEST_USER_SIGN_IN });
 
-    try {
-      const token = getToken();
-      if (token === null || isTokenExpired(token)) {
-        const authentication = await postSignIn(email, password);
-        setToken(authentication.token);
-      }
+  try {
+    const signInResponse: IAPIResponse<IAuthenticationToken> = await postSignIn(auth);
 
-      dispatch({ type: actionTypes.SIGNIN_SUCCESS });
-    } catch (error) {
-      dispatch({ type: actionTypes.SIGNIN_FAILURE, payload: { error } });
+    if (signInResponse.status < 400) {
+      setToken((signInResponse.value as IAuthenticationToken).token);
+      dispatch({ type: actionTypes.RECEIVE_USER_SIGN_IN_SUCCESS, payload: { ...signInResponse } });
+    } else if (signInResponse.status === 404) {
+      dispatch({
+        payload: {
+          errors: {
+            email: ['Email may be incorrect or may not exist.'],
+            password: ['Password may be incorrect'],
+          },
+          status: 404,
+        },
+        type: actionTypes.RECEIVE_USER_SIGN_IN_FAILURE,
+      });
+    } else {
+      dispatch({ type: actionTypes.RECEIVE_USER_SIGN_IN_FAILURE, payload: { ...signInResponse } });
     }
+  } catch (e) {
+    dispatch({
+      payload: {
+        errors: {
+          '': ['An unexpected error occurred.'],
+        },
+        status: 500,
+      },
+      type: actionTypes.RECEIVE_USER_SIGN_IN_FAILURE,
+    });
   }
 };
 
-export const requestSignOut = (): IThunkAction => (dispatch) => {
-  dispatch({ type: actionTypes.SIGNOUT_REQUEST });
+export const requestSignOut = () => {
   deleteToken();
-  dispatch({ type: actionTypes.SIGNOUT_SUCCESS });
+  return {
+    type: actionTypes.REQUEST_USER_SIGN_OUT,
+  };
+};
+
+export const requestSignUp = (user: IUserForCreation): IThunkAction => async (dispatch, _getState) => {
+  dispatch({ type: actionTypes.REQUEST_USER_SIGN_UP });
+
+  try {
+    const userResponse: IAPIResponse<ICreatedUser> = await postSignUp(user);
+
+    if (userResponse.status < 400) {
+      setToken((userResponse.value as ICreatedUser).token);
+      dispatch({ type: actionTypes.RECEIVE_USER_SIGN_UP_SUCCESS, payload: { ...userResponse } });
+    } else {
+      dispatch({ type: actionTypes.RECEIVE_USER_SIGN_UP_FAILURE, payload: { ...userResponse } });
+    }
+  } catch (e) {
+    dispatch({
+      payload: {
+        errors: {
+          '': ['An unexpected error occurred.'],
+        },
+        status: 500,
+      },
+      type: actionTypes.RECEIVE_USER_SIGN_UP_FAILURE,
+    });
+  }
 };

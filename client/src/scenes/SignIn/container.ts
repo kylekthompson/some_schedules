@@ -7,12 +7,12 @@ import { requestSignIn } from '../../services/store/Authentication/actionCreator
 import { IApplicationState } from '../../services/store/types';
 
 const mapStateToProps = (state: IApplicationState) => ({
-  error: state.authentication.error,
   isSignedIn: state.authentication.isSignedIn,
+  signIn: state.authentication.signIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestSignIn: bindActionCreators(requestSignIn, dispatch),
+  ...bindActionCreators({ requestSignIn }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

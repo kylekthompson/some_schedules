@@ -32,7 +32,7 @@ RSpec.describe Api::V1::UserTokenController, type: :request do
 
       it 'returns a token' do
         request
-        expect(JSON.parse(response.body)['jwt']).not_to be_nil
+        expect(JSON.parse(response.body)['value']['token']).not_to be_nil
       end
     end
   end

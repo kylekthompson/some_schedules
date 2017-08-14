@@ -1,17 +1,18 @@
-import Header from './Header';
+import SignUp from './SignUp';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestSignOut } from '../../services/store/Authentication/actionCreators';
+import { requestSignUp } from '../../services/store/Authentication/actionCreators';
 import { IApplicationState } from '../../services/store/types';
 
 const mapStateToProps = (state: IApplicationState) => ({
   isSignedIn: state.authentication.isSignedIn,
+  signUp: state.authentication.signUp,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ requestSignOut }, dispatch),
+  ...bindActionCreators({ requestSignUp }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

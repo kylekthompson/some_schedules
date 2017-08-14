@@ -1,36 +1,95 @@
 import * as actionTypes from './actionTypes';
-import { IAuthenticationState } from './model';
-
-const initialState: IAuthenticationState = {
-  isSignedIn: false,
-};
+import { IAuthenticationState, initialState } from './model';
 
 export default (state: IAuthenticationState = initialState, { type, payload }) => {
   let newState: IAuthenticationState;
 
   switch (type) {
-    case actionTypes.SIGNIN_FAILURE:
+    case actionTypes.RECEIVE_USER_SIGN_IN_FAILURE:
       newState = {
         ...state,
-        error: payload.error,
         isSignedIn: false,
+        signIn: {
+          ...state.signIn,
+          errors: payload.errors,
+          loaded: true,
+          value: null,
+        },
       };
 
       return newState;
 
-    case actionTypes.SIGNIN_SUCCESS:
+    case actionTypes.RECEIVE_USER_SIGN_IN_SUCCESS:
       newState = {
         ...state,
-        error: undefined,
         isSignedIn: true,
+        signIn: {
+          ...state.signIn,
+          errors: {},
+          loaded: true,
+          value: payload.value,
+        },
       };
 
       return newState;
 
-    case actionTypes.SIGNOUT_SUCCESS:
+    case actionTypes.REQUEST_USER_SIGN_IN:
       newState = {
         ...state,
-        error: undefined,
+        signIn: {
+          ...state.signIn,
+          errors: {},
+          loaded: false,
+          value: null,
+        },
+      };
+
+      return newState;
+
+    case actionTypes.RECEIVE_USER_SIGN_UP_FAILURE:
+      newState = {
+        ...state,
+        isSignedIn: false,
+        signUp: {
+          ...state.signUp,
+          errors: payload.errors,
+          loaded: true,
+          value: null,
+        },
+      };
+
+      return newState;
+
+    case actionTypes.RECEIVE_USER_SIGN_UP_SUCCESS:
+      newState = {
+        ...state,
+        isSignedIn: true,
+        signUp: {
+          ...state.signUp,
+          errors: {},
+          loaded: true,
+          value: payload.value,
+        },
+      };
+
+      return newState;
+
+    case actionTypes.REQUEST_USER_SIGN_UP:
+      newState = {
+        ...state,
+        signUp: {
+          ...state.signUp,
+          errors: {},
+          loaded: false,
+          value: null,
+        },
+      };
+
+      return newState;
+
+    case actionTypes.REQUEST_USER_SIGN_OUT:
+      newState = {
+        ...state,
         isSignedIn: false,
       };
 

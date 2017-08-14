@@ -1,7 +1,7 @@
-import authenticationReducer from './Authentication/reducer';
+import authentication from './Authentication/reducer';
 
 const reducers = {
-  authentication: authenticationReducer,
+  authentication,
 };
 
 export default reducers;

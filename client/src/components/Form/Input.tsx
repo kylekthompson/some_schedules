@@ -11,17 +11,25 @@ class Form extends React.Component<IInputProps, IInputState> {
   public state: IInputState = {
     asyncValidationErrors: [],
     isPristine: true,
+    isShowingServerErrors: true,
     syncValidationErrors: [],
   };
 
-  public componentDidUpdate(_prevProps: IInputProps, prevState: IInputState) {
+  public componentDidUpdate(prevProps: IInputProps, prevState: IInputState) {
     const shouldReport =
+      prevProps.serverErrors !== this.props.serverErrors ||
       prevState.syncValidationErrors !== this.state.syncValidationErrors ||
       prevState.asyncValidationErrors !== this.state.asyncValidationErrors ||
       (!this.props.synchronousValidation && !this.props.asynchronousValidation);
 
     if (shouldReport) {
       this.reportValidation();
+    }
+
+    if (prevProps.serverErrors !== this.props.serverErrors) {
+      this.setState({
+        isShowingServerErrors: true,
+      });
     }
   }
 
@@ -54,38 +62,38 @@ class Form extends React.Component<IInputProps, IInputState> {
   }
 
   private handleBlur = async (event: React.FormEvent<HTMLInputElement>): Promise<void> => {
-    const value = event.currentTarget.value;
-    if (!this.props.asynchronousValidation) { return; }
+    this.stopShowingServerErrors();
+    this.setDirtyState();
+
     this.setState((prevState) => ({
       ...prevState,
       asyncValidationErrors: ['Validating...'],
     }));
 
-    const asyncErrors = await this.props.asynchronousValidation(value);
+    const value = event.currentTarget.value;
+    const asyncErrors = this.props.asynchronousValidation && await this.props.asynchronousValidation(value);
+    const syncErrors = this.props.synchronousValidation && this.props.synchronousValidation(value);
 
     this.setState((prevState) => ({
       ...prevState,
-      asyncValidationErrors: asyncErrors,
+      asyncValidationErrors: (asyncErrors || []),
+      syncValidationErrors: (syncErrors || []),
     }));
   }
 
   private handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
-    event.preventDefault();
-    const value = event.currentTarget.value;
-
+    this.stopShowingServerErrors();
+    this.setDirtyState();
     this.props.onChange(event);
 
-    if (this.state.isPristine) {
-      this.setState({
-        isPristine: false,
-      });
-    }
-
     if (!this.props.synchronousValidation) { return; }
+
+    const value = event.currentTarget.value;
     const syncErrors = this.props.synchronousValidation(value);
+
     this.setState((prevState) => ({
       ...prevState,
-      syncValidationErrors: syncErrors,
+      syncValidationErrors: (syncErrors || []),
     }));
   }
 
@@ -97,8 +105,11 @@ class Form extends React.Component<IInputProps, IInputState> {
     const errors = [
       ...this.state.asyncValidationErrors,
       ...this.state.syncValidationErrors,
-      ...(this.props.serverErrors || []),
     ];
+
+    if (this.state.isShowingServerErrors) {
+      errors.push(...(this.props.serverErrors || []));
+    }
 
     if (this.state.isPristine || errors.length === 0) { return null; }
 
@@ -110,13 +121,37 @@ class Form extends React.Component<IInputProps, IInputState> {
   }
 
   private reportValidation = () => {
-    const errors = [...this.state.asyncValidationErrors, ...this.state.syncValidationErrors];
+    const errors = [
+      ...this.state.asyncValidationErrors,
+      ...this.state.syncValidationErrors,
+    ];
+
     this.props.onValidation(/* isValid */ errors.length === 0);
+  }
+
+  private setDirtyState = () => {
+    if (this.state.isPristine) {
+      this.setState({
+        isPristine: false,
+      });
+    }
+  }
+
+  private stopShowingServerErrors = () => {
+    if (this.state.isShowingServerErrors) {
+      this.setState({
+        isShowingServerErrors: false,
+      });
+    }
   }
 
   private validationState = () => {
     if (this.state.isPristine) { return null; }
-    const errors = [...this.state.asyncValidationErrors, ...this.state.syncValidationErrors];
+
+    const errors = [
+      ...this.state.asyncValidationErrors,
+      ...this.state.syncValidationErrors,
+    ];
 
     return errors.length > 0 ? 'error' : 'success';
   }

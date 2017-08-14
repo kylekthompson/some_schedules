@@ -10,5 +10,6 @@ export interface IInputProps extends React.ChangeTargetHTMLProps<HTMLInputElemen
 export interface IInputState {
   asyncValidationErrors: string[];
   isPristine: boolean;
+  isShowingServerErrors: boolean;
   syncValidationErrors: string[];
 }

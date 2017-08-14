@@ -96,24 +96,24 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
     );
   }
 
-  private handleChange = (attribute: keyof IUserForCreation) => (event: React.FormEvent<HTMLInputElement>) => {
+  private handleChange = (attr: keyof IUserForCreation) => (event: React.FormEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
 
     this.setState((prevState) => ({
       ...prevState,
       user: {
         ...prevState.user,
-        [attribute]: value,
+        [attr]: value,
       },
     }));
   }
 
-  private handleValidation = (attribute: keyof IUserForCreation) => (isValid: boolean) => {
+  private handleValidation = (attr: keyof IUserForCreation) => (isValid: boolean) => {
     this.setState((prevState) => ({
       ...prevState,
       validations: {
         ...prevState.validations,
-        [attribute]: isValid,
+        [attr]: isValid,
       },
     }));
   }

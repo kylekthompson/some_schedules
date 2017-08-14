@@ -11,19 +11,26 @@ const getHeaders = () => {
     headers.append('Authorization', `Bearer ${token}`);
   }
 
-  headers.append('Content-Type', 'application/json');
   headers.append('Accept', 'application/json');
+  headers.append('Cache-Control', 'no-cache');
+  headers.append('Content-Type', 'application/json');
+  headers.append('Pragma', 'no-cache');
 
   return headers;
 };
 
 const fetcher = async <T extends {}> (request: Request): Promise<IAPIResponse<T>> => {
   const response = await window.fetch(request);
-  const json = await response.json();
+  const text = await response.text();
+  let json = null;
+
+  if (text) {
+    json = JSON.parse(text);
+  }
 
   const errors = response.status >= 500
     ? { '': ['An unexpected error has occurred.'] }
-    : null;
+    : {};
 
   const camelizedJSON = json && camelizeKeys(json);
 
@@ -36,10 +43,18 @@ const fetcher = async <T extends {}> (request: Request): Promise<IAPIResponse<T>
   return result;
 };
 
+export const get = <T extends {}> (url): Promise<IAPIResponse<T>> => {
+  const request = new Request(url, {
+    headers: getHeaders(),
+    method: 'GET',
+  });
+
+  return fetcher<T>(request);
+};
+
 export const post = <T extends {}> (url, body): Promise<IAPIResponse<T>> => {
   const request = new Request(url, {
     body: body && JSON.stringify(decamelizeKeys(body)),
-    cache: 'no-store',
     headers: getHeaders(),
     method: 'POST',
   });

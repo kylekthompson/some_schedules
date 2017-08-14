@@ -5,13 +5,56 @@ export default (state: IAuthenticationState = initialState, { type, payload }) =
   let newState: IAuthenticationState;
 
   switch (type) {
+    case actionTypes.RECEIVE_USER_SIGN_IN_FAILURE:
+      newState = {
+        ...state,
+        isSignedIn: false,
+        signIn: {
+          ...state.signIn,
+          errors: payload.errors,
+          loaded: true,
+          value: null,
+        },
+      };
+
+      return newState;
+
+    case actionTypes.RECEIVE_USER_SIGN_IN_SUCCESS:
+      newState = {
+        ...state,
+        isSignedIn: true,
+        signIn: {
+          ...state.signIn,
+          errors: {},
+          loaded: true,
+          value: payload.value,
+        },
+      };
+
+      return newState;
+
+    case actionTypes.REQUEST_USER_SIGN_IN:
+      newState = {
+        ...state,
+        signIn: {
+          ...state.signIn,
+          errors: {},
+          loaded: false,
+          value: null,
+        },
+      };
+
+      return newState;
+
     case actionTypes.RECEIVE_USER_SIGN_UP_FAILURE:
       newState = {
         ...state,
+        isSignedIn: false,
         signUp: {
           ...state.signUp,
           errors: payload.errors,
-          loading: false,
+          loaded: true,
+          value: null,
         },
       };
 
@@ -23,8 +66,9 @@ export default (state: IAuthenticationState = initialState, { type, payload }) =
         isSignedIn: true,
         signUp: {
           ...state.signUp,
-          loading: false,
-          user: payload.value,
+          errors: {},
+          loaded: true,
+          value: payload.value,
         },
       };
 
@@ -35,7 +79,9 @@ export default (state: IAuthenticationState = initialState, { type, payload }) =
         ...state,
         signUp: {
           ...state.signUp,
-          loading: true,
+          errors: {},
+          loaded: false,
+          value: null,
         },
       };
 

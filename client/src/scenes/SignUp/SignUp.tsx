@@ -43,7 +43,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             placeholder="Jane"
             type="text"
             serverErrors={this.props.signUp.errors.firstName}
-            synchronousValidation={validations.validateHasCharacters}
+            synchronousValidation={validations.syncFirstNameValidation}
             value={this.state.user.firstName}
           />
           <Input
@@ -54,7 +54,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             placeholder="Smith"
             type="text"
             serverErrors={this.props.signUp.errors.lastName}
-            synchronousValidation={validations.validateHasCharacters}
+            synchronousValidation={validations.syncLastNameValidation}
             value={this.state.user.lastName}
           />
           <Input
@@ -65,7 +65,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             placeholder="jane@example.com"
             type="email"
             serverErrors={this.props.signUp.errors.email}
-            synchronousValidation={validations.validateEmailFormat}
+            synchronousValidation={validations.syncEmailValidation}
             value={this.state.user.email}
           />
           <Input
@@ -75,7 +75,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             onValidation={this.handleValidation('password')}
             type="password"
             serverErrors={this.props.signUp.errors.password}
-            synchronousValidation={validations.validatePasswordFormat}
+            synchronousValidation={validations.syncPasswordValidation}
             value={this.state.user.password}
           />
           <Input
@@ -85,7 +85,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             onValidation={this.handleValidation('passwordConfirmation')}
             type="password"
             serverErrors={this.props.signUp.errors.passwordConfirmation}
-            synchronousValidation={validations.validatePasswordFormat}
+            synchronousValidation={validations.syncPasswordComfirmationValidation(this.state.user.password)}
             value={this.state.user.passwordConfirmation}
           />
           <Button type="submit" disabled={!this.isValid()}>

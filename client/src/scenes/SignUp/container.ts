@@ -7,10 +7,8 @@ import { requestSignUp } from '../../services/store/Authentication/actionCreator
 import { IApplicationState } from '../../services/store/types';
 
 const mapStateToProps = (state: IApplicationState) => ({
-  errors: state.authentication.signUp.errors,
   isSignedIn: state.authentication.isSignedIn,
-  loading: state.authentication.signUp.loading,
-  user: state.authentication.signUp.user,
+  signUp: state.authentication.signUp,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import * as Alert from 'react-bootstrap/lib/Alert';
 import * as Button from 'react-bootstrap/lib/Button';
 
 import { Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
-import { IUserForCreation } from '../../services/api/types';
+import { IUserForCreation } from '../../services/api/authentication/types';
 import { ISignUpProps, ISignUpState } from './types';
 import * as validations from './validations';
 
 class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   public state: ISignUpState = {
+    didSubmit: false,
     user: {
       email: '',
       firstName: '',
@@ -34,7 +34,6 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
     return (
       <div>
         <form onSubmit={this.signUp}>
-          {Object.keys(this.props.errors).length > 0 && this.renderAlert()}
           <Input
             autoFocus
             autoComplete="given-name"
@@ -43,31 +42,29 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             onValidation={this.handleValidation('firstName')}
             placeholder="Jane"
             type="text"
-            serverErrors={this.props.errors.firstName}
+            serverErrors={this.props.signUp.errors.firstName}
             synchronousValidation={validations.validateHasCharacters}
             value={this.state.user.firstName}
           />
           <Input
-            autoFocus
             autoComplete="family-name"
             label="Last Name"
             onChange={this.handleChange('lastName')}
             onValidation={this.handleValidation('lastName')}
             placeholder="Smith"
             type="text"
-            serverErrors={this.props.errors.lastName}
+            serverErrors={this.props.signUp.errors.lastName}
             synchronousValidation={validations.validateHasCharacters}
             value={this.state.user.lastName}
           />
           <Input
-            autoFocus
             autoComplete="email"
             label="Email Address"
             onChange={this.handleChange('email')}
             onValidation={this.handleValidation('email')}
             placeholder="jane@example.com"
             type="email"
-            serverErrors={this.props.errors.email}
+            serverErrors={this.props.signUp.errors.email}
             synchronousValidation={validations.validateEmailFormat}
             value={this.state.user.email}
           />
@@ -77,7 +74,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             onChange={this.handleChange('password')}
             onValidation={this.handleValidation('password')}
             type="password"
-            serverErrors={this.props.errors.password}
+            serverErrors={this.props.signUp.errors.password}
             synchronousValidation={validations.validatePasswordFormat}
             value={this.state.user.password}
           />
@@ -87,7 +84,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
             onChange={this.handleChange('passwordConfirmation')}
             onValidation={this.handleValidation('passwordConfirmation')}
             type="password"
-            serverErrors={this.props.errors.passwordConfirmation}
+            serverErrors={this.props.signUp.errors.passwordConfirmation}
             synchronousValidation={validations.validatePasswordFormat}
             value={this.state.user.passwordConfirmation}
           />
@@ -98,12 +95,6 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
       </div>
     );
   }
-
-  private renderAlert = () => (
-    <Alert bsStyle="danger">
-      <p>Uh oh! Check your email or password.</p>
-    </Alert>
-  )
 
   private handleChange = (attribute: keyof IUserForCreation) => (event: React.FormEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;

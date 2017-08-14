@@ -1,18 +1,17 @@
-import { ICreatedUser, IErrors } from '../../api/types';
+import { ICreatedUser } from '../../api/authentication/types';
+import { getToken } from '../../utils/authentication';
+import { ILoadableState } from '../types';
 
 export const initialState: IAuthenticationState = {
-  isSignedIn: false,
+  isSignedIn: !!getToken(),
   signUp: {
     errors: {},
-    loading: false,
+    loaded: false,
+    value: null,
   },
 };
 
 export interface IAuthenticationState {
   isSignedIn: boolean;
-  signUp: {
-    errors: IErrors;
-    loading: boolean;
-    user?: ICreatedUser;
-  };
+  signUp: ILoadableState<ICreatedUser>;
 }

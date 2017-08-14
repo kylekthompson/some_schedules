@@ -1,5 +1,6 @@
 import { postSignUp } from '../../api/authentication';
-import { IAPIResponse, ICreatedUser, IUserForCreation } from '../../api/types';
+import { ICreatedUser, IUserForCreation } from '../../api/authentication/types';
+import { IAPIResponse } from '../../api/shared/types';
 import { setToken } from '../../utils/authentication';
 import { IThunkAction } from '../types';
 import * as actionTypes from './actionTypes';
@@ -17,7 +18,14 @@ export const requestSignUp = (user: IUserForCreation): IThunkAction => async (di
       dispatch({ type: actionTypes.RECEIVE_USER_SIGN_UP_FAILURE, payload: { ...userResponse } });
     }
   } catch (e) {
-    // tslint:disable-next-line:no-console
-    console.error(e);
+    dispatch({
+      payload: {
+        errors: {
+          '': ['An unexpected error occurred.'],
+        },
+        status: 500,
+      },
+      type: actionTypes.RECEIVE_USER_SIGN_UP_FAILURE,
+    });
   }
 };

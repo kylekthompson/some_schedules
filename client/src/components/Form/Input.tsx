@@ -153,6 +153,10 @@ class Form extends React.Component<IInputProps, IInputState> {
       ...this.state.syncValidationErrors,
     ];
 
+    if (this.state.isShowingServerErrors) {
+      errors.push(...(this.props.serverErrors || []));
+    }
+
     return errors.length > 0 ? 'error' : 'success';
   }
 }

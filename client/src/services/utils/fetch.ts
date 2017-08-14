@@ -1,6 +1,6 @@
 import { camelizeKeys, decamelizeKeys } from 'humps';
 
-import { IAPIResponse } from '../api/types';
+import { IAPIResponse } from '../api/shared/types';
 import { getToken } from './authentication';
 
 const getHeaders = () => {
@@ -20,9 +20,17 @@ const getHeaders = () => {
 const fetcher = async <T extends {}> (request: Request): Promise<IAPIResponse<T>> => {
   const response = await window.fetch(request);
   const json = await response.json();
+
+  const errors = response.status >= 500
+    ? { '': ['An unexpected error has occurred.'] }
+    : null;
+
+  const camelizedJSON = json && camelizeKeys(json);
+
   const result: IAPIResponse<T> = {
+    errors,
     status: response.status,
-    ...camelizeKeys(json),
+    ...camelizedJSON,
   };
 
   return result;

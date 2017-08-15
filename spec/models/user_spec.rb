@@ -12,7 +12,12 @@ RSpec.describe User, type: :model do
   it { is_expected.to allow_value('a@b.c').for(:email) }
   it { is_expected.to allow_value('a.b.c@d.e').for(:email) }
   it { is_expected.not_to allow_value('a.b').for(:email) }
+  it { is_expected.to validate_confirmation_of(:password) }
+  it { is_expected.to validate_length_of(:password).is_at_least(8) }
   it { is_expected.to have_secure_password }
+
+  it { is_expected.to have_many(:company_users) }
+  it { is_expected.to have_many(:companies).through(:company_users) }
 
   describe '#full_name' do
     specify { expect(user.full_name).to eq("#{user.first_name} #{user.last_name}") }

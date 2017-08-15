@@ -7,7 +7,7 @@ FactoryGirl.define do
     role CompanyUser.roles[:employee]
 
     CompanyUser.roles.each do |name, value|
-      trait name do
+      trait name.to_sym do
         role value
       end
     end

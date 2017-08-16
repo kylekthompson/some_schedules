@@ -32,9 +32,12 @@ class User < ApplicationRecord
   # Returns the payload representation of the user
   #
   # [1] pry(main)> User.new(email: 'someone@email.com').to_token_payload
-  # => {:sub=>"someone@email.com"}
+  # => {:sub=>"someone@email.com", :uid=>1}
   def to_token_payload
-    { sub: email }
+    {
+      sub: email,
+      uid: id,
+    }
   end
 
   ##

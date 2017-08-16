@@ -21,14 +21,14 @@ describe 'api/v1/companies/create.json.jbuilder', type: :view do
           {
             id: value.company_users.first.id,
             role: CompanyUser.roles[value.company_users.first.role],
-            user: {
-              id: value.company_users.first.user.id,
-              first_name: value.company_users.first.user.first_name,
-              last_name: value.company_users.first.user.last_name,
-              email: value.company_users.first.user.email
-            }
+            user_id: value.company_users.first.user.id,
+            company_id: value.id,
+            created_at: value.company_users.first.created_at.iso8601(3),
+            updated_at: value.company_users.first.updated_at.iso8601(3)
           }
-        ]
+        ],
+        created_at: value.created_at.iso8601(3),
+        updated_at: value.updated_at.iso8601(3)
       }
     }
   end

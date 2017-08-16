@@ -20,7 +20,9 @@ describe 'api/v1/users/create.json.jbuilder', type: :view do
         first_name: value.first_name,
         last_name: value.last_name,
         email: value.email,
-        token: token_string
+        token: token_string,
+        created_at: value.created_at.iso8601(3),
+        updated_at: value.updated_at.iso8601(3)
       }
     }
   end

@@ -5,12 +5,12 @@ import * as Button from 'react-bootstrap/lib/Button';
 import { Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
-import { IUserForCreation } from '../../services/api/authentication/types';
-import { ISignUpProps, ISignUpState } from './types';
+import { IUserForCreation } from '../../services/api/users/types';
+import { IUserSignUpProps, IUserSignUpState } from './types';
 import * as validations from './validations';
 
-class SignUp extends React.Component<ISignUpProps, ISignUpState> {
-  public state: ISignUpState = {
+class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
+  public state: IUserSignUpState = {
     didSubmit: false,
     user: {
       email: '',
@@ -126,4 +126,4 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   }
 }
 
-export default SignUp;
+export default UserSignUp;

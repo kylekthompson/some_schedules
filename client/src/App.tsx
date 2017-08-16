@@ -7,7 +7,6 @@ import Footer from './components/Footer';
 import Header from './scenes/Header';
 import Home from './scenes/Home';
 import SignIn from './scenes/SignIn';
-import SignUp from './scenes/SignUp';
 
 const App = () => (
   <div>
@@ -15,8 +14,7 @@ const App = () => (
     <Grid>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/signIn" component={SignIn} />
-        <Route exact path="/signUp" component={SignUp} />
+        <Route exact path="/sign-in" component={SignIn} />
       </Switch>
     </Grid>
     <Footer />

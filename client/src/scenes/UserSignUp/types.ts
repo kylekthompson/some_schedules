@@ -1,14 +1,14 @@
-import { ICreatedUser, IUserForCreation } from '../../services/api/authentication/types';
-import { requestSignUp } from '../../services/store/Authentication/actionCreators';
+import { ICreatedUser, IUserForCreation } from '../../services/api/users/types';
+import { requestSignUp } from '../../services/store/Users/actionCreators';
 import { ILoadableState } from '../../services/store/types';
 
-export interface ISignUpProps {
+export interface IUserSignUpProps {
   isSignedIn: boolean;
   requestSignUp: typeof requestSignUp;
   signUp: ILoadableState<ICreatedUser>;
 }
 
-export interface ISignUpState {
+export interface IUserSignUpState {
   didSubmit: boolean;
   user: IUserForCreation;
   validations: {

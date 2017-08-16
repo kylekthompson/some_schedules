@@ -17,12 +17,12 @@ const renderSignedInNavItems = (requestSignOut: () => void) => ([
 
 const renderSignedOutNavItems = () => ([
   (
-    <LinkContainer exact key="signUp" to="/signUp">
+    <LinkContainer exact key="sign-up" to="/sign-up">
       <NavItem>Sign Up</NavItem>
     </LinkContainer>
   ),
   (
-    <LinkContainer exact key="signIn" to="/signIn">
+    <LinkContainer exact key="sign-in" to="/sign-in">
       <NavItem>Sign In</NavItem>
     </LinkContainer>
   ),

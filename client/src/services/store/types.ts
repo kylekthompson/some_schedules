@@ -1,8 +1,10 @@
 import { IErrors } from '../api/shared/types';
 import { IAuthenticationState } from './Authentication/model';
+import { IUsersState } from './Users/model';
 
 export interface IApplicationState {
   authentication: IAuthenticationState;
+  users: IUsersState;
 }
 
 export interface ILoadableState<T> {

@@ -1,4 +1,5 @@
-import { IAuthenticationToken, ICreatedUser } from '../../api/authentication/types';
+import { IAuthenticationToken } from '../../api/authentication/types';
+import { ICreatedUser } from '../../api/users/types';
 import { getToken } from '../../utils/authentication';
 import { ILoadableState } from '../types';
 

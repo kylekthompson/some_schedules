@@ -1,9 +1,9 @@
-import SignUp from './SignUp';
+import UserSignUp from './UserSignUp';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestSignUp } from '../../services/store/Authentication/actionCreators';
+import { requestSignUp } from '../../services/store/Users/actionCreators';
 import { IApplicationState } from '../../services/store/types';
 
 const mapStateToProps = (state: IApplicationState) => ({
@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({ requestSignUp }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(UserSignUp);

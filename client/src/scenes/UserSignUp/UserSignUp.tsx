@@ -41,9 +41,9 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('firstName')}
             onValidation={this.handleValidation('firstName')}
             placeholder="Jane"
-            type="text"
             serverErrors={this.props.signUp.errors.firstName}
             synchronousValidation={validations.syncFirstNameValidation}
+            type="text"
             value={this.state.user.firstName}
           />
           <Input
@@ -52,9 +52,9 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('lastName')}
             onValidation={this.handleValidation('lastName')}
             placeholder="Smith"
-            type="text"
             serverErrors={this.props.signUp.errors.lastName}
             synchronousValidation={validations.syncLastNameValidation}
+            type="text"
             value={this.state.user.lastName}
           />
           <Input
@@ -63,9 +63,9 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('email')}
             onValidation={this.handleValidation('email')}
             placeholder="jane@example.com"
-            type="email"
             serverErrors={this.props.signUp.errors.email}
             synchronousValidation={validations.syncEmailValidation}
+            type="email"
             value={this.state.user.email}
           />
           <Input
@@ -73,9 +73,9 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             label="Password"
             onChange={this.handleChange('password')}
             onValidation={this.handleValidation('password')}
-            type="password"
             serverErrors={this.props.signUp.errors.password}
             synchronousValidation={validations.syncPasswordValidation}
+            type="password"
             value={this.state.user.password}
           />
           <Input
@@ -83,9 +83,9 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             label="Password Confirmation"
             onChange={this.handleChange('passwordConfirmation')}
             onValidation={this.handleValidation('passwordConfirmation')}
-            type="password"
             serverErrors={this.props.signUp.errors.passwordConfirmation}
             synchronousValidation={validations.syncPasswordComfirmationValidation(this.state.user.password)}
+            type="password"
             value={this.state.user.passwordConfirmation}
           />
           <Button type="submit" disabled={!this.isValid()}>

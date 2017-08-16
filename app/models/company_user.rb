@@ -8,5 +8,5 @@ class CompanyUser < ApplicationRecord
   validates :role, presence: true
   validates :user, presence: true
 
-  enum role: [:owner, :manager, :supervisor, :employee]
+  enum role: %i[owner manager supervisor employee]
 end

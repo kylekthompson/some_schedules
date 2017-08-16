@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Companies::Creator, type: :model do
   subject(:creator) { described_class.new(user: user, params: params) }
+
   let(:user) { create(:user) }
 
   describe '#create' do

@@ -13,7 +13,7 @@ RSpec.describe CompanyUser, type: :model do
   it { is_expected.to belong_to(:user) }
 
   describe '#role' do
-    ROLES = [:owner, :manager, :supervisor, :employee]
+    ROLES = %i[owner manager supervisor employee].freeze
 
     ROLES.each_with_index do |role, index|
       it 'has the correct index' do

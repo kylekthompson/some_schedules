@@ -13,11 +13,7 @@ module Companies
     end
 
     def create
-      Company.transaction do
-        create_company
-        assign_user_to_company_as_owner
-      end
-
+      create_company_and_assign_owner!
       APIResponse.new(status: :created, value: company)
     rescue StandardError
       errors = company.errors.any? ? company.errors.messages : company_user.errors.messages
@@ -26,12 +22,19 @@ module Companies
 
     private
 
-    def create_company
+    def create_company_and_assign_owner!
+      Company.transaction do
+        create_company!
+        assign_user_to_company_as_owner!
+      end
+    end
+
+    def create_company!
       @company = Company.new(company_attributes)
       company.save!
     end
 
-    def assign_user_to_company_as_owner
+    def assign_user_to_company_as_owner!
       @company_user = company.company_users.build(role: :owner, user: user)
       company_user.save!
     end

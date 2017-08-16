@@ -3,10 +3,12 @@ export interface ICreatedUser extends IUser {
 }
 
 export interface IUser {
+  createdAt: Date;
   email: string;
   firstName: string;
   id: number;
   lastName: string;
+  updatedAt: Date;
 }
 
 export interface IUserForCreation {

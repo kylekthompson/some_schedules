@@ -10,5 +10,5 @@ export interface IUsersById {
 }
 
 export interface IUsersState {
-  users: IUsersById
+  users: IUsersById;
 }

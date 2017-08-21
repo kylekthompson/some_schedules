@@ -4,6 +4,7 @@ import * as ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import * as FormControl from 'react-bootstrap/lib/FormControl';
 import * as FormGroup from 'react-bootstrap/lib/FormGroup';
 import * as HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import * as InputGroup from 'react-bootstrap/lib/InputGroup';
 
 import { IInputProps, IInputState } from './types';
 
@@ -34,27 +35,14 @@ class Form extends React.Component<IInputProps, IInputState> {
   }
 
   public render() {
-    const {
-      asynchronousValidation,
-      label,
-      serverErrors,
-      synchronousValidation,
-      onBlur,
-      onChange,
-      onValidation,
-      ...rest,
-    } = this.props;
+    const { label } = this.props;
 
     return (
       <FormGroup
         validationState={this.validationState()}
       >
         {label && <ControlLabel>{label}</ControlLabel>}
-        <FormControl
-          {...rest}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-        />
+        {this.renderFormControl()}
         {this.renderFeedback()}
         {this.renderHelpBlock()}
       </FormGroup>
@@ -117,6 +105,43 @@ class Form extends React.Component<IInputProps, IInputState> {
       <HelpBlock>
         {errors.map((error, index) => <p key={index}>{error}</p>)}
       </HelpBlock>
+    );
+  }
+
+  private renderFormControl = () => {
+    const {
+      asynchronousValidation,
+      label,
+      leftAddonItem,
+      onBlur,
+      onChange,
+      onValidation,
+      rightAddonItem,
+      serverErrors,
+      synchronousValidation,
+      ...rest,
+    } = this.props;
+
+    if (leftAddonItem || rightAddonItem) {
+      return (
+        <InputGroup>
+          {leftAddonItem && <InputGroup.Addon>{leftAddonItem}</InputGroup.Addon>}
+          <FormControl
+            {...rest}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+          />
+          {rightAddonItem && <InputGroup.Addon>{rightAddonItem}</InputGroup.Addon>}
+        </InputGroup>
+      );
+    }
+
+    return (
+      <FormControl
+        {...rest}
+        onBlur={this.handleBlur}
+        onChange={this.handleChange}
+      />
     );
   }
 

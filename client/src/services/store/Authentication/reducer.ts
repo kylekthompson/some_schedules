@@ -1,5 +1,6 @@
+import * as usersActionTypes from '../Users/actionTypes';
 import * as actionTypes from './actionTypes';
-import { IAuthenticationState, initialState } from './model';
+import { IAuthenticationState, initialState } from './types';
 
 export default (state: IAuthenticationState = initialState, { type, payload }) => {
   let newState: IAuthenticationState;
@@ -46,43 +47,18 @@ export default (state: IAuthenticationState = initialState, { type, payload }) =
 
       return newState;
 
-    case actionTypes.RECEIVE_USER_SIGN_UP_FAILURE:
+    case usersActionTypes.RECEIVE_USER_SIGN_UP_FAILURE:
       newState = {
         ...state,
         isSignedIn: false,
-        signUp: {
-          ...state.signUp,
-          errors: payload.errors,
-          loaded: true,
-          value: null,
-        },
       };
 
       return newState;
 
-    case actionTypes.RECEIVE_USER_SIGN_UP_SUCCESS:
+    case usersActionTypes.RECEIVE_USER_SIGN_UP_SUCCESS:
       newState = {
         ...state,
         isSignedIn: true,
-        signUp: {
-          ...state.signUp,
-          errors: {},
-          loaded: true,
-          value: payload.value,
-        },
-      };
-
-      return newState;
-
-    case actionTypes.REQUEST_USER_SIGN_UP:
-      newState = {
-        ...state,
-        signUp: {
-          ...state.signUp,
-          errors: {},
-          loaded: false,
-          value: null,
-        },
       };
 
       return newState;

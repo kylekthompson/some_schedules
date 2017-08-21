@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "humps": "^2.0.1",
+    "jwt-decode": "^2.2.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
@@ -14,7 +15,8 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^2.1.1"
+    "styled-components": "^2.1.1",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "@types/jest": "^20.0.2",

@@ -8,3 +8,5 @@ json.company_users do
     json.partial! 'api/v1/company_users/company_user', company_user: company_user
   end
 end
+json.created_at company.created_at
+json.updated_at company.updated_at

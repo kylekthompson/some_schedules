@@ -25,7 +25,12 @@ RSpec.describe User, type: :model do
 
   describe '#to_token_payload' do
     it 'uses the user email as the subject' do
-      expect(user.to_token_payload).to eq(sub: user.email)
+      expect(user.to_token_payload).to include(sub: user.email)
+    end
+
+    it 'includes the user id as the uid claim' do
+      user.save
+      expect(user.to_token_payload).to include(uid: user.id)
     end
   end
 

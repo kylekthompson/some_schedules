@@ -3,16 +3,17 @@ import SignUp from './SignUp';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestSignUp } from '../../services/store/Authentication/actionCreators';
+import { addFlash, clearFlashes } from '../../services/store/Flashes/actionCreators';
 import { IApplicationState } from '../../services/store/types';
 
 const mapStateToProps = (state: IApplicationState) => ({
+  companyCreation: state.companies.companyCreation,
   isSignedIn: state.authentication.isSignedIn,
-  signUp: state.authentication.signUp,
+  userCreation: state.users.userCreation,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ requestSignUp }, dispatch),
+  ...bindActionCreators({ addFlash, clearFlashes }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

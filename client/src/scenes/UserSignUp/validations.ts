@@ -1,19 +1,19 @@
 const validateEmailFormat = (value: string): string[] => (
-  /.+@.+\..+/.exec(value)
+  /^.+@.+\..+$/.exec(value)
     ? []
-    : ['Must be a valid email address.']
+    : ['must be a valid email address.']
 );
 
 const validateHasCharacters = (value: string): string[] => (
   value.length > 0
     ? []
-    : ['Must have at least 1 character.']
+    : ['must have at least 1 character.']
 );
 
 const validatePasswordFormat = (value: string): string[] => (
   value.length >= 8
     ? []
-    : ['Must be at least 8 characters.']
+    : ['must be at least 8 characters.']
 );
 
 export const asyncEmailValidation = (_value: string): Promise<string[]> => Promise.resolve([]);

@@ -1,17 +1,21 @@
-import { ICreatedUser, IUserForCreation } from '../../services/api/authentication/types';
-import { requestSignUp } from '../../services/store/Authentication/actionCreators';
+import { ICreatedCompany } from '../../services/api/companies/types';
+import { ICreatedUser } from '../../services/api/users/types';
+import { addFlash, clearFlashes } from '../../services/store/Flashes/actionCreators';
 import { ILoadableState } from '../../services/store/types';
 
+export enum SignUpPages {
+  COMPANY_SIGN_UP,
+  USER_SIGN_UP,
+}
+
 export interface ISignUpProps {
+  addFlash: typeof addFlash;
+  clearFlashes: typeof clearFlashes;
+  companyCreation: ILoadableState<ICreatedCompany>;
   isSignedIn: boolean;
-  requestSignUp: typeof requestSignUp;
-  signUp: ILoadableState<ICreatedUser>;
+  userCreation: ILoadableState<ICreatedUser>;
 }
 
 export interface ISignUpState {
-  didSubmit: boolean;
-  user: IUserForCreation;
-  validations: {
-    [P in keyof IUserForCreation]: boolean;
-  };
+  currentSignUpPage: SignUpPages;
 }

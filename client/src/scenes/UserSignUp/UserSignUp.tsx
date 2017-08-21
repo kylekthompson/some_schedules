@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import * as Button from 'react-bootstrap/lib/Button';
 
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
 import { IUserForCreation } from '../../services/api/users/types';
@@ -36,6 +36,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
 
     return (
       <div>
+        <h3>User Sign Up</h3>
         <form onSubmit={this.signUp}>
           <Input
             autoFocus
@@ -94,6 +95,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
           <Button type="submit" disabled={!this.isValid()}>
             Sign Up
           </Button>
+          <p>Already have an account? <Link to="/sign-in">Click here to sign in</Link></p>
         </form>
       </div>
     );

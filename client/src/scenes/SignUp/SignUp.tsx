@@ -2,8 +2,9 @@ import * as React from 'react';
 
 import { Redirect } from 'react-router-dom';
 
+import CompanySignUp from '../CompanySignUp';
 import UserSignUp from '../UserSignUp';
-import CompanySignUp from './scenes/CompanySignUp';
+import Help from './components/Help';
 import { ISignUpProps, ISignUpState, SignUpPages } from './types';
 
 class SignUp extends React.Component<ISignUpProps, ISignUpState> {
@@ -23,17 +24,12 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
 
   public render() {
     const { companyCreation, isSignedIn } = this.props;
-    const { currentSignUpPage } = this.state;
 
     if (companyCreation.loaded && companyCreation.value && isSignedIn) {
       return <Redirect to="/" />;
     }
 
-    if (currentSignUpPage === SignUpPages.USER_SIGN_UP) {
-      return <UserSignUp shouldRedirectWhenSignedIn={false} />;
-    }
-
-    return <CompanySignUp />;
+    return this.renderCorrectSignUp();
   }
 
   private maybeShowFlash = (currentProps: ISignUpProps, nextProps: ISignUpProps, currentSignUpPage: SignUpPages) => {
@@ -80,6 +76,14 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
       });
     }
   }
+
+  private renderCorrectSignUp = () => (
+    <div>
+      <Help currentSignUpPage={this.state.currentSignUpPage} />
+      {this.state.currentSignUpPage === SignUpPages.USER_SIGN_UP && <UserSignUp shouldRedirectWhenSignedIn={false} />}
+      {this.state.currentSignUpPage === SignUpPages.COMPANY_SIGN_UP && <CompanySignUp />}
+    </div>
+  )
 }
 
 export default SignUp;

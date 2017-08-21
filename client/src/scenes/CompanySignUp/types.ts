@@ -1,7 +1,7 @@
-import { ICompanyForCreation, ICreatedCompany } from '../../../../services/api/companies/types';
-import { requestSignUp } from '../../../../services/store/Users/actionCreators';
-import { requestCreation } from '../../../../services/store/Companies/actionCreators';
-import { ILoadableState } from '../../../../services/store/types';
+import { ICompanyForCreation, ICreatedCompany } from '../../services/api/companies/types';
+import { requestSignUp } from '../../services/store/Users/actionCreators';
+import { requestCreation } from '../../services/store/Companies/actionCreators';
+import { ILoadableState } from '../../services/store/types';
 
 export interface ICompanySignUpProps {
   companyCreation: ILoadableState<ICreatedCompany>,

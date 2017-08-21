@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import * as Button from 'react-bootstrap/lib/Button';
 
-import { Input } from '../../../../components/Form';
-import { ICompanyForCreation } from '../../../../services/api/companies/types';
+import { Input } from '../../components/Form';
+import { ICompanyForCreation } from '../../services/api/companies/types';
 import { ICompanySignUpProps, ICompanySignUpState } from './types';
 import * as validations from './validations';
 
@@ -23,6 +23,7 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
   public render() {
     return (
       <div>
+        <h3>Company Creation</h3>
         <form onSubmit={this.createCompany}>
           <Input
             autoFocus

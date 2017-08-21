@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 
-import App from './App';
+import App from './scenes/App';
 import { registerServiceWorker } from './services/serviceWorker';
 import configureStore from './services/store/configureStore';
 

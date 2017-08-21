@@ -5,7 +5,8 @@ import { ILoadableState } from '../../services/store/types';
 export interface IUserSignUpProps {
   isSignedIn: boolean;
   requestSignUp: typeof requestSignUp;
-  signUp: ILoadableState<ICreatedUser>;
+  shouldRedirectWhenSignedIn?: boolean;
+  userCreation: ILoadableState<ICreatedUser>;
 }
 
 export interface IUserSignUpState {

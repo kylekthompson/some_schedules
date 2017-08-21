@@ -1,6 +1,6 @@
 import { ICreatedUser, IUser } from '../../api/users/types';
 import * as actionTypes from './actionTypes';
-import { initialState, IUsersState } from './model';
+import { initialState, IUsersState } from './types';
 
 export default (state: IUsersState = initialState, { type, payload }) => {
   let newState: IUsersState;
@@ -57,6 +57,19 @@ export default (state: IUsersState = initialState, { type, payload }) => {
 
       return newState;
 
+    case actionTypes.RECEIVE_USER_SIGN_UP_FAILURE:
+      newState = {
+        ...state,
+        userCreation: {
+          ...state.userCreation,
+          errors: payload.errors,
+          loaded: true,
+          value: null,
+        },
+      };
+
+      return newState;
+
     case actionTypes.RECEIVE_USER_SIGN_UP_SUCCESS:
       createdUser = { ...(payload.value as ICreatedUser) };
       delete createdUser.token;
@@ -64,6 +77,12 @@ export default (state: IUsersState = initialState, { type, payload }) => {
 
       newState = {
         ...state,
+        userCreation: {
+          ...state.userCreation,
+          errors: {},
+          loaded: true,
+          value: createdUser,
+        },
         users: {
           ...state.users,
           [user.id]: {
@@ -71,6 +90,19 @@ export default (state: IUsersState = initialState, { type, payload }) => {
             loaded: true,
             value: user,
           },
+        },
+      };
+
+      return newState;
+
+    case actionTypes.REQUEST_USER_SIGN_UP:
+      newState = {
+        ...state,
+        userCreation: {
+          ...state.userCreation,
+          errors: {},
+          loaded: false,
+          value: null,
         },
       };
 

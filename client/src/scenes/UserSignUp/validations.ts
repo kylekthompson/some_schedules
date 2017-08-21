@@ -1,5 +1,5 @@
 const validateEmailFormat = (value: string): string[] => (
-  /\A.+@.+\..+\z/.exec(value)
+  /^.+@.+\..+$/.exec(value)
     ? []
     : ['must be a valid email address.']
 );

@@ -10,6 +10,9 @@ import { IUserSignUpProps, IUserSignUpState } from './types';
 import * as validations from './validations';
 
 class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
+  public defaultProps: Partial<IUserSignUpProps> = {
+    shouldRedirectWhenSignedIn: true,
+  };
   public state: IUserSignUpState = {
     didSubmit: false,
     user: {
@@ -29,7 +32,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
   };
 
   public render() {
-    if (this.props.isSignedIn) { return <Redirect to="/" />; }
+    if (this.props.shouldRedirectWhenSignedIn && this.props.isSignedIn) { return <Redirect to="/" />; }
 
     return (
       <div>
@@ -41,7 +44,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('firstName')}
             onValidation={this.handleValidation('firstName')}
             placeholder="Jane"
-            serverErrors={this.props.signUp.errors.firstName}
+            serverErrors={this.props.userCreation.errors.firstName}
             synchronousValidation={validations.syncFirstNameValidation}
             type="text"
             value={this.state.user.firstName}
@@ -52,7 +55,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('lastName')}
             onValidation={this.handleValidation('lastName')}
             placeholder="Smith"
-            serverErrors={this.props.signUp.errors.lastName}
+            serverErrors={this.props.userCreation.errors.lastName}
             synchronousValidation={validations.syncLastNameValidation}
             type="text"
             value={this.state.user.lastName}
@@ -63,7 +66,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('email')}
             onValidation={this.handleValidation('email')}
             placeholder="jane@example.com"
-            serverErrors={this.props.signUp.errors.email}
+            serverErrors={this.props.userCreation.errors.email}
             synchronousValidation={validations.syncEmailValidation}
             type="email"
             value={this.state.user.email}
@@ -73,7 +76,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             label="Password"
             onChange={this.handleChange('password')}
             onValidation={this.handleValidation('password')}
-            serverErrors={this.props.signUp.errors.password}
+            serverErrors={this.props.userCreation.errors.password}
             synchronousValidation={validations.syncPasswordValidation}
             type="password"
             value={this.state.user.password}
@@ -83,7 +86,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             label="Password Confirmation"
             onChange={this.handleChange('passwordConfirmation')}
             onValidation={this.handleValidation('passwordConfirmation')}
-            serverErrors={this.props.signUp.errors.passwordConfirmation}
+            serverErrors={this.props.userCreation.errors.passwordConfirmation}
             synchronousValidation={validations.syncPasswordComfirmationValidation(this.state.user.password)}
             type="password"
             value={this.state.user.passwordConfirmation}

@@ -1,6 +1,6 @@
 import { ICompany, ICreatedCompany } from '../../api/companies/types';
 import * as actionTypes from './actionTypes';
-import { ICompaniesState, initialState } from './model';
+import { ICompaniesState, initialState } from './types';
 
 export default (state: ICompaniesState = initialState, { type, payload }) => {
   let newState: ICompaniesState;

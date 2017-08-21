@@ -1,5 +1,5 @@
 const validateSlugFormat = (value: string): string[] => (
-  /\A[\w-]+\z/.exec(value)
+  /^[\w-]+$/.exec(value)
     ? []
     : ['must contain only letters, numbers, underscores, or hyphens.']
 );

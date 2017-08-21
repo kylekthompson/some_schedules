@@ -1,5 +1,4 @@
 import { IAuthenticationToken } from '../../api/authentication/types';
-import { ICreatedUser } from '../../api/users/types';
 import { getToken } from '../../utils/authentication';
 import { ILoadableState } from '../types';
 
@@ -10,15 +9,9 @@ export const initialState: IAuthenticationState = {
     loaded: false,
     value: null,
   },
-  signUp: {
-    errors: {},
-    loaded: false,
-    value: null,
-  },
 };
 
 export interface IAuthenticationState {
   isSignedIn: boolean;
   signIn: ILoadableState<IAuthenticationToken>;
-  signUp: ILoadableState<ICreatedUser>;
 }

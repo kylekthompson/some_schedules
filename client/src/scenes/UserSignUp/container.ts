@@ -3,12 +3,12 @@ import UserSignUp from './UserSignUp';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestSignUp } from '../../services/store/Users/actionCreators';
 import { IApplicationState } from '../../services/store/types';
+import { requestSignUp } from '../../services/store/Users/actionCreators';
 
 const mapStateToProps = (state: IApplicationState) => ({
   isSignedIn: state.authentication.isSignedIn,
-  signUp: state.authentication.signUp,
+  userCreation: state.users.userCreation,
 });
 
 const mapDispatchToProps = (dispatch) => ({

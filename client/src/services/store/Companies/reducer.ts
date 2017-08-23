@@ -4,10 +4,31 @@ import { ICompaniesState, initialState } from './types';
 
 export default (state: ICompaniesState = initialState, { type, payload }) => {
   let newState: ICompaniesState;
+  let companies: ICompany[];
   let company: ICompany;
   let createdCompany: ICreatedCompany;
 
   switch (type) {
+    case actionTypes.RECEIVE_COMPANIES_BY_USER_ID_SUCCESS:
+      companies = (payload.value as ICompany[]);
+
+      newState = {
+        ...state,
+        companies: {
+          ...state.companies,
+          ...companies.reduce((acc, companyReduced) => ({
+            ...acc,
+            [companyReduced.id]: {
+              errors: {},
+              loaded: true,
+              value: companyReduced,
+            },
+          }), {}),
+        },
+      };
+
+      return newState;
+
     case actionTypes.RECEIVE_COMPANY_CREATION_FAILURE:
       newState = {
         ...state,

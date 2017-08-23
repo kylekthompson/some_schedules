@@ -1,4 +1,4 @@
-export interface IInputProps extends React.ChangeTargetHTMLProps<HTMLInputElement> {
+export interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   asynchronousValidation?: (value: any) => Promise<string[]>;
   label?: string;
   leftAddonItem?: React.ReactType;

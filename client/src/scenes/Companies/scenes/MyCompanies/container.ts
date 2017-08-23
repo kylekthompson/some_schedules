@@ -2,11 +2,18 @@ import MyCompanies from './MyCompanies';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
+import { requestCompaniesByUserId } from '../../../../services/store/Companies/actionCreators';
+import { getCompaniesForSignedInUser } from '../../../../services/store/Companies/selectors';
 import { IApplicationState } from '../../../../services/store/types';
 
-const mapStateToProps = (_state: IApplicationState) => ({});
+const mapStateToProps = (state: IApplicationState) => ({
+  companies: getCompaniesForSignedInUser(state),
+});
 
-const mapDispatchToProps = (_dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({ requestCompaniesByUserId }, dispatch),
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyCompanies));

@@ -5,13 +5,14 @@ import { bindActionCreators } from 'redux';
 
 import { requestCreation } from '../../services/store/Companies/actionCreators';
 import { IApplicationState } from '../../services/store/types';
+import { ICompanySignUpProps } from './types';
 
-const mapStateToProps = (state: IApplicationState) => ({
+const mapStateToProps = (state: IApplicationState): Partial<ICompanySignUpProps> => ({
   isSignedIn: state.authentication.isSignedIn,
   requestCreationLoadingState: state.companies.requestCreationLoadingState,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch): Partial<ICompanySignUpProps> => ({
   ...bindActionCreators({ requestCreation }, dispatch),
 });
 

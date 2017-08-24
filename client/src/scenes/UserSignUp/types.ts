@@ -1,12 +1,12 @@
-import { ICreatedUser, IUserForCreation } from '../../services/api/users/types';
+import { IUserForCreation } from '../../services/api/users/types';
 import { requestSignUp } from '../../services/store/Users/actionCreators';
-import { ILoadableState } from '../../services/store/types';
+import { ILoadingState } from '../../services/store/types';
 
 export interface IUserSignUpProps {
   isSignedIn: boolean;
   requestSignUp: typeof requestSignUp;
+  requestSignUpLoadingState: ILoadingState;
   shouldRedirectWhenSignedIn?: boolean;
-  userCreation: ILoadableState<ICreatedUser>;
 }
 
 export interface IUserSignUpState {

@@ -1,13 +1,11 @@
-import { ICompanyForCreation, ICreatedCompany } from '../../services/api/companies/types';
-import { requestSignUp } from '../../services/store/Users/actionCreators';
+import { ICompanyForCreation } from '../../services/api/companies/types';
 import { requestCreation } from '../../services/store/Companies/actionCreators';
-import { ILoadableState } from '../../services/store/types';
+import { ILoadingState } from '../../services/store/types';
 
 export interface ICompanySignUpProps {
-  companyCreation: ILoadableState<ICreatedCompany>,
   isSignedIn: boolean;
   requestCreation: typeof requestCreation;
-  requestSignUp: typeof requestSignUp;
+  requestCreationLoadingState: ILoadingState;
 }
 
 export interface ICompanySignUpState {

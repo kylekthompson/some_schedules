@@ -7,9 +7,9 @@ import { addFlash, clearFlashes } from '../../services/store/Flashes/actionCreat
 import { IApplicationState } from '../../services/store/types';
 
 const mapStateToProps = (state: IApplicationState) => ({
-  companyCreation: state.companies.companyCreation,
   isSignedIn: state.authentication.isSignedIn,
-  userCreation: state.users.userCreation,
+  requestCreationLoadingState: state.companies.requestCreationLoadingState,
+  requestSignUpLoadingState: state.users.requestSignUpLoadingState,
 });
 
 const mapDispatchToProps = (dispatch) => ({

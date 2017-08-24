@@ -1,20 +1,18 @@
-import { ICompany, ICreatedCompany } from '../../api/companies/types';
-import { ILoadableState } from '../types';
+import { ICompany } from '../../api/companies/types';
+import { ILoadingState, LoadingState } from '../types';
 
 export const initialState: ICompaniesState = {
   companies: {},
-  companyCreation: {
-    errors: {},
-    loaded: false,
-    value: null,
-  },
+  requestCompaniesByUserIdLoadingState: LoadingState.notStarted(),
+  requestCreationLoadingState: LoadingState.notStarted(),
 };
 
 export interface ICompaniesById {
-  [id: number]: ILoadableState<ICompany>;
+  [id: number]: ICompany;
 }
 
 export interface ICompaniesState {
   companies: ICompaniesById;
-  companyCreation: ILoadableState<ICreatedCompany>;
+  requestCompaniesByUserIdLoadingState: ILoadingState;
+  requestCreationLoadingState: ILoadingState;
 }

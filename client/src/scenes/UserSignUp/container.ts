@@ -8,7 +8,7 @@ import { requestSignUp } from '../../services/store/Users/actionCreators';
 
 const mapStateToProps = (state: IApplicationState) => ({
   isSignedIn: state.authentication.isSignedIn,
-  userCreation: state.users.userCreation,
+  requestSignUpLoadingState: state.users.requestSignUpLoadingState,
 });
 
 const mapDispatchToProps = (dispatch) => ({

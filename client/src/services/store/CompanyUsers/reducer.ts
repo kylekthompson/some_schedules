@@ -11,11 +11,7 @@ export default (state: ICompanyUsersState = initialState, { type, payload }) => 
 
       const companyUsers: ICompanyUsersById = createdCompany.companyUsers.reduce((acc, companyUser) => ({
         ...acc,
-        [companyUser.id]: {
-          errors: {},
-          loaded: true,
-          value: companyUser,
-        },
+        [companyUser.id]: companyUser,
       }), {});
 
       newState = {

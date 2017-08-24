@@ -1,20 +1,18 @@
-import { ICreatedUser, IUser } from '../../api/users/types';
-import { ILoadableState } from '../types';
+import { IUser } from '../../api/users/types';
+import { ILoadingState, LoadingState } from '../types';
 
 export const initialState: IUsersState = {
-  userCreation: {
-    errors: {},
-    loaded: false,
-    value: null,
-  },
+  requestSignUpLoadingState: LoadingState.notStarted(),
+  requestUserByIdLoadingState: LoadingState.notStarted(),
   users: {},
 };
 
 export interface IUsersById {
-  [id: number]: ILoadableState<IUser>;
+  [id: number]: IUser;
 }
 
 export interface IUsersState {
-  userCreation: ILoadableState<ICreatedUser>;
+  requestSignUpLoadingState: ILoadingState;
+  requestUserByIdLoadingState: ILoadingState;
   users: IUsersById;
 }

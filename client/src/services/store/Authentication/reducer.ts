@@ -1,3 +1,4 @@
+import { LoadingState } from '../types';
 import * as usersActionTypes from '../Users/actionTypes';
 import * as actionTypes from './actionTypes';
 import { IAuthenticationState, initialState } from './types';
@@ -10,12 +11,7 @@ export default (state: IAuthenticationState = initialState, { type, payload }) =
       newState = {
         ...state,
         isSignedIn: false,
-        signIn: {
-          ...state.signIn,
-          errors: payload.errors,
-          loaded: true,
-          value: null,
-        },
+        requestSignInLoadingState: LoadingState.failure(payload.errors),
       };
 
       return newState;
@@ -24,12 +20,7 @@ export default (state: IAuthenticationState = initialState, { type, payload }) =
       newState = {
         ...state,
         isSignedIn: true,
-        signIn: {
-          ...state.signIn,
-          errors: {},
-          loaded: true,
-          value: payload.value,
-        },
+        requestSignInLoadingState: LoadingState.success(),
       };
 
       return newState;
@@ -37,12 +28,7 @@ export default (state: IAuthenticationState = initialState, { type, payload }) =
     case actionTypes.REQUEST_USER_SIGN_IN:
       newState = {
         ...state,
-        signIn: {
-          ...state.signIn,
-          errors: {},
-          loaded: false,
-          value: null,
-        },
+        requestSignInLoadingState: LoadingState.loading(),
       };
 
       return newState;

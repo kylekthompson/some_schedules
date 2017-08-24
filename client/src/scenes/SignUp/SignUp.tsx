@@ -15,7 +15,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   public componentWillReceiveProps(nextProps: ISignUpProps) {
     this.maybeShowFlash(this.props, nextProps, this.state.currentSignUpPage);
 
-    if (!this.props.userCreation.loaded && nextProps.userCreation.loaded && nextProps.userCreation.value) {
+    if (this.props.requestSignUpLoadingState.isLoading() && nextProps.requestSignUpLoadingState.isSuccess()) {
       this.setState({
         currentSignUpPage: SignUpPages.COMPANY_SIGN_UP,
       });
@@ -23,9 +23,9 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   }
 
   public render() {
-    const { companyCreation, isSignedIn } = this.props;
+    const { isSignedIn, requestCreationLoadingState } = this.props;
 
-    if (companyCreation.loaded && companyCreation.value && isSignedIn) {
+    if (requestCreationLoadingState.isSuccess() && isSignedIn) {
       return <Redirect to="/" />;
     }
 
@@ -43,9 +43,8 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
     currentSignUpPage: SignUpPages
   ) => {
     const shouldShowFinishedFlash =
-      !currentProps.companyCreation.loaded &&
-      nextProps.companyCreation.loaded &&
-      nextProps.companyCreation.value &&
+      currentProps.requestCreationLoadingState.isLoading() &&
+      nextProps.requestCreationLoadingState.isSuccess() &&
       currentSignUpPage === SignUpPages.COMPANY_SIGN_UP;
 
     if (shouldShowFinishedFlash) {
@@ -63,9 +62,8 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
     currentSignUpPage: SignUpPages
   ) => {
     const shouldShowUserCreatedFlash =
-      !currentProps.userCreation.loaded &&
-      nextProps.userCreation.loaded &&
-      nextProps.userCreation.value &&
+      currentProps.requestSignUpLoadingState.isLoading() &&
+      nextProps.requestSignUpLoadingState.isSuccess() &&
       currentSignUpPage === SignUpPages.USER_SIGN_UP;
 
     if (shouldShowUserCreatedFlash) {

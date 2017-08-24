@@ -8,7 +8,7 @@ import { IApplicationState } from '../../services/store/types';
 
 const mapStateToProps = (state: IApplicationState) => ({
   isSignedIn: state.authentication.isSignedIn,
-  signIn: state.authentication.signIn,
+  requestSignInLoadingState: state.authentication.requestSignInLoadingState,
 });
 
 const mapDispatchToProps = (dispatch) => ({

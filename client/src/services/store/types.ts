@@ -22,9 +22,9 @@ export enum LoadingStates {
 
 export class LoadingState implements ILoadingState {
   public static failure = (errors: IErrors) => new LoadingState(LoadingStates.FAILURE, errors);
-  public static loading = () => new LoadingState(LoadingStates.FAILURE);
+  public static loading = () => new LoadingState(LoadingStates.LOADING);
   public static notStarted = () => new LoadingState(LoadingStates.NOT_STARTED);
-  public static success = () => new LoadingState(LoadingStates.FAILURE);
+  public static success = () => new LoadingState(LoadingStates.SUCCESS);
 
   private _errors: IErrors;
   private _state: LoadingStates;

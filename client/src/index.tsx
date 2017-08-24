@@ -17,6 +17,7 @@ const store = configureStore();
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
   body {
+    height: 100%;
     padding-top: 70px;
     margin-bottom: 60px;
   }

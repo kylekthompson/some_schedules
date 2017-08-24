@@ -3,7 +3,9 @@ import * as React from 'react';
 import { Grid } from 'react-bootstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
+import FailureRoute from '../../components/FailureRoute';
 import Footer from '../../components/Footer';
+import LoadingRoute from '../../components/LoadingRoute';
 import PrivateRoute from '../../components/PrivateRoute';
 import Companies from '../../scenes/Companies';
 import Flashes from '../../scenes/Flashes';
@@ -27,7 +29,7 @@ class App extends React.PureComponent<IAppProps, {}> {
   }
 
   public render() {
-    const { isSignedIn } = this.props;
+    const { isSignedIn, requestUserByIdLoadingState } = this.props;
 
     return (
       <div>
@@ -35,6 +37,8 @@ class App extends React.PureComponent<IAppProps, {}> {
         <Flashes />
         <Grid>
           <Switch>
+            {requestUserByIdLoadingState.isLoading() && <LoadingRoute message="Loading your profile..." />}
+            {requestUserByIdLoadingState.isFailure() && <FailureRoute errors={requestUserByIdLoadingState.errors()} />}
             {isSignedIn && <Redirect exact from="/" to="/companies" />}
             <Route exact path="/" component={Home} />
             <PrivateRoute isSignedIn={isSignedIn} path="/companies/:slug?" component={Companies} />

@@ -10,6 +10,7 @@ import { requestUserById } from '../../services/store/Users/actionCreators';
 
 const mapStateToProps = (state: IApplicationState) => ({
   isSignedIn: state.authentication.isSignedIn,
+  requestUserByIdLoadingState: state.users.requestUserByIdLoadingState,
   signedInUserId: getUserIdFromToken(state),
 });
 

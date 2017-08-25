@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       post 'sign_in' => 'user_token#create'
 
       resources :companies, only: [:create]
-      resources :users, only: [:create]
+      resources :users, only: [:show, :create]
     end
   end
 end

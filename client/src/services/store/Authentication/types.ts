@@ -1,17 +1,14 @@
-import { IAuthenticationToken } from '../../api/authentication/types';
+import * as decode from 'jwt-decode';
+
 import { getToken } from '../../utils/authentication';
-import { ILoadableState } from '../types';
+import { ILoadingState, LoadingState } from '../types';
 
 export const initialState: IAuthenticationState = {
-  isSignedIn: !!getToken(),
-  signIn: {
-    errors: {},
-    loaded: false,
-    value: null,
-  },
+  isSignedIn: !!getToken() && Date.now() / 1000 < decode(getToken()).exp,
+  requestSignInLoadingState: LoadingState.notStarted(),
 };
 
 export interface IAuthenticationState {
   isSignedIn: boolean;
-  signIn: ILoadableState<IAuthenticationToken>;
+  requestSignInLoadingState: ILoadingState;
 }

@@ -1,4 +1,4 @@
-import * as uuid from 'uuid/v4';
+import * as uuidGenerator from 'uuid/v4';
 
 import * as actionTypes from './actionTypes';
 import { IFlashForCreation } from './types';
@@ -7,7 +7,7 @@ export const addFlash = (flash: IFlashForCreation) => ({
   payload: {
     flash: {
       ...flash,
-      uuid: uuid(),
+      uuid: uuidGenerator(),
     },
   },
   type: actionTypes.ADD_FLASH,

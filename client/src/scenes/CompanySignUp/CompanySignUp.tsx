@@ -31,7 +31,7 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
             onChange={this.handleChange('name')}
             onValidation={this.handleValidation('name')}
             placeholder="Jane's Company"
-            serverErrors={this.props.companyCreation.errors.name}
+            serverErrors={this.props.requestCreationLoadingState.errors().name}
             synchronousValidation={validations.syncNameValidation}
             type="text"
             value={this.state.company.name}
@@ -42,7 +42,7 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
             onChange={this.handleChange('slug')}
             onValidation={this.handleValidation('slug')}
             placeholder="janes-company"
-            serverErrors={this.props.companyCreation.errors.slug}
+            serverErrors={this.props.requestCreationLoadingState.errors().slug}
             synchronousValidation={validations.syncSlugValidation}
             type="text"
             value={this.state.company.slug}

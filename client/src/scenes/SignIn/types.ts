@@ -1,11 +1,11 @@
-import { IAuthenticationCredentials, IAuthenticationToken } from '../../services/api/authentication/types';
+import { IAuthenticationCredentials } from '../../services/api/authentication/types';
 import { requestSignIn } from '../../services/store/Authentication/actionCreators';
-import { ILoadableState } from '../../services/store/types';
+import { ILoadingState } from '../../services/store/types';
 
 export interface ISignInProps {
   isSignedIn: boolean;
   requestSignIn: typeof requestSignIn;
-  signIn: ILoadableState<IAuthenticationToken>;
+  requestSignInLoadingState: ILoadingState;
 }
 
 export interface ISignInState {

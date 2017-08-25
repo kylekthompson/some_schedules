@@ -35,7 +35,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             onChange={this.handleChange('email')}
             onValidation={this.handleValidation('email')}
             placeholder="jane@example.com"
-            serverErrors={this.props.signIn.errors.email}
+            serverErrors={this.props.requestSignInLoadingState.errors().email}
             synchronousValidation={validations.syncEmailValidation}
             type="email"
             value={this.state.auth.email}
@@ -45,7 +45,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             label="Password"
             onChange={this.handleChange('password')}
             onValidation={this.handleValidation('password')}
-            serverErrors={this.props.signIn.errors.password}
+            serverErrors={this.props.requestSignInLoadingState.errors().password}
             synchronousValidation={validations.syncPasswordValidation}
             type="password"
             value={this.state.auth.password}

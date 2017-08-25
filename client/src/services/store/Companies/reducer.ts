@@ -1,48 +1,65 @@
-import { ICompany, ICreatedCompany } from '../../api/companies/types';
+import { ICompany } from '../../api/companies/types';
+import { LoadingState } from '../types';
 import * as actionTypes from './actionTypes';
 import { ICompaniesState, initialState } from './types';
 
 export default (state: ICompaniesState = initialState, { type, payload }) => {
   let newState: ICompaniesState;
+  let companies: ICompany[];
   let company: ICompany;
-  let createdCompany: ICreatedCompany;
 
   switch (type) {
-    case actionTypes.RECEIVE_COMPANY_CREATION_FAILURE:
+    case actionTypes.RECEIVE_COMPANIES_BY_USER_ID_FAILURE:
       newState = {
         ...state,
-        companyCreation: {
-          ...state.companyCreation,
-          errors: payload.errors,
-          loaded: true,
-          value: null,
-        },
+        requestCompaniesByUserIdLoadingState: LoadingState.failure(payload.errors),
       };
 
       return newState;
 
-    case actionTypes.RECEIVE_COMPANY_CREATION_SUCCESS:
-      createdCompany = { ...(payload.value as ICreatedCompany) };
-      const temp: ICreatedCompany = { ...createdCompany };
-      delete temp.companyUsers;
-      company = (temp as ICompany);
+    case actionTypes.RECEIVE_COMPANIES_BY_USER_ID_SUCCESS:
+      companies = (payload.value as ICompany[]);
 
       newState = {
         ...state,
         companies: {
           ...state.companies,
-          [createdCompany.id]: {
-            errors: {},
-            loaded: true,
-            value: company,
-          },
+          ...companies.reduce((acc, companyReduced) => ({
+            ...acc,
+            [companyReduced.id]: companyReduced,
+          }), {}),
         },
-        companyCreation: {
-          ...state.companyCreation,
-          errors: {},
-          loaded: true,
-          value: createdCompany,
+        requestCompaniesByUserIdLoadingState: LoadingState.success(),
+      };
+
+      return newState;
+
+    case actionTypes.RECEIVE_COMPANIES_BY_USER_ID_FAILURE:
+      newState = {
+        ...state,
+        requestCompaniesByUserIdLoadingState: LoadingState.loading(),
+      };
+
+      return newState;
+
+      case actionTypes.RECEIVE_COMPANY_CREATION_FAILURE:
+      newState = {
+        ...state,
+        requestCreationLoadingState: LoadingState.failure(payload.errors),
+      };
+
+      return newState;
+
+    case actionTypes.RECEIVE_COMPANY_CREATION_SUCCESS:
+      company = (payload.value as ICompany);
+
+      newState = {
+        ...state,
+        companies: {
+          ...state.companies,
+          [company.id]: company,
         },
+        requestCreationLoadingState: LoadingState.success(),
       };
 
       return newState;
@@ -50,12 +67,7 @@ export default (state: ICompaniesState = initialState, { type, payload }) => {
     case actionTypes.REQUEST_COMPANY_CREATION:
       newState = {
         ...state,
-        companyCreation: {
-          ...state.companyCreation,
-          errors: {},
-          loaded: false,
-          value: null,
-        },
+        requestCreationLoadingState: LoadingState.loading(),
       };
 
       return newState;

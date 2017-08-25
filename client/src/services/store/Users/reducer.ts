@@ -1,42 +1,30 @@
-import { ICreatedUser, IUser } from '../../api/users/types';
+import { IUser } from '../../api/users/types';
+import { LoadingState } from '../types';
 import * as actionTypes from './actionTypes';
 import { initialState, IUsersState } from './types';
 
 export default (state: IUsersState = initialState, { type, payload }) => {
   let newState: IUsersState;
-  let createdUser: ICreatedUser;
   let user: IUser;
 
   switch (type) {
     case actionTypes.RECEIVE_USER_BY_ID_FAILURE:
       newState = {
         ...state,
-        users: {
-          ...state.users,
-          [payload.id]: {
-            ...state.users[payload.id],
-            errors: payload.errors,
-            loaded: true,
-            value: null,
-          },
-        },
+        requestUserByIdLoadingState: LoadingState.failure(payload.errors),
       };
 
       return newState;
 
     case actionTypes.RECEIVE_USER_BY_ID_SUCCESS:
-      user = { ...(payload.value as IUser) };
+      user = (payload.value as IUser);
 
       newState = {
         ...state,
+        requestUserByIdLoadingState: LoadingState.success(),
         users: {
           ...state.users,
-          [payload.id]: {
-            ...state.users[payload.id],
-            errors: {},
-            loaded: true,
-            value: user,
-          },
+          [payload.id]: user,
         },
       };
 
@@ -45,14 +33,7 @@ export default (state: IUsersState = initialState, { type, payload }) => {
     case actionTypes.REQUEST_USER_BY_ID:
       newState = {
         ...state,
-        users: {
-          ...state.users,
-          [payload.id]: {
-            errors: {},
-            loaded: false,
-            value: null,
-          },
-        },
+        requestUserByIdLoadingState: LoadingState.loading(),
       };
 
       return newState;
@@ -60,36 +41,20 @@ export default (state: IUsersState = initialState, { type, payload }) => {
     case actionTypes.RECEIVE_USER_SIGN_UP_FAILURE:
       newState = {
         ...state,
-        userCreation: {
-          ...state.userCreation,
-          errors: payload.errors,
-          loaded: true,
-          value: null,
-        },
+        requestSignUpLoadingState: LoadingState.failure(payload.errors),
       };
 
       return newState;
 
     case actionTypes.RECEIVE_USER_SIGN_UP_SUCCESS:
-      createdUser = { ...(payload.value as ICreatedUser) };
-      delete createdUser.token;
-      user = { ...(createdUser as IUser) };
+      user = (payload.value as IUser);
 
       newState = {
         ...state,
-        userCreation: {
-          ...state.userCreation,
-          errors: {},
-          loaded: true,
-          value: createdUser,
-        },
+        requestSignUpLoadingState: LoadingState.success(),
         users: {
           ...state.users,
-          [user.id]: {
-            errors: {},
-            loaded: true,
-            value: user,
-          },
+          [user.id]: user,
         },
       };
 
@@ -98,12 +63,7 @@ export default (state: IUsersState = initialState, { type, payload }) => {
     case actionTypes.REQUEST_USER_SIGN_UP:
       newState = {
         ...state,
-        userCreation: {
-          ...state.userCreation,
-          errors: {},
-          loaded: false,
-          value: null,
-        },
+        requestSignUpLoadingState: LoadingState.loading(),
       };
 
       return newState;

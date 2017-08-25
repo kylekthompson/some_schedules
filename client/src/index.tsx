@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 
-import App from './App';
+import App from './scenes/App';
 import { registerServiceWorker } from './services/serviceWorker';
 import configureStore from './services/store/configureStore';
 
@@ -17,6 +17,7 @@ const store = configureStore();
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
   body {
+    height: 100%;
     padding-top: 70px;
     margin-bottom: 60px;
   }

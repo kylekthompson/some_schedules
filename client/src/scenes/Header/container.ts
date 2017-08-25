@@ -4,17 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { requestSignOut } from '../../services/store/Authentication/actionCreators';
-import { getUserIdFromToken } from '../../services/store/Authentication/selectors';
 import { IApplicationState } from '../../services/store/types';
-import { requestUserById } from '../../services/store/Users/actionCreators';
+import { IHeaderProps } from './types';
 
-const mapStateToProps = (state: IApplicationState) => ({
+const mapStateToProps = (state: IApplicationState): Partial<IHeaderProps> => ({
   isSignedIn: state.authentication.isSignedIn,
-  userId: getUserIdFromToken(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ requestSignOut, requestUserById }, dispatch),
+const mapDispatchToProps = (dispatch): Partial<IHeaderProps> => ({
+  ...bindActionCreators({ requestSignOut }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(Header);

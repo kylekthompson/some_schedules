@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'bcrypt', '~> 3.1.7'
+gem 'graphql'
 gem 'jbuilder', '~> 2.5'
 gem 'knock'
 gem 'pg', '~> 0.18'
@@ -33,6 +34,7 @@ end
 group :development do
   gem 'bullet'
   gem 'foreman', require: false
+  gem 'graphiql-rails'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

@@ -1,5 +1,7 @@
-Types::MutationType = GraphQL::ObjectType.define do
-  name "Mutation"
+# frozen_string_literal: true
 
-  # TODO: Add Mutations as fields
+module Types
+  MutationType = GraphQL::ObjectType.define do
+    name 'Mutation'
+  end
 end

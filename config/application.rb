@@ -20,5 +20,6 @@ module SomeSchedules
   class Application < Rails::Application
     config.load_defaults 5.1
     config.generators.system_tests = nil
+    config.eager_load_paths += %W[#{config.root}/app/graphql]
   end
 end

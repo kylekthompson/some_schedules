@@ -4,12 +4,14 @@ module Types
   module Objects
     UserType = GraphQL::ObjectType.define do
       name 'User'
-      description 'Any user of the application'
+      description 'The user of the application'
       interfaces [GraphQL::Relay::Node.interface, Types::Interfaces::TimestampsInterface]
       global_id_field :id
+      field :email, types.String, property: :email
       field :firstName, types.String, property: :first_name
       field :lastName, types.String, property: :last_name
-      field :email, types.String, property: :email
+      connection :companies, CompanyType.connection_type, property: :companies
+      connection :companyUsers, CompanyUserType.connection_type, property: :company_users
     end
   end
 end

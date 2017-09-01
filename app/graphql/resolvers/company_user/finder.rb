@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Resolvers
-  module User
+  module CompanyUser
     module Finder
       class << self
         def call(_obj, args, _ctx)
@@ -12,11 +12,11 @@ module Resolvers
         private
 
         def find_many(ids)
-          ::User.where(id: ids)
+          ::CompanyUser.where(id: ids)
         end
 
         def find_one(id)
-          ::User.find_by(id: id)
+          ::CompanyUser.find_by(id: id)
         end
       end
     end

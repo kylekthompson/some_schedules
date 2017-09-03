@@ -2,7 +2,7 @@
 
 module Relay
   module TypeResolver
-    def self.call(obj, _ctx)
+    def self.call(_type, obj, _ctx)
       case obj
       when User
         Types::Objects::UserType

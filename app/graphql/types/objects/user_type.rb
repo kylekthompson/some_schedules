@@ -6,11 +6,14 @@ module Types
       name 'User'
       description 'The user of the application'
       interfaces [GraphQL::Relay::Node.interface, Types::Interfaces::TimestampsInterface]
+
       global_id_field :id
-      field :email, types.String, property: :email
+      field :email, types.String
       field :firstName, types.String, property: :first_name
       field :lastName, types.String, property: :last_name
-      connection :companies, CompanyType.connection_type, property: :companies
+      field :token, Fields::User::TokenField.field
+
+      connection :companies, CompanyType.connection_type
       connection :companyUsers, CompanyUserType.connection_type, property: :company_users
     end
   end

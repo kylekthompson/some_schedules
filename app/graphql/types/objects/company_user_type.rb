@@ -9,8 +9,6 @@ module Types
 
       global_id_field :id
       field :role, types.Int
-      field :companyId, types.ID, property: :company_id
-      field :userId, types.ID, property: :user_id
       field :company, Fields::CompanyField.field
       field :user, Fields::UserField.field
     end

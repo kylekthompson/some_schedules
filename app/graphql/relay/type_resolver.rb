@@ -2,12 +2,18 @@
 
 module Relay
   module TypeResolver
-    def self.call(_type, obj, _ctx)
-      case obj
-      when User
-        Types::Objects::UserType
-      else
-        raise "Don't know how to get the GraphQL type of a #{obj.class.name} (#{obj.inspect})"
+    KNOWN_TYPES = %W[User Company CompanyUser].freeze
+
+    class << self
+      def call(_type, obj, _ctx)
+        raise_unknown_type(obj) unless KNOWN_TYPES.include?(obj.class.name)
+        Types::Objects.const_get("#{obj.class.name}Type")
+      end
+
+      private
+
+      def raise_unknown_type(obj)
+        raise ArgumentError, "Don't know how to get the GraphQL type of a #{obj.class.name} (#{obj.inspect})"
       end
     end
   end

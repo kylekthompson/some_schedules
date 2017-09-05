@@ -5,7 +5,13 @@ require 'rails_helper'
 RSpec.describe Types::Objects::CompanyType, type: :model do
   subject(:type) { described_class }
 
-  it { is_expected.to have_interfaces(GraphQL::Relay::Node.interface, Types::Interfaces::TimestampsInterface) }
+  specify do
+    expect(type).to have_interfaces(
+      GraphQL::Relay::Node.interface,
+      Types::Interfaces::TimestampsInterface,
+      Types::Interfaces::ErrorsInterface
+    )
+  end
   it { is_expected.to have_field(:id).that_returns_type(GraphQL::ID_TYPE) }
   it { is_expected.to have_field(:name).that_returns_type(GraphQL::STRING_TYPE) }
   it { is_expected.to have_field(:slug).that_returns_type(GraphQL::STRING_TYPE) }

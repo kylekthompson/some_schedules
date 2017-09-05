@@ -37,6 +37,14 @@ RSpec.describe Helpers::HashCoercer, type: :model do
       end
     end
 
+    context 'when passed an empty string' do
+      let(:param) { '' }
+
+      it 'returns an empty hash' do
+        expect(coercer.to_h).to eq({})
+      end
+    end
+
     context 'when passed a hash' do
       let(:param) { { a: 1 } }
 

@@ -2,7 +2,7 @@
 
 module Relay
   module TypeResolver
-    KNOWN_TYPES = %W[User Company CompanyUser].freeze
+    KNOWN_TYPES = %w[User Company CompanyUser].freeze
 
     class << self
       def call(_type, obj, _ctx)

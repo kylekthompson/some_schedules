@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Relay::GlobalID::Encode, type: :model do
   subject(:schema) { described_class }
+
   let(:user) { create(:user) }
 
   before do

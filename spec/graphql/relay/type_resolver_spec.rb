@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Relay::TypeResolver, type: :model do
   subject(:schema) { described_class }
+
   let(:user) { build(:user) }
 
   it 'raises when passed an unknown object' do

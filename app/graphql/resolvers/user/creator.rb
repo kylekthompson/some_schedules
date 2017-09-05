@@ -4,8 +4,7 @@ module Resolvers
   module User
     module Creator
       class << self
-        def call(_obj, args, _ctx)
-        end
+        def call(_obj, args, _ctx); end
       end
     end
   end

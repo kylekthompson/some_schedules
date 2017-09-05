@@ -6,7 +6,7 @@ RSpec.describe Helpers::HashCoercer, type: :model do
   subject(:coercer) { described_class.new(ambiguous_param: param) }
 
   describe '#to_h' do
-    context 'when passed a string' do
+    context 'when passed a string of valid JSON' do
       let(:param) { '{}' }
 
       before do
@@ -27,13 +27,13 @@ RSpec.describe Helpers::HashCoercer, type: :model do
       it 'returns the correct value' do
         expect(coercer.to_h).to eq({})
       end
+    end
 
-      context 'and the string is invalid JSON' do
-        let(:param) { 'abc' }
+    context 'when passed a string of invalid JSON' do
+      let(:param) { 'abc' }
 
-        it 'returns an empty hash' do
-          expect(coercer.to_h).to eq({})
-        end
+      it 'returns an empty hash' do
+        expect(coercer.to_h).to eq({})
       end
     end
 

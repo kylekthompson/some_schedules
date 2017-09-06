@@ -8,7 +8,7 @@ module Resolvers
           if ctx[:current_user].present?
             { company: create(args, ctx[:current_user]) }
           else
-            { company: authentication_error }
+            GraphQL::ExecutionError.new('Authentication is required')
           end
         end
 
@@ -18,12 +18,6 @@ module Resolvers
           create_company_and_assign_owner!(args, current_user)
         rescue StandardError
           nil
-        end
-
-        def authentication_error
-          company = ::Company.new
-          company.errors.add('', 'Authentication is required')
-          company
         end
 
         def create_company_and_assign_owner!(args, current_user)

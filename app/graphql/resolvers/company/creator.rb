@@ -22,7 +22,7 @@ module Resolvers
 
         def create_company_and_assign_owner!(args, current_user)
           company = nil
-          Company.transaction do
+          ::Company.transaction do
             company = ::Company.create!(params(args))
             company.company_users.create!(role: :owner, user: current_user)
           end

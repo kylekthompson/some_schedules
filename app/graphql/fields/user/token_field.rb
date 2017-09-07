@@ -8,6 +8,7 @@ module Fields
           name 'token'
           description 'A JWT for the user to authenticate with'
           type types.String
+          argument :email, types.String, 'The email of the user'
           argument :password, types.String, 'The password of the user'
           resolve Resolvers::User::Token
         end

@@ -4,19 +4,9 @@ module Resolvers
   module User
     module Finder
       class << self
-        def call(_obj, args, _ctx)
-          return find_many(args[:ids]) if args[:ids]
-          find_one(args[:id])
-        end
-
-        private
-
-        def find_many(ids)
-          ::User.where(id: ids)
-        end
-
-        def find_one(id)
-          ::User.find_by(id: id)
+        def call(_user, args, _ctx)
+          return ::User.where(id: args[:ids]) if args[:ids]
+          ::User.find_by(id: args[:id])
         end
       end
     end

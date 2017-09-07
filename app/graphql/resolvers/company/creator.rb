@@ -4,7 +4,7 @@ module Resolvers
   module Company
     module Creator
       class << self
-        def call(_obj, args, ctx)
+        def call(_company, args, ctx)
           if ctx[:current_user].present?
             { company: create(args, ctx[:current_user]) }
           else

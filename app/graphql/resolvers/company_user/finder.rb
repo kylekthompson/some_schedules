@@ -4,7 +4,7 @@ module Resolvers
   module CompanyUser
     module Finder
       class << self
-        def call(_obj, args, _ctx)
+        def call(_company_user, args, _ctx)
           return ::CompanyUser.where(id: args[:ids]) if args[:ids]
           ::CompanyUser.find_by(id: args[:id])
         end

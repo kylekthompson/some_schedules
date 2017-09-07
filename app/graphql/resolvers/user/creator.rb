@@ -4,7 +4,7 @@ module Resolvers
   module User
     module Creator
       class << self
-        def call(_obj, args, _ctx)
+        def call(_user, args, _ctx)
           { user: ::User.create(params(args)) }
         end
 

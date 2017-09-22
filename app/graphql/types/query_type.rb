@@ -8,7 +8,6 @@ module Types
     field :companies, Fields::CompanyField.plural_field
     field :companyUser, Fields::CompanyUserField.field
     field :companyUsers, Fields::CompanyUserField.plural_field
-    field :token, Fields::User::TokenField.field
     field :user, Fields::UserField.field
     field :users, Fields::UserField.plural_field
 

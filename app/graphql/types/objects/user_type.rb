@@ -15,7 +15,6 @@ module Types
       field :email, !types.String
       field :firstName, !types.String, property: :first_name
       field :lastName, !types.String, property: :last_name
-      field :token, Fields::User::TokenField.field
 
       connection :companies, CompanyType.connection_type
       connection :companyUsers, CompanyUserType.connection_type, property: :company_users

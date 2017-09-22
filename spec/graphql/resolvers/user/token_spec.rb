@@ -20,7 +20,7 @@ RSpec.describe Resolvers::User::Token, type: :model do
   context 'when the correct password is provided' do
     let(:password) { actual_password }
 
-    specify { expect(resolver.call(obj, args, ctx)).not_to be_nil }
+    specify { expect(resolver.call(obj, args, ctx)[:token]).not_to be_nil }
 
     it 'actually gets a token' do
       resolver.call(obj, args, ctx)
@@ -31,13 +31,13 @@ RSpec.describe Resolvers::User::Token, type: :model do
   context 'when an incorrect password is provided' do
     let(:password) { 'abc' }
 
-    specify { expect(resolver.call(obj, args, ctx)).to be_nil }
+    specify { expect(resolver.call(obj, args, ctx)[:token]).to be_nil }
   end
 
   context 'when an incorrect email is provided' do
     let(:email) { 'bad@email.com' }
     let(:password) { actual_password }
 
-    specify { expect(resolver.call(obj, args, ctx)).to be_nil }
+    specify { expect(resolver.call(obj, args, ctx)[:token]).to be_nil }
   end
 end

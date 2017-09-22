@@ -7,4 +7,5 @@ RSpec.describe Types::MutationType, type: :model do
 
   it { is_expected.to have_field(:createCompany) }
   it { is_expected.to have_field(:createUser) }
+  it { is_expected.to have_field(:signIn) }
 end

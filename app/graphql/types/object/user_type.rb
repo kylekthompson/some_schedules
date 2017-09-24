@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Types
-  module Objects
+  module Object
     UserType = GraphQL::ObjectType.define do
       name 'User'
       description 'The user of the application'
       interfaces [
         GraphQL::Relay::Node.interface,
-        Types::Interfaces::TimestampsInterface,
-        Types::Interfaces::ErrorsInterface
+        Types::Interface::TimestampsInterface,
+        Types::Interface::ErrorsInterface
       ].freeze
 
       global_id_field :id

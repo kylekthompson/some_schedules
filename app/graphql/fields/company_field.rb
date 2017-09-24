@@ -6,7 +6,7 @@ module Fields
       GraphQL::Field.define do
         name 'Company'
         description 'The company that owns the schedule'
-        type Types::Objects::CompanyType
+        type Types::Object::CompanyType
         argument :slug, types.String, 'The slug of the company'
         resolve Resolvers::Company::Finder
       end

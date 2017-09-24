@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Types
-  module Objects
+  module Object
     CompanyUserType = GraphQL::ObjectType.define do
       name 'CompanyUser'
       description 'The companyUser that defines a relationship between a company and user'
       interfaces [
         GraphQL::Relay::Node.interface,
-        Types::Interfaces::TimestampsInterface,
-        Types::Interfaces::ErrorsInterface
+        Types::Interface::TimestampsInterface,
+        Types::Interface::ErrorsInterface
       ].freeze
 
       global_id_field :id

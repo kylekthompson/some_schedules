@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Types::Interfaces::TimestampsInterface, type: :model do
+RSpec.describe Types::Interface::TimestampsInterface, type: :model do
   subject(:type) { described_class }
 
   it { is_expected.to have_field(:createdAt).that_returns_type(GraphQL::STRING_TYPE) }

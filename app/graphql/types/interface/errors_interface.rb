@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Types
-  module Interfaces
+  module Interface
     ErrorsInterface = GraphQL::InterfaceType.define do
       name 'Errors'
       description 'Errors field'

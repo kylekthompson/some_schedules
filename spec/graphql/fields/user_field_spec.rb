@@ -7,7 +7,7 @@ RSpec.describe Fields::UserField, type: :model do
     subject(:field) { described_class.field }
 
     it { is_expected.to have_argument(:id).of_type(GraphQL::ID_TYPE) }
-    it { is_expected.to have_return_type(Types::Objects::UserType) }
+    it { is_expected.to have_return_type(Types::Object::UserType) }
     it { is_expected.to use_resolver(Resolvers::User::Finder) }
   end
 end

@@ -6,7 +6,7 @@ module Fields
       GraphQL::Field.define do
         name 'user'
         description 'The user of the application'
-        type Types::Objects::UserType
+        type Types::Object::UserType
         argument :id, types.ID, 'The id of the user'
         resolve Resolvers::User::Finder
       end

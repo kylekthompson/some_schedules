@@ -13,7 +13,7 @@ RSpec.describe Types::Object::CompanyUserType, type: :model do
     )
   end
   it { is_expected.to have_field(:id).that_returns_type(GraphQL::ID_TYPE) }
-  it { is_expected.to have_field(:role).that_returns_type(GraphQL::INT_TYPE) }
+  it { is_expected.to have_field(:role).that_returns_type(Types::Enum::CompanyUserRoleEnum) }
   it { is_expected.to have_field(:company).that_returns_type(Types::Object::CompanyType) }
   it { is_expected.to have_field(:user).that_returns_type(Types::Object::UserType) }
 end

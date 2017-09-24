@@ -5,6 +5,7 @@ module Types
     name 'Query'
 
     field :company, Fields::CompanyField.field
+    field :companies, Fields::CompanyField.plural_field
     field :user, Fields::UserField.field
 
     field :node, GraphQL::Relay::Node.field

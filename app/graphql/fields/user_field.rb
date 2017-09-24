@@ -11,15 +11,5 @@ module Fields
         resolve Resolvers::User::Finder
       end
     end
-
-    def self.plural_field
-      GraphQL::Field.define do
-        name 'users'
-        description 'A list of users'
-        type !types[Types::Objects::UserType]
-        argument :ids, !types[!types.ID], 'The ids of the users'
-        resolve Resolvers::User::Finder
-      end
-    end
   end
 end

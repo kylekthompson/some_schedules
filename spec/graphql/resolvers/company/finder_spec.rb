@@ -5,17 +5,15 @@ require 'rails_helper'
 RSpec.describe Resolvers::Company::Finder, type: :model do
   subject(:resolver) { described_class }
 
-  context 'when passed an id' do
+  context 'when passed a slug' do
     let(:company) { create(:company) }
 
-    specify { expect(resolver.call(nil, { id: company.id }, nil)).to eq(company) }
-  end
+    it 'handles a slug that exists' do
+      expect(resolver.call(nil, { slug: company.slug }, nil)).to eq(company)
+    end
 
-  context 'when passed ids' do
-    let(:company1) { create(:company) }
-    let(:company2) { create(:company) }
-
-    specify { expect(resolver.call(nil, { ids: [company1.id, company2.id] }, nil)).to include(company1) }
-    specify { expect(resolver.call(nil, { ids: [company1.id, company2.id] }, nil)).to include(company2) }
+    it 'handles a slug that does not exist' do
+      expect(resolver.call(nil, { slug: "#{company.slug}-does-not-exist" }, nil)).to be_nil
+    end
   end
 end

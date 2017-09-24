@@ -5,8 +5,7 @@ module Resolvers
     module Finder
       class << self
         def call(_user, args, _ctx)
-          return ::User.where(id: args[:ids]) if args[:ids]
-          ::User.find_by(id: args[:id])
+          ::User.find_by(id: args[:id]) if args[:id].present?
         end
       end
     end

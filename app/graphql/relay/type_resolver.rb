@@ -7,7 +7,7 @@ module Relay
     class << self
       def call(_type, obj, _ctx)
         raise_unknown_type(obj) unless KNOWN_TYPES.include?(obj.class.name)
-        Types::Objects.const_get("#{obj.class.name}Type")
+        Types::Object.const_get("#{obj.class.name}Type")
       end
 
       private

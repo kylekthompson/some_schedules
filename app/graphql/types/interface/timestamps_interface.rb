@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Types
-  module Interfaces
+  module Interface
     TimestampsInterface = GraphQL::InterfaceType.define do
       name 'Timestamps'
       description 'Created at and updated at timestamps'

@@ -12,6 +12,6 @@ RSpec.describe Relay::TypeResolver, type: :model do
   end
 
   it 'returns the correct type of a known type' do
-    expect(described_class.call(nil, user, nil)).to eq(Types::Objects::UserType)
+    expect(described_class.call(nil, user, nil)).to eq(Types::Object::UserType)
   end
 end

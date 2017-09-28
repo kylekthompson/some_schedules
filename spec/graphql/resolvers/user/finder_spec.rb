@@ -8,14 +8,12 @@ RSpec.describe Resolvers::User::Finder, type: :model do
   context 'when passed an id' do
     let(:user) { create(:user) }
 
-    specify { expect(resolver.call(nil, { id: user.id }, nil)).to eq(user) }
-  end
+    it 'handles an id that exists' do
+      expect(resolver.call(nil, { id: user.id }, nil)).to eq(user)
+    end
 
-  context 'when passed ids' do
-    let(:user1) { create(:user) }
-    let(:user2) { create(:user) }
-
-    specify { expect(resolver.call(nil, { ids: [user1.id, user2.id] }, nil)).to include(user1) }
-    specify { expect(resolver.call(nil, { ids: [user1.id, user2.id] }, nil)).to include(user2) }
+    it 'handles an id that does not exist' do
+      expect(resolver.call(nil, { id: user.id + 1000 }, nil)).to be_nil
+    end
   end
 end

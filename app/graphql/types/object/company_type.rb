@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Types
-  module Objects
+  module Object
     CompanyType = GraphQL::ObjectType.define do
       name 'Company'
       description 'The company that owns the schedule'
       interfaces [
         GraphQL::Relay::Node.interface,
-        Types::Interfaces::TimestampsInterface,
-        Types::Interfaces::ErrorsInterface
+        Types::Interface::TimestampsInterface,
+        Types::Interface::ErrorsInterface
       ].freeze
 
       global_id_field :id

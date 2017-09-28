@@ -8,7 +8,7 @@ module Mutations
     input_field :name, !types.String
     input_field :slug, !types.String
 
-    return_field :company, Types::Objects::CompanyType
+    return_field :company, Types::Object::CompanyType
     resolve Resolvers::Company::Creator
   end
 end

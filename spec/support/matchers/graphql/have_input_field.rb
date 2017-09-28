@@ -4,7 +4,7 @@ RSpec::Matchers.define :have_input_field do |argument|
   match do |field|
     argument = field.mutation.arguments.with_indifferent_access[argument]
 
-    if @type.present?
+    if @type
       argument.present? && argument.type.unwrap == @type
     else
       argument.present?

@@ -5,9 +5,11 @@ FactoryGirl.define do
     name { FFaker::Company.name }
     slug { name.gsub(/\W+/, '-') }
 
-    trait :with_owner do
-      after(:create) do |company|
-        company.company_users << create(:company_user, :owner)
+    CompanyUser.roles.keys.each do |role|
+      trait "with_#{role}".to_sym do
+        after(:create) do |company|
+          company.company_users << create(:company_user, role.to_sym)
+        end
       end
     end
   end

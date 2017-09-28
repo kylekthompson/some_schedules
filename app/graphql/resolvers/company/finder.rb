@@ -12,7 +12,6 @@ module Resolvers
         private
 
         def plural_find(args)
-          return ::Company.none unless args[:user_id].present?
           ::Company
             .includes(:company_users)
             .where(company_users: args.to_h.with_indifferent_access.slice(:user_id, :role).compact)

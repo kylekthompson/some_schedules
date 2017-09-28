@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5000/",
   "dependencies": {
+    "apollo-client": "^2.0.0-0",
     "bootstrap": "^3.3.7",
     "humps": "^2.0.1",
     "jwt-decode": "^2.2.0",

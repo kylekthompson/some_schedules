@@ -1,12 +1,13 @@
 import { RouteComponentProps } from 'react-router-dom';
 
 import { ICompany } from '../../../../services/api/companies/types';
-import { requestCompaniesByUserId } from '../../../../services/store/Companies/actionCreators';
-import { ILoadingState } from '../../../../services/store/types';
+import { addFlash } from '../../../../services/store/Flashes/actionCreators';
 
 export interface IMyCompaniesProps extends RouteComponentProps<{}> {
-  companies: ICompany[];
-  requestCompaniesByUserId: typeof requestCompaniesByUserId;
-  requestCompaniesByUserIdLoadingState: ILoadingState;
+  addFlash: typeof addFlash;
   userId: number;
+}
+
+export interface IMyCompaniesState {
+  companies?: Partial<ICompany>[];
 }

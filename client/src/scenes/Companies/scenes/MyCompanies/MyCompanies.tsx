@@ -1,26 +1,53 @@
 import * as React from 'react';
 
-import Failure from '../../../../components/Failure';
-import Loading from '../../../../components/Loading';
-import { IMyCompaniesProps } from './types';
+import gql from 'graphql-tag';
 
-class MyCompanies extends React.PureComponent<IMyCompaniesProps, {}> {
+import { graphql } from '../../../../services/utils/graphql';
+import { IMyCompaniesProps, IMyCompaniesState } from './types';
+
+class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesState> {
+  public state: IMyCompaniesState = {
+    companies: undefined,
+  };
+
   public componentDidMount() {
-    this.props.requestCompaniesByUserId(this.props.userId);
+    graphql.query<any>({
+      query: gql`
+        query myCompanies($userId: ID!) {
+          companies(userId: $userId) {
+            id
+            name
+            slug
+            createdAt
+          }
+        }
+      `,
+      variables: { userId: this.props.userId },
+    }).then(({ data }) => {
+      if (data.companies) {
+        this.setState({
+          companies: data.companies,
+        });
+      } else {
+        this.props.addFlash({
+          render: () => <p>Uh oh, we seem to have hit a snag... We'll look into that. Sorry!</p>,
+          severity: 'danger',
+        });
+      }
+    }).catch(() =>
+      this.props.addFlash({
+        render: () => <p>Uh oh, we seem to have hit a snag... We'll look into that. Sorry!</p>,
+        severity: 'danger',
+      })
+    );
   }
 
   public render() {
-    const { companies, requestCompaniesByUserIdLoadingState } = this.props;
-
-    if (requestCompaniesByUserIdLoadingState.isLoading()) {
-      return <Loading message="Loading yours companies..." />;
-    } else if (requestCompaniesByUserIdLoadingState.isFailure()) {
-      return <Failure errors={requestCompaniesByUserIdLoadingState.errors()} />;
-    }
+    if (!this.state.companies) { return <p>loading</p>; }
 
     return (
       <div>
-        {companies.map((company) => <p key={company.id}>{company.name}</p>)}
+        {this.state.companies.map((company) => <p key={company.id}>{company.name} - {company.slug}</p>)}
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import Cache from 'apollo-cache-inmemory';
-import ApolloClient from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import HttpLink from 'apollo-link-http';
 import SetContextLink from 'apollo-link-set-context';
@@ -21,4 +21,4 @@ const link = ApolloLink.from([
   new HttpLink({ uri }),
 ]);
 
-export const client = new ApolloClient({ cache, link });
+export const graphql = new ApolloClient({ cache, link });

@@ -1,11 +1,11 @@
 import { IAuthenticationCredentials } from '../../services/api/authentication/types';
-import { requestSignIn } from '../../services/store/Authentication/actionCreators';
-import { ILoadingState } from '../../services/store/types';
+import { persistSignIn } from '../../services/store/Authentication/actionCreators';
+import { addFlash } from '../../services/store/Flashes/actionCreators';
 
 export interface ISignInProps {
+  addFlash: typeof addFlash;
   isSignedIn: boolean;
-  requestSignIn: typeof requestSignIn;
-  requestSignInLoadingState: ILoadingState;
+  persistSignIn: typeof persistSignIn;
 }
 
 export interface ISignInState {

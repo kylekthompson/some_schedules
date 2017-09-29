@@ -1,42 +1,15 @@
-import { LoadingState } from '../types';
 import * as usersActionTypes from '../Users/actionTypes';
 import * as actionTypes from './actionTypes';
 import { IAuthenticationState, initialState } from './types';
 
-export default (state: IAuthenticationState = initialState, { type, payload }) => {
+export default (state: IAuthenticationState = initialState, { type }) => {
   let newState: IAuthenticationState;
 
   switch (type) {
-    case actionTypes.RECEIVE_USER_SIGN_IN_FAILURE:
-      newState = {
-        ...state,
-        isSignedIn: false,
-        requestSignInLoadingState: LoadingState.failure(payload.errors),
-      };
-
-      return newState;
-
-    case actionTypes.RECEIVE_USER_SIGN_IN_SUCCESS:
+    case actionTypes.PERSIST_USER_SIGN_IN:
       newState = {
         ...state,
         isSignedIn: true,
-        requestSignInLoadingState: LoadingState.success(),
-      };
-
-      return newState;
-
-    case actionTypes.REQUEST_USER_SIGN_IN:
-      newState = {
-        ...state,
-        requestSignInLoadingState: LoadingState.loading(),
-      };
-
-      return newState;
-
-    case usersActionTypes.RECEIVE_USER_SIGN_UP_FAILURE:
-      newState = {
-        ...state,
-        isSignedIn: false,
       };
 
       return newState;

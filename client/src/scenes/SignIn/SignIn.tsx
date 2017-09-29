@@ -2,10 +2,12 @@ import * as React from 'react';
 
 import * as Button from 'react-bootstrap/lib/Button';
 
+import gql from 'graphql-tag';
 import { Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
 import { IAuthenticationCredentials } from '../../services/api/authentication/types';
+import { graphql } from '../../services/utils/graphql';
 import { ISignInProps, ISignInState } from './types';
 import * as validations from './validations';
 
@@ -35,7 +37,6 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             onChange={this.handleChange('email')}
             onValidation={this.handleValidation('email')}
             placeholder="jane@example.com"
-            serverErrors={this.props.requestSignInLoadingState.errors().email}
             synchronousValidation={validations.syncEmailValidation}
             type="email"
             value={this.state.auth.email}
@@ -45,7 +46,6 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             label="Password"
             onChange={this.handleChange('password')}
             onValidation={this.handleValidation('password')}
-            serverErrors={this.props.requestSignInLoadingState.errors().password}
             synchronousValidation={validations.syncPasswordValidation}
             type="password"
             value={this.state.auth.password}
@@ -82,9 +82,33 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
 
   private isValid = () => Object.values(this.state.validations).every((value) => value);
 
-  private signUp = (event) => {
+  private signUp = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.props.requestSignIn(this.state.auth);
+
+    graphql.mutate({
+      mutation: gql`
+        mutation signIn($email: String!, $password: String!) {
+          signIn(input: { email: $email, password: $password }) {
+            token
+          }
+        }
+      `,
+      variables: this.state.auth,
+    }).then(({ data }) => {
+      if (data.signIn.token) {
+        this.props.persistSignIn(data.signIn.token);
+      } else {
+        this.props.addFlash({
+          render: () => <p>Uh oh, that didn't work! Try using a different email or password.</p>,
+          severity: 'danger',
+        });
+      }
+    }).catch(() =>
+      this.props.addFlash({
+        render: () => <p>Uh oh, we seem to have hit a snag... We'll look into that. Sorry!</p>,
+        severity: 'danger',
+      })
+    );
   }
 }
 

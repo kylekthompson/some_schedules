@@ -26,13 +26,17 @@ module Resolvers
       def to_h
         create_user
         return { errors: user.errors.messages } unless user.valid?
-        { user: user }
+        { token: token, user: user }
       end
 
       private
 
       def create_user
         @user = ::User.create(params)
+      end
+
+      def token
+        Knock::AuthToken.new(payload: user.to_token_payload).token
       end
     end
   end

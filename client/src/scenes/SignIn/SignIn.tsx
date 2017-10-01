@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import * as Button from 'react-bootstrap/lib/Button';
 
-import gql from 'graphql-tag';
 import { Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
@@ -50,7 +49,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             type="password"
             value={this.state.auth.password}
           />
-          <Button type="submit" disabled={!this.isValid()}>
+          <Button type="submit" disabled={!this.isValid() || this.state.didSubmit}>
             Sign In
           </Button>
         </form>
@@ -85,6 +84,10 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
   private signUp = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    this.setState({
+      didSubmit: true,
+    });
+
     signIn(this.state.auth).then(({ data: { signIn: { token } } }) => {
       if (token) {
         this.props.persistSignIn(token);
@@ -93,13 +96,19 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
           render: () => <p>Uh oh, that didn't work! Try using a different email or password.</p>,
           severity: 'danger',
         });
+        this.setState({
+          didSubmit: false,
+        });
       }
-    }).catch(() =>
+    }).catch(() => {
       this.props.addFlash({
         render: () => <p>Uh oh, we seem to have hit a snag... We'll look into that. Sorry!</p>,
         severity: 'danger',
-      })
-    );
+      });
+      this.setState({
+        didSubmit: false,
+      });
+    });
   }
 }
 

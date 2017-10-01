@@ -1,11 +1,10 @@
 import { IUserForCreation } from '../../services/api/users/types';
-import { requestSignUp } from '../../services/store/Users/actionCreators';
-import { ILoadingState } from '../../services/store/types';
+import { persistSignIn } from '../../services/store/Authentication/actionCreators';
 
 export interface IUserSignUpProps {
   isSignedIn: boolean;
-  requestSignUp: typeof requestSignUp;
-  requestSignUpLoadingState: ILoadingState;
+  onSuccess: () => void;
+  persistSignIn: typeof persistSignIn;
   shouldRedirectWhenSignedIn?: boolean;
 }
 

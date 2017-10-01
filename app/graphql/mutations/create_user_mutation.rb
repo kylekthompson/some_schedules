@@ -12,6 +12,7 @@ module Mutations
     input_field :passwordConfirmation, !types.String, as: :password_confirmation
 
     return_field :errors, Types::Scalar::JsonBlobType
+    return_field :token, types.String
     return_field :user, Types::Object::UserType
     resolve Resolvers::User::Creator
   end

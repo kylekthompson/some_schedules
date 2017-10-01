@@ -16,5 +16,5 @@ export interface IUserForCreation {
   firstName: string;
   lastName: string;
   password: string;
-  passwordConfirmation?: string;
+  passwordConfirmation: string;
 }

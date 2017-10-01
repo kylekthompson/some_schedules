@@ -7,7 +7,7 @@ module Resolvers
 
       validates :name, presence: true
       validates :slug, presence: true
-      validate :is_signed_in
+      validate :signed_in?
 
       attr_accessor :company, :name, :slug, :user
 
@@ -30,7 +30,7 @@ module Resolvers
 
       private
 
-      def is_signed_in
+      def signed_in?
         errors.add(:user, 'must be signed in') unless user.present?
       end
 

@@ -17,15 +17,15 @@ RSpec.describe Resolvers::User::Token, type: :model do
   describe 'validating' do
     context 'the correctness of a password' do
       it 'is invalid when the email is provided but the user does not exist' do
-        expect(described_class.new({ email: 'some@email.com', password: 'pass' })).not_to be_valid
+        expect(described_class.new(email: 'some@email.com', password: 'pass')).not_to be_valid
       end
 
       it 'is invalid when the password is provided but it is not correct' do
-        expect(described_class.new({ email: email, password: 'bad password' })).not_to be_valid
+        expect(described_class.new(email: email, password: 'bad password')).not_to be_valid
       end
 
       it 'is valid when the password is provided and it is correct' do
-        expect(described_class.new({ email: email, password: actual_password })).to be_valid
+        expect(described_class.new(email: email, password: actual_password)).to be_valid
       end
     end
   end
@@ -54,7 +54,7 @@ RSpec.describe Resolvers::User::Token, type: :model do
     end
 
     it 'looks up the user' do
-      described_class.new({ email: 'email@email.com' })
+      described_class.new(email: 'email@email.com')
       expect(User).to have_received(:find_by)
     end
   end

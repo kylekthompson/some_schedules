@@ -18,11 +18,11 @@ RSpec.describe Resolvers::Company::Creator, type: :model do
       let(:user) { build(:user) }
 
       it 'is invalid when there is no user' do
-        expect(described_class.new({ name: 'name', slug: 'slug', user: nil })).not_to be_valid
+        expect(described_class.new(name: 'name', slug: 'slug', user: nil)).not_to be_valid
       end
 
       it 'is valid when there is a user' do
-        expect(described_class.new({ name: 'name', slug: 'slug', user: user })).to be_valid
+        expect(described_class.new(name: 'name', slug: 'slug', user: user)).to be_valid
       end
     end
   end

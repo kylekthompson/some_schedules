@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import gql from 'graphql-tag';
 
-import { graphql } from '../../../../services/utils/graphql';
+import { graphql } from '../../../../services/graphql/helpers';
 import { IMyCompaniesProps, IMyCompaniesState } from './types';
 
 class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesState> {

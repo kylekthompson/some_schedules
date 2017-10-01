@@ -1,10 +1,10 @@
 import Cache from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient, ApolloQueryResult } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import HttpLink from 'apollo-link-http';
 import SetContextLink from 'apollo-link-set-context';
 
-import { getToken } from './authentication';
+import { getToken } from '../utils/authentication';
 
 const uri = '/api/v1/graphql';
 const setContext = (context) => ({
@@ -21,4 +21,7 @@ const link = ApolloLink.from([
   new HttpLink({ uri }),
 ]);
 
+export type MutationResult<T> = Promise<ApolloQueryResult<T>>;
+export type QueryResult<T> = Promise<ApolloQueryResult<T>>;
 export const graphql = new ApolloClient({ cache, link });
+export { default as gql } from 'graphql-tag';

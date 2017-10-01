@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
 import { IAuthenticationCredentials } from '../../services/api/authentication/types';
-import { graphql } from '../../services/utils/graphql';
+import { signIn } from '../../services/graphql/mutations/signIn';
 import { ISignInProps, ISignInState } from './types';
 import * as validations from './validations';
 
@@ -85,18 +85,9 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
   private signUp = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    graphql.mutate({
-      mutation: gql`
-        mutation signIn($email: String!, $password: String!) {
-          signIn(input: { email: $email, password: $password }) {
-            token
-          }
-        }
-      `,
-      variables: this.state.auth,
-    }).then(({ data }) => {
-      if (data.signIn.token) {
-        this.props.persistSignIn(data.signIn.token);
+    signIn(this.state.auth).then(({ data: { signIn: { token } } }) => {
+      if (token) {
+        this.props.persistSignIn(token);
       } else {
         this.props.addFlash({
           render: () => <p>Uh oh, that didn't work! Try using a different email or password.</p>,

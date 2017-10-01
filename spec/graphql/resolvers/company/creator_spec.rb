@@ -3,45 +3,79 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Company::Creator, type: :model do
-  subject(:resolver) { described_class }
+  subject(:resolver) { described_class.new(args) }
 
-  context 'when passed valid attributes' do
-    let(:company_attributes) { attributes_for(:company) }
-    let(:context) { { current_user: create(:user) } }
+  let(:args) { { name: name, slug: slug, user: user } }
+  let(:name) { 'name' }
+  let(:slug) { 'slug' }
+  let(:user) { create(:user) }
 
-    it 'creates a company' do
-      expect { resolver.call(nil, company_attributes, context) }.to change { Company.count }.by(1)
-    end
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:slug) }
 
-    it 'correctly adds the user to the company as an owner' do
-      company = resolver.call(nil, company_attributes, context)[:company]
-      expect(company.company_users.first.role).to eq('owner')
-    end
-  end
+  describe 'validating' do
+    context 'authentication' do
+      let(:user) { build(:user) }
 
-  context 'when passed invalid attributes and a current_user' do
-    let(:company_attributes) { attributes_for(:company).tap { |u| u[:name] = nil } }
-    let(:context) { { current_user: create(:user) } }
+      it 'is invalid when there is no user' do
+        expect(described_class.new({ name: 'name', slug: 'slug', user: nil })).not_to be_valid
+      end
 
-    it 'does not create a company' do
-      expect { resolver.call(nil, company_attributes, context) }.not_to(change { Company.count })
-    end
-
-    it 'returns nil' do
-      expect(resolver.call(nil, company_attributes, context)[:company]).to be_nil
+      it 'is valid when there is a user' do
+        expect(described_class.new({ name: 'name', slug: 'slug', user: user })).to be_valid
+      end
     end
   end
 
-  context 'when passed invalid attributes and no current_user' do
-    let(:company_attributes) { attributes_for(:company).tap { |u| u[:name] = nil } }
-    let(:context) { {} }
+  describe '.call' do
+    let(:company_resolver) { instance_double(described_class, to_h: nil) }
 
-    it 'does not create a company' do
-      expect { resolver.call(nil, company_attributes, context) }.not_to(change { Company.count })
+    before do
+      allow(described_class).to receive(:new).and_return(company_resolver)
     end
 
-    it 'returns an error' do
-      expect(resolver.call(nil, company_attributes, context)).to be_a(GraphQL::ExecutionError)
+    specify do
+      described_class.call(nil, {}, {})
+      expect(described_class).to have_received(:new)
+    end
+
+    specify do
+      described_class.call(nil, {}, {})
+      expect(company_resolver).to have_received(:to_h)
+    end
+  end
+
+  describe '#to_h' do
+    context 'when the name or slug is missing' do
+      let(:slug) { nil }
+
+      specify { expect(resolver.to_h[:errors]).not_to be_nil }
+      specify { expect(resolver.to_h[:company]).to be_nil }
+    end
+
+    context 'when user is missing' do
+      let(:user) { nil }
+
+      specify { expect(resolver.to_h[:errors]).not_to be_nil }
+      specify { expect(resolver.to_h[:company]).to be_nil }
+    end
+
+    context 'when company is not valid' do
+      before { create(:company, slug: slug) }
+
+      specify { expect(resolver.to_h[:errors]).not_to be_nil }
+      specify { expect(resolver.to_h[:company]).to be_nil }
+    end
+
+    context 'when everything is valid' do
+      specify { expect { resolver.to_h }.to change { Company.count }.by(1) }
+      specify { expect(resolver.to_h[:errors]).to be_nil }
+      specify { expect(resolver.to_h[:company]).not_to be_nil }
+
+      it 'adds the current user to the company as an owner' do
+        company = resolver.to_h[:company]
+        expect(company.company_users.first.role).to eq('owner')
+      end
     end
   end
 end

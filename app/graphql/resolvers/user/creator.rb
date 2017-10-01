@@ -2,23 +2,37 @@
 
 module Resolvers
   module User
-    module Creator
-      class << self
-        def call(_user, args, _ctx)
-          { user: ::User.create(params(args)) }
-        end
+    class Creator
+      include ActiveModel::Validations
 
-        private
+      validates :params, presence: true
 
-        def params(args)
-          ActionController::Parameters.new(args.to_h).permit(
-            :first_name,
-            :last_name,
-            :email,
-            :password,
-            :password_confirmation
-          )
-        end
+      attr_accessor :params, :user
+
+      def self.call(_obj, args, _ctx)
+        new(args).to_h
+      end
+
+      def initialize(args)
+        @params = ActionController::Parameters.new(args.to_h).permit(
+          :first_name,
+          :last_name,
+          :email,
+          :password,
+          :password_confirmation
+        )
+      end
+
+      def to_h
+        create_user
+        return { errors: user.errors.messages } unless user.valid?
+        { user: user }
+      end
+
+      private
+
+      def create_user
+        @user = ::User.create(params)
       end
     end
   end

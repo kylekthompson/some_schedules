@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IHelpProps } from './types';
 
-const Help = ({ showCompanyHelp, showUserHelp }: IHelpProps) => (
+const Help = ({ showUserHelp }: IHelpProps) => (
   <div>
     <h3>Hello!</h3>
     <p>Thanks for trying out SomeSchedul.es! To get started, we'll ask you to create a new user and your company.</p>
@@ -16,7 +16,7 @@ const Help = ({ showCompanyHelp, showUserHelp }: IHelpProps) => (
           </li>
         </ul>
       </li>
-      <li style={showCompanyHelp ? { fontWeight: 'bold'} : {}}>
+      <li style={!showUserHelp ? { fontWeight: 'bold'} : {}}>
         Company Creation
         <ul>
           <li>This will create the company that holds your locations, employees, and schedules.</li>

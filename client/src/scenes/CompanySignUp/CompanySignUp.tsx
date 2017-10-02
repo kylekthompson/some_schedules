@@ -87,7 +87,7 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
 
     createCompany(this.state.company).then(({ data: { createCompany: { company } } }) => {
       if (company) {
-        this.props.onSuccess();
+        this.props.onSignUpSuccess();
       } else {
         this.setState({
           didSubmit: false,

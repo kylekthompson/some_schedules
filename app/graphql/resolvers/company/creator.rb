@@ -12,7 +12,7 @@ module Resolvers
       attr_accessor :company, :name, :slug, :user
 
       def self.call(_obj, args, ctx)
-        new(args.merge(user: ctx[:current_user])).to_h
+        new(args.to_h.with_indifferent_access.merge(user: ctx[:current_user])).to_h
       end
 
       def initialize(args)

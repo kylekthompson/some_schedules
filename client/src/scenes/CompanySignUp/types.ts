@@ -2,7 +2,7 @@ import { ICompanyForCreation } from '../../services/api/companies/types';
 
 export interface ICompanySignUpProps {
   isSignedIn: boolean;
-  onSuccess: () => void;
+  onSignUpSuccess: () => void;
 }
 
 export interface ICompanySignUpState {

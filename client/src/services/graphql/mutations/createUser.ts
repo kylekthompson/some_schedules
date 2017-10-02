@@ -22,13 +22,7 @@ export interface ICreateUserMutationResult {
 export const createUser = (input: ICreateUserMutationInput): MutationResult<ICreateUserMutationResult> =>
   graphql.mutate({
     mutation: gql`
-      mutation createUser($input: {
-        email: String!,
-        firstName: String!,
-        lastName: String!,
-        password: String!,
-        passwordConfirmation: String!
-      }) {
+      mutation CreateUser($input: CreateUserInput!) {
         createUser(input: $input) {
           user {
             email

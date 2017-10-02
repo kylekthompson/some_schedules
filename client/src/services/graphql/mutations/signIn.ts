@@ -13,7 +13,7 @@ export interface ISignInMutationResult {
 
 export const signIn = (input: ISignInMutationInput): MutationResult<ISignInMutationResult> => graphql.mutate({
   mutation: gql`
-    mutation signIn($input: { email: String!, $password: String! }) {
+    mutation SignIn($input: SignInInput!) {
       signIn(input: $input) {
         token
       }

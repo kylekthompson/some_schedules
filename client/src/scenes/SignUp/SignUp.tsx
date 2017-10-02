@@ -24,7 +24,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   }
 
   private renderCorrectSignUp = () => {
-    const { didSignUpCompany, didSignUpUser } = this.state;
+    const { didSignUpUser } = this.state;
 
     let signUpPage;
 
@@ -45,7 +45,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
 
     return (
       <div>
-        <Help showCompanyHelp={!didSignUpCompany} showUserHelp={!didSignUpUser} />
+        <Help showUserHelp={!didSignUpUser} />
         {signUpPage}
       </div>
     );

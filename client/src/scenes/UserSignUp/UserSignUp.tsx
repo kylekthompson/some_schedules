@@ -131,7 +131,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
     createUser(this.state.user).then(({ data: { createUser: { token } } }) => {
       if (token) {
         this.props.persistSignIn(token);
-        this.props.onSuccess();
+        this.props.onSignUpSuccess();
       } else {
         this.setState({
           didSubmit: false,

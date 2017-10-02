@@ -13,7 +13,7 @@ class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesSta
   public componentDidMount() {
     graphql.query<any>({
       query: gql`
-        query myCompanies($userId: ID!) {
+        query MyCompanies($userId: ID!) {
           companies(userId: $userId) {
             id
             name

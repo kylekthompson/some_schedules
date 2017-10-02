@@ -17,10 +17,7 @@ export interface ICreateCompanyMutationResult {
 export const createCompany = (input: ICreateCompanyMutationInput): MutationResult<ICreateCompanyMutationResult> =>
   graphql.mutate({
     mutation: gql`
-      mutation createCompany($input: {
-        name: String!,
-        slug: String!
-      }) {
+      mutation CreateCompany($input: CreateCompanyInput!) {
         createCompany(input: $input) {
           company {
             name

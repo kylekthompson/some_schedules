@@ -3,7 +3,7 @@ import { persistSignIn } from '../../services/store/Authentication/actionCreator
 
 export interface IUserSignUpProps {
   isSignedIn: boolean;
-  onSuccess: () => void;
+  onSignUpSuccess: () => void;
   persistSignIn: typeof persistSignIn;
   shouldRedirectWhenSignedIn?: boolean;
 }

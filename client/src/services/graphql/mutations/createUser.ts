@@ -1,14 +1,14 @@
-import { graphql, gql, MutationResult } from '../helpers';
+import { gql, graphql, MutationResult } from '../helpers';
 
-export type CreateUserMutationInput = {
+export interface ICreateUserMutationInput {
   email: string;
   firstName: string;
   lastName: string;
   password: string;
   passwordConfirmation: string;
-};
+}
 
-export type CreateUserMutationResult = {
+export interface ICreateUserMutationResult {
   createUser: {
     user?: {
       email: string;
@@ -17,26 +17,27 @@ export type CreateUserMutationResult = {
     };
     token?: string;
   };
-};
+}
 
-export const createUser = (input: CreateUserMutationInput): MutationResult<CreateUserMutationResult> => graphql.mutate({
-  mutation: gql`
-    mutation createUser($input: {
-      email: String!,
-      firstName: String!,
-      lastName: String!,
-      password: String!,
-      passwordConfirmation: String!
-    }) {
-      createUser(input: $input) {
-        user {
-          email
-          firstName
-          lastName
+export const createUser = (input: ICreateUserMutationInput): MutationResult<ICreateUserMutationResult> =>
+  graphql.mutate({
+    mutation: gql`
+      mutation createUser($input: {
+        email: String!,
+        firstName: String!,
+        lastName: String!,
+        password: String!,
+        passwordConfirmation: String!
+      }) {
+        createUser(input: $input) {
+          user {
+            email
+            firstName
+            lastName
+          }
+          token
         }
-        token
       }
-    }
-  `,
-  variables: { input },
-});
+    `,
+    variables: { input },
+  });

@@ -88,7 +88,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             type="password"
             value={this.state.user.passwordConfirmation}
           />
-          <Button type="submit" disabled={!this.isValid()}>
+          <Button type="submit" disabled={!this.isValid() || this.state.didSubmit}>
             Sign Up
           </Button>
           <p>Already have an account? <Link to="/sign-in">Click here to sign in</Link></p>

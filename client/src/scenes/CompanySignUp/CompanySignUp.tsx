@@ -4,6 +4,7 @@ import * as Button from 'react-bootstrap/lib/Button';
 
 import { Input } from '../../components/Form';
 import { ICompanyForCreation } from '../../services/api/companies/types';
+import { createCompany } from '../../services/graphql/mutations/createCompany';
 import { ICompanySignUpProps, ICompanySignUpState } from './types';
 import * as validations from './validations';
 
@@ -31,7 +32,6 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
             onChange={this.handleChange('name')}
             onValidation={this.handleValidation('name')}
             placeholder="Jane's Company"
-            serverErrors={this.props.requestCreationLoadingState.errors().name}
             synchronousValidation={validations.syncNameValidation}
             type="text"
             value={this.state.company.name}
@@ -42,12 +42,11 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
             onChange={this.handleChange('slug')}
             onValidation={this.handleValidation('slug')}
             placeholder="janes-company"
-            serverErrors={this.props.requestCreationLoadingState.errors().slug}
             synchronousValidation={validations.syncSlugValidation}
             type="text"
             value={this.state.company.slug}
           />
-          <Button type="submit" disabled={!this.isValid()}>
+          <Button type="submit" disabled={!this.isValid() || this.state.didSubmit}>
             Sign Up
           </Button>
         </form>
@@ -81,7 +80,24 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
 
   private createCompany = (event) => {
     event.preventDefault();
-    this.props.requestCreation(this.state.company);
+
+    this.setState({
+      didSubmit: true,
+    });
+
+    createCompany(this.state.company).then(({ data: { createCompany: { company } } }) => {
+      if (company) {
+        this.props.onSuccess();
+      } else {
+        this.setState({
+          didSubmit: false,
+        });
+      }
+    }).catch(() => {
+      this.setState({
+        didSubmit: false,
+      });
+    });
   }
 }
 

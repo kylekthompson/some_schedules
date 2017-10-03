@@ -4,8 +4,9 @@ module Resolvers
   module Company
     module Finder
       class << self
-        def call(_company, args, _ctx)
+        def call(obj, args, _ctx)
           return plural_find(args) if args[:user_id].present?
+          return obj.company if obj.present? && obj.respond_to?(:company)
           ::Company.find_by(slug: args[:slug]) if args[:slug].present?
         end
 

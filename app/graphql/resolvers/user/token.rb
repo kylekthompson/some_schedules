@@ -2,24 +2,39 @@
 
 module Resolvers
   module User
-    module Token
-      class << self
-        def call(_obj, args, _ctx)
-          { token: token_for_args(args[:email], args[:password]) }
-        end
+    class Token
+      include ActiveModel::Validations
 
-        private
+      validates :email, presence: true
+      validates :password, presence: true
+      validate :correct_password
 
-        def token_for_args(email, password)
-          return nil unless email.present?
-          user = ::User.find_by(email: email) || ::User.new(password: "#{password}-invalid")
-          return token(user) if user.authenticate(password)
-          nil
-        end
+      attr_accessor :email, :user, :password
 
-        def token(user)
-          Knock::AuthToken.new(payload: user.to_token_payload).token
-        end
+      def self.call(_obj, args, _ctx)
+        new(args).to_h
+      end
+
+      def initialize(args)
+        @email = args[:email]
+        @user = ::User.find_by(email: email)
+        @password = args[:password]
+      end
+
+      def to_h
+        return { errors: errors.messages } unless valid?
+        { token: token }
+      end
+
+      private
+
+      def token
+        Knock::AuthToken.new(payload: user.to_token_payload).token
+      end
+
+      def correct_password
+        return errors.add(:email, 'was not found') unless user.present?
+        errors.add(:password, 'was incorrect') unless user.authenticate(password)
       end
     end
   end

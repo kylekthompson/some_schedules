@@ -5,7 +5,7 @@ import * as Button from 'react-bootstrap/lib/Button';
 import { Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
-import { IAuthenticationCredentials } from '../../services/api/authentication/types';
+import { ISignInMutationInput, signIn } from '../../services/graphql/mutations/signIn';
 import { ISignInProps, ISignInState } from './types';
 import * as validations from './validations';
 
@@ -16,6 +16,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
       password: '',
     },
     didSubmit: false,
+    errors: {},
     validations: {
       email: false,
       password: false,
@@ -35,7 +36,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             onChange={this.handleChange('email')}
             onValidation={this.handleValidation('email')}
             placeholder="jane@example.com"
-            serverErrors={this.props.requestSignInLoadingState.errors().email}
+            serverErrors={this.state.errors.email}
             synchronousValidation={validations.syncEmailValidation}
             type="email"
             value={this.state.auth.email}
@@ -45,12 +46,12 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             label="Password"
             onChange={this.handleChange('password')}
             onValidation={this.handleValidation('password')}
-            serverErrors={this.props.requestSignInLoadingState.errors().password}
+            serverErrors={this.state.errors.password}
             synchronousValidation={validations.syncPasswordValidation}
             type="password"
             value={this.state.auth.password}
           />
-          <Button type="submit" disabled={!this.isValid()}>
+          <Button type="submit" disabled={!this.isValid() || this.state.didSubmit}>
             Sign In
           </Button>
         </form>
@@ -58,7 +59,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     );
   }
 
-  private handleChange = (attr: keyof IAuthenticationCredentials) => (event: React.FormEvent<HTMLInputElement>) => {
+  private handleChange = (attr: keyof ISignInMutationInput) => (event: React.FormEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
 
     this.setState((prevState) => ({
@@ -70,7 +71,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     }));
   }
 
-  private handleValidation = (attr: keyof IAuthenticationCredentials) => (isValid: boolean) => {
+  private handleValidation = (attr: keyof ISignInMutationInput) => (isValid: boolean) => {
     this.setState((prevState) => ({
       ...prevState,
       validations: {
@@ -80,11 +81,34 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     }));
   }
 
-  private isValid = () => Object.values(this.state.validations).every((value) => value);
+  private isValid = () => Object.values(this.state.validations).every((value) => Boolean(value));
 
-  private signUp = (event) => {
+  private signUp = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.props.requestSignIn(this.state.auth);
+
+    this.setState({
+      didSubmit: true,
+      errors: {},
+    });
+
+    signIn(this.state.auth).then(({ data: { signIn: { errors, token } } }) => {
+      if (token) {
+        this.props.persistSignIn(token);
+      } else if (errors) {
+        this.setState({
+          didSubmit: false,
+          errors,
+        });
+      } else {
+        this.setState({
+          didSubmit: false,
+        });
+      }
+    }).catch(() => {
+      this.setState({
+        didSubmit: false,
+      });
+    });
   }
 }
 

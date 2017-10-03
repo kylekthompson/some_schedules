@@ -1,16 +1,15 @@
 import { ICompanyForCreation } from '../../services/api/companies/types';
-import { requestCreation } from '../../services/store/Companies/actionCreators';
-import { ILoadingState } from '../../services/store/types';
+import { IErrors } from '../../services/graphql/types';
 
 export interface ICompanySignUpProps {
   isSignedIn: boolean;
-  requestCreation: typeof requestCreation;
-  requestCreationLoadingState: ILoadingState;
+  onSignUpSuccess: () => void;
 }
 
 export interface ICompanySignUpState {
-  didSubmit: boolean;
   company: ICompanyForCreation;
+  didSubmit: boolean;
+  errors: IErrors;
   validations: {
     [P in keyof ICompanyForCreation]: boolean;
   };

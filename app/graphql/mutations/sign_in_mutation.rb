@@ -8,6 +8,7 @@ module Mutations
     input_field :email, !types.String
     input_field :password, !types.String
 
+    return_field :errors, Types::Scalar::JsonBlobType
     return_field :token, types.String
     resolve Resolvers::User::Token
   end

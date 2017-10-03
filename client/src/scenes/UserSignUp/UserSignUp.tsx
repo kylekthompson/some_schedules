@@ -6,6 +6,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
 import { IUserForCreation } from '../../services/api/users/types';
+import { createUser } from '../../services/graphql/mutations/createUser';
 import { IUserSignUpProps, IUserSignUpState } from './types';
 import * as validations from './validations';
 
@@ -15,6 +16,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
   };
   public state: IUserSignUpState = {
     didSubmit: false,
+    errors: {},
     user: {
       email: '',
       firstName: '',
@@ -45,7 +47,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('firstName')}
             onValidation={this.handleValidation('firstName')}
             placeholder="Jane"
-            serverErrors={this.props.requestSignUpLoadingState.errors().firstName}
+            serverErrors={this.state.errors.firstName}
             synchronousValidation={validations.syncFirstNameValidation}
             type="text"
             value={this.state.user.firstName}
@@ -56,7 +58,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('lastName')}
             onValidation={this.handleValidation('lastName')}
             placeholder="Smith"
-            serverErrors={this.props.requestSignUpLoadingState.errors().lastName}
+            serverErrors={this.state.errors.lastName}
             synchronousValidation={validations.syncLastNameValidation}
             type="text"
             value={this.state.user.lastName}
@@ -67,7 +69,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             onChange={this.handleChange('email')}
             onValidation={this.handleValidation('email')}
             placeholder="jane@example.com"
-            serverErrors={this.props.requestSignUpLoadingState.errors().email}
+            serverErrors={this.state.errors.email}
             synchronousValidation={validations.syncEmailValidation}
             type="email"
             value={this.state.user.email}
@@ -77,7 +79,7 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             label="Password"
             onChange={this.handleChange('password')}
             onValidation={this.handleValidation('password')}
-            serverErrors={this.props.requestSignUpLoadingState.errors().password}
+            serverErrors={this.state.errors.password}
             synchronousValidation={validations.syncPasswordValidation}
             type="password"
             value={this.state.user.password}
@@ -87,12 +89,12 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
             label="Password Confirmation"
             onChange={this.handleChange('passwordConfirmation')}
             onValidation={this.handleValidation('passwordConfirmation')}
-            serverErrors={this.props.requestSignUpLoadingState.errors().passwordConfirmation}
+            serverErrors={this.state.errors.passwordConfirmation}
             synchronousValidation={validations.syncPasswordComfirmationValidation(this.state.user.password)}
             type="password"
             value={this.state.user.passwordConfirmation}
           />
-          <Button type="submit" disabled={!this.isValid()}>
+          <Button type="submit" disabled={!this.isValid() || this.state.didSubmit}>
             Sign Up
           </Button>
           <p>Already have an account? <Link to="/sign-in">Click here to sign in</Link></p>
@@ -127,7 +129,31 @@ class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
 
   private signUp = (event) => {
     event.preventDefault();
-    this.props.requestSignUp(this.state.user);
+
+    this.setState({
+      didSubmit: true,
+      errors: {},
+    });
+
+    createUser(this.state.user).then(({ data: { createUser: { errors, token } } }) => {
+      if (token) {
+        this.props.persistSignIn(token);
+        this.props.onSignUpSuccess();
+      } else if (errors) {
+        this.setState({
+          didSubmit: false,
+          errors,
+        });
+      } else {
+        this.setState({
+          didSubmit: false,
+        });
+      }
+    }).catch(() => {
+      this.setState({
+        didSubmit: false,
+      });
+    });
   }
 }
 

@@ -9,6 +9,7 @@ module Mutations
     input_field :slug, !types.String
 
     return_field :company, Types::Object::CompanyType
+    return_field :errors, Types::Scalar::JsonBlobType
     resolve Resolvers::Company::Creator
   end
 end

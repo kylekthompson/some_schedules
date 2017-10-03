@@ -2,39 +2,42 @@
 
 module Resolvers
   module Company
-    module Creator
-      class << self
-        def call(_company, args, ctx)
-          if ctx[:current_user].present?
-            { company: create(args, ctx[:current_user]) }
-          else
-            GraphQL::ExecutionError.new('Authentication is required')
-          end
-        end
+    class Creator
+      include ActiveModel::Validations
 
-        private
+      validates :name, presence: true
+      validates :slug, presence: true
+      validate :signed_in?
 
-        def create(args, current_user)
-          create_company_and_assign_owner!(args, current_user)
-        rescue StandardError
-          nil
-        end
+      attr_accessor :company, :name, :slug, :user
 
-        def create_company_and_assign_owner!(args, current_user)
-          company = nil
-          ::Company.transaction do
-            company = ::Company.create!(params(args))
-            company.company_users.create!(role: :owner, user: current_user)
-          end
-          company
-        end
+      def self.call(_obj, args, ctx)
+        new(args.to_h.with_indifferent_access.merge(user: ctx[:current_user])).to_h
+      end
 
-        def params(args)
-          ActionController::Parameters.new(args.to_h).permit(
-            :name,
-            :slug
-          )
-        end
+      def initialize(args)
+        @name = args[:name]
+        @slug = args[:slug]
+        @user = args[:user]
+      end
+
+      def to_h
+        return { errors: errors.messages } unless valid?
+        create_company
+        return { errors: company.errors.messages } unless company.valid?
+        { company: company }
+      end
+
+      private
+
+      def signed_in?
+        errors.add(:user, 'must be signed in') unless user.present?
+      end
+
+      def create_company
+        @company = ::Company.new(name: name, slug: slug)
+        company.company_users.build(role: :owner, user: user)
+        company.save
       end
     end
   end

@@ -1,14 +1,13 @@
 import * as React from 'react';
 
-import { SignUpPages } from '../../types';
 import { IHelpProps } from './types';
 
-const Help = ({ currentSignUpPage }: IHelpProps) => (
+const Help = ({ showUserHelp }: IHelpProps) => (
   <div>
     <h3>Hello!</h3>
     <p>Thanks for trying out SomeSchedul.es! To get started, we'll ask you to create a new user and your company.</p>
     <ol>
-      <li style={currentSignUpPage === SignUpPages.USER_SIGN_UP ? { fontWeight: 'bold'} : {}}>
+      <li style={showUserHelp ? { fontWeight: 'bold'} : {}}>
         User Sign Up
         <ul>
           <li>
@@ -17,7 +16,7 @@ const Help = ({ currentSignUpPage }: IHelpProps) => (
           </li>
         </ul>
       </li>
-      <li style={currentSignUpPage === SignUpPages.COMPANY_SIGN_UP ? { fontWeight: 'bold'} : {}}>
+      <li style={!showUserHelp ? { fontWeight: 'bold'} : {}}>
         Company Creation
         <ul>
           <li>This will create the company that holds your locations, employees, and schedules.</li>

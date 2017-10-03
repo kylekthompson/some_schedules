@@ -1,17 +1,17 @@
-import { IAuthenticationCredentials } from '../../services/api/authentication/types';
-import { requestSignIn } from '../../services/store/Authentication/actionCreators';
-import { ILoadingState } from '../../services/store/types';
+import { ISignInMutationInput } from '../../services/graphql/mutations/signIn';
+import { IErrors } from '../../services/graphql/types';
+import { persistSignIn } from '../../services/store/Authentication/actionCreators';
 
 export interface ISignInProps {
   isSignedIn: boolean;
-  requestSignIn: typeof requestSignIn;
-  requestSignInLoadingState: ILoadingState;
+  persistSignIn: typeof persistSignIn;
 }
 
 export interface ISignInState {
+  auth: ISignInMutationInput;
   didSubmit: boolean;
-  auth: IAuthenticationCredentials;
+  errors: IErrors;
   validations: {
-    [P in keyof IAuthenticationCredentials]: boolean;
+    [P in keyof ISignInMutationInput]: boolean;
   };
 }

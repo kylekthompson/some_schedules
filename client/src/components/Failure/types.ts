@@ -1,4 +1,4 @@
-import { IErrors } from '../../services/api/shared/types';
+import { IErrors } from '../../services/graphql/types';
 
 export interface IFailureProps {
   errors: IErrors;

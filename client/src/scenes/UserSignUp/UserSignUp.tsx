@@ -11,7 +11,7 @@ import { IUserSignUpProps, IUserSignUpState } from './types';
 import * as validations from './validations';
 
 class UserSignUp extends React.Component<IUserSignUpProps, IUserSignUpState> {
-  public defaultProps: Partial<IUserSignUpProps> = {
+  public static defaultProps: Partial<IUserSignUpProps> = {
     shouldRedirectWhenSignedIn: true,
   };
   public state: IUserSignUpState = {

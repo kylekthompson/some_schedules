@@ -13,24 +13,24 @@
     "graphql-tag": "^2.4.2",
     "humps": "^2.0.1",
     "jwt-decode": "^2.2.0",
-    "react": "^15.6.1",
+    "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
-    "react-dom": "^15.6.1",
+    "react-dom": "^16.0.0",
     "react-redux": "^5.0.5",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^2.1.1",
+    "styled-components": "^2.2.0",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
     "@types/jest": "^20.0.8",
-    "@types/node": "^8.0.28",
-    "@types/react": "^15.6.2",
-    "@types/react-dom": "^15.5.1",
-    "@types/react-router-dom": "^4.0.7",
-    "react-scripts-ts": "^2.3.2"
+    "@types/node": "^8.0.31",
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^15.5.5",
+    "@types/react-router-dom": "^4.0.8",
+    "react-scripts-ts": "^2.7.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

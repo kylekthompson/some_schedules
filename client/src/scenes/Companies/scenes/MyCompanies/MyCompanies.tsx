@@ -1,13 +1,15 @@
 import * as React from 'react';
 
 import gql from 'graphql-tag';
+import { Redirect } from 'react-router-dom';
 
 import { graphql } from '../../../../services/graphql/helpers';
+import CompanyUsers from './components/CompanyUsers';
 import { IMyCompaniesProps, IMyCompaniesState, IMyCompaniesQueryResult } from './types';
 
 class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesState> {
   public state: IMyCompaniesState = {
-    queryResult: undefined,
+    companyUsers: undefined,
   };
 
   public componentDidMount() {
@@ -33,7 +35,7 @@ class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesSta
     }).then(({ data }) => {
       if (data.user) {
         this.setState({
-          queryResult: data,
+          companyUsers: data.user.companyUsers.edges.map((edge) => edge.node),
         });
       } else {
         this.props.addFlash({
@@ -50,13 +52,11 @@ class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesSta
   }
 
   public render() {
-    if (!this.state.queryResult) { return <p>loading</p>; }
-
-    return (
-      <div>
-        {this.state.queryResult.user.companyUsers.edges.map((companyUser) => <p key={companyUser.node.company.slug}>{companyUser.node.role} - {companyUser.node.company.name} - {companyUser.node.company.slug}</p>)}
-      </div>
-    );
+    if (!this.state.companyUsers) { return <p>loading</p>; }
+    if (this.state.companyUsers.length === 1) {
+      return <Redirect to={`/companies/${this.state.companyUsers[0].company.slug}`} />;
+    }
+    return <CompanyUsers companyUsers={this.state.companyUsers} />;
   }
 }
 

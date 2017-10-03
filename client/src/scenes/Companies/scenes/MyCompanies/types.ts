@@ -1,6 +1,6 @@
 import { RouteComponentProps } from 'react-router-dom';
 
-import { IUser } from '../../../../services/graphql/types';
+import { ICompanyUser, IUser } from '../../../../services/graphql/types';
 import { addFlash } from '../../../../services/store/Flashes/actionCreators';
 
 export interface IMyCompaniesQueryResult {
@@ -13,5 +13,5 @@ export interface IMyCompaniesProps extends RouteComponentProps<{}> {
 }
 
 export interface IMyCompaniesState {
-  queryResult?: IMyCompaniesQueryResult;
+  companyUsers?: ICompanyUser[];
 }

@@ -2,7 +2,7 @@ export interface IEdge<NodeType> {
   node: NodeType;
 };
 export interface IEdges<NodeType> {
-  edges: Array<IEdge<NodeType>>;
+  edges: IEdge<NodeType>[];
 }
 
 export interface ICompany {

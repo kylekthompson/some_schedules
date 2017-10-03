@@ -3,30 +3,37 @@ import * as React from 'react';
 import gql from 'graphql-tag';
 
 import { graphql } from '../../../../services/graphql/helpers';
-import { IMyCompaniesProps, IMyCompaniesState } from './types';
+import { IMyCompaniesProps, IMyCompaniesState, IMyCompaniesQueryResult } from './types';
 
 class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesState> {
   public state: IMyCompaniesState = {
-    companies: undefined,
+    queryResult: undefined,
   };
 
   public componentDidMount() {
-    graphql.query<any>({
+    graphql.query<IMyCompaniesQueryResult>({
       query: gql`
         query MyCompanies($userId: ID!) {
-          companies(userId: $userId) {
-            id
-            name
-            slug
-            createdAt
+          user(id: $userId) {
+            companyUsers {
+              edges {
+                node {
+                  role
+                  company {
+                    name
+                    slug
+                  }
+                }
+              }
+            }
           }
         }
       `,
       variables: { userId: this.props.userId },
     }).then(({ data }) => {
-      if (data.companies) {
+      if (data.user) {
         this.setState({
-          companies: data.companies,
+          queryResult: data,
         });
       } else {
         this.props.addFlash({
@@ -43,11 +50,11 @@ class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesSta
   }
 
   public render() {
-    if (!this.state.companies) { return <p>loading</p>; }
+    if (!this.state.queryResult) { return <p>loading</p>; }
 
     return (
       <div>
-        {this.state.companies.map((company) => <p key={company.id}>{company.name} - {company.slug}</p>)}
+        {this.state.queryResult.user.companyUsers.edges.map((companyUser) => <p key={companyUser.node.company.slug}>{companyUser.node.role} - {companyUser.node.company.name} - {companyUser.node.company.slug}</p>)}
       </div>
     );
   }

@@ -1,7 +1,11 @@
 import { RouteComponentProps } from 'react-router-dom';
 
-import { ICompany } from '../../../../services/api/companies/types';
+import { IUser } from '../../../../services/graphql/types';
 import { addFlash } from '../../../../services/store/Flashes/actionCreators';
+
+export interface IMyCompaniesQueryResult {
+  user: IUser;
+}
 
 export interface IMyCompaniesProps extends RouteComponentProps<{}> {
   addFlash: typeof addFlash;
@@ -9,5 +13,5 @@ export interface IMyCompaniesProps extends RouteComponentProps<{}> {
 }
 
 export interface IMyCompaniesState {
-  companies?: Partial<ICompany>[];
+  queryResult?: IMyCompaniesQueryResult;
 }

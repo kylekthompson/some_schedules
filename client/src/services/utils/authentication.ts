@@ -6,7 +6,7 @@ export const deleteToken = (): void => {
 
 export const getToken = (): string | null => localStorage.getItem(TOKEN_KEY);
 
-export const isTokenExpired = (token: string): boolean => !!token;
+export const isTokenExpired = (token: string): boolean => Boolean(token);
 
 export const setToken = (token: string): void => {
   localStorage.setItem(TOKEN_KEY, token);

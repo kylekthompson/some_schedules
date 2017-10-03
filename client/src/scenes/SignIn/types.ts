@@ -1,4 +1,4 @@
-import { IAuthenticationCredentials } from '../../services/api/authentication/types';
+import { ISignInMutationInput } from '../../services/graphql/mutations/signIn';
 import { persistSignIn } from '../../services/store/Authentication/actionCreators';
 import { addFlash } from '../../services/store/Flashes/actionCreators';
 
@@ -10,8 +10,8 @@ export interface ISignInProps {
 
 export interface ISignInState {
   didSubmit: boolean;
-  auth: IAuthenticationCredentials;
+  auth: ISignInMutationInput;
   validations: {
-    [P in keyof IAuthenticationCredentials]: boolean;
+    [P in keyof ISignInMutationInput]: boolean;
   };
 }

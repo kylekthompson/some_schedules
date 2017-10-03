@@ -1,4 +1,4 @@
-import { IErrors } from '../api/shared/types';
+import { IErrors } from '../graphql/types';
 import { IAuthenticationState } from './Authentication/types';
 import { IFlashesState } from './Flashes/types';
 

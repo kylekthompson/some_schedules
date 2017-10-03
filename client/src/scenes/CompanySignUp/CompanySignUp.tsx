@@ -15,6 +15,7 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
       slug: '',
     },
     didSubmit: false,
+    errors: {},
     validations: {
       name: false,
       slug: false,
@@ -32,6 +33,7 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
             onChange={this.handleChange('name')}
             onValidation={this.handleValidation('name')}
             placeholder="Jane's Company"
+            serverErrors={this.state.errors.name}
             synchronousValidation={validations.syncNameValidation}
             type="text"
             value={this.state.company.name}
@@ -42,6 +44,7 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
             onChange={this.handleChange('slug')}
             onValidation={this.handleValidation('slug')}
             placeholder="janes-company"
+            serverErrors={this.state.errors.slug}
             synchronousValidation={validations.syncSlugValidation}
             type="text"
             value={this.state.company.slug}
@@ -83,11 +86,17 @@ class CompanySignUp extends React.Component<ICompanySignUpProps, ICompanySignUpS
 
     this.setState({
       didSubmit: true,
+      errors: {},
     });
 
-    createCompany(this.state.company).then(({ data: { createCompany: { company } } }) => {
+    createCompany(this.state.company).then(({ data: { createCompany: { company, errors } } }) => {
       if (company) {
         this.props.onSignUpSuccess();
+      } else if (errors) {
+        this.setState({
+          didSubmit: false,
+          errors,
+        });
       } else {
         this.setState({
           didSubmit: false,

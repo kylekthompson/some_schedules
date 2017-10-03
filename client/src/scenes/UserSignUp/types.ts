@@ -1,4 +1,5 @@
 import { IUserForCreation } from '../../services/api/users/types';
+import { IErrors } from '../../services/graphql/types';
 import { persistSignIn } from '../../services/store/Authentication/actionCreators';
 
 export interface IUserSignUpProps {
@@ -10,6 +11,7 @@ export interface IUserSignUpProps {
 
 export interface IUserSignUpState {
   didSubmit: boolean;
+  errors: IErrors;
   user: IUserForCreation;
   validations: {
     [P in keyof IUserForCreation]: boolean;

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Route } from 'react-router-dom';
 
-import { IErrors } from '../../services/api/shared/types';
+import { IErrors } from '../../services/graphql/types';
 import Failure from '../Failure';
 import { IFailureRouteProps } from './types';
 

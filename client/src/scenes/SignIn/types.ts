@@ -1,16 +1,16 @@
 import { ISignInMutationInput } from '../../services/graphql/mutations/signIn';
+import { IErrors } from '../../services/graphql/types';
 import { persistSignIn } from '../../services/store/Authentication/actionCreators';
-import { addFlash } from '../../services/store/Flashes/actionCreators';
 
 export interface ISignInProps {
-  addFlash: typeof addFlash;
   isSignedIn: boolean;
   persistSignIn: typeof persistSignIn;
 }
 
 export interface ISignInState {
-  didSubmit: boolean;
   auth: ISignInMutationInput;
+  didSubmit: boolean;
+  errors: IErrors;
   validations: {
     [P in keyof ISignInMutationInput]: boolean;
   };

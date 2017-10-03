@@ -1,4 +1,5 @@
 import { gql, graphql, MutationResult } from '../helpers';
+import { IErrors } from '../types';
 
 export interface ICreateCompanyMutationInput {
   name: string;
@@ -11,6 +12,7 @@ export interface ICreateCompanyMutationResult {
       name: string;
       slug: string;
     };
+    errors?: IErrors;
   };
 }
 
@@ -23,6 +25,7 @@ export const createCompany = (input: ICreateCompanyMutationInput): MutationResul
             name
             slug
           }
+          errors
         }
       }
     `,

@@ -1,4 +1,5 @@
 import { ICompanyForCreation } from '../../services/api/companies/types';
+import { IErrors } from '../../services/graphql/types';
 
 export interface ICompanySignUpProps {
   isSignedIn: boolean;
@@ -6,8 +7,9 @@ export interface ICompanySignUpProps {
 }
 
 export interface ICompanySignUpState {
-  didSubmit: boolean;
   company: ICompanyForCreation;
+  didSubmit: boolean;
+  errors: IErrors;
   validations: {
     [P in keyof ICompanyForCreation]: boolean;
   };

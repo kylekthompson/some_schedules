@@ -16,6 +16,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
       password: '',
     },
     didSubmit: false,
+    errors: {},
     validations: {
       email: false,
       password: false,
@@ -35,6 +36,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             onChange={this.handleChange('email')}
             onValidation={this.handleValidation('email')}
             placeholder="jane@example.com"
+            serverErrors={this.state.errors.email}
             synchronousValidation={validations.syncEmailValidation}
             type="email"
             value={this.state.auth.email}
@@ -44,6 +46,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
             label="Password"
             onChange={this.handleChange('password')}
             onValidation={this.handleValidation('password')}
+            serverErrors={this.state.errors.password}
             synchronousValidation={validations.syncPasswordValidation}
             type="password"
             value={this.state.auth.password}
@@ -85,25 +88,23 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
 
     this.setState({
       didSubmit: true,
+      errors: {},
     });
 
-    signIn(this.state.auth).then(({ data: { signIn: { token } } }) => {
+    signIn(this.state.auth).then(({ data: { signIn: { errors, token } } }) => {
       if (token) {
         this.props.persistSignIn(token);
-      } else {
-        this.props.addFlash({
-          render: () => <p>Uh oh, that didn't work! Try using a different email or password.</p>,
-          severity: 'danger',
+      } else if (errors) {
+        this.setState({
+          didSubmit: false,
+          errors,
         });
+      } else {
         this.setState({
           didSubmit: false,
         });
       }
     }).catch(() => {
-      this.props.addFlash({
-        render: () => <p>Uh oh, we seem to have hit a snag... We'll look into that. Sorry!</p>,
-        severity: 'danger',
-      });
       this.setState({
         didSubmit: false,
       });

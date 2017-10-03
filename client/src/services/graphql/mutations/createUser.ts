@@ -1,4 +1,5 @@
 import { gql, graphql, MutationResult } from '../helpers';
+import { IErrors } from '../types';
 
 export interface ICreateUserMutationInput {
   email: string;
@@ -10,12 +11,13 @@ export interface ICreateUserMutationInput {
 
 export interface ICreateUserMutationResult {
   createUser: {
+    errors?: IErrors;
+    token?: string;
     user?: {
       email: string;
       firstName: string;
       lastName: string;
     };
-    token?: string;
   };
 }
 
@@ -24,12 +26,13 @@ export const createUser = (input: ICreateUserMutationInput): MutationResult<ICre
     mutation: gql`
       mutation CreateUser($input: CreateUserInput!) {
         createUser(input: $input) {
+          errors
+          token
           user {
             email
             firstName
             lastName
           }
-          token
         }
       }
     `,

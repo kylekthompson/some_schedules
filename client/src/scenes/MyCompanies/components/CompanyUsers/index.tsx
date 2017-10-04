@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { ICompanyUser, ICompanyUserRole } from '../../../../../../services/graphql/types';
+import { ICompanyUser, ICompanyUserRole } from '../../../../services/graphql/types';
 import Company from '../Company';
 import { ICompanyUsersProps } from './types';
 
 const rolesAndTitles: { [KEY in ICompanyUserRole]: string } = {
-  'OWNER': 'You are an owner of these companies:',
-  'MANAGER': 'You are a manager of these companies:',
-  'SUPERVISOR': 'You are a supervisor of these companies:',
-  'EMPLOYEE': 'You are an employee of these companies:',
-}
+  EMPLOYEE: 'You are an employee of these companies:',
+  MANAGER: 'You are a manager of these companies:',
+  OWNER: 'You are an owner of these companies:',
+  SUPERVISOR: 'You are a supervisor of these companies:',
+};
 
 const companyUsersInRole = (companyUsers: ICompanyUser[], role: string) =>
   companyUsers.filter((companyUser) => companyUser.role === role);

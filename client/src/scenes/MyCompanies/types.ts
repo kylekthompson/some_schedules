@@ -1,7 +1,7 @@
 import { RouteComponentProps } from 'react-router-dom';
 
-import { ICompanyUser, IUser } from '../../../../services/graphql/types';
-import { addFlash } from '../../../../services/store/Flashes/actionCreators';
+import { ICompanyUser, IUser } from '../../services/graphql/types';
+import { addFlash } from '../../services/store/Flashes/actionCreators';
 
 export interface IMyCompaniesQueryResult {
   user: IUser;

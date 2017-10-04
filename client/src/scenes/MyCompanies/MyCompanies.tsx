@@ -3,9 +3,9 @@ import * as React from 'react';
 import gql from 'graphql-tag';
 import { Redirect } from 'react-router-dom';
 
-import { graphql } from '../../../../services/graphql/helpers';
+import { graphql } from '../../services/graphql/helpers';
 import CompanyUsers from './components/CompanyUsers';
-import { IMyCompaniesProps, IMyCompaniesState, IMyCompaniesQueryResult } from './types';
+import { IMyCompaniesProps, IMyCompaniesQueryResult, IMyCompaniesState } from './types';
 
 class MyCompanies extends React.PureComponent<IMyCompaniesProps, IMyCompaniesState> {
   public state: IMyCompaniesState = {

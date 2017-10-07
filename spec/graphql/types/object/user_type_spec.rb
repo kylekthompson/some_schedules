@@ -16,6 +16,6 @@ RSpec.describe Types::Object::UserType, type: :model do
   it { is_expected.to have_field(:email).that_returns_type(GraphQL::STRING_TYPE) }
   it { is_expected.to have_field(:firstName).that_returns_type(GraphQL::STRING_TYPE) }
   it { is_expected.to have_field(:lastName).that_returns_type(GraphQL::STRING_TYPE) }
-  it { is_expected.to have_field(:companies).that_returns_type(Types::Object::CompanyType.connection_type) }
-  it { is_expected.to have_field(:companyUsers).that_returns_type(Types::Object::CompanyUserType.connection_type) }
+  it { is_expected.to have_field(:role).that_returns_type(Types::Enum::UserRoleEnum) }
+  it { is_expected.to have_field(:company).that_returns_type(Types::Object::CompanyType) }
 end

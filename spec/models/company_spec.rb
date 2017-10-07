@@ -11,6 +11,5 @@ RSpec.describe Company, type: :model do
   it { is_expected.to allow_value('ab_c-d1').for(:slug) }
   it { is_expected.not_to allow_value('ab.cd%/').for(:slug) }
 
-  it { is_expected.to have_many(:company_users) }
-  it { is_expected.to have_many(:users).through(:company_users) }
+  it { is_expected.to have_many(:users) }
 end

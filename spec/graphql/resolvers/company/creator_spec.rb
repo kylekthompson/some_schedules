@@ -74,7 +74,7 @@ RSpec.describe Resolvers::Company::Creator, type: :model do
 
       it 'adds the current user to the company as an owner' do
         company = resolver.to_h[:company]
-        expect(company.company_users.first.role).to eq('owner')
+        expect(company.users.first.role).to eq('owner')
       end
     end
   end

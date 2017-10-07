@@ -15,9 +15,8 @@ module Types
       field :email, !types.String
       field :firstName, !types.String, property: :first_name
       field :lastName, !types.String, property: :last_name
-
-      connection :companies, CompanyType.connection_type
-      connection :companyUsers, CompanyUserType.connection_type, property: :company_users
+      field :role, Types::Enum::UserRoleEnum
+      field :company, Fields::CompanyField.field
     end
   end
 end

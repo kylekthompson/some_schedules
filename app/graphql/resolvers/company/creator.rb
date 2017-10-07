@@ -35,9 +35,12 @@ module Resolvers
       end
 
       def create_company
-        @company = ::Company.new(name: name, slug: slug)
-        company.company_users.build(role: :owner, user: user)
-        company.save
+        ::Company.transaction do
+          @company = ::Company.create(name: name, slug: slug)
+          user.update!(company: company, role: :owner)
+        end
+      rescue
+        nil
       end
     end
   end

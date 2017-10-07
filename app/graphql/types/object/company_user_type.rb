@@ -12,7 +12,7 @@ module Types
       ].freeze
 
       global_id_field :id
-      field :role, !types[Types::Enum::CompanyUserRoleEnum]
+      field :role, Types::Enum::CompanyUserRoleEnum
       field :company, Fields::CompanyField.field
       field :user, Fields::UserField.field
     end

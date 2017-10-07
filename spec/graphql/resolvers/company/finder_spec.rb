@@ -61,4 +61,11 @@ RSpec.describe Resolvers::Company::Finder, type: :model do
       specify { expect(result).to be_empty }
     end
   end
+
+  context 'when the obj passed has a company method' do
+    let(:obj) { create(:company_user) }
+    let(:args) { {} }
+
+    specify { expect(result).to eq(obj.company) }
+  end
 end

@@ -7,7 +7,7 @@ module Fields
         name 'Company'
         description 'The company that owns the schedule'
         type Types::Object::CompanyType
-        argument :slug, !types.String, 'The slug of the company'
+        argument :slug, types.String, 'The slug of the company'
         resolve Resolvers::Company::Finder
       end
     end

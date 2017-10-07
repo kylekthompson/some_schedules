@@ -14,7 +14,6 @@ class MakeCompaniesAndUsersOneToMany < ActiveRecord::Migration[5.1]
       end
     end
 
-    change_column_null :users, :role, true
     drop_table :company_users
   end
 

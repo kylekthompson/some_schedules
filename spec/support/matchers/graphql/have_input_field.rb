@@ -2,7 +2,13 @@
 
 RSpec::Matchers.define :have_input_field do |argument|
   match do |field|
-    argument = field.mutation.arguments.with_indifferent_access[argument]
+    if field.mutation.present?
+      arguments = field.mutation.arguments.with_indifferent_access
+    else
+      arguments = field.arguments.with_indifferent_access
+    end
+
+    argument = arguments[argument]
 
     if @type
       argument.present? && argument.type.unwrap == @type

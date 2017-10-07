@@ -23,20 +23,4 @@ RSpec.describe Resolvers::Company::Finder, type: :model do
       specify { expect(result).to be_nil }
     end
   end
-
-  context 'when passed a user_id' do
-    let(:company) { create(:company, :with_owner) }
-    let(:args) { { user_id: user_id } }
-    let(:user_id) { company.user.id }
-
-    it 'grabs the company for that user' do
-      expect(result).to eq(company)
-    end
-
-    context 'but the user_id does not exist' do
-      let(:user_id) { super() + 1000 }
-
-      specify { expect(result).to be_nil }
-    end
-  end
 end

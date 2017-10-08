@@ -44,7 +44,7 @@ module Resolvers
       {
         company_errors: company.errors.messages,
         user_errors: user.errors.messages
-      }.select { |_key, val| !val.empty? }
+      }.reject { |_key, val| val.empty? }
     end
 
     def not_signed_in

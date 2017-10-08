@@ -20,18 +20,16 @@ RSpec.describe Resolvers::SignUp, type: :model do
   it { is_expected.to validate_presence_of(:user_params) }
 
   describe 'validations' do
-    context 'authentication' do
-      context 'when signed in' do
-        let(:current_user) { build(:user) }
+    context 'when signed in' do
+      let(:current_user) { build(:user) }
 
-        specify { expect(resolver).not_to be_valid }
-      end
+      specify { expect(resolver).not_to be_valid }
+    end
 
-      context 'when signed out' do
-        let(:current_user) { nil }
+    context 'when signed out' do
+      let(:current_user) { nil }
 
-        specify { expect(resolver).to be_valid }
-      end
+      specify { expect(resolver).to be_valid }
     end
   end
 

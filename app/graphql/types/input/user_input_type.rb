@@ -3,7 +3,7 @@
 module Types
   module Input
     UserInputType = GraphQL::InputObjectType.define do
-      name "UserInputType"
+      name 'UserInputType'
 
       input_field :firstName, !types.String, as: :first_name
       input_field :lastName, !types.String, as: :last_name

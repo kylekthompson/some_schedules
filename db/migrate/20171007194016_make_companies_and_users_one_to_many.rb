@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MakeCompaniesAndUsersOneToMany < ActiveRecord::Migration[5.1]
   def up
     add_reference :users, :company, foreign_key: true

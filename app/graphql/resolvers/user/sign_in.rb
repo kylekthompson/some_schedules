@@ -2,7 +2,7 @@
 
 module Resolvers
   module User
-    class Token
+    class SignIn
       include ActiveModel::Validations
 
       validates :email, presence: true
@@ -23,7 +23,7 @@ module Resolvers
 
       def to_h
         return { errors: errors.messages } unless valid?
-        { token: token }
+        { token: token, user: user }
       end
 
       private

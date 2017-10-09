@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Resolvers::User::Token, type: :model do
+RSpec.describe Resolvers::User::SignIn, type: :model do
   subject(:resolver) { described_class.new(args) }
 
   let(:args) { { email: email, password: password } }
@@ -63,6 +63,7 @@ RSpec.describe Resolvers::User::Token, type: :model do
     context 'when the email and password are correct' do
       specify { expect(resolver.to_h[:errors]).to be_nil }
       specify { expect(resolver.to_h[:token]).not_to be_nil }
+      specify { expect(resolver.to_h[:user]).not_to be_nil }
     end
 
     context 'when it is invalid' do

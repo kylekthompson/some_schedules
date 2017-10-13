@@ -4,11 +4,10 @@ import { Grid } from 'react-bootstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import PrivateRoute from '../../components/PrivateRoute';
-import Companies from '../../scenes/Companies';
-import CompanyDashboard from '../../scenes/CompanyDashboard';
 import Flashes from '../../scenes/Flashes';
 import Header from '../../scenes/Header';
 import Home from '../../scenes/Home';
+import Schedule from '../../scenes/Schedule';
 import SignIn from '../../scenes/SignIn';
 import SignUp from '../../scenes/SignUp';
 import { IAppProps } from './types';
@@ -19,10 +18,9 @@ const App = ({ isSignedIn }: IAppProps) => (
     <Flashes />
     <Grid>
       <Switch>
-        {isSignedIn && <Redirect exact from="/" to="/companies" />}
+        {isSignedIn && <Redirect exact from="/" to="/schedule" />}
         <Route exact path="/" component={Home} />
-        <PrivateRoute exact isSignedIn={isSignedIn} path="/companies" component={Companies} />
-        <PrivateRoute exact isSignedIn={isSignedIn} path="/companies/:slug" component={CompanyDashboard} />
+        <PrivateRoute exact isSignedIn={isSignedIn} path="/schedule" component={Schedule} />
         <Route exact path="/sign-in" component={SignIn} />
         <Route exact path="/sign-up" component={SignUp} />
       </Switch>

@@ -19,6 +19,10 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 120
 
+Metrics/MethodLength:
+  Exclude:
+    - 'db/**/*'
+
 Style/BlockDelimiters:
   Exclude:
     - 'spec/**/*'

@@ -17,6 +17,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     },
     didSubmit: false,
     errors: {},
+    user: undefined,
     validations: {
       email: false,
       password: false,
@@ -24,7 +25,9 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
   };
 
   public render() {
-    if (this.props.isSignedIn) { return <Redirect to="/" />; }
+    if (this.props.isSignedIn && this.state.user) {
+      return <Redirect to={`/companies/${this.state.user.company.slug}`} />;
+    }
 
     return (
       <div>
@@ -91,9 +94,12 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
       errors: {},
     });
 
-    signIn(this.state.auth).then(({ data: { signIn: { errors, token } } }) => {
-      if (token) {
+    signIn(this.state.auth).then(({ data: { signIn: { errors, token, user } } }) => {
+      if (token && user) {
         this.props.persistSignIn(token);
+        this.setState({
+          user,
+        });
       } else if (errors) {
         this.setState({
           didSubmit: false,

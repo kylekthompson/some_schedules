@@ -7,5 +7,10 @@ FactoryGirl.define do
     email { FFaker::Internet.email }
     password { FFaker::Internet.password }
     password_confirmation { password }
+
+    trait :as_owner_of_a_company do
+      association :company
+      role :owner
+    end
   end
 end

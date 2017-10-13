@@ -18,7 +18,7 @@ module Fields
         description 'A list of companies'
         type !types[Types::Object::CompanyType]
         argument :userId, !types.ID, 'The id of the user of the companies', as: :user_id
-        argument :role, Types::Enum::CompanyUserRoleEnum, 'The role the user of the company has'
+        argument :role, Types::Enum::UserRoleEnum, 'The role the user of the company has'
         resolve Resolvers::Company::Finder
       end
     end

@@ -3,21 +3,22 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :company_users
-  has_many :companies, through: :company_users
+  belongs_to :company, dependent: :destroy, optional: true
+
+  enum role: %i[owner manager supervisor employee]
 
   before_validation :downcase_email
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
   validates :email, presence: true
   validates :email, uniqueness: true
   validates :email, format: {
     with: /\A.+@.+\..+\z/,
     message: 'must be an email address'
   }
-  validates :password, confirmation: true
-  validates :password, length: { minimum: 8 }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :password, confirmation: true, on: :create
+  validates :password, length: { minimum: 8 }, on: :create
 
   ##
   # Returns the full name of the user

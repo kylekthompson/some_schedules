@@ -15,7 +15,6 @@ module Types
       field :name, !types.String
       field :slug, !types.String
 
-      connection :companyUsers, CompanyUserType.connection_type, property: :company_users
       connection :users, UserType.connection_type
     end
   end

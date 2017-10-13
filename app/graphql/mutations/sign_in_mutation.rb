@@ -10,6 +10,8 @@ module Mutations
 
     return_field :errors, Types::Scalar::JsonBlobType
     return_field :token, types.String
-    resolve Resolvers::User::Token
+    return_field :user, Types::Object::UserType
+
+    resolve Resolvers::User::SignIn
   end
 end

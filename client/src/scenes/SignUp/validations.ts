@@ -16,12 +16,16 @@ const validatePasswordFormat = (value: string): string[] => (
     : ['must be at least 8 characters.']
 );
 
-export const asyncEmailValidation = (_value: string): Promise<string[]> => Promise.resolve([]);
+const validateSlugFormat = (value: string): string[] => (
+  /^[\w-]+$/.exec(value)
+    ? []
+    : ['must contain only letters, numbers, underscores, or hyphens.']
+);
 
+export const syncEmailValidation = (value: string): string[] => validateEmailFormat(value);
 export const syncFirstNameValidation = (value: string): string[] => validateHasCharacters(value);
 export const syncLastNameValidation = (value: string): string[] => validateHasCharacters(value);
-export const syncEmailValidation = (value: string): string[] => validateEmailFormat(value);
-export const syncPasswordValidation = (value: string): string[] => validatePasswordFormat(value);
+export const syncNameValidation = (value: string): string[] => validateHasCharacters(value);
 export const syncPasswordComfirmationValidation = (passwordValue: string) => (value: string): string[] => {
   const errors: string[] = [];
   errors.push(...validatePasswordFormat(value));
@@ -32,3 +36,5 @@ export const syncPasswordComfirmationValidation = (passwordValue: string) => (va
 
   return errors;
 };
+export const syncPasswordValidation = (value: string): string[] => validatePasswordFormat(value);
+export const syncSlugValidation = (value: string): string[] => validateSlugFormat(value);

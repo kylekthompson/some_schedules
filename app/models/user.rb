@@ -3,12 +3,14 @@
 class User < ApplicationRecord
   has_secure_password
 
-  belongs_to :company, dependent: :destroy, optional: true
+  belongs_to :company
+  has_many :shifts, dependent: :destroy
 
   enum role: %i[owner manager supervisor employee]
 
   before_validation :downcase_email
 
+  validates :company, presence: true
   validates :email, presence: true
   validates :email, uniqueness: true
   validates :email, format: {
@@ -19,6 +21,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :password, confirmation: true, on: :create
   validates :password, length: { minimum: 8 }, on: :create
+  validates :role, presence: true
 
   ##
   # Returns the full name of the user

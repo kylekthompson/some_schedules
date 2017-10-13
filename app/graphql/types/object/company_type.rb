@@ -16,6 +16,7 @@ module Types
       field :slug, !types.String
 
       connection :users, UserType.connection_type
+      connection :shifts, ShiftType.connection_type
     end
   end
 end

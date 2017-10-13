@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007194016) do
+ActiveRecord::Schema.define(version: 20171013192719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20171007194016) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "shifts", force: :cascade do |t|
+    t.datetime "end_time", null: false
+    t.datetime "start_time", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shifts_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -29,10 +38,11 @@ ActiveRecord::Schema.define(version: 20171007194016) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "company_id"
-    t.integer "role"
+    t.bigint "company_id", null: false
+    t.integer "role", null: false
     t.index ["company_id"], name: "index_users_on_company_id"
   end
 
+  add_foreign_key "shifts", "users"
   add_foreign_key "users", "companies"
 end

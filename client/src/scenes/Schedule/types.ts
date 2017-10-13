@@ -1,13 +1,13 @@
 import { IUser } from '../../services/graphql/types';
 
-export interface ICompaniesQueryResult {
+export interface IScheduleQueryResult {
   user: IUser;
 }
 
-export interface ICompaniesProps {
+export interface IScheduleProps {
   userId: number;
 }
 
-export interface ICompaniesState {
+export interface IScheduleState {
   user?: IUser;
 }

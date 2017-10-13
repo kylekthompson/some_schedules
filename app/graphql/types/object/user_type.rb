@@ -17,7 +17,7 @@ module Types
       field :lastName, !types.String, property: :last_name
       field :role, Types::Enum::UserRoleEnum
       field :company, Fields::CompanyField.field
-      field :shifts, ShiftType.connection_type
+      field :shifts, types[ShiftType]
     end
   end
 end

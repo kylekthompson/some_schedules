@@ -2,8 +2,9 @@ import * as React from 'react';
 
 import { Redirect } from 'react-router-dom';
 
-import { gql, graphql } from '../../services/graphql/helpers';
-import { ICompaniesProps, ICompaniesQueryResult, ICompaniesState } from './types';
+import Loading from '../../components/Loading';
+import { getUser } from './helpers';
+import { ICompaniesProps, ICompaniesState } from './types';
 
 class Companies extends React.PureComponent<ICompaniesProps, ICompaniesState> {
   public state: ICompaniesState = {
@@ -11,25 +12,16 @@ class Companies extends React.PureComponent<ICompaniesProps, ICompaniesState> {
   };
 
   public componentDidMount() {
-    graphql.query<ICompaniesQueryResult>({
-      query: gql`
-        query User($id: ID!) {
-          user(id: $id) {
-            company {
-              slug
-            }
-          }
-        }
-      `,
-      variables: {
-        id: this.props.userId,
-      },
-    }).then(({ data: { user } }) => {
+    getUser(this.props.userId).then(({ data: { user }, errors }) => {
       if (user) {
         this.setState({
           user,
         });
+      } else if (errors) {
+        throw new Error(errors.join('\n'));
       }
+    }).catch((_error) => {
+      // TODO: handle error
     });
   }
 
@@ -38,7 +30,7 @@ class Companies extends React.PureComponent<ICompaniesProps, ICompaniesState> {
       return <Redirect to={`/companies/${this.state.user.company.slug}`} />;
     }
 
-    return <p>loading</p>;
+    return <Loading message="Loading..." />;
   }
 }
 

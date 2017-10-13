@@ -17,6 +17,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_secure_password }
 
   it { is_expected.to belong_to(:company) }
+  it { is_expected.to have_many(:shifts) }
 
   describe '#role' do
     ROLES = %i[owner manager supervisor employee].freeze

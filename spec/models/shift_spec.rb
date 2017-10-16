@@ -8,7 +8,6 @@ RSpec.describe Shift, type: :model do
   it { is_expected.to validate_presence_of(:user) }
   it { is_expected.to validate_presence_of(:start_time) }
   it { is_expected.to validate_presence_of(:end_time) }
-  it { is_expected.to validate_presence_of(:published) }
 
   it { is_expected.to belong_to(:user) }
 end

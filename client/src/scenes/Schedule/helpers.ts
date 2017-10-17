@@ -9,6 +9,19 @@ export const getUser = (userId: number) => graphql.query<IScheduleQueryResult>({
         lastName
         company {
           name
+          users {
+            edges {
+              node {
+                firstName
+                lastName
+                shifts {
+                  endTime
+                  startTime
+                  published
+                }
+              }
+            }
+          }
         }
       }
     }

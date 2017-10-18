@@ -1,0 +1,44 @@
+import * as React from 'react';
+
+import * as moment from 'moment-timezone';
+
+import { FlexContainer } from '../../../../components/Flex';
+import { IShift, IUser } from '../../../../services/graphql/types';
+import { toMoment } from '../../helpers';
+import WeeklyCell from '../WeeklyCell';
+import WeeklyShift from '../WeeklyShift';
+import { IWeeklyRowProps } from './types';
+
+const shiftsForCurrentDay = (currentDay: moment.Moment, shifts: IShift[]) => shifts.filter((shift) =>
+  currentDay.isSame(toMoment(shift.startTime), 'day')
+);
+
+const RowColumn = ({ previousDay, user }: { previousDay: moment.Moment, user: IUser }) => {
+  const currentDay = previousDay.add(1, 'day');
+  const { shifts } = user;
+
+  return (
+    <WeeklyCell flex="1">
+      {shiftsForCurrentDay(currentDay, shifts).map((shift) => <WeeklyShift key={shift.id} shift={shift} />)}
+    </WeeklyCell>
+  );
+};
+
+const WeeklyRow = ({ startOfWeek, user }: IWeeklyRowProps) => {
+  const clonedStartOfWeek = startOfWeek.clone().subtract(1, 'day');
+
+  return (
+    <FlexContainer flexDirection="row">
+      <WeeklyCell
+        maxWidth="150px"
+        minWidth="150px"
+        flex="0"
+      >
+        <span>{user.firstName} {user.lastName}</span>
+      </WeeklyCell>
+      {moment.weekdaysShort().map((weekday) => <RowColumn key={weekday} previousDay={clonedStartOfWeek} user={user} />)}
+    </FlexContainer>
+  );
+};
+
+export default WeeklyRow;

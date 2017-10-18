@@ -8,6 +8,7 @@ export interface IEdges<NodeType> {
 
 export interface ICompany {
   createdAt: string;
+  id: string;
   name: string;
   slug: string;
   updatedAt: string;
@@ -24,6 +25,7 @@ export interface IErrors {
 export interface IShift {
   createdAt: string;
   endTime: string;
+  id: string;
   published: boolean;
   startTime: string;
   updatedAt: string;
@@ -35,6 +37,7 @@ export interface IUser {
   createdAt: string;
   email: string;
   firstName: string;
+  id: string;
   lastName: string;
   role: IUserRole;
   shifts: IShift[];

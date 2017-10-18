@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 import Loading from '../../components/Loading';
 import WeeklyCalendar from './components/WeeklyCalendar';
@@ -12,7 +12,6 @@ class Schedule extends React.PureComponent<IScheduleProps, IScheduleState> {
     currentView: ScheduleView.WEEK,
     user: undefined,
   };
-  private initialWeekNumber: number = moment().week();
 
   public componentDidMount() {
     getUser(this.props.userId).then(({ data: { user }, errors }) => {
@@ -47,14 +46,11 @@ class Schedule extends React.PureComponent<IScheduleProps, IScheduleState> {
 
     return (
       <WeeklyCalendar
-        initialWeekNumber={this.initialWeekNumber}
-        onWeekChange={this.onWeekChange}
+        startOfWeek={moment.tz(moment.tz.guess()).startOf('week')}
         users={user.company.users.edges.map((edge) => edge.node)}
       />
     );
   }
-
-  private onWeekChange = (_newWeekNumber: number) => null;
 }
 
 export default Schedule;

@@ -10,7 +10,11 @@ interface IFlexProps {
   flexShrink?: string;
   flexWrap?: string;
   justifyContent?: string;
+  maxWidth?: string;
+  minWidth?: string;
   order?: string;
+  textAlign?: string;
+  width?: string;
 }
 
 export interface IFlexChildProps extends IFlexProps {}

@@ -14,5 +14,9 @@ export default styled.div`
   ${({ flexShrink }: IFlexChildProps) => flexShrink && css`flex-shrink: ${flexShrink};` || ''}
   ${({ flexWrap }: IFlexChildProps) => flexWrap && css`flex-wrap: ${flexWrap};` || ''}
   ${({ justifyContent }: IFlexChildProps) => justifyContent && css`justify-content: ${justifyContent};` || ''}
+  ${({ maxWidth }: IFlexChildProps) => maxWidth && css`max-width: ${maxWidth};` || ''}
+  ${({ minWidth }: IFlexChildProps) => minWidth && css`min-width: ${minWidth};` || ''}
   ${({ order }: IFlexChildProps) => order && css`order: ${order};` || ''}
+  ${({ textAlign }: IFlexChildProps) => textAlign && css`text-align: ${textAlign};` || ''}
+  ${({ width }: IFlexChildProps) => width && css`width: ${width};` || ''}
 `;

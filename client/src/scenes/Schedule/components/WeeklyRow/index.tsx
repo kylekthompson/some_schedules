@@ -9,9 +9,26 @@ import WeeklyCell from '../WeeklyCell';
 import WeeklyShift from '../WeeklyShift';
 import { IWeeklyRowProps } from './types';
 
-const shiftsForCurrentDay = (currentDay: moment.Moment, shifts: IShift[]) => shifts.filter((shift) =>
+const sortedShiftsForCurrentDay = (currentDay: moment.Moment, shifts: IShift[]) => shifts.filter((shift) =>
   currentDay.isSame(toMoment(shift.startTime), 'day')
-);
+).sort((a, b) => {
+  const aStart = toMoment(a.startTime);
+  const aEnd = toMoment(a.endTime);
+  const bStart = toMoment(b.startTime);
+  const bEnd = toMoment(b.endTime);
+
+  if (aStart.isSame(bStart, 'minute')) {
+    if (aEnd.isBefore(bEnd)) {
+      return -1;
+    } else {
+      return 1;
+    }
+  } else if (aStart.isBefore(bStart, 'minute')) {
+    return -1;
+  } else {
+    return 1;
+  }
+});
 
 const RowColumn = ({ previousDay, user }: { previousDay: moment.Moment, user: IUser }) => {
   const currentDay = previousDay.add(1, 'day');
@@ -19,7 +36,7 @@ const RowColumn = ({ previousDay, user }: { previousDay: moment.Moment, user: IU
 
   return (
     <WeeklyCell flex="1">
-      {shiftsForCurrentDay(currentDay, shifts).map((shift) => <WeeklyShift key={shift.id} shift={shift} />)}
+      {sortedShiftsForCurrentDay(currentDay, shifts).map((shift) => <WeeklyShift key={shift.id} shift={shift} />)}
     </WeeklyCell>
   );
 };

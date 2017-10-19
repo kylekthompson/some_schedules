@@ -12,7 +12,7 @@ const formatTime = (time: string) => {
     ? timeMoment.format('ha')
     : timeMoment.format('h:mma');
 
-    return timeString.replace(/([ap])m/, (substring) => substring.charAt(0));
+  return timeString.replace(/([ap])m/, (substring) => substring.charAt(0));
 };
 
 const StyledChild = styled(FlexChild)`

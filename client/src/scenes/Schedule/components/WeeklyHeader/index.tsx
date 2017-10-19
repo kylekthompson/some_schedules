@@ -16,8 +16,12 @@ const HeaderColumn = ({ previousDay, weekday }: { previousDay: moment.Moment, we
   </WeeklyCell>
 );
 
+const renderWeekdays = (previousDay: moment.Moment) => moment.weekdaysShort().map((weekday) =>
+  <HeaderColumn key={weekday} previousDay={previousDay} weekday={weekday} />
+);
+
 const WeeklyHeader = ({ startOfWeek }: IWeeklyHeaderProps) => {
-  const clonedStartOfWeek = startOfWeek.clone().subtract(1, 'day');
+  const previousDay = startOfWeek.clone().subtract(1, 'day');
 
   return (
     <FlexContainer flexDirection="row" style={{ borderTop: 'solid darkgrey 1px' }}>
@@ -30,7 +34,7 @@ const WeeklyHeader = ({ startOfWeek }: IWeeklyHeaderProps) => {
       >
         Employees
       </WeeklyCell>
-      {moment.weekdaysShort().map((weekday) => <HeaderColumn key={weekday} previousDay={clonedStartOfWeek} weekday={weekday} />)}
+      {renderWeekdays(previousDay)}
     </FlexContainer>
   );
 };

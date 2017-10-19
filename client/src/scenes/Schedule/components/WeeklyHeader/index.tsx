@@ -22,10 +22,11 @@ const WeeklyHeader = ({ startOfWeek }: IWeeklyHeaderProps) => {
   return (
     <FlexContainer flexDirection="row" style={{ borderTop: 'solid darkgrey 1px' }}>
       <WeeklyCell
-        maxWidth="150px"
-        minWidth="150px"
         flex="0"
         isHeader
+        isLeftColumn
+        maxWidth="150px"
+        minWidth="150px"
       >
         Employees
       </WeeklyCell>

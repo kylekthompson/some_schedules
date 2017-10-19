@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import * as moment from 'moment-timezone';
+import styled from 'styled-components';
 
 import { FlexContainer } from '../../../../components/Flex';
 import { IShift, IUser } from '../../../../services/graphql/types';
@@ -30,6 +31,10 @@ const sortedShiftsForCurrentDay = (currentDay: moment.Moment, shifts: IShift[]) 
   }
 });
 
+const NameHolder = styled.span`
+  padding-top: 6px;
+`;
+
 const RowColumn = ({ previousDay, user }: { previousDay: moment.Moment, user: IUser }) => {
   const currentDay = previousDay.add(1, 'day');
   const { shifts } = user;
@@ -47,11 +52,12 @@ const WeeklyRow = ({ startOfWeek, user }: IWeeklyRowProps) => {
   return (
     <FlexContainer flexDirection="row">
       <WeeklyCell
+        isLeftColumn
+        flex="0"
         maxWidth="150px"
         minWidth="150px"
-        flex="0"
       >
-        <span>{user.firstName} {user.lastName}</span>
+        <NameHolder>{user.firstName} {user.lastName}</NameHolder>
       </WeeklyCell>
       {moment.weekdaysShort().map((weekday) => <RowColumn key={weekday} previousDay={clonedStartOfWeek} user={user} />)}
     </FlexContainer>

@@ -13,19 +13,21 @@ const WeeklyCell = styled(FlexContainer)`
     border-left: solid lightgrey 1px;
   }
 
+  ${({ isLeftColumn }: IWeeklyCellProps) => isLeftColumn && css`padding-left: 8px;` || ''}
   ${({ isHeader }: IWeeklyCellProps) => {
     if (isHeader) {
       return css`
-        background-color: lightgrey;
-        border-bottom: solid darkgrey 1px;
-        border-right: solid darkgrey 1px;
+        background-color: #045BA3;
+        border-bottom: solid #023864 1px;
+        border-right: solid #023864 1px;
+        color: white;
 
         :first-child {
-          border-left: solid darkgrey 1px;
+          border-left: solid #023864 1px;
         }
       `;
     } else {
-      return css``;
+      return '';
     }
   }}
 `;

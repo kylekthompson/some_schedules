@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import * as moment from 'moment-timezone';
+import styled from 'styled-components';
 
 import { FlexContainer } from '../../../../components/Flex';
 import WeeklyCell from '../WeeklyCell';
@@ -20,11 +21,15 @@ const renderWeekdays = (previousDay: moment.Moment) => moment.weekdaysShort().ma
   <HeaderColumn key={weekday} previousDay={previousDay} weekday={weekday} />
 );
 
+const HeaderContainer = styled(FlexContainer)`
+  border-top: solid #023864 1px;
+`;
+
 const WeeklyHeader = ({ startOfWeek }: IWeeklyHeaderProps) => {
   const previousDay = startOfWeek.clone().subtract(1, 'day');
 
   return (
-    <FlexContainer flexDirection="row" style={{ borderTop: 'solid darkgrey 1px' }}>
+    <HeaderContainer flexDirection="row" style={{ borderTop: 'solid darkgrey 1px' }}>
       <WeeklyCell
         flex="0"
         isHeader
@@ -35,7 +40,7 @@ const WeeklyHeader = ({ startOfWeek }: IWeeklyHeaderProps) => {
         Employees
       </WeeklyCell>
       {renderWeekdays(previousDay)}
-    </FlexContainer>
+    </HeaderContainer>
   );
 };
 

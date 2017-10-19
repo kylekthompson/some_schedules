@@ -1,12 +1,15 @@
 import * as React from 'react';
 
-import { FlexChild, FlexContainer } from '../../components/Flex';
+import * as moment from 'moment-timezone';
+
 import Loading from '../../components/Loading';
+import WeeklyCalendar from './components/WeeklyCalendar';
 import { getUser } from './helpers';
-import { IScheduleProps, IScheduleState } from './types';
+import { IScheduleProps, IScheduleState, ScheduleView } from './types';
 
 class Schedule extends React.PureComponent<IScheduleProps, IScheduleState> {
   public state: IScheduleState = {
+    currentView: ScheduleView.WEEK,
     user: undefined,
   };
 
@@ -26,18 +29,27 @@ class Schedule extends React.PureComponent<IScheduleProps, IScheduleState> {
 
   public render() {
     if (this.state.user) {
-      return (
-        <FlexContainer flexDirection="row">
-          <FlexChild flex="1">
-            <p>First Name: {this.state.user.firstName}</p>
-            <p>Last Name: {this.state.user.lastName}</p>
-            <p>Company Name: {this.state.user.company.name}</p>
-          </FlexChild>
-        </FlexContainer>
-      );
+      if (this.state.currentView === ScheduleView.WEEK) {
+        return this.renderWeekView();
+      }
+
+      // return this.renderDayView();
+      return null;
     }
 
     return <Loading message="Loading..." />;
+  }
+
+  private renderWeekView = () => {
+    const { user } = this.state;
+    if (!user) { return null; }
+
+    return (
+      <WeeklyCalendar
+        startOfWeek={moment.tz(moment.tz.guess()).startOf('week')}
+        users={user.company.users.edges.map((edge) => edge.node)}
+      />
+    );
   }
 }
 

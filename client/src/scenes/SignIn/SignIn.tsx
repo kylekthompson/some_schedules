@@ -26,7 +26,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
 
   public render() {
     if (this.props.isSignedIn && this.state.user) {
-      return <Redirect to={`/companies/${this.state.user.company.slug}`} />;
+      return <Redirect to="/schedule" />;
     }
 
     return (

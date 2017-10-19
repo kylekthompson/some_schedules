@@ -6,7 +6,6 @@ import { persistSignIn } from '../../services/store/Authentication/actionCreator
 export interface ISignUpProps {
   isSignedIn: boolean;
   persistSignIn: typeof persistSignIn;
-  shouldRedirectWhenSignedIn?: boolean;
 }
 
 export interface ISignUpState {

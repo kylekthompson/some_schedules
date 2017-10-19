@@ -12,9 +12,6 @@ import { ISignUpProps, ISignUpState } from './types';
 import * as validations from './validations';
 
 class SignUp extends React.Component<ISignUpProps, ISignUpState> {
-  public static defaultProps: Partial<ISignUpProps> = {
-    shouldRedirectWhenSignedIn: true,
-  };
   public state: ISignUpState = {
     company: {
       name: '',
@@ -47,7 +44,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
   };
 
   public render() {
-    if (this.props.isSignedIn) { return <Redirect to={`/companies/${this.state.company.slug}`} />; }
+    if (this.props.isSignedIn) { return <Redirect to="/schedule" />; }
 
     return (
       <div>

@@ -1,5 +1,5 @@
 import { Moment } from 'moment-timezone';
 
-export interface IWeeklyNavigationProps {
+export interface IHeaderProps {
   startOfWeek: Moment;
 }

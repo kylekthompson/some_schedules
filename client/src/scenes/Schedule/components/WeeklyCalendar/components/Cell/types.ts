@@ -1,4 +1,4 @@
-export interface IWeeklyCellProps {
+export interface ICellProps {
   isLeftColumn?: boolean;
   isHeader?: boolean;
 }

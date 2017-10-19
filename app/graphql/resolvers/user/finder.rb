@@ -5,7 +5,7 @@ module Resolvers
     module Finder
       class << self
         def call(_obj, args, _ctx)
-          ::User.find_by(id: args[:id]) if args[:id].present?
+          ::User.includes(company: { users: :shifts }).find_by(id: args[:id]) if args[:id].present?
         end
       end
     end

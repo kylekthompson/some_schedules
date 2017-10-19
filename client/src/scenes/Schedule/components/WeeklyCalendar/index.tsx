@@ -1,20 +1,20 @@
 import * as React from 'react';
 
 import { FlexContainer } from '../../../../components/Flex';
-import WeeklyHeader from '../WeeklyHeader';
-import WeeklyNavigation from '../WeeklyNavigation';
-import WeeklyRow from '../WeeklyRow';
+import Header from './components/Header';
+import Navigation from './components/Navigation';
+import Row from './components/Row';
 import { IWeeklyCalendarProps } from './types';
 
 const WeeklyCalendar = ({ startOfWeek, users }: IWeeklyCalendarProps) => (
   <FlexContainer flexDirection="column">
-    <WeeklyNavigation
+    <Navigation
       startOfWeek={startOfWeek}
     />
-    <WeeklyHeader
+    <Header
       startOfWeek={startOfWeek}
     />
-    {users.map((user) => <WeeklyRow key={user.id} startOfWeek={startOfWeek} user={user} />)}
+    {users.map((user) => <Row key={user.id} startOfWeek={startOfWeek} user={user} />)}
   </FlexContainer>
 );
 

@@ -3,18 +3,17 @@ import * as React from 'react';
 import * as moment from 'moment-timezone';
 import styled from 'styled-components';
 
-import { FlexContainer } from '../../../../components/Flex';
-import WeeklyCell from '../WeeklyCell';
-import { IWeeklyHeaderProps } from './types';
+import { FlexContainer } from '../../../../../../components/Flex';
+import Cell from '../Cell';
+import { IHeaderProps } from './types';
 
 const HeaderColumn = ({ previousDay, weekday }: { previousDay: moment.Moment, weekday: string }) => (
-  <WeeklyCell
-    flex="1"
+  <Cell
     isHeader
     textAlign="center"
   >
     {weekday} - {previousDay.add(1, 'day').format('MM/DD')}
-  </WeeklyCell>
+  </Cell>
 );
 
 const renderWeekdays = (previousDay: moment.Moment) => moment.weekdaysShort().map((weekday) =>
@@ -25,12 +24,12 @@ const HeaderContainer = styled(FlexContainer)`
   border-top: solid #023864 1px;
 `;
 
-const WeeklyHeader = ({ startOfWeek }: IWeeklyHeaderProps) => {
+const Header = ({ startOfWeek }: IHeaderProps) => {
   const previousDay = startOfWeek.clone().subtract(1, 'day');
 
   return (
     <HeaderContainer flexDirection="row" style={{ borderTop: 'solid darkgrey 1px' }}>
-      <WeeklyCell
+      <Cell
         flex="0"
         isHeader
         isLeftColumn
@@ -38,10 +37,10 @@ const WeeklyHeader = ({ startOfWeek }: IWeeklyHeaderProps) => {
         minWidth="150px"
       >
         Employees
-      </WeeklyCell>
+      </Cell>
       {renderWeekdays(previousDay)}
     </HeaderContainer>
   );
 };
 
-export default WeeklyHeader;
+export default Header;

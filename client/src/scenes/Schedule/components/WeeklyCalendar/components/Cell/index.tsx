@@ -1,20 +1,21 @@
 import styled, { css } from 'styled-components';
 
-import { FlexContainer } from '../../../../components/Flex';
-import { IWeeklyCellProps } from './types';
+import { FlexContainer } from '../../../../../../components/Flex';
+import { ICellProps } from './types';
 
-const WeeklyCell = styled(FlexContainer)`
+const Cell = styled(FlexContainer)`
   flex-direction: column;
   border-bottom: solid lightgrey 1px;
   border-right: solid lightgrey 1px;
   padding: 4px;
+  flex: 1;
 
   :first-child {
     border-left: solid lightgrey 1px;
   }
 
-  ${({ isLeftColumn }: IWeeklyCellProps) => isLeftColumn && css`padding-left: 8px;` || ''}
-  ${({ isHeader }: IWeeklyCellProps) => {
+  ${({ isLeftColumn }: ICellProps) => isLeftColumn && css`padding-left: 8px;` || ''}
+  ${({ isHeader }: ICellProps) => {
     if (isHeader) {
       return css`
         background-color: #045BA3;
@@ -32,4 +33,4 @@ const WeeklyCell = styled(FlexContainer)`
   }}
 `;
 
-export default WeeklyCell;
+export default Cell;

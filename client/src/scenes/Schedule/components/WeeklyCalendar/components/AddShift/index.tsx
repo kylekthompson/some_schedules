@@ -17,12 +17,12 @@ const HoverWrapper = styled.span`
 
 const StyledChild = styled(ShiftTimeWrapper)`
   cursor: pointer;
-  text-align: right;
+  text-align: center;
 `;
 
 const AddShift = ({ onClick }: IAddShiftProps) => (
   <HoverWrapper>
-    <StyledChild onClick={onClick}>+</StyledChild>
+    <StyledChild onClick={onClick}>Add a Shift</StyledChild>
   </HoverWrapper>
 );
 

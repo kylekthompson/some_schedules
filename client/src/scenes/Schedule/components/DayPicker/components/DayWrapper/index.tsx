@@ -15,13 +15,13 @@ const DayWrapper = styled(FlexChild)`
     color: white;
   }
 
-  ${({ currentDay, selectedDay }: IDayWrapperProps) =>
-    currentDay.isSame(selectedDay, 'day')
+  ${({ day, selectedDay }: IDayWrapperProps) =>
+    day.isSame(selectedDay, 'day')
       && css`background-color: #FD4B00; color: white;`
       || ''
   }
-  ${({ currentDay, selectedDay }: IDayWrapperProps) =>
-    !currentDay.isSame(selectedDay, 'month')
+  ${({ currentMonth, day }: IDayWrapperProps) =>
+    !currentMonth.isSame(day, 'month')
       && css`color: lightgrey;`
       || ''
   }

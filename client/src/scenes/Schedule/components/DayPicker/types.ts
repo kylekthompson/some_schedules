@@ -6,3 +6,7 @@ export interface IDayPickerProps {
   selectedDay: Moment;
   visible: boolean;
 }
+
+export interface IDayPickerState {
+  currentMonth: Moment;
+}

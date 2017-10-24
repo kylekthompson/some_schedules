@@ -1,7 +1,8 @@
 import { Moment } from 'moment-timezone';
 
 export interface IDayProps {
-  currentDay: Moment;
+  currentMonth: Moment;
+  day: Moment;
   onClick: () => void;
   selectedDay: Moment;
 }

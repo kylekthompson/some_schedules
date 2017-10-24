@@ -1,6 +1,7 @@
 import { Moment } from 'moment-timezone';
 
 export interface IDayWrapperProps {
-  currentDay: Moment;
+  currentMonth: Moment;
+  day: Moment;
   selectedDay: Moment;
 }

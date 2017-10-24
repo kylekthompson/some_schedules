@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import * as moment from 'moment-timezone';
 
-import { FlexChild, FlexContainer } from '../../../../../../components/Flex';
+import { FlexContainer } from '../../../../../../components/Flex';
+import Day from '../Day';
 import PickerWrapper from '../PickerWrapper';
 import { IPickerProps } from './types';
 
@@ -16,11 +17,12 @@ const Picker = ({ onDayPick, selectedDay, visible }: IPickerProps) => {
         const currentDay = iteratingDay.add(1, 'day').clone();
 
         return (
-          <FlexChild key={`${index}-${weekday}`} flex="1" onClick={onDayPick(currentDay)}>
-            <span style={currentDay.isSame(selectedDay, 'month') ? {} : { color: 'darkgrey' }}>
-              {currentDay.format('DD')}
-            </span>
-          </FlexChild>
+          <Day
+            key={`${index}-${weekday}`}
+            currentDay={currentDay}
+            onClick={onDayPick(currentDay)}
+            selectedDay={selectedDay}
+          />
         );
       })}
     </FlexContainer>

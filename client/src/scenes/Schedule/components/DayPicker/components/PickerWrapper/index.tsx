@@ -4,6 +4,7 @@ import { IPickerWrapperProps } from './types';
 
 const PickerWrapper = styled.div`
   background-color: lightgrey;
+  border-radius: 5px;
   left: 50%;
   margin-left: -100px;
   padding: 10px;

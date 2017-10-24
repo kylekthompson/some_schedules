@@ -7,7 +7,7 @@ import WeeklyCalendar from './components/WeeklyCalendar';
 import { getUser } from './helpers';
 import { IScheduleProps, IScheduleState, ScheduleView } from './types';
 
-class Schedule extends React.PureComponent<IScheduleProps, IScheduleState> {
+class Schedule extends React.Component<IScheduleProps, IScheduleState> {
   public state: IScheduleState = {
     currentView: ScheduleView.WEEK,
     selectedDay: moment.tz(moment.tz.guess()),

@@ -47,10 +47,17 @@ class Schedule extends React.PureComponent<IScheduleProps, IScheduleState> {
 
     return (
       <WeeklyCalendar
+        onDayPick={this.setSelectedDay}
         selectedDay={this.state.selectedDay}
         users={user.company.users.edges.map((edge) => edge.node)}
       />
     );
+  }
+
+  private setSelectedDay = (day: moment.Moment) => () => {
+    this.setState({
+      selectedDay: day,
+    });
   }
 }
 

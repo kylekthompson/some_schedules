@@ -10,6 +10,7 @@ class Navigation extends React.Component<INavigationProps, INavigationState> {
   };
 
   public render() {
+    const { onDayPick, selectedDay } = this.props;
     const { isDayPickerVisible } = this.state;
 
     return (
@@ -20,6 +21,8 @@ class Navigation extends React.Component<INavigationProps, INavigationState> {
         <button>&lt;</button>
         <DayPicker
           onClick={this.toggleVisibility}
+          onDayPick={onDayPick}
+          selectedDay={selectedDay}
           visible={isDayPickerVisible}
         />
         <button>&gt;</button>

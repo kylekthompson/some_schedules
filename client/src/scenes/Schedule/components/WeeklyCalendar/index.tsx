@@ -7,12 +7,13 @@ import Row from './components/Row';
 import Scroller from './components/Scroller';
 import { IWeeklyCalendarProps } from './types';
 
-const WeeklyCalendar = ({ selectedDay, users }: IWeeklyCalendarProps) => {
-  const startOfWeek = selectedDay.startOf('week');
+const WeeklyCalendar = ({ onDayPick, selectedDay, users }: IWeeklyCalendarProps) => {
+  const startOfWeek = selectedDay.clone().startOf('week');
   return (
     <FlexContainer flexDirection="column">
       <Navigation
-        startOfWeek={startOfWeek}
+        onDayPick={onDayPick}
+        selectedDay={selectedDay}
       />
       <Header
         startOfWeek={startOfWeek}

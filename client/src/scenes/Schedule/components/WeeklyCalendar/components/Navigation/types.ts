@@ -1,7 +1,8 @@
 import { Moment } from 'moment-timezone';
 
 export interface INavigationProps {
-  startOfWeek: Moment;
+  onDayPick: (dayPicked: Moment) => () => void;
+  selectedDay: Moment;
 }
 
 export interface INavigationState {

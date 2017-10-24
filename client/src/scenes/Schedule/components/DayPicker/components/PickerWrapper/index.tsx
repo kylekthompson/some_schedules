@@ -4,9 +4,9 @@ import { IPickerWrapperProps } from './types';
 
 const PickerWrapper = styled.div`
   background-color: lightgrey;
-  height: 200px;
   left: 50%;
   margin-left: -100px;
+  padding: 10px;
   position: absolute;
   text-align: center;
   top: 40px;

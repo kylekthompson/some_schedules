@@ -1,16 +1,15 @@
 import * as React from 'react';
 
-import * as moment from 'moment-timezone';
-
-import Picker from './components/Picker';
 import DayPickerWrapper from './components/DayPickerWrapper';
+import Picker from './components/Picker';
 import { IDayPickerProps } from './types';
 
-const DayPicker = ({ onClick, visible }: IDayPickerProps) => (
+const DayPicker = ({ onClick, onDayPick, selectedDay, visible }: IDayPickerProps) => (
   <DayPickerWrapper>
     <button onClick={onClick}>Calendar</button>
     <Picker
-      selectedDay={moment.tz(moment.tz.guess())}
+      onDayPick={onDayPick}
+      selectedDay={selectedDay}
       visible={visible}
     />
   </DayPickerWrapper>

@@ -18,14 +18,14 @@ class Navigation extends React.Component<INavigationProps, INavigationState> {
         alignSelf="flex-end"
         flexDirection="row"
       >
-        <button>&lt;</button>
+        <button onClick={onDayPick(selectedDay.clone().subtract(1, 'week'))}>&lt;</button>
         <DayPicker
           onClick={this.toggleVisibility}
           onDayPick={onDayPick}
           selectedDay={selectedDay}
           visible={isDayPickerVisible}
         />
-        <button>&gt;</button>
+        <button onClick={onDayPick(selectedDay.clone().add(1, 'week'))}>&gt;</button>
       </FlexContainer>
     );
   }

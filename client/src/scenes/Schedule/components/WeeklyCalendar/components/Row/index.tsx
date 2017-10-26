@@ -4,6 +4,7 @@ import * as moment from 'moment-timezone';
 import styled from 'styled-components';
 
 import { FlexContainer } from '../../../../../../components/Flex';
+import { createShift } from '../../../../../../services/graphql/mutations/createShift';
 import { IShift } from '../../../../../../services/graphql/types';
 import { toMoment } from '../../../../helpers';
 import AddShift from '../AddShift';
@@ -40,7 +41,6 @@ const RowColumn = ({ previousDay, user }: IRowColumnProps) => {
   const currentDay = previousDay.add(1, 'day');
   const { shifts } = user;
   const shiftsForToday = sortedShiftsForCurrentDay(currentDay, shifts);
-  const showModal = () => console.log('add a shift');
 
   if (shiftsForToday.length > 0) {
     return (
@@ -50,10 +50,17 @@ const RowColumn = ({ previousDay, user }: IRowColumnProps) => {
     );
   }
 
+  const endTime = currentDay.clone().hours(14).startOf('hour').format();
+  const startTime = currentDay.clone().hours(12).startOf('hour').format();
+
   return (
     <Cell>
       <AddShift
-        onClick={showModal}
+        onClick={() => createShift({
+          endTime,
+          startTime,
+          userId: user.id,
+        })}
       />
     </Cell>
   );

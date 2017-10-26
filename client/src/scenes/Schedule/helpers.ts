@@ -5,7 +5,7 @@ import { IScheduleQueryResult } from './types';
 
 export const getUser = (userId: number) => graphql.query<IScheduleQueryResult>({
   query: gql`
-    query User($id: ID!) {
+    query User($id: Int!) {
       user(id: $id) {
         firstName
         lastName

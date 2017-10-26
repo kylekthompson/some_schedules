@@ -54,7 +54,7 @@ const Picker = ({ currentMonth, onDayPick, onMonthChange, selectedDay, visible }
     <FlexContainer key="days" flex="1" flexDirection="row">
       {moment.weekdaysMin().map((weekday) => <FlexChild key={weekday} flex="1">{weekday}</FlexChild>)}
     </FlexContainer>
-  )
+  );
 
   return (
     <PickerWrapper visible={visible}>

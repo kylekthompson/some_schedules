@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { Moment } from 'moment-timezone';
 
@@ -7,21 +8,29 @@ import Picker from './components/Picker';
 import { IDayPickerProps, IDayPickerState } from './types';
 
 class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
-  public constructor(props, context) {
-    super(props, context);
+  public state: IDayPickerState= {
+    currentMonth: this.props.selectedDay.clone(),
+    visible: false,
+  };
+  private dayPicker: HTMLElement;
 
-    this.state = {
-      currentMonth: this.props.selectedDay.clone(),
-    };
+  public componentDidMount() {
+    window.addEventListener('click', this.handleOutsideClick);
+    window.addEventListener('touchend', this.handleOutsideClick);
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener('click', this.handleOutsideClick);
+    window.removeEventListener('touchend', this.handleOutsideClick);
   }
 
   public render() {
-    const { onClick, onDayPick, selectedDay, visible } = this.props;
-    const { currentMonth } = this.state;
+    const { onDayPick, selectedDay } = this.props;
+    const { currentMonth, visible } = this.state;
 
     return (
-      <DayPickerWrapper>
-        <button onClick={onClick}>Calendar</button>
+      <DayPickerWrapper ref={this.setDayPickerRef}>
+        <button onClick={this.toggleVisibility}>Calendar</button>
         <Picker
           currentMonth={currentMonth}
           onDayPick={onDayPick}
@@ -37,6 +46,25 @@ class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
     this.setState({
       currentMonth: newMonth,
     });
+  }
+
+  private handleOutsideClick = (event: MouseEvent) => {
+    const isInsideClick = ReactDOM.findDOMNode(this.dayPicker).contains(event.target as Element);
+    if (this.state.visible && !isInsideClick) {
+      this.setState({
+        visible: false,
+      });
+    }
+  }
+
+  private toggleVisibility = () => {
+    this.setState((prevState) => ({
+      visible: !prevState.visible,
+    }));
+  }
+
+  private setDayPickerRef = (ref) => {
+    this.dayPicker = ref;
   }
 }
 

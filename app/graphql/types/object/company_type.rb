@@ -6,12 +6,11 @@ module Types
       name 'Company'
       description 'The company that owns the schedule'
       interfaces [
-        GraphQL::Relay::Node.interface,
         Types::Interface::TimestampsInterface,
         Types::Interface::ErrorsInterface
       ].freeze
 
-      global_id_field :id
+      field :id, !types.Int
       field :name, !types.String
       field :slug, !types.String
 

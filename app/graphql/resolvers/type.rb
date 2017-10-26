@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Relay
-  module TypeResolver
+module Resolvers
+  module Type
     KNOWN_TYPES = %w[User Company CompanyUser].freeze
 
     class << self

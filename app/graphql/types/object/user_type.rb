@@ -6,12 +6,11 @@ module Types
       name 'User'
       description 'The user of the application'
       interfaces [
-        GraphQL::Relay::Node.interface,
         Types::Interface::TimestampsInterface,
         Types::Interface::ErrorsInterface
       ].freeze
 
-      global_id_field :id
+      field :id, !types.Int
       field :email, !types.String
       field :firstName, !types.String, property: :first_name
       field :lastName, !types.String, property: :last_name

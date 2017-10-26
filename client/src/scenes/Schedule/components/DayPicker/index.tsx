@@ -52,7 +52,7 @@ class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
     this.props.onDayPick(dayPicked)();
     this.setState({
       visible: false,
-    })
+    });
   }
 
   private handleOutsideClick = (event: MouseEvent) => {

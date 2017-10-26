@@ -25,7 +25,7 @@ class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
   }
 
   public render() {
-    const { onDayPick, selectedDay } = this.props;
+    const { selectedDay } = this.props;
     const { currentMonth, visible } = this.state;
 
     return (
@@ -33,7 +33,7 @@ class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
         <button onClick={this.toggleVisibility}>Calendar</button>
         <Picker
           currentMonth={currentMonth}
-          onDayPick={onDayPick}
+          onDayPick={this.handleDayPick}
           onMonthChange={this.onMonthChange}
           selectedDay={selectedDay}
           visible={visible}
@@ -46,6 +46,13 @@ class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
     this.setState({
       currentMonth: newMonth,
     });
+  }
+
+  private handleDayPick = (dayPicked: Moment) => () => {
+    this.props.onDayPick(dayPicked)();
+    this.setState({
+      visible: false,
+    })
   }
 
   private handleOutsideClick = (event: MouseEvent) => {

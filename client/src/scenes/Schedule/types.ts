@@ -1,3 +1,5 @@
+import { Moment } from 'moment-timezone';
+
 import { IUser } from '../../services/graphql/types';
 
 export interface IScheduleQueryResult {
@@ -15,5 +17,6 @@ export enum ScheduleView {
 
 export interface IScheduleState {
   currentView: ScheduleView;
+  selectedDay: Moment;
   user?: IUser;
 }

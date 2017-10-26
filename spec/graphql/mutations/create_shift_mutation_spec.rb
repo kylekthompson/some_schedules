@@ -7,7 +7,7 @@ RSpec.describe Mutations::CreateShiftMutation, type: :model do
 
   it { is_expected.to have_input_field(:endTime).of_type(GraphQL::STRING_TYPE) }
   it { is_expected.to have_input_field(:startTime).of_type(GraphQL::STRING_TYPE) }
-  it { is_expected.to have_input_field(:userId).of_type(GraphQL::ID_TYPE) }
+  it { is_expected.to have_input_field(:userId).of_type(GraphQL::INT_TYPE) }
 
   it { is_expected.to have_return_field(:errors).of_type(Types::Scalar::JsonBlobType) }
   it { is_expected.to have_return_field(:shift).of_type(Types::Object::ShiftType) }

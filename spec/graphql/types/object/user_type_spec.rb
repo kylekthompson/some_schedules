@@ -7,12 +7,11 @@ RSpec.describe Types::Object::UserType, type: :model do
 
   specify do
     expect(type).to have_interfaces(
-      GraphQL::Relay::Node.interface,
       Types::Interface::TimestampsInterface,
       Types::Interface::ErrorsInterface
     )
   end
-  it { is_expected.to have_field(:id).that_returns_type(GraphQL::ID_TYPE) }
+  it { is_expected.to have_field(:id).that_returns_type(GraphQL::INT_TYPE) }
   it { is_expected.to have_field(:email).that_returns_type(GraphQL::STRING_TYPE) }
   it { is_expected.to have_field(:firstName).that_returns_type(GraphQL::STRING_TYPE) }
   it { is_expected.to have_field(:lastName).that_returns_type(GraphQL::STRING_TYPE) }

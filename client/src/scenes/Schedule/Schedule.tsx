@@ -7,9 +7,10 @@ import WeeklyCalendar from './components/WeeklyCalendar';
 import { getUser } from './helpers';
 import { IScheduleProps, IScheduleState, ScheduleView } from './types';
 
-class Schedule extends React.PureComponent<IScheduleProps, IScheduleState> {
+class Schedule extends React.Component<IScheduleProps, IScheduleState> {
   public state: IScheduleState = {
     currentView: ScheduleView.WEEK,
+    selectedDay: moment.tz(moment.tz.guess()),
     user: undefined,
   };
 
@@ -46,10 +47,17 @@ class Schedule extends React.PureComponent<IScheduleProps, IScheduleState> {
 
     return (
       <WeeklyCalendar
-        startOfWeek={moment.tz(moment.tz.guess()).startOf('week')}
+        onDayPick={this.setSelectedDay}
+        selectedDay={this.state.selectedDay}
         users={user.company.users.edges.map((edge) => edge.node)}
       />
     );
+  }
+
+  private setSelectedDay = (day: moment.Moment) => () => {
+    this.setState({
+      selectedDay: day,
+    });
   }
 }
 

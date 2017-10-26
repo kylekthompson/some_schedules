@@ -7,12 +7,11 @@ RSpec.describe Types::Object::ShiftType, type: :model do
 
   specify do
     expect(type).to have_interfaces(
-      GraphQL::Relay::Node.interface,
       Types::Interface::TimestampsInterface,
       Types::Interface::ErrorsInterface
     )
   end
-  it { is_expected.to have_field(:id).that_returns_type(GraphQL::ID_TYPE) }
+  it { is_expected.to have_field(:id).that_returns_type(GraphQL::INT_TYPE) }
   it { is_expected.to have_field(:endTime).that_returns_type(GraphQL::STRING_TYPE) }
   it { is_expected.to have_field(:published).that_returns_type(GraphQL::BOOLEAN_TYPE) }
   it { is_expected.to have_field(:startTime).that_returns_type(GraphQL::STRING_TYPE) }

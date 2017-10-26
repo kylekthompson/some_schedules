@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import * as moment from 'moment-timezone';
 
-import { FlexContainer } from '../../../../../../components/Flex';
+import { FlexChild, FlexContainer } from '../../../../../../components/Flex';
 import Day from '../Day';
 import PickerWrapper from '../PickerWrapper';
 import { IPickerProps } from './types';
@@ -50,10 +50,16 @@ const Picker = ({ currentMonth, onDayPick, onMonthChange, selectedDay, visible }
     selectedDay
   ));
 
+  weekRows.unshift(
+    <FlexContainer key="days" flex="1" flexDirection="row">
+      {moment.weekdaysMin().map((weekday) => <FlexChild key={weekday} flex="1">{weekday}</FlexChild>)}
+    </FlexContainer>
+  )
+
   return (
     <PickerWrapper visible={visible}>
       <button onClick={onMonthChange(currentMonth.clone().subtract(1, 'month'))}>&lt;</button>
-      {selectedDay.format('MMMM YYYY')}
+      {currentMonth.format('MMMM YYYY')}
       <button onClick={onMonthChange(currentMonth.clone().add(1, 'month'))}>&gt;</button>
       <FlexContainer flexDirection="column">
         {weekRows}

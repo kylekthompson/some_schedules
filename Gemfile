@@ -9,6 +9,7 @@ end
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'graphql'
+gem 'graphql-batch'
 gem 'jbuilder', '~> 2.5'
 gem 'knock'
 gem 'pg', '~> 0.18'

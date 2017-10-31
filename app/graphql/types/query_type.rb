@@ -7,5 +7,6 @@ module Types
     field :company, Fields::CompanyField.field
     field :companies, Fields::CompanyField.plural_field
     field :user, Fields::UserField.field
+    field :viewer, Fields::ViewerField.field
   end
 end

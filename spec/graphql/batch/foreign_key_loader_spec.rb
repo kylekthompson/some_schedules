@@ -3,17 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Batch::ForeignKeyLoader, type: :model do
-  let(:company_one) { create(:company) }
-  let(:company_two) { create(:company) }
+  let!(:company_one) { create(:company, :with_owner) }
+  let!(:company_two) { create(:company, :with_owner) }
   let(:result) do
     GraphQL::Batch.batch do
       described_class.for(User, :company_id).load(ids)
     end
-  end
-
-  before do
-    2.times { company_one.users.create(attributes_for(:user)) }
-    2.times { company_two.users.create(attributes_for(:user)) }
   end
 
   context 'when passed a single id' do

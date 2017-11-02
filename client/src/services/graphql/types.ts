@@ -1,19 +1,11 @@
-export interface IEdge<NodeType> {
-  node: NodeType;
-};
-
-export interface IEdges<NodeType> {
-  edges: IEdge<NodeType>[];
-}
-
 export interface ICompany {
   createdAt: string;
   id: number;
   name: string;
   slug: string;
   updatedAt: string;
-  shifts: IEdges<IShift>;
-  users: IEdges<IUser>;
+  shifts: IShift[];
+  users: IUser[];
 }
 
 export type IUserRole = 'OWNER' | 'MANAGER' | 'SUPERVISOR' | 'EMPLOYEE';

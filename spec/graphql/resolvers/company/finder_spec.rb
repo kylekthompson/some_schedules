@@ -5,8 +5,12 @@ require 'rails_helper'
 RSpec.describe Resolvers::Company::Finder, type: :model do
   subject(:resolver) { described_class }
 
+  let(:result) do
+    GraphQL::Batch.batch do
+      resolver.call(obj, args, ctx)
+    end
+  end
   let(:company) { create(:company) }
-  let(:result) { resolver.call(obj, args, ctx) }
   let(:obj) { nil }
   let(:args) { nil }
   let(:ctx) { nil }

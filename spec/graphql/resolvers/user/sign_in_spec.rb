@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::User::SignIn, type: :model do
-  subject(:resolver) { described_class.new(args) }
+  subject(:resolver) { described_class.new(arguments) }
 
-  let(:args) { { email: email, password: password } }
+  let(:arguments) { { email: email, password: password } }
   let(:user) { create(:user, password: actual_password, password_confirmation: actual_password) }
   let(:actual_password) { 'password' }
   let(:password) { actual_password }

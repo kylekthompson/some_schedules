@@ -7,16 +7,16 @@ RSpec.describe Resolvers::User::Finder, type: :model do
 
   let(:result) do
     GraphQL::Batch.batch do
-      resolver.call(obj, args, ctx)
+      resolver.call(object, arguments, context)
     end
   end
   let(:user) { create(:user) }
-  let(:obj) { nil }
-  let(:args) { nil }
-  let(:ctx) { nil }
+  let(:object) { nil }
+  let(:arguments) { nil }
+  let(:context) { nil }
 
   context 'when passed an id' do
-    let(:args) { { id: id } }
+    let(:arguments) { { id: id } }
     let(:id) { user.id }
 
     specify { expect(result).to eq(user) }

@@ -6,7 +6,7 @@ module Types
       name 'JsonBlob'
       description 'A generic JSON blob'
 
-      coerce_result ->(value, _ctx) { value }
+      coerce_result ->(value, _context) { value }
     end
   end
 end

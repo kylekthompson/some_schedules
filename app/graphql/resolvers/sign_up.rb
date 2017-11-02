@@ -10,14 +10,14 @@ module Resolvers
 
     attr_accessor :company, :company_params, :current_user, :user, :user_params
 
-    def self.call(_obj, args, ctx)
-      new(args.to_h.with_indifferent_access.merge(current_user: ctx[:current_user])).to_h
+    def self.call(_object, arguments, context)
+      new(arguments.to_h.with_indifferent_access.merge(current_user: context[:current_user])).to_h
     end
 
-    def initialize(args)
-      @company_params = company_params_from_args(args)
-      @user_params = user_params_from_args(args)
-      @current_user = args[:current_user]
+    def initialize(arguments)
+      @company_params = company_params_from_arguments(arguments)
+      @user_params = user_params_from_arguments(arguments)
+      @current_user = arguments[:current_user]
     end
 
     def to_h
@@ -51,15 +51,15 @@ module Resolvers
       errors.add(:user, 'must not be signed in') if current_user.present?
     end
 
-    def company_params_from_args(args)
-      ActionController::Parameters.new(args.to_h).require(:company).permit(
+    def company_params_from_arguments(arguments)
+      ActionController::Parameters.new(arguments.to_h).require(:company).permit(
         :name,
         :slug
       )
     end
 
-    def user_params_from_args(args)
-      ActionController::Parameters.new(args.to_h).require(:user).permit(
+    def user_params_from_arguments(arguments)
+      ActionController::Parameters.new(arguments.to_h).require(:user).permit(
         :first_name,
         :last_name,
         :email,

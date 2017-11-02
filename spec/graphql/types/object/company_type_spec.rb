@@ -14,6 +14,6 @@ RSpec.describe Types::Object::CompanyType, type: :model do
   it { is_expected.to have_field(:id).that_returns_type(GraphQL::INT_TYPE) }
   it { is_expected.to have_field(:name).that_returns_type(GraphQL::STRING_TYPE) }
   it { is_expected.to have_field(:slug).that_returns_type(GraphQL::STRING_TYPE) }
-  it { is_expected.to have_field(:users).that_returns_type(Types::Object::UserType.connection_type) }
-  it { is_expected.to have_field(:shifts).that_returns_type(Types::Object::ShiftType.connection_type) }
+  it { is_expected.to have_field(:users).that_returns_type(Types::Object::UserType) }
+  it { is_expected.to have_field(:shifts).that_returns_type(Types::Object::ShiftType) }
 end

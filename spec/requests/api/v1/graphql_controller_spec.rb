@@ -21,18 +21,10 @@ RSpec.describe Api::V1::GraphqlController, type: :request do
           company(slug: "#{user.company.slug}") {
             id
             shifts {
-              edges {
-                node {
-                  id
-                }
-              }
+              id
             }
             users {
-              edges {
-                node {
-                  id
-                }
-              }
+              id
             }
           }
         }

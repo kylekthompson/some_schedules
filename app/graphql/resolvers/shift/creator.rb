@@ -9,14 +9,14 @@ module Resolvers
 
       attr_accessor :end_time, :shift, :start_time, :user
 
-      def self.call(_obj, args, _ctx)
-        new(args).to_h
+      def self.call(_object, arguments, _context)
+        new(arguments).to_h
       end
 
-      def initialize(args)
-        @end_time = args[:end_time]
-        @start_time = args[:start_time]
-        @user = ::User.find_by(id: args[:user_id])
+      def initialize(arguments)
+        @end_time = arguments[:end_time]
+        @start_time = arguments[:start_time]
+        @user = ::User.find_by(id: arguments[:user_id])
       end
 
       def to_h

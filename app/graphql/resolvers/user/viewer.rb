@@ -4,8 +4,8 @@ module Resolvers
   module User
     module Viewer
       class << self
-        def call(_obj, _args, ctx)
-          ctx[:current_user]
+        def call(_object, _arguments, context)
+          context[:current_user]
         end
       end
     end

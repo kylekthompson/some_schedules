@@ -10,12 +10,11 @@ module Types
         Types::Interface::ErrorsInterface
       ].freeze
 
-      field :id, !types.Int
-      field :name, !types.String
-      field :slug, !types.String
-
-      connection :users, UserType.connection_type
-      connection :shifts, ShiftType.connection_type
+      field :id, types.Int
+      field :name, types.String
+      field :slug, types.String
+      field :users, Fields::Company::UsersField.field
+      field :shifts, Fields::Company::ShiftsField.field
     end
   end
 end

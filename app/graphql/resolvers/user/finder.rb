@@ -4,8 +4,8 @@ module Resolvers
   module User
     module Finder
       class << self
-        def call(_obj, args, _ctx)
-          Batch::RecordLoader.for(::User).load(args[:id]) if args[:id].present?
+        def call(_object, arguments, _context)
+          Batch::RecordLoader.for(::User).load(arguments[:id]) if arguments[:id].present?
         end
       end
     end

@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::SignUp, type: :model do
-  subject(:resolver) { described_class.new(args) }
+  subject(:resolver) { described_class.new(arguments) }
 
   let(:company_attributes) { attributes_for(:company) }
   let(:user_attributes) { attributes_for(:user) }
   let(:current_user) { nil }
-  let(:args) do
+  let(:arguments) do
     {
       company: company_attributes,
       user: user_attributes,

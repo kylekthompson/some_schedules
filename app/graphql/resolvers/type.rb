@@ -5,15 +5,15 @@ module Resolvers
     KNOWN_TYPES = %w[User Company CompanyUser].freeze
 
     class << self
-      def call(_type, obj, _ctx)
-        raise_unknown_type(obj) unless KNOWN_TYPES.include?(obj.class.name)
-        Types::Object.const_get("#{obj.class.name}Type")
+      def call(_type, object, _context)
+        raise_unknown_type(object) unless KNOWN_TYPES.include?(object.class.name)
+        Types::Object.const_get("#{object.class.name}Type")
       end
 
       private
 
-      def raise_unknown_type(obj)
-        raise ArgumentError, "Don't know how to get the GraphQL type of a #{obj.class.name} (#{obj.inspect})"
+      def raise_unknown_type(object)
+        raise ArgumentError, "Don't know how to get the GraphQL type of a #{object.class.name} (#{object.inspect})"
       end
     end
   end

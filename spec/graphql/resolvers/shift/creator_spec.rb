@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Resolvers::Shift::Creator, type: :model do
-  subject(:resolver) { described_class.new(args) }
+  subject(:resolver) { described_class.new(arguments) }
 
-  let(:args) { attributes_for(:shift).merge(user_id: user_id) }
+  let(:arguments) { attributes_for(:shift).merge(user_id: user_id) }
   let(:user_id) { create(:user).id }
 
   describe '.call' do

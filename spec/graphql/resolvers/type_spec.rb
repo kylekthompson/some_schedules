@@ -7,7 +7,7 @@ RSpec.describe Resolvers::Type, type: :model do
 
   let(:user) { build(:user) }
 
-  it 'raises when passed an unknown objectect' do
+  it 'raises when passed an unknown object' do
     expect { described_class.call(nil, 1, nil) }.to raise_error(ArgumentError)
   end
 

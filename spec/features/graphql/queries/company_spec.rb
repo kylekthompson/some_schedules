@@ -2,13 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe 'query { user }' do
+RSpec.describe 'query { company }' do
   subject(:query) do
     <<~GRAPHQL
       query {
-        user(id: #{id}) {
+        company(slug: "#{slug}") {
           id
-          company {
+          slug
+          users {
             id
           }
           shifts {
@@ -26,27 +27,28 @@ RSpec.describe 'query { user }' do
       context: context
     ).with_indifferent_access[:data]
   end
-  let(:variables) { {} }
+  let(:variables) { { slug: slug } }
   let(:context) { { current_user: current_user } }
-  let(:current_user) { create(:user) }
-  let(:user) { create(:user) }
+  let(:current_user) { nil }
+  let(:company) { create(:company) }
 
   context 'when there is a current user' do
-    let(:id) { user.id }
+    let(:current_user) { create(:user) }
+    let(:slug) { company.slug }
 
-    specify { expect(result[:user][:id]).to eq(id) }
+    specify { expect(result[:company][:slug]).to eq(slug) }
 
-    context 'but there is no user for the provided id' do
-      let(:id) { (User.last&.id || 0) + 1000 }
+    context 'but there is no company for the provided slug' do
+      let(:slug) { super() + '-does-not-exist' }
 
-      specify { expect(result[:user]).to be_nil }
+      specify { expect(result[:company]).to be_nil }
     end
   end
 
   context 'when there is not a current user' do
     let(:current_user) { nil }
-    let(:id) { user.id }
+    let(:slug) { company.slug }
 
-    specify { expect(result[:user]).to be_nil }
+    specify { expect(result[:company]).to be_nil }
   end
 end

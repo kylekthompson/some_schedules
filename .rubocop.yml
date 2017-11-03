@@ -3,29 +3,33 @@ require: rubocop-rspec
 AllCops:
   TargetRubyVersion: '2.4'
   Exclude:
-    - 'db/schema.rb'
-    - 'bin/**/*'
-    - 'config/**/*'
-    - 'log/**/*'
-    - 'node_modules/**/*'
-    - 'public/**/*'
-    - 'tmp/**/*'
-    - 'vendor/**/*'
+    - db/schema.rb
+    - bin/**/*
+    - config/**/*
+    - log/**/*
+    - node_modules/**/*
+    - public/**/*
+    - tmp/**/*
+    - vendor/**/*
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
 Metrics/LineLength:
   Max: 120
 
 Metrics/MethodLength:
   Exclude:
-    - 'db/**/*'
+    - db/**/*
+
+RSpec/DescribeClass:
+  Exclude:
+    - spec/features/**/*
 
 Style/BlockDelimiters:
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
 Style/Documentation:
   Enabled: false

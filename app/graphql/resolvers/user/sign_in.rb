@@ -11,14 +11,14 @@ module Resolvers
 
       attr_accessor :email, :user, :password
 
-      def self.call(_obj, args, _ctx)
-        new(args).to_h
+      def self.call(_object, arguments, _context)
+        new(arguments).to_h
       end
 
-      def initialize(args)
-        @email = args[:email]
+      def initialize(arguments)
+        @email = arguments[:email]
         @user = ::User.find_by(email: email)
-        @password = args[:password]
+        @password = arguments[:password]
       end
 
       def to_h

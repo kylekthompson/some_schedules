@@ -4,4 +4,5 @@ SomeSchedulesSchema = GraphQL::Schema.define do
   mutation Types::MutationType
   query Types::QueryType
   resolve_type Resolvers::Type
+  use GraphQL::Batch
 end

@@ -49,7 +49,7 @@ class Schedule extends React.Component<IScheduleProps, IScheduleState> {
       <WeeklyCalendar
         onDayPick={this.setSelectedDay}
         selectedDay={this.state.selectedDay}
-        users={user.company.users.edges.map((edge) => edge.node)}
+        users={user.company.users}
       />
     );
   }

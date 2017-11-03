@@ -8,4 +8,5 @@ RSpec.describe Types::QueryType, type: :model do
   it { is_expected.to have_field(:company).that_returns_type(Types::Object::CompanyType) }
   it { is_expected.to have_field(:companies).that_returns_type(Types::Object::CompanyType) }
   it { is_expected.to have_field(:user).that_returns_type(Types::Object::UserType) }
+  it { is_expected.to have_field(:viewer).that_returns_type(Types::Object::UserType) }
 end

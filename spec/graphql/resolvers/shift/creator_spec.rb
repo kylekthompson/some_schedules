@@ -6,23 +6,37 @@ RSpec.describe Resolvers::Shift::Creator, type: :model do
   subject(:resolver) { described_class.new(arguments) }
 
   let(:arguments) { attributes_for(:shift).merge(user_id: user_id) }
-  let(:user_id) { create(:user).id }
+  let(:user) { create(:user) }
+  let(:user_id) { user.id }
 
   describe '.call' do
     let(:token_resolver) { instance_double(described_class, to_h: nil) }
+    let(:object) { nil }
+    let(:arguments) { nil }
+    let(:context) { { current_user: current_user } }
 
     before do
       allow(described_class).to receive(:new).and_return(token_resolver)
     end
 
-    specify do
-      described_class.call(nil, nil, nil)
-      expect(described_class).to have_received(:new)
+    context 'when there is a current user' do
+      let(:current_user) { user }
+
+      specify do
+        described_class.call(object, arguments, context)
+        expect(described_class).to have_received(:new)
+      end
+
+      specify do
+        described_class.call(object, arguments, context)
+        expect(token_resolver).to have_received(:to_h)
+      end
     end
 
-    specify do
-      described_class.call(nil, nil, nil)
-      expect(token_resolver).to have_received(:to_h)
+    context 'when there is no current user' do
+      let(:current_user) { nil }
+
+      specify { expect { described_class.call(object, arguments, context) }.to raise_error(GraphQL::ExecutionError) }
     end
   end
 

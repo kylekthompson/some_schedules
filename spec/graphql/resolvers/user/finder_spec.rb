@@ -35,6 +35,6 @@ RSpec.describe Resolvers::User::Finder, type: :model do
     let(:current_user) { nil }
     let(:id) { user.id }
 
-    specify { expect(result).to be_nil }
+    specify { expect { result }.to raise_error(GraphQL::ExecutionError) }
   end
 end

@@ -5,7 +5,7 @@ module Resolvers
     module Finder
       class << self
         def call(_object, arguments, context)
-          return unless context[:current_user].present?
+          raise GraphQL::ExecutionError, 'Authentication required.' unless context[:current_user].present?
           Batch::RecordLoader.for(::User).load(arguments[:id]) if arguments[:id].present?
         end
       end

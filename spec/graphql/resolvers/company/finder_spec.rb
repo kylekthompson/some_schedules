@@ -43,6 +43,6 @@ RSpec.describe Resolvers::Company::Finder, type: :model do
     let(:slug) { company.slug }
     let(:arguments) { { slug: slug } }
 
-    specify { expect(result).to be_nil }
+    specify { expect { result }.to raise_error(GraphQL::ExecutionError) }
   end
 end

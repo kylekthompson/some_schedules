@@ -20,7 +20,7 @@ RSpec.describe 'mutation { signIn }' do
   let(:execution_result) do
     SomeSchedulesSchema.execute(
       mutation,
-      variables: variables.with_indifferent_access,
+      variables: deep_camelize_keys(variables.with_indifferent_access),
       context: context
     ).with_indifferent_access
   end

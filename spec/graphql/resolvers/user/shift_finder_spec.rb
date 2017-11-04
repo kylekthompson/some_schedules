@@ -13,13 +13,23 @@ RSpec.describe Resolvers::User::ShiftFinder, type: :model do
   let(:user) { create(:user) }
   let!(:shift) { user.shifts.create(attributes_for(:shift)) }
   let(:arguments) { nil }
-  let(:context) { nil }
+  let(:context) { { current_user: current_user } }
 
   before do
     create(:user).shifts.create(attributes_for(:shift))
   end
 
-  it 'finds the shifts for a company' do
-    expect(result).to contain_exactly(shift)
+  context 'when there is a current user' do
+    let(:current_user) { user }
+
+    it 'finds the shifts for a user' do
+      expect(result).to contain_exactly(shift)
+    end
+  end
+
+  context 'when there is not a current user' do
+    let(:current_user) { nil }
+
+    specify { expect { result }.to raise_error(GraphQL::ExecutionError) }
   end
 end

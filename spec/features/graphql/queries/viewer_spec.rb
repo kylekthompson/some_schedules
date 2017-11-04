@@ -16,7 +16,7 @@ RSpec.describe 'query { viewer }' do
   let(:result) do
     SomeSchedulesSchema.execute(
       query,
-      variables: variables,
+      variables: deep_camelize_keys(variables.with_indifferent_access),
       context: context
     ).with_indifferent_access[:data]
   end

@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe 'query { company }' do
   subject(:query) do
     <<~GRAPHQL
-      query {
-        company(slug: "#{slug}") {
+      query Company($slug: String!) {
+        company(slug: $slug) {
           slug
         }
       }
@@ -16,7 +16,7 @@ RSpec.describe 'query { company }' do
   let(:execution_result) do
     SomeSchedulesSchema.execute(
       query,
-      variables: variables,
+      variables: deep_camelize_keys(variables.with_indifferent_access),
       context: context
     ).with_indifferent_access
   end
@@ -64,8 +64,8 @@ RSpec.describe 'query { company }' do
   describe 'querying for just the company and its relations' do
     subject(:query) do
       <<~GRAPHQL
-        query {
-          company(slug: "#{slug}") {
+        query Company($slug: String!) {
+          company(slug: $slug) {
             slug
             users {
               id

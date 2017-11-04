@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe 'query { user }' do
   subject(:query) do
     <<~GRAPHQL
-      query {
-        user(id: #{id}) {
+      query User($id: Int!) {
+        user(id: $id) {
           id
         }
       }
@@ -16,7 +16,7 @@ RSpec.describe 'query { user }' do
   let(:execution_result) do
     SomeSchedulesSchema.execute(
       query,
-      variables: variables,
+      variables: variables.with_indifferent_access,
       context: context
     ).with_indifferent_access
   end
@@ -64,8 +64,8 @@ RSpec.describe 'query { user }' do
   describe 'querying for just the user and its relations' do
     subject(:query) do
       <<~GRAPHQL
-        query {
-          user(id: #{id}) {
+        query User($id: Int!) {
+          user(id: $id) {
             id
             company {
               id

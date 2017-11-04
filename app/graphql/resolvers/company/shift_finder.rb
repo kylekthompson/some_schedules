@@ -5,7 +5,7 @@ module Resolvers
     module ShiftFinder
       class << self
         def call(company, _arguments, context)
-          raise GraphQL::ExecutionError, 'Authentication required.' unless context[:current_user].present?
+          Resolvers.require_authentication!(context)
           Batch::ForeignKeyLoader.for(::User, :company_id).load(company.id).then do |users|
             Batch::ForeignKeyLoader.for(::Shift, :user_id).load(users.pluck(:id))
           end

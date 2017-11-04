@@ -10,7 +10,7 @@ module Resolvers
       attr_accessor :end_time, :shift, :start_time, :user
 
       def self.call(_object, arguments, context)
-        raise GraphQL::ExecutionError, 'Authentication required.' unless context[:current_user].present?
+        Resolvers.require_authentication!(context)
         new(arguments).to_h
       end
 

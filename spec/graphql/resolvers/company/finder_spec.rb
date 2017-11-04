@@ -18,17 +18,17 @@ RSpec.describe Resolvers::Company::Finder, type: :model do
   context 'when there is a current user' do
     let(:current_user) { create(:user) }
 
-    context 'when passed a slug' do
+    context 'and the slug of a company that exists was passed' do
       let(:arguments) { { slug: slug } }
       let(:slug) { company.slug }
 
       specify { expect(result).to eq(company) }
+    end
 
-      context 'but the slug does not exist' do
-        let(:slug) { super() + '-does-not-exist' }
+    context 'and the slug of a company that does not exist was passed' do
+      let(:arguments) { { slug: 'does-not-exist' } }
 
-        specify { expect(result).to be_nil }
-      end
+      specify { expect(result).to be_nil }
     end
 
     context 'when the object has a company method' do

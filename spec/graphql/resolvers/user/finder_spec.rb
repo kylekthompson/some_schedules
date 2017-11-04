@@ -18,16 +18,16 @@ RSpec.describe Resolvers::User::Finder, type: :model do
   context 'when there is a current user' do
     let(:current_user) { user }
 
-    context 'when passed an id' do
+    context 'and the id of a user that exists is passed' do
       let(:id) { user.id }
 
       specify { expect(result).to eq(user) }
+    end
 
-      context 'but the id does not exist' do
-        let(:id) { (User.last&.id || 0) + 1000 }
+    context 'and the id of a user that does not exist is passed' do
+      let(:id) { (User.last&.id || 0) + 1000 }
 
-        specify { expect(result).to be_nil }
-      end
+      specify { expect(result).to be_nil }
     end
   end
 

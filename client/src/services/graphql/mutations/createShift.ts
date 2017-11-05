@@ -26,6 +26,9 @@ export const createShift = (
           endTime
           startTime
           published
+          user {
+            id
+          }
         }
       }
     }

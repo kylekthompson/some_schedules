@@ -4,21 +4,21 @@ import * as moment from 'moment-timezone';
 
 import Loading from '../../components/Loading';
 import WeeklyCalendar from './components/WeeklyCalendar';
-import { getUser } from './helpers';
-import { IScheduleProps, IScheduleState, ScheduleView } from './types';
+import { getViewer } from './helpers';
+import { IScheduleState, ScheduleView } from './types';
 
-class Schedule extends React.Component<IScheduleProps, IScheduleState> {
+class Schedule extends React.Component<{}, IScheduleState> {
   public state: IScheduleState = {
     currentView: ScheduleView.WEEK,
     selectedDay: moment.tz(moment.tz.guess()),
-    user: undefined,
+    viewer: undefined,
   };
 
   public componentDidMount() {
-    getUser(this.props.userId).then(({ data: { user }, errors }) => {
-      if (user) {
+    getViewer().then(({ data: { viewer }, errors }) => {
+      if (viewer) {
         this.setState({
-          user,
+          viewer,
         });
       } else if (errors) {
         throw new Error(errors.join('\n'));
@@ -29,7 +29,7 @@ class Schedule extends React.Component<IScheduleProps, IScheduleState> {
   }
 
   public render() {
-    if (this.state.user) {
+    if (this.state.viewer) {
       if (this.state.currentView === ScheduleView.WEEK) {
         return this.renderWeekView();
       }
@@ -42,14 +42,14 @@ class Schedule extends React.Component<IScheduleProps, IScheduleState> {
   }
 
   private renderWeekView = () => {
-    const { user } = this.state;
-    if (!user) { return null; }
+    const { viewer } = this.state;
+    if (!viewer) { return null; }
 
     return (
       <WeeklyCalendar
         onDayPick={this.setSelectedDay}
         selectedDay={this.state.selectedDay}
-        users={user.company.users}
+        users={viewer.company.users}
       />
     );
   }

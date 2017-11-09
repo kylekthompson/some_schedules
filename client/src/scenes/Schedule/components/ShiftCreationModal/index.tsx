@@ -130,6 +130,8 @@ class ShiftCreationModal extends React.Component<IShiftCreationModalProps, IShif
 
   private handleTimesInputChange = (event: React.FormEvent<HTMLInputElement>) => {
     this.setState({
+      endTime: undefined,
+      startTime: undefined,
       timesInput: event.currentTarget.value,
     });
   }

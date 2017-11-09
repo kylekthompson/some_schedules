@@ -64,14 +64,7 @@ class Schedule extends React.Component<{}, IScheduleState> {
           shifts={viewer.company.shifts}
           users={sortedUsers}
         />
-        {this.state.shiftCreationModal.visible && <ShiftCreationModal
-          day={this.state.shiftCreationModal.day}
-          dismissModal={() => this.setState((prevState) => ({ ...prevState, shiftCreationModal: { visible: false } }))}
-          onAddShift={this.handleAddShift}
-          user={sortedUsers.find((user) => user.id === this.state.shiftCreationModal.userId) as IUser}
-          x={this.state.shiftCreationModal.x}
-          y={this.state.shiftCreationModal.y}
-        />}
+        {this.renderShiftCreationModal(sortedUsers)}
       </div>
     );
   }
@@ -82,7 +75,24 @@ class Schedule extends React.Component<{}, IScheduleState> {
     });
   }
 
-  private toggleShiftCreationModal = (userId: number, day: moment.Moment) => (event: React.MouseEvent<HTMLDivElement>) => {
+  private renderShiftCreationModal = (sortedUsers: IUser[]) => {
+    if (!this.state.shiftCreationModal.visible) { return null; }
+    return (
+      <ShiftCreationModal
+        day={this.state.shiftCreationModal.day}
+        dismissModal={this.dismissModal}
+        onAddShift={this.handleAddShift}
+        user={sortedUsers.find((user) => user.id === this.state.shiftCreationModal.userId) as IUser}
+        x={this.state.shiftCreationModal.x}
+        y={this.state.shiftCreationModal.y}
+      />
+    );
+  }
+
+  private toggleShiftCreationModal = (
+    userId: number,
+    day: moment.Moment
+  ) => (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     this.setState({
       shiftCreationModal: {
@@ -97,6 +107,15 @@ class Schedule extends React.Component<{}, IScheduleState> {
 
   private handleAddShift = (shift: IShift) => {
     this.setState((prevState) => addShiftToState(prevState, shift));
+  }
+
+  private dismissModal = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      shiftCreationModal: {
+        visible: false,
+      },
+    }));
   }
 }
 

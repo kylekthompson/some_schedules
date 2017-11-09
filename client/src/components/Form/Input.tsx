@@ -8,7 +8,7 @@ import * as InputGroup from 'react-bootstrap/lib/InputGroup';
 
 import { IInputProps, IInputState } from './types';
 
-class Form extends React.Component<IInputProps, IInputState> {
+class Input extends React.Component<IInputProps, IInputState> {
   public state: IInputState = {
     asyncValidationErrors: [],
     isPristine: true,
@@ -186,4 +186,4 @@ class Form extends React.Component<IInputProps, IInputState> {
   }
 }
 
-export default Form;
+export default Input;

@@ -3,7 +3,8 @@ import * as React from 'react';
 import * as moment from 'moment-timezone';
 
 import Loading from '../../components/Loading';
-import { createShift } from '../../services/graphql/mutations/createShift';
+import { IShift, IUser } from '../../services/graphql/types';
+import ShiftCreationModal from './components/ShiftCreationModal';
 import WeeklyCalendar from './components/WeeklyCalendar';
 import { addShiftToState, getViewer } from './helpers';
 import { IScheduleState, ScheduleView } from './types';
@@ -12,6 +13,11 @@ class Schedule extends React.Component<{}, IScheduleState> {
   public state: IScheduleState = {
     currentView: ScheduleView.WEEK,
     selectedDay: moment.tz(moment.tz.guess()),
+    shiftCreationModal: {
+      day: moment.tz(moment.tz.guess()),
+      userId: 0,
+      visible: false,
+    },
     viewer: undefined,
   };
 
@@ -48,13 +54,21 @@ class Schedule extends React.Component<{}, IScheduleState> {
 
     const sortedUsers = [...viewer.company.users].sort((userA, userB) => userA.id - userB.id);
     return (
-      <WeeklyCalendar
-        onAddShift={this.handleAddShift}
-        onDayPick={this.setSelectedDay}
-        selectedDay={selectedDay}
-        shifts={viewer.company.shifts}
-        users={sortedUsers}
-      />
+      <div>
+        <WeeklyCalendar
+          onAddShift={this.toggleShiftCreationModal}
+          onDayPick={this.setSelectedDay}
+          selectedDay={selectedDay}
+          shifts={viewer.company.shifts}
+          users={sortedUsers}
+        />
+        {this.state.shiftCreationModal.visible && <ShiftCreationModal
+          day={this.state.shiftCreationModal.day}
+          dismissModal={() => this.setState((prevState) => ({ ...prevState, shiftCreationModal: { visible: false } }))}
+          onAddShift={this.handleAddShift}
+          user={sortedUsers.find((user) => user.id === this.state.shiftCreationModal.userId) as IUser}
+        />}
+      </div>
     );
   }
 
@@ -64,16 +78,18 @@ class Schedule extends React.Component<{}, IScheduleState> {
     });
   }
 
-  private handleAddShift = (userId: number, date: moment.Moment) => () => {
-    createShift({
-      endTime: date.clone().hours(14).startOf('hour').format(),
-      startTime: date.clone().hours(12).startOf('hour').format(),
-      userId,
-    }).then(({ data: { createShift: { shift} } }) => {
-      if (shift) {
-        this.setState((prevState) => addShiftToState(prevState, shift));
-      }
+  private toggleShiftCreationModal = (userId: number, day: moment.Moment) => () => {
+    this.setState({
+      shiftCreationModal: {
+        day,
+        userId,
+        visible: true,
+      },
     });
+  }
+
+  private handleAddShift = (shift: IShift) => () => {
+    this.setState((prevState) => addShiftToState(prevState, shift));
   }
 }
 

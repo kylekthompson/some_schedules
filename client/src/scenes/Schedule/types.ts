@@ -14,5 +14,10 @@ export enum ScheduleView {
 export interface IScheduleState {
   currentView: ScheduleView;
   selectedDay: Moment;
+  shiftCreationModal: {
+    day: Moment;
+    userId: number;
+    visible: boolean;
+  };
   viewer?: IUser;
 }

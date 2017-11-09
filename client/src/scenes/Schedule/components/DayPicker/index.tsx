@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 
 import { Moment } from 'moment-timezone';
 
@@ -56,7 +56,7 @@ class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
   }
 
   private handleOutsideClick = (event: MouseEvent) => {
-    const isInsideClick = ReactDOM.findDOMNode(this.dayPicker).contains(event.target as Element);
+    const isInsideClick = findDOMNode(this.dayPicker).contains(event.target as Element);
     if (this.state.visible && !isInsideClick) {
       this.setState({
         visible: false,

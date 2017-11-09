@@ -32,7 +32,8 @@ export const ShiftTimeWrapper = styled(FlexChild)`
 
 const Shift = ({ shift }: IShiftProps) => (
   <ShiftTimeWrapper isPublished={shift.published}>
-    <span>{formatTime(shift.startTime)} - {formatTime(shift.endTime)}</span>
+    <p style={{ lineHeight: '1', margin: '0' }}>{formatTime(shift.startTime)} - {formatTime(shift.endTime)}</p>
+    <p style={{ lineHeight: '1', margin: '0', marginTop: '2px', fontSize: '10px' }}>@ Location Z</p>
   </ShiftTimeWrapper>
 );
 

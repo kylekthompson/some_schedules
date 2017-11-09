@@ -18,6 +18,8 @@ export interface IScheduleState {
     day: Moment;
     userId: number;
     visible: boolean;
+    x: number;
+    y: number;
   };
   viewer?: IUser;
 }

@@ -5,13 +5,15 @@ import { IShift, IUser } from '../../../../services/graphql/types';
 export interface IShiftCreationModalProps {
   day: Moment;
   dismissModal: () => void;
-  onAddShift: (shift: IShift) => () => void;
+  onAddShift: (shift: IShift) => void;
   user: IUser;
+  x: number;
+  y: number;
 }
 
 export interface IShiftCreationModalState {
-  endTime: Moment;
+  endTime?: Moment;
   showParsedTimes: boolean;
-  startTime: Moment;
+  startTime?: Moment;
   timesInput: string;
 }

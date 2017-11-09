@@ -14,7 +14,7 @@ const shiftsForUser = (shifts: IShift[], user: IUser) => shifts.filter((shift) =
 const renderUserRow = (
   user: IUser,
   shifts: IShift[],
-  onAddShift: (userId: number, date: Moment) => () => void,
+  onAddShift: (userId: number, date: Moment) => (event: React.MouseEvent<HTMLDivElement>) => void,
   startOfWeek: Moment
 ) => (
   <Row

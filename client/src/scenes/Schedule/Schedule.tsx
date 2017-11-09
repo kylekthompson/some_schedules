@@ -17,6 +17,8 @@ class Schedule extends React.Component<{}, IScheduleState> {
       day: moment.tz(moment.tz.guess()),
       userId: 0,
       visible: false,
+      x: 0,
+      y: 0,
     },
     viewer: undefined,
   };
@@ -67,6 +69,8 @@ class Schedule extends React.Component<{}, IScheduleState> {
           dismissModal={() => this.setState((prevState) => ({ ...prevState, shiftCreationModal: { visible: false } }))}
           onAddShift={this.handleAddShift}
           user={sortedUsers.find((user) => user.id === this.state.shiftCreationModal.userId) as IUser}
+          x={this.state.shiftCreationModal.x}
+          y={this.state.shiftCreationModal.y}
         />}
       </div>
     );
@@ -78,17 +82,20 @@ class Schedule extends React.Component<{}, IScheduleState> {
     });
   }
 
-  private toggleShiftCreationModal = (userId: number, day: moment.Moment) => () => {
+  private toggleShiftCreationModal = (userId: number, day: moment.Moment) => (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
     this.setState({
       shiftCreationModal: {
         day,
         userId,
         visible: true,
+        x: event.clientX,
+        y: event.clientY,
       },
     });
   }
 
-  private handleAddShift = (shift: IShift) => () => {
+  private handleAddShift = (shift: IShift) => {
     this.setState((prevState) => addShiftToState(prevState, shift));
   }
 }

@@ -1,3 +1,3 @@
 export interface IAddShiftProps {
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }

@@ -18,7 +18,6 @@ const HoverWrapper = styled.span`
 const StyledChild = styled(ShiftTimeWrapper)`
   cursor: pointer;
   text-align: center;
-  height: 38px;
 `;
 
 const AddShift = ({ onClick }: IAddShiftProps) => (

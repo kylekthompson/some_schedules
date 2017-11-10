@@ -62,6 +62,7 @@ const Modal = styled.div`
     let cssString;
 
     if (y > document.body.clientHeight / 2) {
+      // the 80 here is to account for the footer's height and margin
       cssString = css`bottom: ${document.body.clientHeight - y + 10 + 80}px;`;
     } else {
       cssString = css`top: ${y + 10}px;`;

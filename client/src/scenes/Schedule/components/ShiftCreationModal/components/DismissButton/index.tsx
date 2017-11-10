@@ -7,7 +7,12 @@ const Button = styled.a`
   float: right;
   cursor: pointer;
   text-decoration: none;
-  color: black;
+  color: #333;
+
+  &:hover {
+    color: #333;
+    text-decoration: none;
+  }
 `;
 
 const DismissButton = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (

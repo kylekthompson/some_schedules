@@ -29,6 +29,13 @@ RSpec.describe Resolvers::User::Finder, type: :model do
 
       specify { expect(result).to be_nil }
     end
+
+    context 'when the object has a user' do
+      let(:id) { nil }
+      let(:object) { create(:shift) }
+
+      specify { expect(result).to eq(object.user) }
+    end
   end
 
   context 'when there is not a current user' do

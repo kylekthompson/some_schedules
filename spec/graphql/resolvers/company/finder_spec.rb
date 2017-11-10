@@ -31,7 +31,7 @@ RSpec.describe Resolvers::Company::Finder, type: :model do
       specify { expect(result).to be_nil }
     end
 
-    context 'when the object has a company method' do
+    context 'when the object has a company' do
       let(:object) { create(:user, :as_owner_of_a_company) }
 
       specify { expect(result).to eq(object.company) }

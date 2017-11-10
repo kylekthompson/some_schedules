@@ -4,7 +4,6 @@ import * as moment from 'moment-timezone';
 import styled from 'styled-components';
 
 import { FlexContainer } from '../../../../../../components/Flex';
-import { createShift } from '../../../../../../services/graphql/mutations/createShift';
 import AddShift from '../AddShift';
 import Cell from '../Cell';
 import Shift from '../Shift';
@@ -43,7 +42,7 @@ class Row extends React.Component<IRowProps, {}> {
 
   private renderWeekdayCell = (weekday: string, previousDay: moment.Moment) => {
     const currentDay = previousDay.add(1, 'day');
-    const { shifts } = this.props.user;
+    const { onAddShift, shifts, user } = this.props;
     const shiftsForToday = sortedShiftsForCurrentDay(currentDay, shifts);
 
     if (shiftsForToday.length > 0) {
@@ -54,21 +53,12 @@ class Row extends React.Component<IRowProps, {}> {
       );
     }
 
-    const startTime = currentDay.clone().hours(12).startOf('hour').format();
-    const endTime = currentDay.clone().hours(14).startOf('hour').format();
-
     return (
       <Cell key={weekday}>
-        <AddShift onClick={this.handleAddShift(startTime, endTime)} />
+        <AddShift onClick={onAddShift(user.id, currentDay.clone())} />
       </Cell>
     );
   }
-
-  private handleAddShift = (startTime: string, endTime: string) => () => createShift({
-    endTime,
-    startTime,
-    userId: this.props.user.id,
-  })
 }
 
 export default Row;

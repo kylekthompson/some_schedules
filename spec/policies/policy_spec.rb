@@ -48,6 +48,12 @@ RSpec.describe Policy, type: :model do
 
       specify { expect { policy }.not_to raise_error }
     end
+
+    context 'when the policed value is nil' do
+      let(:policed) { nil }
+
+      specify { expect { policy }.not_to raise_error }
+    end
   end
 
   describe '#scope' do

@@ -8,7 +8,7 @@ FactoryBot.define do
     User.roles.keys.each do |role|
       trait "with_#{role}".to_sym do
         after(:create) do |company|
-          company.users << create(:user, company: company, role: role.to_sym)
+          create(:user, company: company, role: role.to_sym)
         end
       end
     end

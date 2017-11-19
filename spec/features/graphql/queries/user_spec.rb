@@ -15,14 +15,15 @@ RSpec.describe 'query { user }' do
 
   let(:variables) { { id: id } }
   let(:context) { { current_user: current_user } }
-  let(:current_user) { create(:user) }
-  let(:user) { create(:user) }
+  let(:current_user) { user_one }
 
+  include_context 'data_setup'
   include_context 'query_execution_setup'
-  include_context 'stub_policies'
 
   describe 'authentication' do
-    let(:id) { user.id }
+    let(:id) { user_one.id }
+
+    include_context 'stub_policies'
 
     context 'when there is a current user' do
       let(:current_user) { create(:user) }
@@ -39,9 +40,25 @@ RSpec.describe 'query { user }' do
     end
   end
 
+  describe 'authorization' do
+    context 'when trying to view a user within my company' do
+      let(:id) { user_one.id }
+
+      specify { expect(data[:user][:id]).to eq(id) }
+    end
+
+    context 'when trying to view a user outside of my company' do
+      let(:id) { user_two.id }
+
+      specify { expect(data[:user]).to be_nil }
+    end
+  end
+
   describe 'querying for just the user' do
+    include_context 'stub_policies'
+
     context 'when passed an id that belongs to a user' do
-      let(:id) { user.id }
+      let(:id) { user_one.id }
 
       specify { expect(data[:user][:id]).to eq(id) }
       specify { expect(errors).to be_nil }
@@ -72,26 +89,23 @@ RSpec.describe 'query { user }' do
       GRAPHQL
     end
 
-    let(:id) { current_user.id }
-    let(:user_company) { current_user.company }
-    let!(:user_shift) { current_user.shifts.create(attributes_for(:shift)) }
+    let(:id) { user_one.id }
+    let(:create_user_one) { true }
+    let(:create_user_two) { true }
+    let(:user_one_shift_count) { 1 }
+    let(:user_two_shift_count) { 1 }
 
-    before do
-      create(:company)
-      create(:user).tap do |other_user|
-        other_user.shifts.create(attributes_for(:shift))
-      end
-    end
+    include_context 'stub_policies'
 
     specify { expect(data[:user][:id]).to eq(id) }
     specify { expect(errors).to be_nil }
 
     it 'gets the company that belongs to the user' do
-      expect(data[:user][:company][:id]).to eq(user_company.id)
+      expect(data[:user][:company][:id]).to eq(user_one.company.id)
     end
 
     it 'includes only shifts that belong to the user' do
-      expect(data[:user][:shifts].pluck(:id)).to contain_exactly(user_shift.id)
+      expect(data[:user][:shifts].pluck(:id)).to contain_exactly(user_one.shifts.first.id)
     end
   end
 end

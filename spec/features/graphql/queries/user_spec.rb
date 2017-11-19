@@ -13,20 +13,12 @@ RSpec.describe 'query { user }' do
     GRAPHQL
   end
 
-  let(:execution_result) do
-    SomeSchedulesSchema.execute(
-      query,
-      variables: deep_camelize_keys(variables.with_indifferent_access),
-      context: context
-    ).with_indifferent_access
-  end
-  let(:data) { execution_result[:data] }
-  let(:errors) { execution_result[:errors] }
   let(:variables) { { id: id } }
   let(:context) { { current_user: current_user } }
   let(:current_user) { create(:user) }
   let(:user) { create(:user) }
 
+  include_context 'query_execution_setup'
   include_context 'stub_policies'
 
   describe 'authentication' do

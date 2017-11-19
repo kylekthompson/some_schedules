@@ -13,26 +13,21 @@ RSpec.describe 'query { viewer }' do
     GRAPHQL
   end
 
-  let(:result) do
-    SomeSchedulesSchema.execute(
-      query,
-      variables: deep_camelize_keys(variables.with_indifferent_access),
-      context: context
-    ).with_indifferent_access[:data]
-  end
   let(:variables) { {} }
   let(:context) { { current_user: current_user } }
   let(:current_user) { nil }
 
+  include_context 'query_execution_setup'
+
   context 'when there is a current user' do
     let(:current_user) { create(:user) }
 
-    specify { expect(result[:viewer][:id]).to eq(current_user.id) }
+    specify { expect(data[:viewer][:id]).to eq(current_user.id) }
   end
 
   context 'when there is not a current user' do
     let(:current_user) { nil }
 
-    specify { expect(result[:viewer]).to be_nil }
+    specify { expect(data[:viewer]).to be_nil }
   end
 end

@@ -18,21 +18,14 @@ RSpec.describe 'mutation { createShift }' do
     GRAPHQL
   end
 
-  let(:execution_result) do
-    SomeSchedulesSchema.execute(
-      mutation,
-      variables: deep_camelize_keys(variables.with_indifferent_access),
-      context: context
-    ).with_indifferent_access
-  end
-  let(:data) { execution_result[:data] }
-  let(:errors) { execution_result[:errors] }
   let(:variables) { { input: { end_time: end_time, start_time: start_time, user_id: user_id } } }
   let(:context) { { current_user: current_user } }
   let(:current_user) { create(:user) }
   let(:end_time) { 2.hours.from_now.to_s }
   let(:start_time) { 1.hour.from_now.to_s }
   let(:user_id) { current_user.id }
+
+  include_context 'mutation_execution_setup'
 
   specify { expect(data[:createShift][:shift][:published]).to be(false) }
 

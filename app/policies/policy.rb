@@ -3,7 +3,7 @@
 class Policy
   UnableToScopeError = Class.new(StandardError)
   WrongPolicyError = Class.new(StandardError)
-  CLASS_SUFFIX = 'Policy'.freeze
+  CLASS_SUFFIX = 'Policy'
 
   attr_reader :user, :policed
 
@@ -37,8 +37,8 @@ class Policy
 
   def wrong_policy_message
     <<~WRONG_POLICY_MESSAGE
-      \nError in #{self.class.to_s}:
-      \tExpected `policed` to be an instance of #{model_class.to_s} or to be #{model_class.to_s}.
+      \nError in #{self.class}:
+      \tExpected `policed` to be an instance of #{model_class} or to be #{model_class}.
       \tIf you would prefer to use the same value for `policed`, please use a different policy.
     WRONG_POLICY_MESSAGE
   end

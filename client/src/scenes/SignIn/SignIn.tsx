@@ -17,7 +17,6 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     },
     didSubmit: false,
     errors: {},
-    user: undefined,
     validations: {
       email: false,
       password: false,
@@ -25,7 +24,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
   };
 
   public render() {
-    if (this.props.isSignedIn && this.state.user) {
+    if (this.props.isSignedIn) {
       return <Redirect to="/schedule" />;
     }
 
@@ -94,20 +93,13 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
       errors: {},
     });
 
-    signIn(this.state.auth).then(({ data: { signIn: { errors, token, user } } }) => {
-      if (token && user) {
+    signIn(this.state.auth).then(({ data: { signIn: { errors, token } } }) => {
+      if (token) {
         this.props.persistSignIn(token);
-        this.setState({
-          user,
-        });
-      } else if (errors) {
-        this.setState({
-          didSubmit: false,
-          errors,
-        });
       } else {
         this.setState({
           didSubmit: false,
+          errors: errors || {},
         });
       }
     }).catch(() => {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'stub_policies' do
   let(:company_policy) { instance_double(CompanyPolicy) }
   let(:shift_policy) { instance_double(ShiftPolicy) }

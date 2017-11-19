@@ -6,7 +6,8 @@ module Resolvers
       class << self
         def call(company, _arguments, context)
           Resolvers.require_authentication!(context)
-          Batch::ForeignKeyLoader.for(::User, :company_id).load(company.id)
+          user = context[:current_user]
+          Batch::ForeignKeyLoader.for(::User, :company_id, user: user).load(company.id)
         end
       end
     end

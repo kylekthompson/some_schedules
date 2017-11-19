@@ -27,6 +27,8 @@ RSpec.describe 'query { user }' do
   let(:current_user) { create(:user) }
   let(:user) { create(:user) }
 
+  include_context 'stub_policies'
+
   describe 'authentication' do
     let(:id) { user.id }
 
@@ -78,9 +80,9 @@ RSpec.describe 'query { user }' do
       GRAPHQL
     end
 
-    let(:id) { user.id }
-    let(:user_company) { user.company }
-    let!(:user_shift) { user.shifts.create(attributes_for(:shift)) }
+    let(:id) { current_user.id }
+    let(:user_company) { current_user.company }
+    let!(:user_shift) { current_user.shifts.create(attributes_for(:shift)) }
 
     before do
       create(:company)

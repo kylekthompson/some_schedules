@@ -27,6 +27,8 @@ RSpec.describe 'query { company }' do
   let(:current_user) { create(:user) }
   let(:company) { create(:company) }
 
+  include_context 'stub_policies'
+
   describe 'authentication' do
     let(:slug) { company.slug }
 

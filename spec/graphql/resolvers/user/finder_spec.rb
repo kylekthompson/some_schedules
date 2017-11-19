@@ -32,7 +32,8 @@ RSpec.describe Resolvers::User::Finder, type: :model do
 
     context 'when the object has a user' do
       let(:id) { nil }
-      let(:object) { create(:shift) }
+      let(:other_user) { create(:user, company_id: user.company_id) }
+      let(:object) { create(:shift, user: other_user) }
 
       specify { expect(result).to eq(object.user) }
     end

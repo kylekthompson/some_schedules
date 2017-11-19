@@ -5,6 +5,35 @@ require 'rails_helper'
 RSpec.describe UserPolicy, type: :model do
   subject(:policy) { described_class.new(user: user, policed: policed) }
 
+  describe '#scope' do
+    let(:policed) { User }
+
+    context 'when there is no user' do
+      let(:user) { nil }
+
+      before do
+        create(:user)
+      end
+
+      it 'returns no users' do
+        expect(policy.scope).to be_empty
+      end
+    end
+
+    context 'when there is a user' do
+      let(:user) { create(:user) }
+      let!(:other_user) { create(:user, company_id: user.company_id) }
+
+      before do
+        create(:user)
+      end
+
+      it 'returns no users' do
+        expect(policy.scope).to contain_exactly(user, other_user)
+      end
+    end
+  end
+
   describe '#read?' do
     let(:user) { build(:user, company_id: company_id) }
     let(:company_id) { 1 }

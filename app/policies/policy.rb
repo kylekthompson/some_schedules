@@ -31,8 +31,11 @@ class Policy
   private
 
   def correct_policy?
-    return true if policed.is_a?(Symbol) || policed.is_a?(String) || policed.nil?
-    policing_class? || policing_instance?
+    policed.is_a?(Symbol)   ||
+      policed.is_a?(String) ||
+      policed.nil?          ||
+      policing_class?       ||
+      policing_instance?
   end
 
   def wrong_policy_message

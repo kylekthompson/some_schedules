@@ -10,8 +10,20 @@ FactoryBot.define do
     association :company
     role :employee
 
-    trait :as_owner_of_a_company do
-      role :owner
+    User.roles.keys.each do |role|
+      trait role.to_sym do
+        role { role.to_sym }
+      end
+    end
+
+    trait :with_shifts do
+      transient do
+        shift_count 1
+      end
+
+      after(:create) do |user, transients|
+        create_list(:shift, transients.shift_count, user: user)
+      end
     end
   end
 end

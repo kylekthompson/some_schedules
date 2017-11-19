@@ -17,19 +17,12 @@ RSpec.describe 'mutation { signIn }' do
     GRAPHQL
   end
 
-  let(:execution_result) do
-    SomeSchedulesSchema.execute(
-      mutation,
-      variables: deep_camelize_keys(variables.with_indifferent_access),
-      context: context
-    ).with_indifferent_access
-  end
-  let(:data) { execution_result[:data] }
-  let(:errors) { execution_result[:errors] }
   let(:variables) { { input: { email: email, password: password } } }
   let(:context) { {} }
   let(:actual_email) { FFaker::Internet.email }
   let(:actual_password) { FFaker::Internet.password }
+
+  include_context 'mutation_execution_setup'
 
   before do
     create(:user, email: actual_email, password: actual_password)

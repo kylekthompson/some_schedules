@@ -13,25 +13,20 @@ RSpec.describe 'query { company }' do
     GRAPHQL
   end
 
-  let(:execution_result) do
-    SomeSchedulesSchema.execute(
-      query,
-      variables: deep_camelize_keys(variables.with_indifferent_access),
-      context: context
-    ).with_indifferent_access
-  end
-  let(:data) { execution_result[:data] }
-  let(:errors) { execution_result[:errors] }
   let(:variables) { { slug: slug } }
   let(:context) { { current_user: current_user } }
-  let(:current_user) { create(:user) }
-  let(:company) { create(:company) }
+  let(:current_user) { user_one }
+
+  include_context 'data_setup'
+  include_context 'query_execution_setup'
 
   describe 'authentication' do
-    let(:slug) { company.slug }
+    let(:slug) { company_one.slug }
+
+    include_context 'stub_policies'
 
     context 'when there is a current user' do
-      let(:current_user) { create(:user) }
+      let(:current_user) { user_one }
 
       specify { expect(data[:company][:slug]).to eq(slug) }
       specify { expect(errors).to be_nil }
@@ -46,8 +41,10 @@ RSpec.describe 'query { company }' do
   end
 
   describe 'querying for just the company' do
+    include_context 'stub_policies'
+
     context 'when passed a slug that belongs to a company' do
-      let(:slug) { company.slug }
+      let(:slug) { company_one.slug }
 
       specify { expect(data[:company][:slug]).to eq(slug) }
       specify { expect(errors).to be_nil }
@@ -78,25 +75,23 @@ RSpec.describe 'query { company }' do
       GRAPHQL
     end
 
-    let(:slug) { company.slug }
-    let!(:company_user) { company.users.create(attributes_for(:user)) }
-    let!(:company_shift) { company_user.shifts.create(attributes_for(:shift)) }
+    let(:slug) { company_one.slug }
+    let(:create_user_one) { true }
+    let(:create_user_two) { true }
+    let(:user_one_shift_count) { 1 }
+    let(:user_two_shift_count) { 1 }
 
-    before do
-      create(:company, :with_owner).tap do |other_company|
-        other_company.users.first.shifts.create(attributes_for(:shift))
-      end
-    end
+    include_context 'stub_policies'
 
     specify { expect(data[:company][:slug]).to eq(slug) }
     specify { expect(errors).to be_nil }
 
     it 'includes only users within the company' do
-      expect(data[:company][:users].pluck(:id)).to contain_exactly(company_user.id)
+      expect(data[:company][:users].pluck(:id)).to contain_exactly(user_one.id)
     end
 
     it 'includes only shifts within the company' do
-      expect(data[:company][:shifts].pluck(:id)).to contain_exactly(company_shift.id)
+      expect(data[:company][:shifts].pluck(:id)).to contain_exactly(user_one.shifts.first.id)
     end
   end
 end

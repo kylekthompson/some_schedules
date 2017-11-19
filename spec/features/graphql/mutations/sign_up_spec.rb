@@ -22,19 +22,12 @@ RSpec.describe 'mutation { signUp }' do
     GRAPHQL
   end
 
-  let(:execution_result) do
-    SomeSchedulesSchema.execute(
-      mutation,
-      variables: deep_camelize_keys(variables.with_indifferent_access),
-      context: context
-    ).with_indifferent_access
-  end
-  let(:data) { execution_result[:data] }
-  let(:errors) { execution_result[:errors] }
   let(:variables) { { input: { company: company_input, user: user_input } } }
   let(:company_input) { attributes_for(:company) }
   let(:user_input) { attributes_for(:user).tap { |attributes| attributes.delete(:role) } }
   let(:context) { {} }
+
+  include_context 'mutation_execution_setup'
 
   specify { expect(errors).to be_nil }
   specify { expect(data[:signUp][:company]).not_to be_nil }

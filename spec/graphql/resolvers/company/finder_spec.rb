@@ -32,7 +32,7 @@ RSpec.describe Resolvers::Company::Finder, type: :model do
     end
 
     context 'when the object has a company' do
-      let(:object) { create(:user, :as_owner_of_a_company) }
+      let(:object) { create(:user) }
 
       specify { expect(result).to eq(object.company) }
     end

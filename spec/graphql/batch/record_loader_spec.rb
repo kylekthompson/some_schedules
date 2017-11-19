@@ -3,12 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Batch::RecordLoader, type: :model do
+  let(:current_user) { create(:user) }
+
   context 'when only passed a model' do
     let(:result) do
       GraphQL::Batch.batch do
-        described_class.for(User).load(id)
+        described_class.for(User, user: current_user).load(id)
       end
     end
+
+    include_context 'stub_policies'
 
     context 'and the record exists' do
       let(:user) { create(:user) }
@@ -33,9 +37,11 @@ RSpec.describe Batch::RecordLoader, type: :model do
     let(:user) { company.users.first }
     let(:result) do
       GraphQL::Batch.batch do
-        described_class.for(User, lookup_column: :company_id).load(company_id)
+        described_class.for(User, user: current_user, lookup_column: :company_id).load(company_id)
       end
     end
+
+    include_context 'stub_policies'
 
     before do
       create(:company, :with_owner)
@@ -68,9 +74,16 @@ RSpec.describe Batch::RecordLoader, type: :model do
     let(:company_id) { company.id }
     let(:result) do
       GraphQL::Batch.batch do
-        described_class.for(User, lookup_column: :company_id, merge: User.without_shifts).load(company_id)
+        described_class.for(
+          User,
+          user: current_user,
+          lookup_column: :company_id,
+          merge: User.without_shifts
+        ).load(company_id)
       end
     end
+
+    include_context 'stub_policies'
 
     before do
       user_with_shifts.shifts.create(attributes_for(:shift))

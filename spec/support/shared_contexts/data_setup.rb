@@ -12,7 +12,8 @@ RSpec.shared_context 'data_setup' do
   let(:user_one_role) { :employee }
   let(:user_two_role) { :employee }
   let(:user_one) do
-    create(:user,
+    create(
+      :user,
       :with_shifts,
       company: company_one,
       role: user_one_role,
@@ -20,7 +21,8 @@ RSpec.shared_context 'data_setup' do
     )
   end
   let(:user_two) do
-    create(:user,
+    create(
+      :user,
       :with_shifts,
       company: company_two,
       role: user_one_role,

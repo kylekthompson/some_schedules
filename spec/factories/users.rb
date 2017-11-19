@@ -12,7 +12,7 @@ FactoryBot.define do
 
     User.roles.keys.each do |role|
       trait role.to_sym do
-        role role.to_sym
+        role { role.to_sym }
       end
     end
 

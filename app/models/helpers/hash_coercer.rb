@@ -8,6 +8,17 @@ module Helpers
       @ambiguous_param = ambiguous_param
     end
 
+    ##
+    # Coerces an ambiguous parameter into a hash-like
+    #
+    # [1] pry(main)> HashCoercer.new(ambiguous_param: {}).to_h
+    # => {}
+    # [2] pry(main)> HashCoercer.new(ambiguous_param: '\"{}\"').to_h
+    # => {}
+    # [3] pry(main)> HashCoercer.new(ambiguous_param: ActionController::Parameters.new).to_h
+    # => #<ActionController::Parameters>
+    # [4] pry(main)> HashCoercer.new(ambiguous_param: 0).to_h
+    # => ArgumentError: Unexpected parameter: 0
     def to_h
       case ambiguous_param
       when String

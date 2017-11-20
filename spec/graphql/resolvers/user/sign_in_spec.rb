@@ -31,10 +31,10 @@ RSpec.describe Resolvers::User::SignIn, type: :model do
   end
 
   describe '.call' do
-    let(:token_resolver) { instance_double(described_class, to_h: nil) }
+    let(:sign_in_resolver) { instance_double(described_class, to_h: nil) }
 
     before do
-      allow(described_class).to receive(:new).and_return(token_resolver)
+      allow(described_class).to receive(:new).and_return(sign_in_resolver)
     end
 
     specify do
@@ -44,7 +44,7 @@ RSpec.describe Resolvers::User::SignIn, type: :model do
 
     specify do
       described_class.call(nil, nil, nil)
-      expect(token_resolver).to have_received(:to_h)
+      expect(sign_in_resolver).to have_received(:to_h)
     end
   end
 

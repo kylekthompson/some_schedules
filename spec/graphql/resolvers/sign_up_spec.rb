@@ -19,20 +19,6 @@ RSpec.describe Resolvers::SignUp, type: :model do
   it { is_expected.to validate_presence_of(:company_params) }
   it { is_expected.to validate_presence_of(:user_params) }
 
-  describe 'validations' do
-    context 'when signed in' do
-      let(:current_user) { build(:user) }
-
-      specify { expect(resolver).not_to be_valid }
-    end
-
-    context 'when signed out' do
-      let(:current_user) { nil }
-
-      specify { expect(resolver).to be_valid }
-    end
-  end
-
   describe '.call' do
     let(:company_resolver) { instance_double(described_class, to_h: nil) }
 

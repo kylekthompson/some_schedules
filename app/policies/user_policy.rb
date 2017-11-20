@@ -12,28 +12,11 @@ class UserPolicy < Policy
   end
 
   ##
-  # Returns true if the user is able to read the policed value
-  #
-  # [1] pry(main)> UserPolicy.new(user: User.new(company_id: 1), policed: User.new(company_id: 1)).can_read?
-  # => true
-  def can_read?
-    return can_read_instance? if policing_instance?
-    false
-  end
-
-  ##
   # Returns true if the user is able to create a user
   #
   # [1] pry(main)> UserPolicy.new(user: nil).can_create?
   # => true
   def can_create?
     user.nil?
-  end
-
-  private
-
-  def can_read_instance?
-    return false unless policed.present?
-    user.company_id == policed.company_id
   end
 end

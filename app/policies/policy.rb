@@ -7,12 +7,28 @@ class Policy
 
   attr_reader :user, :policed
 
+  ##
+  # Returns an instance of a policy and checks to make sure that the correct policy was chosen
+  #
+  # Parameters:
+  #   user: the user that is interacting with the policed value
+  #   policed: the value that the user is interacting with
+  #
+  # [1] pry(main)> Policy.new(user: User.first)
+  # => #<Policy>
   def initialize(user:, policed: nil)
     @user = user
     @policed = policed
     raise WrongPolicyError, wrong_policy_message unless correct_policy?
   end
 
+  ##
+  # Returns an ActiveRecord::Relation scoped to what the user has permission to interact with
+  #
+  # Requires that the class being policed is an ActiveRecord model
+  #
+  # [1] pry(main)> UserPolicy.new(user: User.first).scope
+  # => #<ActiveRecord::Relation>
   def scope
     raise UnableToScopeError unless model_class.ancestors.include?(ApplicationRecord)
     model_class.all
@@ -20,10 +36,20 @@ class Policy
 
   protected
 
+  ##
+  # Returns true if the policed value is an instance of the policy's model class
+  #
+  # [1] pry(main)> UserPolicy.new(user: User.first, policed: User.first).send(:policing_instance?)
+  # => true
   def policing_instance?
     policed.is_a?(model_class)
   end
 
+  ##
+  # Returns true if the policed value is the policy's model class
+  #
+  # [1] pry(main)> UserPolicy.new(user: User.first, policed: User).send(:policing_class?)
+  # => true
   def policing_class?
     policed == model_class
   end
@@ -51,10 +77,20 @@ class Policy
   end
 
   class << self
+    ##
+    # Returns the correct policy class for a given user and policed value
+    #
+    # [1] pry(main)> Policy.for(user: User.first, policed: User)
+    # => #<UserPolicy>
     def for(user:, policed:)
       policy_class_for(policed).new(user: user, policed: policed)
     end
 
+    ##
+    # Returns the correct scope for a given user and policed value
+    #
+    # [1] pry(main)> Policy.scope(user: User.first, policed: User)
+    # => #<ActiveRecord::Relation>
     def scope(user:, policed:)
       self.for(user: user, policed: policed).scope
     end

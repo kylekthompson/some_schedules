@@ -57,19 +57,19 @@ RSpec.describe UserPolicy, type: :model do
     end
   end
 
-  describe '#create?' do
+  describe '#can_create?' do
     let(:policed) { nil }
 
     context 'when there is a user' do
       let(:user) { build(:user) }
 
-      specify { expect(policy.create?).to be(false) }
+      specify { expect(policy.can_create?).to be(false) }
     end
 
     context 'when there is not a user' do
       let(:user) { nil }
 
-      specify { expect(policy.create?).to be(true) }
+      specify { expect(policy.can_create?).to be(true) }
     end
   end
 end

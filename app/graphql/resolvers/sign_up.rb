@@ -17,7 +17,7 @@ module Resolvers
     # [2] pry(main)> Resolvers::SignUp.call(nil, arguments, nil)
     # => { company: #<Company>, user: #<User>, token: '...' }
     def self.call(_object, arguments, context)
-      new(arguments.to_h.with_indifferent_access.merge(context)).to_h
+      new(arguments.to_h.with_indifferent_access.merge(current_user: context[:current_user])).to_h
     end
 
     ##

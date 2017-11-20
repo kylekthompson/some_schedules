@@ -6,8 +6,8 @@ class UserPolicy < Policy
     User.where(company_id: user.company_id)
   end
 
-  def read?
-    return read_instance? if policing_instance?
+  def can_read?
+    return can_read_instance? if policing_instance?
     false
   end
 
@@ -17,7 +17,7 @@ class UserPolicy < Policy
 
   private
 
-  def read_instance?
+  def can_read_instance?
     return false unless policed.present?
     user.company_id == policed.company_id
   end

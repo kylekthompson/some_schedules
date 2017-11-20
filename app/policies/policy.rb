@@ -7,7 +7,7 @@ class Policy
 
   attr_reader :user, :policed
 
-  def initialize(user:, policed:)
+  def initialize(user:, policed: nil)
     @user = user
     @policed = policed
     raise WrongPolicyError, wrong_policy_message unless correct_policy?

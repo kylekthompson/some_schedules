@@ -34,42 +34,42 @@ RSpec.describe UserPolicy, type: :model do
     end
   end
 
-  describe '#read?' do
+  describe '#can_read?' do
     let(:user) { build(:user, company_id: company_id) }
     let(:company_id) { 1 }
 
     context 'when the policed value is a user in the same company' do
       let(:policed) { build(:user, company_id: company_id) }
 
-      specify { expect(policy.read?).to be(true) }
+      specify { expect(policy.can_read?).to be(true) }
     end
 
     context 'when the policed value is a user in a different company' do
       let(:policed) { build(:user, company_id: company_id + 1) }
 
-      specify { expect(policy.read?).to be(false) }
+      specify { expect(policy.can_read?).to be(false) }
     end
 
     context 'when the policed value is anything else' do
       let(:policed) { 'anything else' }
 
-      specify { expect(policy.read?).to be(false) }
+      specify { expect(policy.can_read?).to be(false) }
     end
   end
 
-  describe '#create?' do
+  describe '#can_create?' do
     let(:policed) { nil }
 
     context 'when there is a user' do
       let(:user) { build(:user) }
 
-      specify { expect(policy.create?).to be(false) }
+      specify { expect(policy.can_create?).to be(false) }
     end
 
     context 'when there is not a user' do
       let(:user) { nil }
 
-      specify { expect(policy.create?).to be(true) }
+      specify { expect(policy.can_create?).to be(true) }
     end
   end
 end

@@ -10,16 +10,35 @@ module Resolvers
 
     attr_accessor :company, :company_params, :current_user, :user, :user_params
 
+    ##
+    # An entry point that simulates a Proc to sign a user and company up
+    #
+    # [1] pry(main)> arguments = { company: { ... }, user: { ... } }
+    # [2] pry(main)> Resolvers::SignUp.call(nil, arguments, nil)
+    # => { company: #<Company>, user: #<User>, token: '...' }
     def self.call(_object, arguments, context)
-      new(arguments.to_h.with_indifferent_access.merge(current_user: context[:current_user])).to_h
+      new(arguments.to_h.with_indifferent_access.merge(context)).to_h
     end
 
+    ##
+    # Creates a new instance of Resolvers::SignUp
+    #
+    # [1] pry(main)> arguments = { company: { ... }, user: { ... } }
+    # [2] pry(main)> Resolvers::SignUp.new(arguments)
+    # => #<Resolvers::SignUp>
     def initialize(arguments)
       @company_params = company_params_from_arguments(arguments)
       @user_params = user_params_from_arguments(arguments)
       @current_user = arguments[:current_user]
     end
 
+    ##
+    # Returns the hash representation of the result of signing a user in (either errors or a user and token)
+    #
+    # [1] pry(main)> arguments = { company: { ... }, user: { ... } }
+    # [2] pry(main)> resolver = Resolvers::SignUp.new(arguments)
+    # [3] pry(main)> resolver.to_h
+    # => { company: #<Company>, user: #<User>, token: '...' }
     def to_h
       return { errors: errors.messages } unless valid?
       sign_up_company_and_user

@@ -52,7 +52,6 @@ class User < ApplicationRecord
   # [1] pry(main)*     auth: { email: 'someone@email.com' }
   # [1] pry(main)*   )
   # [1] pry(main)* )
-  # => #<ActionDispatch::Request>
   # [2] pry(main)> User.from_token_request(request)
   # => #<User>
   def self.from_token_request(request)

@@ -28,7 +28,7 @@ module Batch
     private
 
     def lookup(keys)
-      scope = Policy.scope(user: user, policed: model)
+      scope = Policy.scope(current_user: user, subject: model)
       scope = scope.merge(merge) if merge.present?
       scope.where(lookup_column => keys)
     end

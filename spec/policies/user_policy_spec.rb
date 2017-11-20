@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe UserPolicy, type: :model do
-  subject(:policy) { described_class.new(user: user, policed: policed) }
+  subject(:policy) { described_class.new(current_user: user, subject: subject) }
 
   describe '#scope' do
-    let(:policed) { User }
+    let(:subject) { User }
 
     context 'when there is no user' do
       let(:user) { nil }
@@ -35,7 +35,7 @@ RSpec.describe UserPolicy, type: :model do
   end
 
   describe '#can_create?' do
-    let(:policed) { nil }
+    let(:subject) { nil }
 
     context 'when there is a user' do
       let(:user) { build(:user) }

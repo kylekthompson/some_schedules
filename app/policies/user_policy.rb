@@ -7,16 +7,24 @@ class UserPolicy < Policy
   # [1] pry(main)> UserPolicy.new(user: User.first).scope
   # => #<ActiveRecord::Relation>
   def scope
-    return User.none unless user.present?
-    User.where(company_id: user.company_id)
+    return User.none unless current_user.present?
+    User.where(company_id: current_user.company_id)
   end
 
   ##
   # Returns true if the user is able to create a user
   #
-  # [1] pry(main)> UserPolicy.new(user: nil).can_create?
+  # [1] pry(main)> UserPolicy.new(current_user: nil).can_create?
   # => true
   def can_create?
-    user.nil?
+    return can_create_instance? if policing_instance?
+    current_user.nil?
+  end
+
+  private
+
+  def can_create_instance?
+    return current_user.admin? if current_user.present?
+    !subject.admin?
   end
 end

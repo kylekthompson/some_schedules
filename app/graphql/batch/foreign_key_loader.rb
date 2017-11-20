@@ -11,10 +11,14 @@ module Batch
       @user = user
     end
 
+    ##
+    # Normalizes the values being loaded into an Array
     def load(values)
       super(Array(values))
     end
 
+    ##
+    # Finds and fulfills the values requested
     def perform(value_sets)
       lookup(value_sets)
       value_sets.each { |values| fulfill(values, records_for_foreign_values(values)) }

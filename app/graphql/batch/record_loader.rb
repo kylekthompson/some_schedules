@@ -12,10 +12,14 @@ module Batch
       @user = user
     end
 
+    ##
+    # Casts the passed key into the correct type for the lookup column
     def load(key)
       super(lookup_column_type.cast(key))
     end
 
+    ##
+    # Finds and fulfills the values requested
     def perform(keys)
       lookup(keys).each { |record| fulfill(record.public_send(lookup_column), record) }
       keys.each { |key| fulfill(key, nil) unless fulfilled?(key) }

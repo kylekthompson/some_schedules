@@ -4,10 +4,21 @@ module Resolvers
   module Company
     module ShiftFinder
       class << self
-        def call(company, _arguments, context)
+        ##
+        # Finds the shifts that belong to users within a company
+        #
+        # Requires a user to be logged in
+        #
+        # Note: to execute this outside of the Schema, wrap the call like this: `GraphQL::Batch.batch { ... }`
+        #
+        # [1] pry(main)> context = { current_user: User.first }
+        # [2] pry(main)> company = Company.first
+        # [3] pry(main)> Resolvers::Company::ShiftFinder.call(company, nil, context)
+        # => [#<Shift>, ...]
+        def call(company, arguments, context)
           Resolvers.require_authentication!(context)
           user = context[:current_user]
-          Batch::ForeignKeyLoader.for(::User, :company_id, user: user).load(company.id).then do |users|
+          UserFinder.call(company, arguments, context).then do |users|
             Batch::ForeignKeyLoader.for(::Shift, :user_id, user: user).load(users.pluck(:id))
           end
         end

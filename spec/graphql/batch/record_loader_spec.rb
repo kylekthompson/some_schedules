@@ -64,10 +64,7 @@ RSpec.describe Batch::RecordLoader, type: :model do
     end
   end
 
-  context 'when passed a scope to merge' do
-    class User
-      scope :without_shifts, -> { left_outer_joins(:shifts).where(shifts: { id: nil }) }
-    end
+  context 'when passed a scope proc' do
     let!(:company) { create(:company) }
     let!(:user_without_shifts) { company.users.create(attributes_for(:user)) }
     let(:user_with_shifts) { company.users.create(attributes_for(:user)) }
@@ -78,7 +75,7 @@ RSpec.describe Batch::RecordLoader, type: :model do
           User,
           user: current_user,
           lookup_column: :company_id,
-          merge: User.without_shifts
+          scope_proc: ->(scope) { scope.left_outer_joins(:shifts).where(shifts: { id: nil }) }
         ).load(company_id)
       end
     end

@@ -2,12 +2,13 @@
 
 module Batch
   class ForeignKeyLoader < GraphQL::Batch::Loader
-    attr_reader :foreign_key, :model, :records, :user
+    attr_reader :foreign_key, :model, :records, :scope_proc, :user
 
-    def initialize(model, foreign_key, user:)
+    def initialize(model, foreign_key, user:, scope_proc: ->(scope) { scope })
       @foreign_key = foreign_key
       @model = model
       @records = nil
+      @scope_proc = scope_proc
       @user = user
     end
 
@@ -32,6 +33,7 @@ module Batch
 
     def lookup(value_sets)
       @records = Policy.scope(current_user: user, subject: model)
+      @records = scope_proc.call(@records)
       @records = @records.where(foreign_key => value_sets.flatten.uniq)
     end
   end

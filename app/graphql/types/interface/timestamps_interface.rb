@@ -6,8 +6,8 @@ module Types
       name 'Timestamps'
       description 'Created at and updated at timestamps'
 
-      field :createdAt, !types.String, property: :created_at
-      field :updatedAt, !types.String, property: :updated_at
+      field :createdAt, !Types::Scalar::DateType, property: :created_at
+      field :updatedAt, !Types::Scalar::DateType, property: :updated_at
     end
   end
 end

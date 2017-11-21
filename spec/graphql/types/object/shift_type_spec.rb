@@ -12,8 +12,8 @@ RSpec.describe Types::Object::ShiftType, type: :model do
     )
   end
   it { is_expected.to have_field(:id).that_returns_type(GraphQL::INT_TYPE) }
-  it { is_expected.to have_field(:endTime).that_returns_type(GraphQL::STRING_TYPE) }
+  it { is_expected.to have_field(:endTime).that_returns_type(Types::Scalar::DateType) }
   it { is_expected.to have_field(:published).that_returns_type(GraphQL::BOOLEAN_TYPE) }
-  it { is_expected.to have_field(:startTime).that_returns_type(GraphQL::STRING_TYPE) }
+  it { is_expected.to have_field(:startTime).that_returns_type(Types::Scalar::DateType) }
   it { is_expected.to have_field(:user).that_returns_type(Types::Object::UserType) }
 end

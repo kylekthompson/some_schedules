@@ -5,8 +5,8 @@ module Mutations
     name 'CreateShift'
     description 'Create a shift for a user'
 
-    input_field :endTime, !types.String, as: :end_time
-    input_field :startTime, !types.String, as: :start_time
+    input_field :endTime, !Types::Scalar::DateType, as: :end_time
+    input_field :startTime, !Types::Scalar::DateType, as: :start_time
     input_field :userId, !types.Int, as: :user_id
 
     return_field :errors, Types::Scalar::JsonBlobType

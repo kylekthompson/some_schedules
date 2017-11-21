@@ -27,7 +27,7 @@ RSpec.describe 'mutation { signUp }' do
   let(:user_input) { attributes_for(:user).except(:admin, :role) }
   let(:context) { {} }
 
-  include_context 'mutation_execution_setup'
+  include_context 'with mutation execution setup'
 
   specify { expect(errors).to be_nil }
   specify { expect(data[:signUp][:company]).not_to be_nil }

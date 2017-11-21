@@ -17,13 +17,13 @@ RSpec.describe 'query { company }' do
   let(:context) { { current_user: current_user } }
   let(:current_user) { user_one }
 
-  include_context 'data_setup'
-  include_context 'query_execution_setup'
+  include_context 'with data setup'
+  include_context 'with query execution setup'
 
   describe 'authentication' do
     let(:slug) { company_one.slug }
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     context 'when there is a current user' do
       let(:current_user) { user_one }
@@ -41,7 +41,7 @@ RSpec.describe 'query { company }' do
   end
 
   describe 'querying for just the company' do
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     context 'when passed a slug that belongs to a company' do
       let(:slug) { company_one.slug }
@@ -81,7 +81,7 @@ RSpec.describe 'query { company }' do
     let(:user_one_shift_count) { 1 }
     let(:user_two_shift_count) { 1 }
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     specify { expect(data[:company][:slug]).to eq(slug) }
     specify { expect(errors).to be_nil }

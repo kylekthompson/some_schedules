@@ -5,7 +5,7 @@ FactoryBot.define do
     name { FFaker::Company.name }
     slug { name.gsub(/\W+/, '-') }
 
-    User.roles.keys.each do |role|
+    User.roles.each_key do |role|
       trait "with_#{role}".to_sym do
         after(:create) do |company|
           create(:user, company: company, role: role.to_sym)

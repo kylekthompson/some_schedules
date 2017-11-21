@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_context 'data_setup' do
+RSpec.shared_context 'with data setup' do
   let(:create_company_one) { true }
   let(:create_company_two) { false }
   let(:company_one) { create(:company) }

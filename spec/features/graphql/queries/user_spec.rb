@@ -17,13 +17,13 @@ RSpec.describe 'query { user }' do
   let(:context) { { current_user: current_user } }
   let(:current_user) { user_one }
 
-  include_context 'data_setup'
-  include_context 'query_execution_setup'
+  include_context 'with data setup'
+  include_context 'with query execution setup'
 
   describe 'authentication' do
     let(:id) { user_one.id }
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     context 'when there is a current user' do
       let(:current_user) { create(:user) }
@@ -55,7 +55,7 @@ RSpec.describe 'query { user }' do
   end
 
   describe 'querying for just the user' do
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     context 'when passed an id that belongs to a user' do
       let(:id) { user_one.id }
@@ -95,7 +95,7 @@ RSpec.describe 'query { user }' do
     let(:user_one_shift_count) { 1 }
     let(:user_two_shift_count) { 1 }
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     specify { expect(data[:user][:id]).to eq(id) }
     specify { expect(errors).to be_nil }

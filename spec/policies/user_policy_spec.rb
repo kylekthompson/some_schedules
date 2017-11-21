@@ -38,19 +38,19 @@ RSpec.describe UserPolicy, type: :model do
     context 'when the subject is a user' do
       let(:policy_subject) { build(:user) }
 
-      context 'and the current user is an admin' do
+      context 'when the current user is an admin' do
         let(:current_user) { build(:user, :admin) }
 
         specify { expect(policy.can_create?).to be(true) }
       end
 
-      context 'and the current user is not an admin' do
+      context 'when the current user is not an admin' do
         let(:current_user) { build(:user, admin: false) }
 
         specify { expect(policy.can_create?).to be(false) }
       end
 
-      context 'and there is not a current user' do
+      context 'when there is not a current user' do
         let(:current_user) { nil }
 
         it 'will not allow creating an admin user' do
@@ -68,19 +68,19 @@ RSpec.describe UserPolicy, type: :model do
     context 'when the subject is not a user' do
       let(:policy_subject) { User }
 
-      context 'and the current user is an admin' do
+      context 'when the current user is an admin' do
         let(:current_user) { build(:user, :admin) }
 
         specify { expect(policy.can_create?).to be(true) }
       end
 
-      context 'and the current user is not an admin' do
+      context 'when the current user is not an admin' do
         let(:current_user) { build(:user, admin: false) }
 
         specify { expect(policy.can_create?).to be(false) }
       end
 
-      context 'and there is not a current user' do
+      context 'when there is not a current user' do
         let(:current_user) { nil }
 
         specify { expect(policy.can_create?).to be(true) }

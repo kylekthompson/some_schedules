@@ -14,8 +14,8 @@ RSpec.describe Resolvers::User::SignIn, type: :model do
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:password) }
 
-  describe 'validating' do
-    context 'the correctness of a password' do
+  describe 'validations' do
+    context 'when providing a password' do
       it 'is invalid when the email is provided but the user does not exist' do
         expect(described_class.new(email: 'some@email.com', password: 'pass')).not_to be_valid
       end

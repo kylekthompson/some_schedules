@@ -25,7 +25,7 @@ FactoryBot.define do
       end
     end
 
-    User.roles.keys.each do |role|
+    User.roles.each_key do |role|
       trait role.to_sym do
         role { role.to_sym }
       end

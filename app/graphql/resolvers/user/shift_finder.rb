@@ -15,7 +15,7 @@ module Resolvers
         # [2] pry(main)> user = User.first
         # [3] pry(main)> Resolvers::Company::ShiftFinder.call(user, nil, context)
         # => [#<Shift>, ...]
-        def call(user, _arguments, context)
+        def call(_user, _arguments, context)
           Resolvers.require_authentication!(context)
           user = context[:current_user]
           Batch::ForeignKeyLoader.for(::Shift, :user_id, user: user).load(user.id)

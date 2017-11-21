@@ -22,7 +22,7 @@ RSpec.describe 'mutation { signIn }' do
   let(:actual_email) { FFaker::Internet.email }
   let(:actual_password) { FFaker::Internet.password }
 
-  include_context 'mutation_execution_setup'
+  include_context 'with mutation execution setup'
 
   before do
     create(:user, email: actual_email, password: actual_password)

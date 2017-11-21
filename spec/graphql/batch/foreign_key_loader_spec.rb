@@ -15,7 +15,7 @@ RSpec.describe Batch::ForeignKeyLoader, type: :model do
   context 'when passed a single id' do
     let(:ids) { company_one.id }
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     it 'finds the correct records' do
       expect(result.map(&:company_id)).to all(eq(company_one.id))
@@ -25,7 +25,7 @@ RSpec.describe Batch::ForeignKeyLoader, type: :model do
   context 'when passed an array of ids' do
     let(:ids) { [company_one.id, company_two.id] }
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     it 'finds the correct records' do
       expect(result.map(&:company_id).compact.uniq).to contain_exactly(*ids)

@@ -27,6 +27,9 @@ RSpec/DescribeClass:
   Exclude:
     - spec/features/**/*
 
+RSpec/NestedGroups:
+  Max: 5
+
 Style/BlockDelimiters:
   Exclude:
     - spec/**/*

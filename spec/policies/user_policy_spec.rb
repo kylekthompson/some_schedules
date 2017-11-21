@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe UserPolicy, type: :model do
-  subject(:policy) { described_class.new(current_user: current_user, subject: subject) }
+  subject(:policy) { described_class.new(current_user: current_user, subject: policy_subject) }
 
   describe '#scope' do
-    let(:subject) { User }
+    let(:policy_subject) { User }
 
     context 'when there is no user' do
       let(:current_user) { nil }
@@ -36,7 +36,7 @@ RSpec.describe UserPolicy, type: :model do
 
   describe '#can_create?' do
     context 'when the subject is a user' do
-      let(:subject) { build(:user) }
+      let(:policy_subject) { build(:user) }
 
       context 'and the current user is an admin' do
         let(:current_user) { build(:user, :admin) }
@@ -54,19 +54,19 @@ RSpec.describe UserPolicy, type: :model do
         let(:current_user) { nil }
 
         it 'will not allow creating an admin user' do
-          subject.admin = true
+          policy_subject.admin = true
           expect(policy.can_create?).to be(false)
         end
 
         it 'will allow creating a non-admin user' do
-          subject.admin = false
+          policy_subject.admin = false
           expect(policy.can_create?).to be(true)
         end
       end
     end
 
     context 'when the subject is not a user' do
-      let(:subject) { User }
+      let(:policy_subject) { User }
 
       context 'and the current user is an admin' do
         let(:current_user) { build(:user, :admin) }

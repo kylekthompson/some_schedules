@@ -60,7 +60,7 @@ class Policy
     subject.is_a?(Symbol)   ||
       subject.is_a?(String) ||
       subject.nil?          ||
-      subject_is_class?       ||
+      subject_is_class?     ||
       subject_is_instance?
   end
 

@@ -2,6 +2,9 @@
 
 module Resolvers
   class SignUp
+    COMPANY_AUTHORIZATION_ERROR_MESSAGE = 'Not authorized to create a company with those parameters'
+    USER_AUTHORIZATION_ERROR_MESSAGE = 'Not authorized to create a user with those parameters'
+
     include ActiveModel::Validations
 
     validates :company_params, presence: true
@@ -57,19 +60,21 @@ module Resolvers
     def sign_up_user!
       @user = ::User.new(user_params.merge(role: :owner))
 
-      unless Policy.for(current_user: current_user, subject: user).can_create?
-        raise GraphQL::ExecutionError, 'Not authorized to create a user with those parameters'
-      end
+      raise GraphQL::ExecutionError, USER_AUTHORIZATION_ERROR_MESSAGE unless Policy.for(
+        current_user: current_user,
+        subject: user
+      ).can_create?
     end
 
     def sign_up_company!
       @company = ::Company.new(company_params)
 
-      if Policy.for(current_user: current_user || user, subject: company).can_create?
-        user.company = company
-      else
-        raise GraphQL::ExecutionError, 'Not authorized to create a company with those parameters'
-      end
+      raise GraphQL::ExecutionError, COMPANY_AUTHORIZATION_ERROR_MESSAGE unless Policy.for(
+        current_user: current_user || user,
+        subject: company
+      ).can_create?
+
+      user.company = company
     end
 
     def save_company_and_user

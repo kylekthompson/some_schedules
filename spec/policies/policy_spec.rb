@@ -11,46 +11,46 @@ RSpec.describe Policy, type: :model do
   let(:current_user) { build(:user, id: 1) }
 
   describe '#initialize' do
-    subject(:policy) { TestClassPolicy.new(current_user: current_user, subject: subject) }
+    subject(:policy) { TestClassPolicy.new(current_user: current_user, subject: policy_subject) }
 
     context 'when the subject is a valid class for that policy' do
-      let(:subject) { TestClass }
+      let(:policy_subject) { TestClass }
 
       specify { expect { policy }.not_to raise_error }
     end
 
     context 'when the subject is a valid instance of a class for that policy' do
-      let(:subject) { TestClass.new }
+      let(:policy_subject) { TestClass.new }
 
       specify { expect { policy }.not_to raise_error }
     end
 
     context 'when the subject is an invalid class for that policy' do
-      let(:subject) { User }
+      let(:policy_subject) { User }
 
       specify { expect { policy }.to raise_error(described_class::WrongPolicyError) }
     end
 
     context 'when the subject is an invalid instance of a class for that policy' do
-      let(:subject) { User.new }
+      let(:policy_subject) { User.new }
 
       specify { expect { policy }.to raise_error(described_class::WrongPolicyError) }
     end
 
     context 'when the subject is a string' do
-      let(:subject) { 'string' }
+      let(:policy_subject) { 'string' }
 
       specify { expect { policy }.not_to raise_error }
     end
 
     context 'when the subject is a symbol' do
-      let(:subject) { :symbol }
+      let(:policy_subject) { :symbol }
 
       specify { expect { policy }.not_to raise_error }
     end
 
     context 'when the subject is nil' do
-      let(:subject) { nil }
+      let(:policy_subject) { nil }
 
       specify { expect { policy }.not_to raise_error }
     end
@@ -58,9 +58,9 @@ RSpec.describe Policy, type: :model do
 
   describe '#scope' do
     context 'when the subject is not backed by ActiveRecord' do
-      subject(:policy) { TestClassPolicy.new(current_user: current_user, subject: subject) }
+      subject(:policy) { TestClassPolicy.new(current_user: current_user, subject: policy_subject) }
 
-      let(:subject) { TestClass }
+      let(:policy_subject) { TestClass }
 
       it 'raises an error' do
         expect { policy.scope }.to raise_error(described_class::UnableToScopeError)
@@ -68,9 +68,9 @@ RSpec.describe Policy, type: :model do
     end
 
     context 'when the subject is backed by ActiveRecord' do
-      subject(:policy) { TestModelPolicy.new(current_user: current_user, subject: subject) }
+      subject(:policy) { TestModelPolicy.new(current_user: current_user, subject: policy_subject) }
 
-      let(:subject) { TestModel }
+      let(:policy_subject) { TestModel }
 
       before do
         allow(TestModel).to receive(:all).and_return(nil)

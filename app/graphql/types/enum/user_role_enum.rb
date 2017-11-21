@@ -8,7 +8,6 @@ module Types
 
       value 'OWNER', 'The owner of the company', value: 'owner'
       value 'MANAGER', 'A manager in the company', value: 'manager'
-      value 'SUPERVISOR', 'A supervisor in the company', value: 'supervisor'
       value 'EMPLOYEE', 'An employee of the company', value: 'employee'
     end
   end

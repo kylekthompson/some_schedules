@@ -1,7 +1,6 @@
 export enum CompanyUserRole {
   OWNER,
   MANAGER,
-  SUPERVISOR,
   EMPLOYEE
 }
 

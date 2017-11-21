@@ -23,11 +23,15 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:shifts) }
 
   describe '#role' do
-    ROLES = %i[owner manager supervisor employee].freeze
+    ROLES = {
+      owner: 0,
+      manager: 1,
+      employee: 2
+    }.freeze
 
-    ROLES.each_with_index do |role, index|
-      it 'has the correct index' do
-        expect(described_class.roles[build(:user, role: role).role]).to eq(index)
+    ROLES.each do |role, value|
+      it "#{role} has value #{value}" do
+        expect(described_class.roles[role]).to eq(value)
       end
     end
   end

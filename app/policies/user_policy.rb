@@ -2,9 +2,9 @@
 
 class UserPolicy < Policy
   ##
-  # Returns an ActiveRecord::Relation scoped to what users are visible by the user
+  # Returns an ActiveRecord::Relation scoped to what users are visible by the current user
   #
-  # [1] pry(main)> UserPolicy.new(user: User.first).scope
+  # [1] pry(main)> UserPolicy.new(current_user: User.first).scope
   # => #<ActiveRecord::Relation>
   def scope
     return User.none unless current_user.present?
@@ -17,7 +17,7 @@ class UserPolicy < Policy
   # [1] pry(main)> UserPolicy.new(current_user: nil).can_create?
   # => true
   def can_create?
-    return can_create_instance? if policing_instance?
+    return can_create_instance? if subject_is_instance?
     current_user.nil? || current_user.admin?
   end
 

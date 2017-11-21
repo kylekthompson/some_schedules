@@ -39,18 +39,18 @@ class Policy
   ##
   # Returns true if the subject is an instance of the policy's model class
   #
-  # [1] pry(main)> UserPolicy.new(current_user: User.first, subject: User.first).send(:policing_instance?)
+  # [1] pry(main)> UserPolicy.new(current_user: User.first, subject: User.first).send(:subject_is_instance?)
   # => true
-  def policing_instance?
+  def subject_is_instance?
     subject.is_a?(model_class)
   end
 
   ##
   # Returns true if the subject is the policy's model class
   #
-  # [1] pry(main)> UserPolicy.new(current_user: User.first, subject: User).send(:policing_class?)
+  # [1] pry(main)> UserPolicy.new(current_user: User.first, subject: User).send(:subject_is_class?)
   # => true
-  def policing_class?
+  def subject_is_class?
     subject == model_class
   end
 
@@ -60,8 +60,8 @@ class Policy
     subject.is_a?(Symbol)   ||
       subject.is_a?(String) ||
       subject.nil?          ||
-      policing_class?       ||
-      policing_instance?
+      subject_is_class?       ||
+      subject_is_instance?
   end
 
   def wrong_policy_message

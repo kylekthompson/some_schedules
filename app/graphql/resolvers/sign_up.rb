@@ -41,17 +41,39 @@ module Resolvers
     # => { company: #<Company>, user: #<User>, token: '...' }
     def to_h
       return { errors: errors.messages } unless valid?
-      sign_up_company_and_user
+      set_company_and_user
       return sign_up_errors if sign_up_errors.present?
+      save_company_and_user
       { company: company, user: user, token: token }
     end
 
     private
 
-    def sign_up_company_and_user
+    def set_company_and_user
+      sign_up_user!
+      sign_up_company!
+    end
+
+    def sign_up_user!
+      @user = ::User.new(user_params.merge(role: :owner))
+
+      unless Policy.for(current_user: current_user, subject: user).can_create?
+        raise GraphQL::ExecutionError, 'Not authorized to create a user with those parameters'
+      end
+    end
+
+    def sign_up_company!
       @company = ::Company.new(company_params)
-      @user = company.users.build(user_params.merge(role: :owner))
-      company.save
+
+      if Policy.for(current_user: current_user || user, subject: company).can_create?
+        user.company = company
+      else
+        raise GraphQL::ExecutionError, 'Not authorized to create a company with those parameters'
+      end
+    end
+
+    def save_company_and_user
+      user.save
     end
 
     def token

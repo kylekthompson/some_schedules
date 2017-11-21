@@ -24,7 +24,7 @@ RSpec.describe 'mutation { signUp }' do
 
   let(:variables) { { input: { company: company_input, user: user_input } } }
   let(:company_input) { attributes_for(:company) }
-  let(:user_input) { attributes_for(:user).tap { |attributes| attributes.delete(:role) } }
+  let(:user_input) { attributes_for(:user).except(:admin, :role) }
   let(:context) { {} }
 
   include_context 'mutation_execution_setup'

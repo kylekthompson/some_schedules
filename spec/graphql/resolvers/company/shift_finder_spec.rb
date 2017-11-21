@@ -19,6 +19,8 @@ RSpec.describe Resolvers::Company::ShiftFinder, type: :model do
     create(:company, :with_owner).users.first.shifts.create(attributes_for(:shift))
   end
 
+  include_context 'with stubbed policies'
+
   context 'when there is a current user' do
     let(:current_user) { company.users.first }
 

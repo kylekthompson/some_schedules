@@ -18,13 +18,16 @@ class UserPolicy < Policy
   # => true
   def can_create?
     return can_create_instance? if policing_instance?
-    current_user.nil?
+    current_user.nil? || current_user.admin?
   end
 
   private
 
   def can_create_instance?
-    return current_user.admin? if current_user.present?
-    !subject.admin?
+    if current_user.present?
+      current_user.admin?
+    else
+      !subject.admin?
+    end
   end
 end

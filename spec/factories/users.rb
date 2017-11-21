@@ -9,11 +9,10 @@ FactoryBot.define do
     password_confirmation { password }
     association :company
     role :employee
+    admin false
 
-    User.roles.keys.each do |role|
-      trait role.to_sym do
-        role { role.to_sym }
-      end
+    trait :admin do
+      admin true
     end
 
     trait :with_shifts do
@@ -23,6 +22,12 @@ FactoryBot.define do
 
       after(:create) do |user, transients|
         create_list(:shift, transients.shift_count, user: user)
+      end
+    end
+
+    User.roles.keys.each do |role|
+      trait role.to_sym do
+        role { role.to_sym }
       end
     end
   end

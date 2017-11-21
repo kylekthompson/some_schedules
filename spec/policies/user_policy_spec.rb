@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe UserPolicy, type: :model do
-  subject(:policy) { described_class.new(current_user: user, subject: subject) }
+  subject(:policy) { described_class.new(current_user: current_user, subject: subject) }
 
   describe '#scope' do
     let(:subject) { User }
 
     context 'when there is no user' do
-      let(:user) { nil }
+      let(:current_user) { nil }
 
       before do
         create(:user)
@@ -21,32 +21,70 @@ RSpec.describe UserPolicy, type: :model do
     end
 
     context 'when there is a user' do
-      let(:user) { create(:user) }
-      let!(:other_user) { create(:user, company_id: user.company_id) }
+      let(:current_user) { create(:user) }
+      let!(:other_user) { create(:user, company_id: current_user.company_id) }
 
       before do
         create(:user)
       end
 
       it 'returns no users' do
-        expect(policy.scope).to contain_exactly(user, other_user)
+        expect(policy.scope).to contain_exactly(current_user, other_user)
       end
     end
   end
 
   describe '#can_create?' do
-    let(:subject) { nil }
+    context 'when the subject is a user' do
+      let(:subject) { build(:user) }
 
-    context 'when there is a user' do
-      let(:user) { build(:user) }
+      context 'and the current user is an admin' do
+        let(:current_user) { build(:user, :admin) }
 
-      specify { expect(policy.can_create?).to be(false) }
+        specify { expect(policy.can_create?).to be(true) }
+      end
+
+      context 'and the current user is not an admin' do
+        let(:current_user) { build(:user, admin: false) }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+
+      context 'and there is not a current user' do
+        let(:current_user) { nil }
+
+        it 'will not allow creating an admin user' do
+          subject.admin = true
+          expect(policy.can_create?).to be(false)
+        end
+
+        it 'will allow creating a non-admin user' do
+          subject.admin = false
+          expect(policy.can_create?).to be(true)
+        end
+      end
     end
 
-    context 'when there is not a user' do
-      let(:user) { nil }
+    context 'when the subject is not a user' do
+      let(:subject) { User }
 
-      specify { expect(policy.can_create?).to be(true) }
+      context 'and the current user is an admin' do
+        let(:current_user) { build(:user, :admin) }
+
+        specify { expect(policy.can_create?).to be(true) }
+      end
+
+      context 'and the current user is not an admin' do
+        let(:current_user) { build(:user, admin: false) }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+
+      context 'and there is not a current user' do
+        let(:current_user) { nil }
+
+        specify { expect(policy.can_create?).to be(true) }
+      end
     end
   end
 end

@@ -26,6 +26,7 @@ RSpec.describe 'mutation { createShift }' do
   let(:user_id) { current_user.id }
 
   include_context 'with mutation execution setup'
+  include_context 'with stubbed policies'
 
   specify { expect(data[:createShift][:shift][:published]).to be(false) }
 

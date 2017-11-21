@@ -3,11 +3,13 @@
 module Resolvers
   module Shift
     class Creator
+      SHIFT_AUTHORIZATION_ERROR_MESSAGE = 'Not authorized to create a shift with those parameters'
+
       include ActiveModel::Validations
 
       validates :user, presence: true
 
-      attr_accessor :end_time, :shift, :start_time, :user
+      attr_accessor :current_user, :end_time, :shift, :start_time, :user
 
       ##
       # An entry point that simulates a Proc to create a Shift
@@ -20,7 +22,7 @@ module Resolvers
       # => { shift: #<Shift user_id: 1> }
       def self.call(_object, arguments, context)
         Resolvers.require_authentication!(context)
-        new(arguments).to_h
+        new(arguments.to_h.with_indifferent_access.merge(current_user: context[:current_user])).to_h
       end
 
       ##
@@ -30,6 +32,7 @@ module Resolvers
       # [2] pry(main)> Resolvers::Shift::Creator.new(arguments)
       # => #<Resolvers::Shift::Creator>
       def initialize(arguments)
+        @current_user = arguments[:current_user]
         @end_time = arguments[:end_time]
         @start_time = arguments[:start_time]
         @user = ::User.find_by(id: arguments[:user_id])
@@ -52,7 +55,14 @@ module Resolvers
       private
 
       def create_shift
-        @shift = user.shifts.create(end_time: end_time, start_time: start_time)
+        @shift = user.shifts.build(end_time: end_time, start_time: start_time)
+
+        raise GraphQL::ExecutionError, SHIFT_AUTHORIZATION_ERROR_MESSAGE unless Policy.for(
+          current_user: current_user,
+          subject: shift
+        ).can_create?
+
+        shift.save
       end
     end
   end

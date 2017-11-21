@@ -12,7 +12,7 @@ RSpec.describe Resolvers::Shift::Creator, type: :model do
   describe '.call' do
     let(:token_resolver) { instance_double(described_class, to_h: nil) }
     let(:object) { nil }
-    let(:arguments) { nil }
+    let(:arguments) { {} }
     let(:context) { { current_user: current_user } }
 
     before do
@@ -41,6 +41,8 @@ RSpec.describe Resolvers::Shift::Creator, type: :model do
   end
 
   describe '#to_h' do
+    include_context 'with stubbed policies'
+
     context 'when everything is correct' do
       specify { expect { resolver.to_h }.to change { Shift.count }.by(1) }
       specify { expect(resolver.to_h[:errors]).to be_nil }
@@ -48,6 +50,14 @@ RSpec.describe Resolvers::Shift::Creator, type: :model do
 
       it 'assigns the shift to the correct user' do
         expect(resolver.to_h[:shift].user).to eq(User.find(user_id))
+      end
+    end
+
+    context 'when not authorized to create the shift' do
+      let(:shift_policy) { instance_double(ShiftPolicy, can_create?: false) }
+
+      it 'raises an authorization error' do
+        expect { resolver.to_h }.to raise_error(GraphQL::ExecutionError, /auth/i)
       end
     end
 

@@ -19,4 +19,18 @@ RSpec.describe Shift, type: :model do
       end
     end
   end
+
+  describe '.for_company_id' do
+    let(:company) { create(:company) }
+    let(:user_in_company) { create(:user, company: company) }
+    let!(:shift_for_user_in_company) { create(:shift, user: user_in_company) }
+
+    before do
+      create(:shift)
+    end
+
+    it 'includes shifts for only the expected company' do
+      expect(described_class.for_company_id(company.id)).to contain_exactly(shift_for_user_in_company)
+    end
+  end
 end

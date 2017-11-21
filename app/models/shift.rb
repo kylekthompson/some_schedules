@@ -8,6 +8,8 @@ class Shift < ApplicationRecord
   validates :user, presence: true
   validate :start_time_is_before_end_time
 
+  scope :for_company_id, ->(company_id) { joins(user: :company).where(users: { companies: { id: company_id } }) }
+
   private
 
   def start_time_is_before_end_time

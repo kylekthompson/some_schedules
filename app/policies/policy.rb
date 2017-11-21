@@ -5,29 +5,29 @@ class Policy
   WrongPolicyError = Class.new(StandardError)
   CLASS_SUFFIX = 'Policy'
 
-  attr_reader :user, :policed
+  attr_reader :current_user, :subject
 
   ##
   # Returns an instance of a policy and checks to make sure that the correct policy was chosen
   #
   # Parameters:
-  #   user: the user that is interacting with the policed value
-  #   policed: the value that the user is interacting with
+  #   current_user: the current user of the application
+  #   subject: the value for which the current user is requesting access
   #
-  # [1] pry(main)> Policy.new(user: User.first)
+  # [1] pry(main)> Policy.new(current_user: User.first)
   # => #<Policy>
-  def initialize(user:, policed: nil)
-    @user = user
-    @policed = policed
+  def initialize(current_user:, subject: nil)
+    @current_user = current_user
+    @subject = subject
     raise WrongPolicyError, wrong_policy_message unless correct_policy?
   end
 
   ##
   # Returns an ActiveRecord::Relation scoped to what the user has permission to interact with
   #
-  # Requires that the class being policed is an ActiveRecord model
+  # Requires that the subject is an ActiveRecord model
   #
-  # [1] pry(main)> UserPolicy.new(user: User.first).scope
+  # [1] pry(main)> UserPolicy.new(current_user: User.first).scope
   # => #<ActiveRecord::Relation>
   def scope
     raise UnableToScopeError unless model_class.ancestors.include?(ApplicationRecord)
@@ -37,38 +37,38 @@ class Policy
   protected
 
   ##
-  # Returns true if the policed value is an instance of the policy's model class
+  # Returns true if the subject is an instance of the policy's model class
   #
-  # [1] pry(main)> UserPolicy.new(user: User.first, policed: User.first).send(:policing_instance?)
+  # [1] pry(main)> UserPolicy.new(current_user: User.first, subject: User.first).send(:subject_is_instance?)
   # => true
-  def policing_instance?
-    policed.is_a?(model_class)
+  def subject_is_instance?
+    subject.is_a?(model_class)
   end
 
   ##
-  # Returns true if the policed value is the policy's model class
+  # Returns true if the subject is the policy's model class
   #
-  # [1] pry(main)> UserPolicy.new(user: User.first, policed: User).send(:policing_class?)
+  # [1] pry(main)> UserPolicy.new(current_user: User.first, subject: User).send(:subject_is_class?)
   # => true
-  def policing_class?
-    policed == model_class
+  def subject_is_class?
+    subject == model_class
   end
 
   private
 
   def correct_policy?
-    policed.is_a?(Symbol)   ||
-      policed.is_a?(String) ||
-      policed.nil?          ||
-      policing_class?       ||
-      policing_instance?
+    subject.is_a?(Symbol)   ||
+      subject.is_a?(String) ||
+      subject.nil?          ||
+      subject_is_class?     ||
+      subject_is_instance?
   end
 
   def wrong_policy_message
     <<~WRONG_POLICY_MESSAGE
       \nError in #{self.class}:
-      \tExpected `policed` to be an instance of #{model_class} or to be #{model_class}.
-      \tIf you would prefer to use the same value for `policed`, please use a different policy.
+      \tExpected `subject` to be an instance of #{model_class} or to be #{model_class}.
+      \tIf you would prefer to use the same value for `subject`, please use a different policy.
     WRONG_POLICY_MESSAGE
   end
 
@@ -78,37 +78,37 @@ class Policy
 
   class << self
     ##
-    # Returns the correct policy class for a given user and policed value
+    # Returns the correct policy class for a given user and subject
     #
-    # [1] pry(main)> Policy.for(user: User.first, policed: User)
+    # [1] pry(main)> Policy.for(current_user: User.first, subject: User)
     # => #<UserPolicy>
-    def for(user:, policed:)
-      policy_class_for(policed).new(user: user, policed: policed)
+    def for(current_user:, subject:)
+      policy_class_for(subject).new(current_user: current_user, subject: subject)
     end
 
     ##
-    # Returns the correct scope for a given user and policed value
+    # Returns the correct scope for a given user and subject
     #
-    # [1] pry(main)> Policy.scope(user: User.first, policed: User)
+    # [1] pry(main)> Policy.scope(current_user: User.first, subject: User)
     # => #<ActiveRecord::Relation>
-    def scope(user:, policed:)
-      self.for(user: user, policed: policed).scope
+    def scope(current_user:, subject:)
+      self.for(current_user: current_user, subject: subject).scope
     end
 
     private
 
-    def policy_class_for(policed)
-      Class.const_get("#{class_string_for(policed)}#{CLASS_SUFFIX}")
+    def policy_class_for(subject)
+      Class.const_get("#{class_string_for(subject)}#{CLASS_SUFFIX}")
     end
 
-    def class_string_for(policed)
-      case policed
+    def class_string_for(subject)
+      case subject
       when Class
-        policed.to_s
+        subject.to_s
       when Symbol, String
-        policed.to_s.camelize
+        subject.to_s.camelize
       else
-        policed.class.to_s
+        subject.class.to_s
       end
     end
   end

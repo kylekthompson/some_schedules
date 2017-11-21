@@ -12,9 +12,9 @@ RSpec.describe Batch::RecordLoader, type: :model do
       end
     end
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
-    context 'and the record exists' do
+    context 'when the record exists' do
       let(:user) { create(:user) }
       let(:id) { user.id }
 
@@ -23,7 +23,7 @@ RSpec.describe Batch::RecordLoader, type: :model do
       end
     end
 
-    context 'and the record does not exist' do
+    context 'when the record does not exist' do
       let(:id) { (User.last&.id || 0) + 1000 }
 
       it 'returns nil' do
@@ -41,13 +41,13 @@ RSpec.describe Batch::RecordLoader, type: :model do
       end
     end
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     before do
       create(:company, :with_owner)
     end
 
-    context 'and there is a user that matches' do
+    context 'when there is a user that matches' do
       let(:company_id) { user.company_id }
 
       it 'finds the record' do
@@ -55,7 +55,7 @@ RSpec.describe Batch::RecordLoader, type: :model do
       end
     end
 
-    context 'and there is not a user that matches' do
+    context 'when there is not a user that matches' do
       let(:company_id) { (Company.last&.id || 0) + 1000 }
 
       it 'returns nil' do
@@ -83,7 +83,7 @@ RSpec.describe Batch::RecordLoader, type: :model do
       end
     end
 
-    include_context 'stub_policies'
+    include_context 'with stubbed policies'
 
     before do
       user_with_shifts.shifts.create(attributes_for(:shift))

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.shared_context 'stub_policies' do
-  let(:company_policy) { instance_double(CompanyPolicy) }
-  let(:shift_policy) { instance_double(ShiftPolicy) }
-  let(:user_policy) { instance_double(UserPolicy) }
+RSpec.shared_context 'with stubbed policies' do
+  let(:company_policy) { instance_double(CompanyPolicy, can_create?: true) }
+  let(:shift_policy) { instance_double(ShiftPolicy, can_create?: true) }
+  let(:user_policy) { instance_double(UserPolicy, can_create?: true) }
 
   before do
     allow(CompanyPolicy).to receive(:new).and_return(company_policy)

@@ -25,7 +25,8 @@ RSpec.describe 'mutation { createShift }' do
   let(:start_time) { 1.hour.from_now.to_s }
   let(:user_id) { current_user.id }
 
-  include_context 'mutation_execution_setup'
+  include_context 'with mutation execution setup'
+  include_context 'with stubbed policies'
 
   specify { expect(data[:createShift][:shift][:published]).to be(false) }
 

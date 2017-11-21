@@ -17,8 +17,8 @@ RSpec.describe 'query { viewer }' do
   let(:context) { { current_user: current_user } }
   let(:current_user) { user_one }
 
-  include_context 'data_setup'
-  include_context 'query_execution_setup'
+  include_context 'with data setup'
+  include_context 'with query execution setup'
 
   context 'when there is a current user' do
     let(:current_user) { user_one }

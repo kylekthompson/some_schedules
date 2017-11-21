@@ -8,7 +8,7 @@ export interface ICompany {
   users: IUser[];
 }
 
-export type IUserRole = 'OWNER' | 'MANAGER' | 'SUPERVISOR' | 'EMPLOYEE';
+export type IUserRole = 'OWNER' | 'MANAGER' | 'EMPLOYEE';
 
 export interface IErrors {
   [key: string]: string[];

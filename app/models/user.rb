@@ -6,7 +6,7 @@ class User < ApplicationRecord
   belongs_to :company
   has_many :shifts, dependent: :destroy
 
-  enum role: %i[owner manager supervisor employee]
+  enum role: %i[owner manager employee]
 
   before_validation :downcase_email
 

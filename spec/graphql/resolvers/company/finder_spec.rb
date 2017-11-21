@@ -15,17 +15,19 @@ RSpec.describe Resolvers::Company::Finder, type: :model do
   let(:arguments) { {} }
   let(:context) { { current_user: current_user } }
 
+  include_context 'with stubbed policies'
+
   context 'when there is a current user' do
     let(:current_user) { create(:user) }
 
-    context 'and the slug of a company that exists was passed' do
+    context 'when the slug of a company that exists was passed' do
       let(:arguments) { { slug: slug } }
       let(:slug) { company.slug }
 
       specify { expect(result).to eq(company) }
     end
 
-    context 'and the slug of a company that does not exist was passed' do
+    context 'when the slug of a company that does not exist was passed' do
       let(:arguments) { { slug: 'does-not-exist' } }
 
       specify { expect(result).to be_nil }

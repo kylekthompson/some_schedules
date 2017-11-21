@@ -6,7 +6,7 @@ RSpec.describe Resolvers::SignUp, type: :model do
   subject(:resolver) { described_class.new(arguments) }
 
   let(:company_attributes) { attributes_for(:company) }
-  let(:user_attributes) { attributes_for(:user) }
+  let(:user_attributes) { attributes_for(:user).except(:admin, :role) }
   let(:current_user) { nil }
   let(:arguments) do
     {
@@ -18,20 +18,6 @@ RSpec.describe Resolvers::SignUp, type: :model do
 
   it { is_expected.to validate_presence_of(:company_params) }
   it { is_expected.to validate_presence_of(:user_params) }
-
-  describe 'validations' do
-    context 'when signed in' do
-      let(:current_user) { build(:user) }
-
-      specify { expect(resolver).not_to be_valid }
-    end
-
-    context 'when signed out' do
-      let(:current_user) { nil }
-
-      specify { expect(resolver).to be_valid }
-    end
-  end
 
   describe '.call' do
     let(:company_resolver) { instance_double(described_class, to_h: nil) }
@@ -65,6 +51,30 @@ RSpec.describe Resolvers::SignUp, type: :model do
       specify { expect(resolver.to_h[:user_errors]).not_to be_nil }
       specify { expect(resolver.to_h[:user]).to be_nil }
       specify { expect(resolver.to_h[:token]).to be_nil }
+    end
+
+    context 'when not authorized to create the user' do
+      let(:user_policy) { instance_double(UserPolicy, can_create?: false) }
+
+      before do
+        allow(UserPolicy).to receive(:new).and_return(user_policy)
+      end
+
+      it 'raises an authorization error' do
+        expect { resolver.to_h }.to raise_error(GraphQL::ExecutionError, /auth/i)
+      end
+    end
+
+    context 'when not authorized to create the company' do
+      let(:company_policy) { instance_double(CompanyPolicy, can_create?: false) }
+
+      before do
+        allow(CompanyPolicy).to receive(:new).and_return(company_policy)
+      end
+
+      it 'raises an authorization error' do
+        expect { resolver.to_h }.to raise_error(GraphQL::ExecutionError, /auth/i)
+      end
     end
 
     context 'when everything is valid' do

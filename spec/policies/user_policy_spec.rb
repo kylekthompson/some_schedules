@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe UserPolicy, type: :model do
-  subject(:policy) { described_class.new(user: user, policed: policed) }
+  subject(:policy) { described_class.new(current_user: current_user, subject: policy_subject) }
 
   describe '#scope' do
-    let(:policed) { User }
+    let(:policy_subject) { User }
 
     context 'when there is no user' do
-      let(:user) { nil }
+      let(:current_user) { nil }
 
       before do
         create(:user)
@@ -20,56 +20,81 @@ RSpec.describe UserPolicy, type: :model do
       end
     end
 
-    context 'when there is a user' do
-      let(:user) { create(:user) }
-      let!(:other_user) { create(:user, company_id: user.company_id) }
+    context 'when there is an admin user' do
+      let(:current_user) { create(:user, :admin) }
+      let!(:other_user) { create(:user, company_id: current_user.company_id) }
+      let!(:another_other_user) { create(:user) }
+
+      it 'returns all users' do
+        expect(policy.scope).to contain_exactly(current_user, other_user, another_other_user)
+      end
+    end
+
+    context 'when there is a non-admin user' do
+      let(:current_user) { create(:user, admin: false) }
+      let!(:other_user) { create(:user, company_id: current_user.company_id) }
 
       before do
         create(:user)
       end
 
-      it 'returns no users' do
-        expect(policy.scope).to contain_exactly(user, other_user)
+      it 'returns only users visible by the user' do
+        expect(policy.scope).to contain_exactly(current_user, other_user)
       end
     end
   end
 
-  describe '#can_read?' do
-    let(:user) { build(:user, company_id: company_id) }
-    let(:company_id) { 1 }
-
-    context 'when the policed value is a user in the same company' do
-      let(:policed) { build(:user, company_id: company_id) }
-
-      specify { expect(policy.can_read?).to be(true) }
-    end
-
-    context 'when the policed value is a user in a different company' do
-      let(:policed) { build(:user, company_id: company_id + 1) }
-
-      specify { expect(policy.can_read?).to be(false) }
-    end
-
-    context 'when the policed value is anything else' do
-      let(:policed) { 'anything else' }
-
-      specify { expect(policy.can_read?).to be(false) }
-    end
-  end
-
   describe '#can_create?' do
-    let(:policed) { nil }
+    context 'when the subject is a user' do
+      let(:policy_subject) { build(:user) }
 
-    context 'when there is a user' do
-      let(:user) { build(:user) }
+      context 'when the current user is an admin' do
+        let(:current_user) { build(:user, :admin) }
 
-      specify { expect(policy.can_create?).to be(false) }
+        specify { expect(policy.can_create?).to be(true) }
+      end
+
+      context 'when the current user is not an admin' do
+        let(:current_user) { build(:user, admin: false) }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+
+      context 'when there is not a current user' do
+        let(:current_user) { nil }
+
+        it 'will not allow creating an admin user' do
+          policy_subject.admin = true
+          expect(policy.can_create?).to be(false)
+        end
+
+        it 'will allow creating a non-admin user' do
+          policy_subject.admin = false
+          expect(policy.can_create?).to be(true)
+        end
+      end
     end
 
-    context 'when there is not a user' do
-      let(:user) { nil }
+    context 'when the subject is not a user' do
+      let(:policy_subject) { User }
 
-      specify { expect(policy.can_create?).to be(true) }
+      context 'when the current user is an admin' do
+        let(:current_user) { build(:user, :admin) }
+
+        specify { expect(policy.can_create?).to be(true) }
+      end
+
+      context 'when the current user is not an admin' do
+        let(:current_user) { build(:user, admin: false) }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+
+      context 'when there is not a current user' do
+        let(:current_user) { nil }
+
+        specify { expect(policy.can_create?).to be(true) }
+      end
     end
   end
 end

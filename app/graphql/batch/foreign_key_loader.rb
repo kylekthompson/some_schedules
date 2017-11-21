@@ -31,7 +31,7 @@ module Batch
     end
 
     def lookup(value_sets)
-      @records = Policy.scope(user: user, policed: model)
+      @records = Policy.scope(current_user: user, subject: model)
       @records = @records.where(foreign_key => value_sets.flatten.uniq)
     end
   end

@@ -8,69 +8,69 @@ class TestClass; end
 class TestModel < ApplicationRecord; end
 
 RSpec.describe Policy, type: :model do
-  let(:user) { build(:user, id: 1) }
+  let(:current_user) { build(:user, id: 1) }
 
   describe '#initialize' do
-    subject(:policy) { TestClassPolicy.new(user: user, policed: policed) }
+    subject(:policy) { TestClassPolicy.new(current_user: current_user, subject: policy_subject) }
 
-    context 'when the policed value is a valid class for that policy' do
-      let(:policed) { TestClass }
-
-      specify { expect { policy }.not_to raise_error }
-    end
-
-    context 'when the policed value is a valid instance of a class for that policy' do
-      let(:policed) { TestClass.new }
+    context 'when the subject is a valid class for that policy' do
+      let(:policy_subject) { TestClass }
 
       specify { expect { policy }.not_to raise_error }
     end
 
-    context 'when the policed value is an invalid class for that policy' do
-      let(:policed) { User }
+    context 'when the subject is a valid instance of a class for that policy' do
+      let(:policy_subject) { TestClass.new }
+
+      specify { expect { policy }.not_to raise_error }
+    end
+
+    context 'when the subject is an invalid class for that policy' do
+      let(:policy_subject) { User }
 
       specify { expect { policy }.to raise_error(described_class::WrongPolicyError) }
     end
 
-    context 'when the policed value is an invalid instance of a class for that policy' do
-      let(:policed) { User.new }
+    context 'when the subject is an invalid instance of a class for that policy' do
+      let(:policy_subject) { User.new }
 
       specify { expect { policy }.to raise_error(described_class::WrongPolicyError) }
     end
 
-    context 'when the policed value is a string' do
-      let(:policed) { 'string' }
+    context 'when the subject is a string' do
+      let(:policy_subject) { 'string' }
 
       specify { expect { policy }.not_to raise_error }
     end
 
-    context 'when the policed value is a symbol' do
-      let(:policed) { :symbol }
+    context 'when the subject is a symbol' do
+      let(:policy_subject) { :symbol }
 
       specify { expect { policy }.not_to raise_error }
     end
 
-    context 'when the policed value is nil' do
-      let(:policed) { nil }
+    context 'when the subject is nil' do
+      let(:policy_subject) { nil }
 
       specify { expect { policy }.not_to raise_error }
     end
   end
 
   describe '#scope' do
-    context 'when the policed value is not backed by ActiveRecord' do
-      subject(:policy) { TestClassPolicy.new(user: user, policed: policed) }
+    context 'when the subject is not backed by ActiveRecord' do
+      subject(:policy) { TestClassPolicy.new(current_user: current_user, subject: policy_subject) }
 
-      let(:policed) { TestClass }
+      let(:policy_subject) { TestClass }
 
       it 'raises an error' do
         expect { policy.scope }.to raise_error(described_class::UnableToScopeError)
       end
     end
 
-    context 'when the policed value is backed by ActiveRecord' do
-      subject(:policy) { TestModelPolicy.new(user: user, policed: policed) }
+    context 'when the subject is backed by ActiveRecord' do
+      subject(:policy) { TestModelPolicy.new(current_user: current_user, subject: policy_subject) }
 
-      let(:policed) { TestModel }
+      let(:policy_subject) { TestModel }
 
       before do
         allow(TestModel).to receive(:all).and_return(nil)
@@ -84,46 +84,46 @@ RSpec.describe Policy, type: :model do
   end
 
   describe '.for' do
-    context 'when the policed value is a class' do
+    context 'when the subject is a class' do
       it 'finds the right policy' do
-        expect(described_class.for(user: user, policed: TestClass)).to be_a(TestClassPolicy)
+        expect(described_class.for(current_user: current_user, subject: TestClass)).to be_a(TestClassPolicy)
       end
     end
 
-    context 'when the policed value is an instance of a class' do
+    context 'when the subject is an instance of a class' do
       it 'finds the right policy' do
-        expect(described_class.for(user: user, policed: TestClass.new)).to be_a(TestClassPolicy)
+        expect(described_class.for(current_user: current_user, subject: TestClass.new)).to be_a(TestClassPolicy)
       end
     end
 
-    context 'when the policed value is a symbol' do
+    context 'when the subject is a symbol' do
       it 'finds the right policy' do
-        expect(described_class.for(user: user, policed: :test_class)).to be_a(TestClassPolicy)
+        expect(described_class.for(current_user: current_user, subject: :test_class)).to be_a(TestClassPolicy)
       end
     end
 
-    context 'when the policed value is a string' do
+    context 'when the subject is a string' do
       it 'finds the right policy' do
-        expect(described_class.for(user: user, policed: 'test_class')).to be_a(TestClassPolicy)
+        expect(described_class.for(current_user: current_user, subject: 'test_class')).to be_a(TestClassPolicy)
       end
     end
   end
 
   describe '.scope' do
-    context 'when the policed value is not backed by ActiveRecord' do
+    context 'when the subject is not backed by ActiveRecord' do
       it 'raises an error by default' do
-        expect { described_class.scope(user: user, policed: TestClass) }
+        expect { described_class.scope(current_user: current_user, subject: TestClass) }
           .to raise_error(described_class::UnableToScopeError)
       end
     end
 
-    context 'when the policed value is backed by ActiveRecord' do
+    context 'when the subject is backed by ActiveRecord' do
       before do
         allow(TestModel).to receive(:all).and_return(nil)
       end
 
       it 'returns the entire model by default' do
-        described_class.scope(user: user, policed: TestModel)
+        described_class.scope(current_user: current_user, subject: TestModel)
         expect(TestModel).to have_received(:all)
       end
     end

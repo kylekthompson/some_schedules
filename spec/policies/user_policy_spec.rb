@@ -20,15 +20,25 @@ RSpec.describe UserPolicy, type: :model do
       end
     end
 
-    context 'when there is a user' do
-      let(:current_user) { create(:user) }
+    context 'when there is an admin user' do
+      let(:current_user) { create(:user, :admin) }
+      let!(:other_user) { create(:user, company_id: current_user.company_id) }
+      let!(:another_other_user) { create(:user) }
+
+      it 'returns all users' do
+        expect(policy.scope).to contain_exactly(current_user, other_user, another_other_user)
+      end
+    end
+
+    context 'when there is a non-admin user' do
+      let(:current_user) { create(:user, admin: false) }
       let!(:other_user) { create(:user, company_id: current_user.company_id) }
 
       before do
         create(:user)
       end
 
-      it 'returns no users' do
+      it 'returns only users visible by the user' do
         expect(policy.scope).to contain_exactly(current_user, other_user)
       end
     end

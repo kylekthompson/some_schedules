@@ -20,9 +20,19 @@ RSpec.describe CompanyPolicy, type: :model do
       end
     end
 
-    context 'when there is a user' do
-      let(:current_user) { create(:user) }
-      let(:viewable_company) { current_user.company }
+    context 'when there is an admin user' do
+      let(:current_user) { create(:user, :admin) }
+      let!(:viewable_company) { current_user.company }
+      let!(:other_company) { create(:company) }
+
+      it 'returns all companies' do
+        expect(policy.scope).to contain_exactly(viewable_company, other_company)
+      end
+    end
+
+    context 'when there is a non-admin user' do
+      let(:current_user) { create(:user, admin: false) }
+      let!(:viewable_company) { current_user.company }
 
       before do
         create(:company)

@@ -8,6 +8,7 @@ class UserPolicy < Policy
   # => #<ActiveRecord::Relation>
   def scope
     return User.none unless current_user.present?
+    return User.all if current_user.admin?
     User.where(company_id: current_user.company_id)
   end
 

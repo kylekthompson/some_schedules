@@ -18,4 +18,16 @@ class Shift < ApplicationRecord
     return if start_time < end_time
     errors.add(:start_time, 'must be before end time')
   end
+
+  class << self
+    def after(time)
+      return all if time.blank?
+      where(arel_table[:start_time].gteq(time))
+    end
+
+    def before(time)
+      return all if time.blank?
+      where(arel_table[:start_time].lteq(time))
+    end
+  end
 end

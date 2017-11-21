@@ -28,8 +28,7 @@ class ShiftPolicy < Policy
   def can_create_instance?
     return true if current_user.admin?
     return false if current_user.employee?
-    return true if current_user.company == subject.company
-    false
+    current_user.company == subject.company
   end
 
   def non_admin_scope

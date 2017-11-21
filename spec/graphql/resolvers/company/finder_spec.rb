@@ -15,6 +15,8 @@ RSpec.describe Resolvers::Company::Finder, type: :model do
   let(:arguments) { {} }
   let(:context) { { current_user: current_user } }
 
+  include_context 'stub_policies'
+
   context 'when there is a current user' do
     let(:current_user) { create(:user) }
 

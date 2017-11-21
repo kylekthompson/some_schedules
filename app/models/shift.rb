@@ -2,6 +2,7 @@
 
 class Shift < ApplicationRecord
   belongs_to :user
+  has_one :company, through: :user
 
   validates :end_time, presence: true
   validates :start_time, presence: true

@@ -57,4 +57,52 @@ RSpec.describe ShiftPolicy, type: :model do
       end
     end
   end
+
+  describe '#can_create?' do
+    context 'when the subject is a shift' do
+      let(:policy_subject) { build(:shift, user: nil, user_id: user_id) }
+      let(:user_id) { nil }
+
+      context 'when there is no current user' do
+        let(:current_user) { nil }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+
+      context 'when the current user is an admin' do
+        let(:current_user) { build(:user, :admin) }
+        let(:user_id) { create(:user).id }
+
+        specify { expect(policy.can_create?).to be(true) }
+      end
+
+      context 'when the current user is an employee' do
+        let(:current_user) { build(:user, :employee, admin: false) }
+        let(:user_id) { create(:user, company: current_user.company).id }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+
+      context 'when the current user is an owner or manager of the same company' do
+        let(:current_user) { build(:user, :manager, admin: false) }
+        let(:user_id) { create(:user, company: current_user.company).id }
+
+        specify { expect(policy.can_create?).to be(true) }
+      end
+
+      context 'when the current user is an owner or manager but of a different company' do
+        let(:current_user) { build(:user, :manager, admin: false) }
+        let(:user_id) { create(:user).id }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+    end
+
+    context 'when the subject is not a shift' do
+      let(:policy_subject) { Shift }
+      let(:current_user) { create(:user) }
+
+      specify { expect(policy.can_create?).to be(false) }
+    end
+  end
 end

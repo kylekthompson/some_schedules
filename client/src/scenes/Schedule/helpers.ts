@@ -21,9 +21,12 @@ export const addShiftToState = (state: IScheduleState, shift: IShift) => {
   };
 };
 
-export const getViewer = () => graphql.query<IScheduleQueryResult>({
+export const getViewer = (
+  after: string | null = null,
+  before: string | null = null
+) => graphql.query<IScheduleQueryResult>({
   query: gql`
-    query Viewer {
+    query Viewer($after: DateType, $before: DateType) {
       viewer {
         id
         firstName
@@ -36,7 +39,7 @@ export const getViewer = () => graphql.query<IScheduleQueryResult>({
             firstName
             lastName
           }
-          shifts {
+          shifts(after: $after, before: $before) {
             id
             endTime
             startTime
@@ -49,5 +52,9 @@ export const getViewer = () => graphql.query<IScheduleQueryResult>({
       }
     }
   `,
+  variables: {
+    after,
+    before,
+  },
 });
 export const toMoment = (time: string) => moment.utc(time, 'YYYY-MM-DD HH-mm-ss UTC').tz(moment.tz.guess());

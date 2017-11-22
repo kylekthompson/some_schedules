@@ -24,17 +24,13 @@ class Schedule extends React.Component<{}, IScheduleState> {
   };
 
   public componentDidMount() {
-    getViewer().then(({ data: { viewer }, errors }) => {
-      if (viewer) {
-        this.setState({
-          viewer,
-        });
-      } else if (errors) {
-        throw new Error(errors.join('\n'));
-      }
-    }).catch((_error) => {
-      // TODO: handle error
-    });
+    this.loadViewer();
+  }
+
+  public componentDidUpdate(_prevProps: {}, prevState: IScheduleState) {
+    if (this.state.selectedDay === prevState.selectedDay) { return; }
+
+    this.loadViewer();
   }
 
   public render() {
@@ -116,6 +112,31 @@ class Schedule extends React.Component<{}, IScheduleState> {
         visible: false,
       },
     }));
+  }
+
+  private loadViewer = () => {
+    let after: string | null = null;
+    let before: string | null = null;
+
+    if (this.state.currentView === ScheduleView.WEEK) {
+      after = this.state.selectedDay.clone().startOf('week').format();
+      before = this.state.selectedDay.clone().endOf('week').format();
+    } else {
+      after = this.state.selectedDay.clone().startOf('day').format();
+      before = this.state.selectedDay.clone().endOf('day').format();
+    }
+
+    getViewer(after, before).then(({ data: { viewer }, errors }) => {
+      if (viewer) {
+        this.setState({
+          viewer,
+        });
+      } else if (errors) {
+        throw new Error(errors.join('\n'));
+      }
+    }).catch((_error) => {
+      // TODO: handle error
+    });
   }
 }
 

@@ -2,13 +2,13 @@
 
 module Batch
   class RecordLoader < GraphQL::Batch::Loader
-    attr_reader :lookup_column, :lookup_column_type, :merge, :model, :user
+    attr_reader :lookup_column, :lookup_column_type, :scope_proc, :model, :user
 
-    def initialize(model, user:, lookup_column: model.primary_key, merge: nil)
+    def initialize(model, user:, lookup_column: model.primary_key, scope_proc: ->(scope) { scope })
       @model = model
       @lookup_column = lookup_column.to_s
       @lookup_column_type = model.type_for_attribute(@lookup_column)
-      @merge = merge
+      @scope_proc = scope_proc
       @user = user
     end
 
@@ -29,7 +29,7 @@ module Batch
 
     def lookup(keys)
       scope = Policy.scope(current_user: user, subject: model)
-      scope = scope.merge(merge) if merge.present?
+      scope = scope_proc.call(scope)
       scope.where(lookup_column => keys)
     end
   end

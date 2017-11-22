@@ -19,7 +19,12 @@ module Resolvers
           Resolvers.require_authentication!(context)
           user = context[:current_user]
           UserFinder.call(company, arguments, context).then do |users|
-            Batch::ForeignKeyLoader.for(::Shift, :user_id, user: user).load(users.pluck(:id))
+            Batch::ForeignKeyLoader.for(
+              ::Shift,
+              :user_id,
+              user: user,
+              scope_proc: ->(scope) { scope.after(arguments[:after]).before(arguments[:before]) }
+            ).load(users.pluck(:id))
           end
         end
       end

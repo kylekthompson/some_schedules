@@ -17,58 +17,22 @@ const Modal = styled.div`
     display: block;
     position: absolute;
 
-    ${({ x }: IModalProps) => {
-      let cssString;
-
-      if (x > document.body.clientWidth / 2) {
-        cssString = css`right: 10px;`;
-      } else {
-        cssString = css`left: 10px;`;
-      }
-
-      return cssString;
-    }}
-    ${({ y }: IModalProps) => {
-      let cssString;
-
-      if (y > document.body.clientHeight / 2) {
-        cssString = css`
-          border-color: white transparent transparent transparent;
-          bottom: -20px;
-        `;
-      } else {
-        cssString = css`
-          border-color: transparent transparent white transparent;
-          top: -20px;
-        `;
-      }
-
-      return cssString;
-    }}
+    ${({ x }: IModalProps) => x > document.body.clientWidth / 2 ? css`right: 10px;` : css`left: 10px;`}
+    ${({ y }: IModalProps) => y > document.body.clientHeight / 2
+      ? css`border-color: white transparent transparent transparent; bottom: -20px;`
+      : css`border-color: transparent transparent white transparent; top: -20px;`
+    }
   }
 
-  ${({ x }: IModalProps) => {
-    let cssString;
-
-    if (x > document.body.clientWidth / 2) {
-      cssString = css`right: ${document.body.clientWidth - x - 20}px;`;
-    } else {
-      cssString = css`left: ${x - 20}px;`;
-    }
-
-    return cssString;
-  }}
+  ${({ x }: IModalProps) => x > document.body.clientWidth / 2
+    ? css`right: ${document.body.clientWidth - x - 20}px;`
+    : css`left: ${x - 20}px;`
+  }
   ${({ y }: IModalProps) => {
-    let cssString;
-
-    if (y > document.body.clientHeight / 2) {
-      // the 80 here is to account for the footer's height and margin
-      cssString = css`bottom: ${document.body.clientHeight - y + 10 + 80}px;`;
-    } else {
-      cssString = css`top: ${y + 10}px;`;
-    }
-
-    return cssString;
+    // the 80 here is to account for the footer's height and margin
+    return y > document.body.clientHeight / 2
+      ? css`bottom: ${document.body.clientHeight - y + 10 + 80}px;`
+      : css`top: ${y + 10}px;`;
   }}
 `;
 

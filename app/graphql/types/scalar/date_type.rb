@@ -3,7 +3,7 @@
 module Types
   module Scalar
     DateType = GraphQL::ScalarType.define do
-      name 'Date'
+      name 'DateType'
       description 'A date string'
 
       coerce_input lambda { |date, _context|

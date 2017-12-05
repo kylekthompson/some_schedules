@@ -2,6 +2,7 @@
 
 class Company < ApplicationRecord
   has_many :users
+  has_many :invitations, through: :users
   has_many :shifts, through: :users
 
   validates :name, presence: true

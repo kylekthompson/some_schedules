@@ -10,16 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120234415) do
+ActiveRecord::Schema.define(version: 20171205161445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "companies", force: :cascade do |t|
     t.string "name", null: false
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "invitations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "email", null: false
+    t.boolean "accepted", default: false, null: false
+    t.datetime "expires_at", default: -> { "(now() + '1 day'::interval)" }, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "shifts", force: :cascade do |t|
@@ -29,7 +40,6 @@ ActiveRecord::Schema.define(version: 20171120234415) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
-    t.index ["start_time"], name: "index_shifts_on_start_time"
     t.index ["user_id"], name: "index_shifts_on_user_id"
   end
 
@@ -46,6 +56,7 @@ ActiveRecord::Schema.define(version: 20171120234415) do
     t.index ["company_id"], name: "index_users_on_company_id"
   end
 
+  add_foreign_key "invitations", "users"
   add_foreign_key "shifts", "users"
   add_foreign_key "users", "companies"
 end

@@ -39,7 +39,7 @@ RSpec.describe 'mutation { signIn }' do
 
   context 'when the password is not correct' do
     let(:email) { actual_email }
-    let(:password) { FFaker::Internet.password }
+    let(:password) { 'some_password_that_is_not_correct' }
 
     specify { expect(data[:signIn][:errors][:password]).not_to be_nil }
     specify { expect(data[:signIn][:token]).to be_nil }
@@ -47,8 +47,8 @@ RSpec.describe 'mutation { signIn }' do
   end
 
   context 'when the email does not exist' do
-    let(:email) { FFaker::Internet.email }
-    let(:password) { FFaker::Internet.password }
+    let(:email) { 'some_email_that_does_not_exist@email.com' }
+    let(:password) { 'some_password_that_is_not_correct' }
 
     specify { expect(data[:signIn][:errors][:email]).not_to be_nil }
     specify { expect(data[:signIn][:token]).to be_nil }

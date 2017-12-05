@@ -10,12 +10,13 @@ module Types
         Types::Interface::ErrorsInterface
       ].freeze
 
-      field :id, !types.Int
-      field :email, !types.String
-      field :firstName, !types.String, property: :first_name
-      field :lastName, !types.String, property: :last_name
+      field :id, types.Int
+      field :email, types.String
+      field :firstName, types.String, property: :first_name
+      field :lastName, types.String, property: :last_name
       field :role, Types::Enum::UserRoleEnum
       field :company, Fields::CompanyField.field
+      field :invitations, Fields::User::InvitationsField.field
       field :shifts, Fields::User::ShiftsField.field
     end
   end

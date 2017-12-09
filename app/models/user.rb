@@ -4,19 +4,17 @@ class User < ApplicationRecord
   has_secure_password
 
   belongs_to :company
+  has_many :invitations, dependent: :destroy
   has_many :shifts, dependent: :destroy
 
   enum role: %i[owner manager employee]
 
-  before_validation :downcase_email
+  before_validation Helpers::EmailFormatter
 
   validates :company, presence: true
   validates :email, presence: true
   validates :email, uniqueness: true
-  validates :email, format: {
-    with: /\A.+@.+\..+\z/,
-    message: 'must be an email address'
-  }
+  validates :email, format: Helpers::EmailFormatter::FORMAT
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :password, confirmation: true, on: :create
@@ -65,11 +63,5 @@ class User < ApplicationRecord
   # => #<User>
   def self.from_token_payload(payload)
     find_by(email: payload['sub']&.downcase)
-  end
-
-  private
-
-  def downcase_email
-    self.email = email.downcase if email.present?
   end
 end

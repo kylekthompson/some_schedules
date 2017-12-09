@@ -2,10 +2,10 @@
 
 module Resolvers
   module Company
-    module UserFinder
+    module InvitationFinder
       class << self
         ##
-        # Finds the users that belong to a company
+        # Finds the invitations that belong to users within a company
         #
         # Requires a user to be logged in
         #
@@ -13,12 +13,18 @@ module Resolvers
         #
         # [1] pry(main)> context = { current_user: User.first }
         # [2] pry(main)> company = Company.first
-        # [3] pry(main)> Resolvers::Company::UserFinder.call(company, nil, context)
-        # => [#<User>, ...]
-        def call(company, _arguments, context)
+        # [3] pry(main)> Resolvers::Company::InvitationFinder.call(company, nil, context)
+        # => [#<Invitation>, ...]
+        def call(company, arguments, context)
           Resolvers.require_authentication!(context)
           current_user = context[:current_user]
-          Batch::ForeignKeyLoader.for(::User, :company_id, user: current_user).load(company.id)
+          UserFinder.call(company, arguments, context).then do |users|
+            Batch::ForeignKeyLoader.for(
+              ::Invitation,
+              :user_id,
+              user: current_user
+            ).load(users.pluck(:id))
+          end
         end
       end
     end

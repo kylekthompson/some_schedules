@@ -10,10 +10,10 @@ module Types
         Types::Interface::ErrorsInterface
       ].freeze
 
-      field :id, !types.Int
-      field :endTime, !Types::Scalar::DateType, property: :end_time
-      field :published, !types.Boolean
-      field :startTime, !Types::Scalar::DateType, property: :start_time
+      field :id, types.Int
+      field :endTime, Types::Scalar::DateType, property: :end_time
+      field :published, types.Boolean
+      field :startTime, Types::Scalar::DateType, property: :start_time
       field :user, Fields::UserField.field
     end
   end

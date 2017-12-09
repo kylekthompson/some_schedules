@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject(:user) { build(:user) }
 
+  it { is_expected.to callback(Helpers::EmailFormatter).before(:validation) }
+
   it { is_expected.to validate_presence_of(:company) }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
@@ -20,6 +22,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_secure_password }
 
   it { is_expected.to belong_to(:company) }
+  it { is_expected.to have_many(:invitations) }
   it { is_expected.to have_many(:shifts) }
 
   describe '#role' do

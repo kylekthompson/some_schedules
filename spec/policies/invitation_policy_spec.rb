@@ -54,4 +54,51 @@ RSpec.describe InvitationPolicy, type: :model do
       end
     end
   end
+
+  describe '#can_create?' do
+    context 'when the subject is an invitation' do
+      let(:policy_subject) { build(:invitation, user: user) }
+      let(:user) { current_user }
+
+      context 'when there is no current user' do
+        let(:current_user) { nil }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+
+      context 'when the current user is an admin' do
+        let(:current_user) { build(:user, :admin) }
+        let(:user) { build(:user) }
+
+        specify { expect(policy.can_create?).to be(true) }
+      end
+
+      context 'when the current user is an employee' do
+        let(:current_user) { build(:user, :employee, admin: false) }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+
+      context 'when the current user is an owner or manager and the invitation user is set to the current user' do
+        let(:current_user) { build(:user, :manager, admin: false) }
+        let(:user) { current_user }
+
+        specify { expect(policy.can_create?).to be(true) }
+      end
+
+      context 'when the current user is an owner or manager and the invitation user is set a different user' do
+        let(:current_user) { build(:user, :manager, admin: false) }
+        let(:user) { build(:user) }
+
+        specify { expect(policy.can_create?).to be(false) }
+      end
+    end
+
+    context 'when the subject is not an invitation' do
+      let(:policy_subject) { Invitation }
+      let(:current_user) { create(:user) }
+
+      specify { expect(policy.can_create?).to be(false) }
+    end
+  end
 end

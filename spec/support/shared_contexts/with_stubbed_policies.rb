@@ -2,7 +2,7 @@
 
 RSpec.shared_context 'with stubbed policies' do
   let(:company_policy) { instance_double(CompanyPolicy, can_create?: true) }
-  let(:invitation_policy) { instance_double(InvitationPolicy) }
+  let(:invitation_policy) { instance_double(InvitationPolicy, can_create?: true) }
   let(:shift_policy) { instance_double(ShiftPolicy, can_create?: true) }
   let(:user_policy) { instance_double(UserPolicy, can_create?: true) }
 

@@ -14,7 +14,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 const store = configureStore();
 
-// tslint:disable-next-line:no-unused-expression
 injectGlobal`
   body {
     height: 100%;

@@ -1,9 +1,6 @@
-import { Moment } from 'moment-timezone';
-
-import { IShift } from '../../../../../../services/graphql/types';
 import { toMoment } from '../../../../helpers';
 
-export const sortedShiftsForCurrentDay = (currentDay: Moment, shifts: IShift[]) => shifts.filter((shift) =>
+export const sortedShiftsForCurrentDay = (currentDay, shifts) => shifts.filter((shift) =>
   currentDay.isSame(toMoment(shift.startTime), 'day')
 ).sort((a, b) => {
   const aStart = toMoment(a.startTime);

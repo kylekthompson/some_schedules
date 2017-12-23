@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { IModalProps } from './types';
-
 const Modal = styled.div`
   background-color: white;
   border-radius: 4px;
@@ -17,18 +15,18 @@ const Modal = styled.div`
     display: block;
     position: absolute;
 
-    ${({ x }: IModalProps) => x > document.body.clientWidth / 2 ? css`right: 10px;` : css`left: 10px;`}
-    ${({ y }: IModalProps) => y > document.body.clientHeight / 2
+    ${({ x }) => x > document.body.clientWidth / 2 ? css`right: 10px;` : css`left: 10px;`}
+    ${({ y }) => y > document.body.clientHeight / 2
       ? css`border-color: white transparent transparent transparent; bottom: -20px;`
       : css`border-color: transparent transparent white transparent; top: -20px;`
     }
   }
 
-  ${({ x }: IModalProps) => x > document.body.clientWidth / 2
+  ${({ x }) => x > document.body.clientWidth / 2
     ? css`right: ${document.body.clientWidth - x - 20}px;`
     : css`left: ${x - 20}px;`
   }
-  ${({ y }: IModalProps) => {
+  ${({ y }) => {
     // the 80 here is to account for the footer's height and margin
     return y > document.body.clientHeight / 2
       ? css`bottom: ${document.body.clientHeight - y + 10 + 80}px;`

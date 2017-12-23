@@ -1,21 +1,18 @@
-import * as React from 'react';
-
-import { Moment } from 'moment-timezone';
+import React from 'react';
 
 import { FlexContainer } from '../../../../components/Flex';
-import { IShift, IUser } from '../../../../services/graphql/types';
+
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Row from './components/Row';
 import Scroller from './components/Scroller';
-import { IWeeklyCalendarProps } from './types';
 
-const shiftsForUser = (shifts: IShift[], user: IUser) => shifts.filter((shift) => shift.user.id === user.id);
+const shiftsForUser = (shifts, user) => shifts.filter((shift) => shift.user.id === user.id);
 const renderUserRow = (
-  user: IUser,
-  shifts: IShift[],
-  onAddShift: (userId: number, date: Moment) => (event: React.MouseEvent<HTMLDivElement>) => void,
-  startOfWeek: Moment
+  user,
+  shifts,
+  onAddShift,
+  startOfWeek,
 ) => (
   <Row
     key={user.id}
@@ -26,7 +23,7 @@ const renderUserRow = (
   />
 );
 
-const WeeklyCalendar = ({ onAddShift, onDayPick, selectedDay, shifts, users }: IWeeklyCalendarProps) => {
+const WeeklyCalendar = ({ onAddShift, onDayPick, selectedDay, shifts, users }) => {
   const startOfWeek = selectedDay.clone().startOf('week');
   return (
     <FlexContainer flexDirection="column">

@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { requestSignOut } from '../../services/store/Authentication/actionCreators';
-import { IApplicationState } from '../../services/store/types';
-import { IHeaderProps } from './types';
 
-const mapStateToProps = (state: IApplicationState): Partial<IHeaderProps> => ({
+const mapStateToProps = (state) => ({
   isSignedIn: state.authentication.isSignedIn,
 });
 
-const mapDispatchToProps = (dispatch): Partial<IHeaderProps> => ({
+const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({ requestSignOut }, dispatch),
 });
 

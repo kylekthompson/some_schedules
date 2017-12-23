@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
 
 import { createShift } from '../../../../services/graphql/mutations/createShift';
@@ -10,12 +10,11 @@ import Modal from './components/Modal';
 import Separator from './components/Separator';
 import TimeInput from './components/TimeInput';
 import { parseTimesInput } from './helpers';
-import { IShiftCreationModalProps, IShiftCreationModalState } from './types';
 
-class ShiftCreationModal extends React.Component<IShiftCreationModalProps, IShiftCreationModalState> {
-  private modal: HTMLElement;
+class ShiftCreationModal extends React.Component {
+  modal = null;
 
-  public constructor(props, context) {
+  constructor(props, context) {
     super(props, context);
 
     this.state = {
@@ -24,17 +23,17 @@ class ShiftCreationModal extends React.Component<IShiftCreationModalProps, IShif
     };
   }
 
-  public componentDidMount() {
+  componentDidMount() {
     window.addEventListener('click', this.handleOutsideClick);
     window.addEventListener('touchend', this.handleOutsideClick);
   }
 
-  public componentWillUnmount() {
+  componentWillUnmount() {
     window.removeEventListener('click', this.handleOutsideClick);
     window.removeEventListener('touchend', this.handleOutsideClick);
   }
 
-  public render() {
+  render() {
     return (
       <div>
         <Modal ref={this.setModalRef} x={this.props.x} y={this.props.y}>
@@ -68,7 +67,7 @@ class ShiftCreationModal extends React.Component<IShiftCreationModalProps, IShif
     );
   }
 
-  private handleTimesInputChange = (event: React.FormEvent<HTMLInputElement>) => {
+  handleTimesInputChange = (event) => {
     this.setState({
       endTime: undefined,
       startTime: undefined,
@@ -76,7 +75,7 @@ class ShiftCreationModal extends React.Component<IShiftCreationModalProps, IShif
     });
   }
 
-  private parseTimesInput = () => {
+  parseTimesInput = () => {
     const [startTime, endTime] = parseTimesInput(this.props.day, this.state.timesInput);
 
     if (startTime && endTime) {
@@ -92,18 +91,18 @@ class ShiftCreationModal extends React.Component<IShiftCreationModalProps, IShif
     }
   }
 
-  private setModalRef = (ref) => {
+  setModalRef = (ref) => {
     this.modal = ref;
   }
 
-  private handleOutsideClick = (event: MouseEvent) => {
-    const isInsideClick = findDOMNode(this.modal).contains(event.target as Element);
+  handleOutsideClick = (event) => {
+    const isInsideClick = findDOMNode(this.modal).contains(event.target);
     if (!isInsideClick) {
       this.props.dismissModal();
     }
   }
 
-  private handleShiftCreation = () => {
+  handleShiftCreation = () => {
     if (this.state.startTime && this.state.endTime) {
       createShift({
         endTime: this.state.endTime.format(),

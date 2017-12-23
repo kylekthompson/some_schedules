@@ -11,7 +11,7 @@ const CreateButton = styled.button`
   padding: 7px;
   text-decoration: none;
 
-  ${({ disabled }) => disabled && css`border-color: lightgrey; background-color: lightgrey;` || ''}
+  ${({ disabled }) => disabled ? css`border-color: lightgrey; background-color: lightgrey;` : ''}
 `;
 
 export default CreateButton;

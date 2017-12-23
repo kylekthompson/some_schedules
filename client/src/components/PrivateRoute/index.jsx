@@ -1,11 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 
-import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
-import { IPrivateRouteProps } from './types';
-
-class PrivateRoute extends React.Component<IPrivateRouteProps, {}> {
-  public render() {
+class PrivateRoute extends React.Component {
+  render() {
     const { component: Component, isSignedIn, ...rest } = this.props;
 
     return (
@@ -13,16 +11,16 @@ class PrivateRoute extends React.Component<IPrivateRouteProps, {}> {
     );
   }
 
-  private renderComponentOrRedirect = (routeProps: RouteComponentProps<any>) => {
+  renderComponentOrRedirect = (routeProps) => {
     if (this.props.isSignedIn) {
-      const { component: Component } = this.props as any;
+      const { component: Component } = this.props;
       return <Component {...routeProps} />;
     }
 
     return <Redirect to={this.redirectTo('/sign-in', routeProps)} />;
   }
 
-  private redirectTo = (url: string, routeProps: RouteComponentProps<any>) => ({
+  redirectTo = (url, routeProps) => ({
     pathname: url,
     state: { from: routeProps.location },
   })

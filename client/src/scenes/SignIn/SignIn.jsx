@@ -1,16 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as Button from 'react-bootstrap/lib/Button';
+import Button from 'react-bootstrap/lib/Button';
 
 import { Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
-import { ISignInMutationInput, signIn } from '../../services/graphql/mutations/signIn';
-import { ISignInProps, ISignInState } from './types';
+import { signIn } from '../../services/graphql/mutations/signIn';
+
 import * as validations from './validations';
 
-class SignIn extends React.Component<ISignInProps, ISignInState> {
-  public state: ISignInState = {
+class SignIn extends React.Component {
+  state = {
     auth: {
       email: '',
       password: '',
@@ -23,7 +23,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     },
   };
 
-  public render() {
+  render() {
     if (this.props.isSignedIn) {
       return <Redirect to="/schedule" />;
     }
@@ -61,7 +61,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     );
   }
 
-  private handleChange = (attr: keyof ISignInMutationInput) => (event: React.FormEvent<HTMLInputElement>) => {
+  handleChange = (attr) => (event) => {
     const value = event.currentTarget.value;
 
     this.setState((prevState) => ({
@@ -73,7 +73,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     }));
   }
 
-  private handleValidation = (attr: keyof ISignInMutationInput) => (isValid: boolean) => {
+  handleValidation = (attr) => (isValid) => {
     this.setState((prevState) => ({
       ...prevState,
       validations: {
@@ -83,9 +83,9 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
     }));
   }
 
-  private isValid = () => Object.values(this.state.validations).every((value) => Boolean(value));
+  isValid = () => Object.values(this.state.validations).every((value) => Boolean(value));
 
-  private signUp = (event: React.FormEvent<HTMLFormElement>) => {
+  signUp = (event) => {
     event.preventDefault();
 
     this.setState({

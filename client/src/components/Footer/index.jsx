@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as Col from 'react-bootstrap/lib/Col';
-import * as Grid from 'react-bootstrap/lib/Grid';
-import * as Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
 
 import styled from 'styled-components';
 

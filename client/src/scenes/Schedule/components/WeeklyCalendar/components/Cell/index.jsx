@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { FlexContainer } from '../../../../../../components/Flex';
-import { ICellProps } from './types';
 
 const Cell = styled(FlexContainer)`
   flex-direction: column;
@@ -14,8 +13,8 @@ const Cell = styled(FlexContainer)`
     border-left: solid lightgrey 1px;
   }
 
-  ${({ isLeftColumn }: ICellProps) => isLeftColumn && css`padding-left: 8px;` || ''}
-  ${({ isHeader }: ICellProps) => {
+  ${({ isLeftColumn }) => isLeftColumn ? css`padding-left: 8px;` : ''}
+  ${({ isHeader }) => {
     if (isHeader) {
       return css`
         background-color: #045BA3;

@@ -1,14 +1,14 @@
-const validateEmailFormat = (value: string): string[] => (
+const validateEmailFormat = (value) => (
   /.+@.+\..+/.exec(value)
     ? []
     : ['Must be a valid email address.']
 );
 
-const validatePasswordFormat = (value: string): string[] => (
+const validatePasswordFormat = (value) => (
   value.length >= 8
     ? []
     : ['Must be at least 8 characters.']
 );
 
-export const syncEmailValidation = (value: string): string[] => validateEmailFormat(value);
-export const syncPasswordValidation = (value: string): string[] => validatePasswordFormat(value);
+export const syncEmailValidation = (value) => validateEmailFormat(value);
+export const syncPasswordValidation = (value) => validatePasswordFormat(value);

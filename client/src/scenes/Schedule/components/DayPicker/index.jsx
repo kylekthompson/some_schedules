@@ -1,30 +1,27 @@
-import * as React from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
-
-import { Moment } from 'moment-timezone';
 
 import DayPickerWrapper from './components/DayPickerWrapper';
 import Picker from './components/Picker';
-import { IDayPickerProps, IDayPickerState } from './types';
 
-class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
-  public state: IDayPickerState= {
+class DayPicker extends React.Component {
+  state = {
     currentMonth: this.props.selectedDay.clone(),
     visible: false,
   };
-  private dayPicker: HTMLElement;
+  dayPicker = null;
 
-  public componentDidMount() {
+  componentDidMount() {
     window.addEventListener('click', this.handleOutsideClick);
     window.addEventListener('touchend', this.handleOutsideClick);
   }
 
-  public componentWillUnmount() {
+  componentWillUnmount() {
     window.removeEventListener('click', this.handleOutsideClick);
     window.removeEventListener('touchend', this.handleOutsideClick);
   }
 
-  public render() {
+  render() {
     const { selectedDay } = this.props;
     const { currentMonth, visible } = this.state;
 
@@ -42,21 +39,21 @@ class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
     );
   }
 
-  private onMonthChange = (newMonth: Moment) => () => {
+  onMonthChange = (newMonth) => () => {
     this.setState({
       currentMonth: newMonth,
     });
   }
 
-  private handleDayPick = (dayPicked: Moment) => () => {
+  handleDayPick = (dayPicked) => () => {
     this.props.onDayPick(dayPicked)();
     this.setState({
       visible: false,
     });
   }
 
-  private handleOutsideClick = (event: MouseEvent) => {
-    const isInsideClick = findDOMNode(this.dayPicker).contains(event.target as Element);
+  handleOutsideClick = (event) => {
+    const isInsideClick = findDOMNode(this.dayPicker).contains(event.target);
     if (this.state.visible && !isInsideClick) {
       this.setState({
         visible: false,
@@ -64,13 +61,13 @@ class DayPicker extends React.Component<IDayPickerProps, IDayPickerState> {
     }
   }
 
-  private toggleVisibility = () => {
+  toggleVisibility = () => {
     this.setState((prevState) => ({
       visible: !prevState.visible,
     }));
   }
 
-  private setDayPickerRef = (ref) => {
+  setDayPickerRef = (ref) => {
     this.dayPicker = ref;
   }
 }

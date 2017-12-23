@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 import styled from 'styled-components';
 
 import { FlexContainer } from '../../../../../../components/Flex';
@@ -8,14 +8,14 @@ import AddShift from '../AddShift';
 import Cell from '../Cell';
 import Shift from '../Shift';
 import { sortedShiftsForCurrentDay } from './helpers';
-import { IRowProps } from './types';
+
 
 const NameHolder = styled.span`
   padding-top: 6px;
 `;
 
-class Row extends React.Component<IRowProps, {}> {
-  public render() {
+class Row extends React.Component {
+  render() {
     return (
       <FlexContainer flexDirection="row">
         {this.renderNameCell()}
@@ -24,7 +24,7 @@ class Row extends React.Component<IRowProps, {}> {
     );
   }
 
-  private renderNameCell = () => (
+  renderNameCell = () => (
     <Cell
       isLeftColumn
       flex="0"
@@ -35,12 +35,12 @@ class Row extends React.Component<IRowProps, {}> {
     </Cell>
   )
 
-  private renderWeekdayCells = () => {
+  renderWeekdayCells = () => {
     const previousDay = this.props.startOfWeek.clone().subtract(1, 'day');
     return moment.weekdaysShort().map((weekday) => this.renderWeekdayCell(weekday, previousDay));
   }
 
-  private renderWeekdayCell = (weekday: string, previousDay: moment.Moment) => {
+  renderWeekdayCell = (weekday: string, previousDay: moment.Moment) => {
     const currentDay = previousDay.add(1, 'day');
     const { onAddShift, shifts, user } = this.props;
     const shiftsForToday = sortedShiftsForCurrentDay(currentDay, shifts);

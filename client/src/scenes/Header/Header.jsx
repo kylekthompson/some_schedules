@@ -1,15 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as Nav from 'react-bootstrap/lib/Nav';
-import * as Navbar from 'react-bootstrap/lib/Navbar';
-import * as NavItem from 'react-bootstrap/lib/NavItem';
+import Nav from 'react-bootstrap/lib/Nav';
+import Navbar from 'react-bootstrap/lib/Navbar';
+import NavItem from 'react-bootstrap/lib/NavItem';
 
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { IHeaderProps } from './types';
-
-const renderSignedInNavItems = (requestSignOut: () => void) => ([
+const renderSignedInNavItems = (requestSignOut) => ([
   (
     <NavItem key="signOut" onClick={requestSignOut}>Sign Out</NavItem>
   ),
@@ -28,7 +26,7 @@ const renderSignedOutNavItems = () => ([
   ),
 ]);
 
-const Header = ({ isSignedIn, requestSignOut }: IHeaderProps) => (
+const Header = ({ isSignedIn, requestSignOut }) => (
   <Navbar fixedTop collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>

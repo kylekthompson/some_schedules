@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
-import { IFlashesState, initialState } from './types';
 
-export default (state: IFlashesState = initialState, { type, payload }) => {
-  let newState: IFlashesState;
+const initialState = [];
+
+export default (state = initialState, { type, payload }) => {
+  let newState;
 
   switch (type) {
     case actionTypes.ADD_FLASH:

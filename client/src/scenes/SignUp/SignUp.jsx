@@ -1,18 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as Button from 'react-bootstrap/lib/Button';
+import Button from 'react-bootstrap/lib/Button';
 
 import { Link, Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
-import { ICompanyForCreation } from '../../services/api/companies/types';
-import { IUserForCreation } from '../../services/api/users/types';
 import { signUp } from '../../services/graphql/mutations/signUp';
-import { ISignUpProps, ISignUpState } from './types';
 import * as validations from './validations';
 
-class SignUp extends React.Component<ISignUpProps, ISignUpState> {
-  public state: ISignUpState = {
+class SignUp extends React.Component {
+  state = {
     company: {
       name: '',
       slug: '',
@@ -43,7 +40,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
     },
   };
 
-  public render() {
+  render() {
     if (this.props.isSignedIn) { return <Redirect to="/schedule" />; }
 
     return (
@@ -134,10 +131,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
     );
   }
 
-  private handleChange = (
-    object: 'user' | 'company',
-    attr: keyof IUserForCreation | keyof ICompanyForCreation
-  ) => (event: React.FormEvent<HTMLInputElement>) => {
+  handleChange = (object, attr) => (event) => {
     const value = event.currentTarget.value;
 
     this.setState((prevState) => ({
@@ -149,10 +143,7 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
     }));
   }
 
-  private handleValidation = (
-    object: 'user' | 'company',
-    attr: keyof IUserForCreation | keyof ICompanyForCreation
-  ) => (isValid: boolean) => {
+  handleValidation = (object, attr) => (isValid) => {
     this.setState((prevState) => ({
       ...prevState,
       validations: {
@@ -165,11 +156,11 @@ class SignUp extends React.Component<ISignUpProps, ISignUpState> {
     }));
   }
 
-  private isValid = () =>
+  isValid = () =>
     Object.values(this.state.validations.user).every((isValid) => isValid) &&
     Object.values(this.state.validations.company).every((isValid) => isValid)
 
-  private signUp = (event) => {
+  signUp = (event) => {
     event.preventDefault();
 
     this.setState({

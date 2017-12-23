@@ -1,22 +1,6 @@
-import { gql, graphql, MutationResult } from '../helpers';
-import { IErrors, IShift } from '../types';
+import { gql, graphql } from '../helpers';
 
-export interface ICreateShiftMutationInput {
-  endTime: string;
-  startTime: string;
-  userId: number;
-}
-
-export interface ICreateShiftMutationResult {
-  createShift: {
-    errors?: IErrors;
-    shift?: IShift;
-  };
-}
-
-export const createShift = (
-  input: ICreateShiftMutationInput
-): MutationResult<ICreateShiftMutationResult> => graphql.mutate({
+export const createShift = (input) => graphql.mutate({
   mutation: gql`
     mutation CreateShift($input: CreateShiftInput!) {
       createShift(input: $input) {

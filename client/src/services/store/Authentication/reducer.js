@@ -1,8 +1,14 @@
-import * as actionTypes from './actionTypes';
-import { IAuthenticationState, initialState } from './types';
+import * as decode from 'jwt-decode';
 
-export default (state: IAuthenticationState = initialState, { type }) => {
-  let newState: IAuthenticationState;
+import { getToken } from '../../utils/authentication';
+import * as actionTypes from './actionTypes';
+
+const initialState = {
+  isSignedIn: Boolean(getToken()) && Date.now() / 1000 < decode(getToken()).exp,
+};
+
+export default (state = initialState, { type }) => {
+  let newState;
 
   switch (type) {
     case actionTypes.PERSIST_USER_SIGN_IN:

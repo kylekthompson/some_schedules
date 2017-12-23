@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { IPickerWrapperProps } from './types';
-
 const PickerWrapper = styled.div`
   background-color: lightgrey;
   border-radius: 5px;
@@ -25,7 +23,7 @@ const PickerWrapper = styled.div`
     top: -20px;
   }
 
-  ${({ visible }: IPickerWrapperProps) => !visible && css`display: none` || ''}
+  ${({ visible }) => !visible ? css`display: none` : ''}
 `;
 
 export default PickerWrapper;

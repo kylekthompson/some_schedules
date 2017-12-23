@@ -1,10 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 
 import { FlexContainer } from '../../../../../../components/Flex';
 import DayPicker from '../../../DayPicker';
-import { INavigationProps } from './types';
 
-const Navigation = ({ onDayPick, selectedDay }: INavigationProps) => (
+const Navigation = ({ onDayPick, selectedDay }) => (
   <FlexContainer
     alignSelf="flex-end"
     flexDirection="row"

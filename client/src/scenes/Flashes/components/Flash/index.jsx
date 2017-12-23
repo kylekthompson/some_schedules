@@ -1,10 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as Alert from 'react-bootstrap/lib/Alert';
+import Alert from 'react-bootstrap/lib/Alert';
 
-import { IFlashProps } from './types';
-
-const Flash = ({ clearFlash, flash }: IFlashProps) => (
+const Flash = ({ clearFlash, flash }) => (
   <Alert bsStyle={flash.severity} onDismiss={clearFlash.bind(null, flash.uuid)}>
     {flash.render()}
   </Alert>

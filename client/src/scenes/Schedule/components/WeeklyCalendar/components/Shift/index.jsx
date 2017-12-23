@@ -1,12 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 
 import styled, { css } from 'styled-components';
 
 import { FlexChild } from '../../../../../../components/Flex';
 import { toMoment } from '../../../../helpers';
-import { IShiftProps } from './types';
 
-const formatTime = (time: string) => {
+const formatTime = (time) => {
   const timeMoment = toMoment(time);
   const timeString = timeMoment.minutes() === 0
     ? timeMoment.format('ha')
@@ -24,13 +23,13 @@ export const ShiftTimeWrapper = styled(FlexChild)`
     margin-bottom: 0;
   }
 
-  ${({ isPublished }: { isPublished?: boolean}) => isPublished
+  ${({ isPublished }) => isPublished
     ? css`background-color: #FD4B00; color: white;`
     : css`background-color: lightgrey; color: #333;`
   }
 `;
 
-const Shift = ({ shift }: IShiftProps) => (
+const Shift = ({ shift }) => (
   <ShiftTimeWrapper isPublished={shift.published}>
     <span>{formatTime(shift.startTime)} - {formatTime(shift.endTime)}</span>
   </ShiftTimeWrapper>

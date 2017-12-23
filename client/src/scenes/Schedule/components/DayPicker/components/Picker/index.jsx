@@ -1,18 +1,17 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 
 import { FlexChild, FlexContainer } from '../../../../../../components/Flex';
 import Day from '../Day';
 import PickerWrapper from '../PickerWrapper';
-import { IPickerProps } from './types';
 
 const renderDays = (
-  currentMonth: moment.Moment,
-  index: number,
-  iteratingDay: moment.Moment,
-  onDayPick: (day: moment.Moment) => () => void,
-  selectedDay: moment.Moment
+  currentMonth,
+  index,
+  iteratingDay,
+  onDayPick,
+  selectedDay,
 ) => moment.weekdaysShort().map((weekday) => {
   const day = iteratingDay.add(1, 'day').clone();
   return (
@@ -27,18 +26,18 @@ const renderDays = (
 });
 
 const renderWeek = (
-  currentMonth: moment.Moment,
-  index: number,
-  iteratingDay: moment.Moment,
-  onDayPick: (day: moment.Moment) => () => void,
-  selectedDay: moment.Moment
+  currentMonth,
+  index,
+  iteratingDay,
+  onDayPick,
+  selectedDay,
 ) => (
   <FlexContainer key={index} flex="1" flexDirection="row">
     {renderDays(currentMonth, index, iteratingDay, onDayPick, selectedDay)}
   </FlexContainer>
 );
 
-const Picker = ({ currentMonth, onDayPick, onMonthChange, selectedDay, visible }: IPickerProps) => {
+const Picker = ({ currentMonth, onDayPick, onMonthChange, selectedDay, visible }) => {
   const iteratingDay = currentMonth.clone().startOf('month').startOf('week').subtract(1, 'day');
   const lastDay = currentMonth.clone().endOf('month').endOf('week');
 

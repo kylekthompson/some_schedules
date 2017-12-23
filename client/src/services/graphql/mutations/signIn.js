@@ -1,19 +1,6 @@
-import { gql, graphql, MutationResult } from '../helpers';
-import { IErrors } from '../types';
+import { gql, graphql } from '../helpers';
 
-export interface ISignInMutationInput {
-  email: string;
-  password: string;
-}
-
-export interface ISignInMutationResult {
-  signIn: {
-    errors?: IErrors;
-    token?: string;
-  };
-}
-
-export const signIn = (input: ISignInMutationInput): MutationResult<ISignInMutationResult> => graphql.mutate({
+export const signIn = (input) => graphql.mutate({
   mutation: gql`
     mutation SignIn($input: SignInInput!) {
       signIn(input: $input) {

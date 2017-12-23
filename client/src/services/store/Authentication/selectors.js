@@ -1,7 +1,6 @@
-import * as decode from 'jwt-decode';
+import decode from 'jwt-decode';
 
 import { getToken } from '../../utils/authentication';
-import { IApplicationState } from '../types';
 
-export const getUserIdFromToken = (state: IApplicationState): number =>
+export const getUserIdFromToken = (state) =>
   state.authentication.isSignedIn && decode(getToken()).uid;

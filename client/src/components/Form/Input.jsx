@@ -1,22 +1,20 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import * as FormControl from 'react-bootstrap/lib/FormControl';
-import * as FormGroup from 'react-bootstrap/lib/FormGroup';
-import * as HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import * as InputGroup from 'react-bootstrap/lib/InputGroup';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import InputGroup from 'react-bootstrap/lib/InputGroup';
 
-import { IInputProps, IInputState } from './types';
-
-class Input extends React.Component<IInputProps, IInputState> {
-  public state: IInputState = {
+class Input extends React.Component {
+  state = {
     asyncValidationErrors: [],
     isPristine: true,
     isShowingServerErrors: true,
     syncValidationErrors: [],
   };
 
-  public componentDidUpdate(prevProps: IInputProps, prevState: IInputState) {
+  componentDidUpdate(prevProps, prevState) {
     const shouldReport =
       prevProps.serverErrors !== this.props.serverErrors ||
       prevState.syncValidationErrors !== this.state.syncValidationErrors ||
@@ -34,7 +32,7 @@ class Input extends React.Component<IInputProps, IInputState> {
     }
   }
 
-  public render() {
+  render() {
     const { label } = this.props;
 
     return (
@@ -49,7 +47,7 @@ class Input extends React.Component<IInputProps, IInputState> {
     );
   }
 
-  private handleBlur = async (event: React.FormEvent<HTMLInputElement>): Promise<void> => {
+  handleBlur = async (event) => {
     this.stopShowingServerErrors();
     this.setDirtyState();
 
@@ -69,7 +67,7 @@ class Input extends React.Component<IInputProps, IInputState> {
     }));
   }
 
-  private handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
+  handleChange = (event) => {
     this.stopShowingServerErrors();
     this.setDirtyState();
     this.props.onChange(event);
@@ -85,11 +83,11 @@ class Input extends React.Component<IInputProps, IInputState> {
     }));
   }
 
-  private renderFeedback = () => (
+  renderFeedback = () => (
     !this.state.isPristine && <FormControl.Feedback />
   )
 
-  private renderHelpBlock = () => {
+  renderHelpBlock = () => {
     const errors = [
       ...this.state.asyncValidationErrors,
       ...this.state.syncValidationErrors,
@@ -108,7 +106,7 @@ class Input extends React.Component<IInputProps, IInputState> {
     );
   }
 
-  private renderFormControl = () => {
+  renderFormControl = () => {
     const {
       asynchronousValidation,
       label,
@@ -145,7 +143,7 @@ class Input extends React.Component<IInputProps, IInputState> {
     );
   }
 
-  private reportValidation = () => {
+  reportValidation = () => {
     const errors = [
       ...this.state.asyncValidationErrors,
       ...this.state.syncValidationErrors,
@@ -154,7 +152,7 @@ class Input extends React.Component<IInputProps, IInputState> {
     this.props.onValidation(/* isValid */ errors.length === 0);
   }
 
-  private setDirtyState = () => {
+  setDirtyState = () => {
     if (this.state.isPristine) {
       this.setState({
         isPristine: false,
@@ -162,7 +160,7 @@ class Input extends React.Component<IInputProps, IInputState> {
     }
   }
 
-  private stopShowingServerErrors = () => {
+  stopShowingServerErrors = () => {
     if (this.state.isShowingServerErrors) {
       this.setState({
         isShowingServerErrors: false,
@@ -170,7 +168,7 @@ class Input extends React.Component<IInputProps, IInputState> {
     }
   }
 
-  private validationState = () => {
+  validationState = () => {
     if (this.state.isPristine) { return null; }
 
     const errors = [

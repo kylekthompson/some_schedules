@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -15,7 +15,7 @@ const Button = styled.a`
   }
 `;
 
-const DismissButton = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+const DismissButton = (props) => (
   <Button {...props}>
     &times;
   </Button>

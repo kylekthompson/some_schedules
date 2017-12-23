@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
 import { ShiftTimeWrapper } from '../Shift';
-import { IAddShiftProps } from './types';
 
 const HoverWrapper = styled.span`
   & * {
@@ -20,7 +19,7 @@ const StyledChild = styled(ShiftTimeWrapper)`
   text-align: center;
 `;
 
-const AddShift = ({ onClick }: IAddShiftProps) => (
+const AddShift = ({ onClick }) => (
   <HoverWrapper>
     <StyledChild onClick={onClick}>Add a Shift</StyledChild>
   </HoverWrapper>

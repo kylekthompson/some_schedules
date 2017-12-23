@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { clearFlash } from '../../services/store/Flashes/actionCreators';
-import { IApplicationState } from '../../services/store/types';
-import { IFlashesProps } from './types';
 
-const mapStateToProps = (state: IApplicationState): Partial<IFlashesProps> => ({
+const mapStateToProps = (state) => ({
   flashes: state.flashes,
 });
 
-const mapDispatchToProps = (dispatch): Partial<IFlashesProps> => ({
+const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({ clearFlash }, dispatch),
 });
 

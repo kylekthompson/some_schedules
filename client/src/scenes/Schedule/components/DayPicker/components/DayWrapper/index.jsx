@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { FlexChild } from '../../../../../../components/Flex';
-import { IDayWrapperProps } from './types';
 
 const DayWrapper = styled(FlexChild)`
   background-color: white;
@@ -15,15 +14,15 @@ const DayWrapper = styled(FlexChild)`
     color: white;
   }
 
-  ${({ day, selectedDay }: IDayWrapperProps) =>
+  ${({ day, selectedDay }) =>
     day.isSame(selectedDay, 'day')
-      && css`background-color: #FD4B00; color: white;`
-      || ''
+      ? css`background-color: #FD4B00; color: white;`
+      : ''
   }
-  ${({ currentMonth, day }: IDayWrapperProps) =>
+  ${({ currentMonth, day }) =>
     !currentMonth.isSame(day, 'month')
-      && css`color: lightgrey;`
-      || ''
+      ? css`color: lightgrey;`
+      : ''
   }
 `;
 

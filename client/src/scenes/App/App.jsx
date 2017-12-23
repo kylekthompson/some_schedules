@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Grid } from 'react-bootstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -10,9 +10,8 @@ import Home from '../../scenes/Home';
 import Schedule from '../../scenes/Schedule';
 import SignIn from '../../scenes/SignIn';
 import SignUp from '../../scenes/SignUp';
-import { IAppProps } from './types';
 
-const App = ({ isSignedIn }: IAppProps) => (
+const App = ({ isSignedIn }) => (
   <div>
     <Header />
     <Flashes />

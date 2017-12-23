@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 
 import DayWrapper from '../DayWrapper';
-import { IDayProps } from './types';
 
-const Day = ({ currentMonth, day, onClick, selectedDay }: IDayProps) => (
+const Day = ({ currentMonth, day, onClick, selectedDay }) => (
   <DayWrapper
     flex="1"
     currentMonth={currentMonth}

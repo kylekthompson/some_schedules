@@ -1,16 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 
 import Loading from '../../components/Loading';
-import { IShift, IUser } from '../../services/graphql/types';
+
 import ShiftCreationModal from './components/ShiftCreationModal';
 import WeeklyCalendar from './components/WeeklyCalendar';
-import { addShiftToState, getViewer } from './helpers';
-import { IScheduleState, ScheduleView } from './types';
+import { addShiftToState, getViewer, ScheduleView } from './helpers';
 
-class Schedule extends React.Component<{}, IScheduleState> {
-  public state: IScheduleState = {
+class Schedule extends React.Component {
+  state = {
     currentView: ScheduleView.WEEK,
     selectedDay: moment.tz(moment.tz.guess()),
     shiftCreationModal: {
@@ -23,17 +22,17 @@ class Schedule extends React.Component<{}, IScheduleState> {
     viewer: undefined,
   };
 
-  public componentDidMount() {
+  componentDidMount() {
     this.loadViewer();
   }
 
-  public componentDidUpdate(_prevProps: {}, prevState: IScheduleState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.state.selectedDay === prevState.selectedDay) { return; }
 
     this.loadViewer();
   }
 
-  public render() {
+  render() {
     if (this.state.viewer) {
       if (this.state.currentView === ScheduleView.WEEK) {
         return this.renderWeekView();
@@ -46,7 +45,7 @@ class Schedule extends React.Component<{}, IScheduleState> {
     return <Loading message="Loading..." />;
   }
 
-  private renderWeekView = () => {
+  renderWeekView = () => {
     const { selectedDay, viewer } = this.state;
     if (!viewer) { return null; }
 
@@ -65,30 +64,27 @@ class Schedule extends React.Component<{}, IScheduleState> {
     );
   }
 
-  private setSelectedDay = (day: moment.Moment) => () => {
+  setSelectedDay = (day) => () => {
     this.setState({
       selectedDay: day,
     });
   }
 
-  private renderShiftCreationModal = (sortedUsers: IUser[]) => {
+  renderShiftCreationModal = (sortedUsers) => {
     if (!this.state.shiftCreationModal.visible) { return null; }
     return (
       <ShiftCreationModal
         day={this.state.shiftCreationModal.day}
         dismissModal={this.dismissModal}
         onAddShift={this.handleAddShift}
-        user={sortedUsers.find((user) => user.id === this.state.shiftCreationModal.userId) as IUser}
+        user={sortedUsers.find((user) => user.id === this.state.shiftCreationModal.userId)}
         x={this.state.shiftCreationModal.x}
         y={this.state.shiftCreationModal.y}
       />
     );
   }
 
-  private toggleShiftCreationModal = (
-    userId: number,
-    day: moment.Moment
-  ) => (event: React.MouseEvent<HTMLDivElement>) => {
+  toggleShiftCreationModal = (userId, day) => (event) => {
     event.stopPropagation();
     this.setState({
       shiftCreationModal: {
@@ -101,11 +97,11 @@ class Schedule extends React.Component<{}, IScheduleState> {
     });
   }
 
-  private handleAddShift = (shift: IShift) => {
+  handleAddShift = (shift) => {
     this.setState((prevState) => addShiftToState(prevState, shift));
   }
 
-  private dismissModal = () => {
+  dismissModal = () => {
     this.setState((prevState) => ({
       ...prevState,
       shiftCreationModal: {
@@ -114,9 +110,9 @@ class Schedule extends React.Component<{}, IScheduleState> {
     }));
   }
 
-  private loadViewer = () => {
-    let after: string | null = null;
-    let before: string | null = null;
+  loadViewer = () => {
+    let after = null;
+    let before = null;
 
     if (this.state.currentView === ScheduleView.WEEK) {
       after = this.state.selectedDay.clone().startOf('week').format();

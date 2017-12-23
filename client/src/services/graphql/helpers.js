@@ -1,5 +1,5 @@
 import Cache from 'apollo-cache-inmemory';
-import { ApolloClient, ApolloQueryResult } from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import HttpLink from 'apollo-link-http';
 
@@ -26,12 +26,10 @@ const cache = new Cache();
 const link = ApolloLink.from([
   new ApolloLink((operation, forward) => {
     operation.setContext(setContext);
-    return (forward as any)(operation);
+    return forward(operation);
   }),
   new HttpLink({ uri }),
 ]);
 
-export type MutationResult<T> = Promise<ApolloQueryResult<T>>;
-export type QueryResult<T> = Promise<ApolloQueryResult<T>>;
 export const graphql = new ApolloClient({ cache, link });
 export { default as gql } from 'graphql-tag';

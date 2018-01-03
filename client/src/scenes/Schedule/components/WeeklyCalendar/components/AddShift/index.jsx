@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { ShiftTimeWrapper } from '../Shift';
@@ -24,5 +25,9 @@ const AddShift = ({ onClick }) => (
     <StyledChild onClick={onClick}>Add a Shift</StyledChild>
   </HoverWrapper>
 );
+
+AddShift.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export default AddShift;

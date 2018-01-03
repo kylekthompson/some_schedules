@@ -1,6 +1,26 @@
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-export default styled.div`
+export const propTypes = {
+  alignContent: PropTypes.string,
+  alignItems: PropTypes.string,
+  alignSelf: PropTypes.string,
+  flex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  flexBasis: PropTypes.string,
+  flexDirection: PropTypes.string,
+  flexFlow: PropTypes.string,
+  flexGrow: PropTypes.string,
+  flexShrink: PropTypes.string,
+  flexWrap: PropTypes.string,
+  justifyContent: PropTypes.string,
+  maxWidth: PropTypes.string,
+  minWidth: PropTypes.string,
+  order: PropTypes.string,
+  textAlign: PropTypes.string,
+  width: PropTypes.string,
+};
+
+const FlexChild = styled.div`
   ${({ alignContent }) => alignContent ? css`align-content: ${alignContent};` : ''}
   ${({ alignItems }) => alignItems ? css`align-items: ${alignItems};` : ''}
   ${({ alignSelf }) => alignSelf ? css`align-self: ${alignSelf};` : ''}
@@ -18,3 +38,7 @@ export default styled.div`
   ${({ textAlign }) => textAlign ? css`text-align: ${textAlign};` : ''}
   ${({ width }) => width ? css`width: ${width};` : ''}
 `;
+
+FlexChild.propTypes = propTypes;
+
+export default FlexChild;

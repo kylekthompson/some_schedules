@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const CreateButton = styled.button`
@@ -13,5 +14,9 @@ const CreateButton = styled.button`
 
   ${({ disabled }) => disabled ? css`border-color: lightgrey; background-color: lightgrey;` : ''}
 `;
+
+CreateButton.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+};
 
 export default CreateButton;

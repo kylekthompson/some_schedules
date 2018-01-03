@@ -1,7 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/lib/Button';
-
 import { Link, Redirect } from 'react-router-dom';
 
 import { Input } from '../../components/Form';
@@ -9,6 +9,11 @@ import { signUp } from '../../services/graphql/mutations/signUp';
 import * as validations from './validations';
 
 class SignUp extends React.Component {
+  static propTypes = {
+    isSignedIn: PropTypes.bool.isRequired,
+    persistSignIn: PropTypes.func.isRequired,
+  };
+
   state = {
     company: {
       name: '',

@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 import { FlexChild } from '../../../../../../components/Flex';
@@ -25,5 +27,12 @@ const DayWrapper = styled(FlexChild)`
       : ''
   }
 `;
+
+DayWrapper.propTypes = {
+  ...FlexChild.propTypes,
+  currentMonth: PropTypes.instanceOf(moment).isRequired,
+  day: PropTypes.instanceOf(moment).isRequired,
+  selectedDay: PropTypes.instanceOf(moment).isRequired,
+}
 
 export default DayWrapper;

@@ -1,6 +1,10 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 
+import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
+
+import { propTypes as userPropTypes } from '../../../../models/user';
 import { createShift } from '../../../../services/graphql/mutations/createShift';
 import BackgroundMuter from './components/BackgroundMuter';
 import CreateButton from './components/CreateButton';
@@ -12,6 +16,15 @@ import TimeInput from './components/TimeInput';
 import { parseTimesInput } from './helpers';
 
 class ShiftCreationModal extends React.Component {
+  static propTypes = {
+    day: PropTypes.instanceOf(moment).isRequired,
+    dismissModal: PropTypes.func.isRequired,
+    onAddShift: PropTypes.func.isRequired,
+    user: userPropTypes.isRequired,
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }
+
   modal = null;
 
   constructor(props, context) {

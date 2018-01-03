@@ -1,7 +1,9 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
+import { propTypes as shiftPropTypes } from '../../../../../../models/shift';
 import { FlexChild } from '../../../../../../components/Flex';
 import { toMoment } from '../../../../helpers';
 
@@ -29,10 +31,19 @@ export const ShiftTimeWrapper = styled(FlexChild)`
   }
 `;
 
+ShiftTimeWrapper.propTypes = {
+  ...FlexChild.propTypes,
+  isPublished: PropTypes.bool.isRequired,
+};
+
 const Shift = ({ shift }) => (
   <ShiftTimeWrapper isPublished={shift.published}>
     <span>{formatTime(shift.startTime)} - {formatTime(shift.endTime)}</span>
   </ShiftTimeWrapper>
 );
+
+Shift.propTypes = {
+  shift: shiftPropTypes.isRequired,
+};
 
 export default Shift;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -7,6 +8,17 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 
 class Input extends React.Component {
+  static propTypes = {
+    asynchronousValidation: PropTypes.func,
+    label: PropTypes.string,
+    leftAddonItem: PropTypes.node,
+    onChange: PropTypes.func.isRequired,
+    onValidation: PropTypes.func.isRequired,
+    rightAddonItem: PropTypes.node,
+    serverErrors: PropTypes.arrayOf(PropTypes.string),
+    synchronousValidation: PropTypes.func,
+  };
+
   state = {
     asyncValidationErrors: [],
     isPristine: true,

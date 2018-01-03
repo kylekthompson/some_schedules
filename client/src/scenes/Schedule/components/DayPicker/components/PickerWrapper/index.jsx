@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const PickerWrapper = styled.div`
@@ -25,5 +26,10 @@ const PickerWrapper = styled.div`
 
   ${({ visible }) => !visible ? css`display: none` : ''}
 `;
+
+
+PickerWrapper.propTypes = {
+  visible: PropTypes.bool.isRequired,
+};
 
 export default PickerWrapper;

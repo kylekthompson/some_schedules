@@ -1,6 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { FlexChild, FlexContainer } from '../Flex';
+
+export const propTypes = {
+  errors: PropTypes.shape({
+    '': PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+};
 
 const Failure = ({ errors }) => (
   <FlexContainer alignItems="center" flexDirection="column" justifyContent="center">
@@ -13,5 +20,7 @@ const Failure = ({ errors }) => (
     </FlexChild>
   </FlexContainer>
 );
+
+Failure.propTypes = propTypes;
 
 export default Failure;

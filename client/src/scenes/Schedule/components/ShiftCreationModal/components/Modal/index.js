@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const Modal = styled.div`
@@ -33,5 +34,10 @@ const Modal = styled.div`
       : css`top: ${y + 10}px;`;
   }}
 `;
+
+Modal.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+};
 
 export default Modal;

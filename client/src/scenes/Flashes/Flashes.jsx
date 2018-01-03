@@ -1,7 +1,9 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { propTypes as flashPropTypes } from '../../models/flash';
 import Flash from './components/Flash';
 
 const SpacedDiv = styled.div`
@@ -14,5 +16,10 @@ const Flashes = ({ clearFlash, flashes }) => (
     {flashes.map((flash) => <Flash key={flash.uuid} clearFlash={clearFlash} flash={flash} />)}
   </SpacedDiv>
 );
+
+Flashes.propTypes = {
+  clearFlash: PropTypes.func.isRequired,
+  flashes: PropTypes.arrayOf(flashPropTypes).isRequired,
+};
 
 export default Flashes;

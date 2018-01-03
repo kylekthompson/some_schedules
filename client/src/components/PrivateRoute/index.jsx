@@ -1,8 +1,14 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 
 class PrivateRoute extends React.Component {
+  static propTypes = {
+    component: PropTypes.func,
+    isSignedIn: PropTypes.bool.isRequired,
+  };
+
   render() {
     const { component: Component, isSignedIn, ...rest } = this.props;
 

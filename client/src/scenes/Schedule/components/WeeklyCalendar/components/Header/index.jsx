@@ -1,6 +1,7 @@
 import React from 'react';
 
 import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { FlexContainer } from '../../../../../../components/Flex';
@@ -14,6 +15,11 @@ const HeaderColumn = ({ previousDay, weekday }) => (
     {weekday} - {previousDay.add(1, 'day').format('MM/DD')}
   </Cell>
 );
+
+HeaderColumn.propTypes = {
+  previousDay: PropTypes.instanceOf(moment).isRequired,
+  weekday: PropTypes.string.isRequired,
+};
 
 const renderWeekdays = (previousDay) => moment.weekdaysShort().map((weekday) =>
   <HeaderColumn key={weekday} previousDay={previousDay} weekday={weekday} />
@@ -40,6 +46,10 @@ const Header = ({ startOfWeek }) => {
       {renderWeekdays(previousDay)}
     </HeaderContainer>
   );
+};
+
+Header.propTypes = {
+  startOfWeek: PropTypes.instanceOf(moment).isRequired,
 };
 
 export default Header;

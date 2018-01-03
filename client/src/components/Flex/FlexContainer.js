@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-import FlexChild from './FlexChild';
+import FlexChild, { propTypes } from './FlexChild';
 
-export default styled(FlexChild)`
+const FlexContainer = styled(FlexChild)`
   display: flex;
 `;
+
+FlexContainer.propTypes = propTypes;
+
+export default FlexContainer;

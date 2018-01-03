@@ -1,15 +1,23 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 
+import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
+
 import DayPickerWrapper from './components/DayPickerWrapper';
 import Picker from './components/Picker';
 
 class DayPicker extends React.Component {
+  static propTypes = {
+    onDayPick: PropTypes.func.isRequired,
+    selectedDay: PropTypes.instanceOf(moment).isRequired,
+  };
+
+  dayPicker = null;
   state = {
     currentMonth: this.props.selectedDay.clone(),
     visible: false,
   };
-  dayPicker = null;
 
   componentDidMount() {
     window.addEventListener('click', this.handleOutsideClick);

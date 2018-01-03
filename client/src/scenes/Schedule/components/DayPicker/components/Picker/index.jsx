@@ -1,6 +1,7 @@
 import React from 'react';
 
 import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 
 import { FlexChild, FlexContainer } from '../../../../../../components/Flex';
 import Day from '../Day';
@@ -65,6 +66,14 @@ const Picker = ({ currentMonth, onDayPick, onMonthChange, selectedDay, visible }
       </FlexContainer>
     </PickerWrapper>
   );
+};
+
+Picker.propTypes = {
+  currentMonth: PropTypes.instanceOf(moment).isRequired,
+  onDayPick: PropTypes.func.isRequired,
+  onMonthChange: PropTypes.func.isRequired,
+  selectedDay: PropTypes.instanceOf(moment).isRequired,
+  visible: PropTypes.bool.isRequired,
 };
 
 export default Picker;

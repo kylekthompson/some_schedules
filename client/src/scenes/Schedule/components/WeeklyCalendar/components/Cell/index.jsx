@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 import { FlexContainer } from '../../../../../../components/Flex';
@@ -31,5 +32,11 @@ const Cell = styled(FlexContainer)`
     }
   }}
 `;
+
+Cell.propTypes = {
+  ...FlexContainer.propTypes,
+  isLeftColumn: PropTypes.bool,
+  isHeader: PropTypes.bool,
+};
 
 export default Cell;

@@ -1,20 +1,29 @@
 import React from 'react';
 
 import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { propTypes as shiftPropTypes } from '../../../../../../models/shift';
+import { propTypes as userPropTypes } from '../../../../../../models/user';
 import { FlexContainer } from '../../../../../../components/Flex';
 import AddShift from '../AddShift';
 import Cell from '../Cell';
 import Shift from '../Shift';
 import { sortedShiftsForCurrentDay } from './helpers';
 
-
 const NameHolder = styled.span`
   padding-top: 6px;
 `;
 
 class Row extends React.Component {
+  static propTypes = {
+    onAddShift: PropTypes.func.isRequired,
+    shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
+    startOfWeek: PropTypes.instanceOf(moment).isRequired,
+    user: userPropTypes.isRequired,
+  };
+
   render() {
     return (
       <FlexContainer flexDirection="row">
@@ -40,7 +49,7 @@ class Row extends React.Component {
     return moment.weekdaysShort().map((weekday) => this.renderWeekdayCell(weekday, previousDay));
   }
 
-  renderWeekdayCell = (weekday: string, previousDay: moment.Moment) => {
+  renderWeekdayCell = (weekday, previousDay) => {
     const currentDay = previousDay.add(1, 'day');
     const { onAddShift, shifts, user } = this.props;
     const shiftsForToday = sortedShiftsForCurrentDay(currentDay, shifts);

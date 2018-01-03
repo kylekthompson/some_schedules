@@ -1,7 +1,9 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { Grid } from 'react-bootstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
+
 import Footer from '../../components/Footer';
 import PrivateRoute from '../../components/PrivateRoute';
 import Flashes from '../../scenes/Flashes';
@@ -27,5 +29,9 @@ const App = ({ isSignedIn }) => (
     <Footer />
   </div>
 );
+
+App.propTypes = {
+  isSignedIn: PropTypes.bool.isRequired,
+};
 
 export default App;

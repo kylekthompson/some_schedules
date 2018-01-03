@@ -1,9 +1,9 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem from 'react-bootstrap/lib/NavItem';
-
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -47,5 +47,10 @@ const Header = ({ isSignedIn, requestSignOut }) => (
     </Navbar.Collapse>
   </Navbar>
 );
+
+Header.propTypes = {
+  isSignedIn: PropTypes.bool.isRequired,
+  requestSignOut: PropTypes.func.isRequired,
+};
 
 export default Header;

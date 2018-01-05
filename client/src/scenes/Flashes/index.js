@@ -1,4 +1,4 @@
-import ConnectedFlashes from './container';
+import ConnectedFlashes from 'scenes/Flashes/container';
 
-export { default as Flashes } from './Flashes';
+export { default as Flashes } from 'scenes/Flashes/Flashes';
 export default ConnectedFlashes;

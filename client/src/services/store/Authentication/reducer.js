@@ -1,7 +1,7 @@
 import * as decode from 'jwt-decode';
 
-import { getToken } from '../../utils/authentication';
-import * as actionTypes from './actionTypes';
+import { getToken } from 'services/utils/authentication';
+import * as actionTypes from 'services/store/Authentication/actionTypes';
 
 const initialState = {
   isSignedIn: Boolean(getToken()) && Date.now() / 1000 < decode(getToken()).exp,

@@ -3,9 +3,9 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
-import { propTypes as shiftPropTypes } from '../../../../models/shift';
-import { propTypes as userPropTypes } from '../../../../models/user';
-import { FlexContainer } from '../../../../components/Flex';
+import { propTypes as shiftPropTypes } from 'models/shift';
+import { propTypes as userPropTypes } from 'models/user';
+import { FlexContainer } from 'components/Flex';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Row from './components/Row';

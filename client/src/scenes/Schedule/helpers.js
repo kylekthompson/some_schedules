@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 
-import { gql, graphql } from '../../services/graphql/helpers';
+import { gql, graphql } from 'services/graphql/helpers';
 
 export class ScheduleView {
   static WEEK = 'week';

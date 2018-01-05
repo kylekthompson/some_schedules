@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/lib/Alert';
 
-import { propTypes as flashPropTypes } from '../../../../models/flash';
+import { propTypes as flashPropTypes } from 'models/flash';
 
 const Flash = ({ clearFlash, flash }) => (
   <Alert bsStyle={flash.severity} onDismiss={clearFlash.bind(null, flash.uuid)}>

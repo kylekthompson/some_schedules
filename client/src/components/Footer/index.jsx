@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/lib/Row';
 
 import styled from 'styled-components';
 
-import { footerBackgroundColor } from './styles';
+import { footerBackgroundColor } from 'components/Footer/styles';
 
 const StaticFooter = styled.footer`
   background-color: ${footerBackgroundColor};

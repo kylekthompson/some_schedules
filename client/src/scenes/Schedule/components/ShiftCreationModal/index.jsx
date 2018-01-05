@@ -4,8 +4,8 @@ import { findDOMNode } from 'react-dom';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
-import { propTypes as userPropTypes } from '../../../../models/user';
-import { createShift } from '../../../../services/graphql/mutations/createShift';
+import { propTypes as userPropTypes } from 'models/user';
+import { createShift } from 'services/graphql/mutations/createShift';
 import BackgroundMuter from './components/BackgroundMuter';
 import CreateButton from './components/CreateButton';
 import DismissButton from './components/DismissButton';

@@ -1,9 +1,9 @@
-import SignUp from './SignUp';
+import SignUp from 'scenes/SignUp/SignUp';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { persistSignIn } from '../../services/store/Authentication/actionCreators';
+import { persistSignIn } from 'services/store/Authentication/actionCreators';
 
 const mapStateToProps = (state) => ({
   isSignedIn: state.authentication.isSignedIn,

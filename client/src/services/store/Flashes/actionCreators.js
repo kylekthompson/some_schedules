@@ -1,6 +1,6 @@
 import uuidGenerator from 'uuid/v4';
 
-import * as actionTypes from './actionTypes';
+import * as actionTypes from 'services/store/Flashes/actionTypes';
 
 export const addFlash = (flash) => ({
   payload: {

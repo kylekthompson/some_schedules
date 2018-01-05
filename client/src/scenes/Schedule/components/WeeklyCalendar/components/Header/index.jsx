@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { FlexContainer } from '../../../../../../components/Flex';
+import { FlexContainer } from 'components/Flex';
 import Cell from '../Cell';
 
 const HeaderColumn = ({ previousDay, weekday }) => (

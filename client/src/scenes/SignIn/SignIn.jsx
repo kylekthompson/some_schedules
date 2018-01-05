@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/lib/Button';
 import { Redirect } from 'react-router-dom';
 
-import { Input } from '../../components/Form';
-import { signIn } from '../../services/graphql/mutations/signIn';
+import { Input } from 'components/Form';
+import { signIn } from 'services/graphql/mutations/signIn';
 
-import * as validations from './validations';
+import * as validations from 'scenes/SignIn/validations';
 
 class SignIn extends React.Component {
   static propTypes = {

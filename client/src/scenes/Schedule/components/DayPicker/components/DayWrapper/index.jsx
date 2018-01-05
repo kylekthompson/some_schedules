@@ -2,7 +2,7 @@ import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import { FlexChild } from '../../../../../../components/Flex';
+import { FlexChild } from 'components/Flex';
 
 const DayWrapper = styled(FlexChild)`
   background-color: white;

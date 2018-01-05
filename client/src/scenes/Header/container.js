@@ -1,9 +1,9 @@
-import Header from './Header';
+import Header from 'scenes/Header/Header';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestSignOut } from '../../services/store/Authentication/actionCreators';
+import { requestSignOut } from 'services/store/Authentication/actionCreators';
 
 const mapStateToProps = (state) => ({
   isSignedIn: state.authentication.isSignedIn,

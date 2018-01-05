@@ -3,7 +3,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
-import { FlexChild, FlexContainer } from '../../../../../../components/Flex';
+import { FlexChild, FlexContainer } from 'components/Flex';
 import Day from '../Day';
 import PickerWrapper from '../PickerWrapper';
 

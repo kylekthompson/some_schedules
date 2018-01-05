@@ -1,4 +1,4 @@
-import App from './App';
+import App from 'scenes/App/App';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';

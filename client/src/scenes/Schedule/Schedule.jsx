@@ -2,7 +2,7 @@ import React from 'react';
 
 import moment from 'moment-timezone';
 
-import Loading from '../../components/Loading';
+import Loading from 'components/Loading';
 
 import ShiftCreationModal from './components/ShiftCreationModal';
 import WeeklyCalendar from './components/WeeklyCalendar';

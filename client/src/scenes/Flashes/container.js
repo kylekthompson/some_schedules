@@ -1,9 +1,9 @@
-import Flashes from './Flashes';
+import Flashes from 'scenes/Flashes/Flashes';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { clearFlash } from '../../services/store/Flashes/actionCreators';
+import { clearFlash } from 'services/store/Flashes/actionCreators';
 
 const mapStateToProps = (state) => ({
   flashes: state.flashes,

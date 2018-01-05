@@ -3,8 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import { FlexChild, FlexContainer } from '../Flex';
-import { Spinning } from './styledComponents';
+import { FlexChild, FlexContainer } from 'components/Flex';
+import { Spinning } from 'components/Loading/styledComponents';
 
 const SpinningGlyphicon = Spinning(Glyphicon);
 

@@ -6,7 +6,7 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
-import reducers from './reducers';
+import reducers from 'services/store/reducers';
 
 const configureStore = () => {
   const devToolsExtension =  window.devToolsExtension;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FlexChild, FlexContainer } from '../Flex';
+import { FlexChild, FlexContainer } from 'components/Flex';
 
 export const propTypes = {
   errors: PropTypes.shape({

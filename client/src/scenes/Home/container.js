@@ -1,4 +1,4 @@
-import Home from './Home';
+import Home from 'scenes/Home/Home';
 
 import { connect } from 'react-redux';
 

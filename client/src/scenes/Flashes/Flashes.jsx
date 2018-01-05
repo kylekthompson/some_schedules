@@ -3,8 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { propTypes as flashPropTypes } from '../../models/flash';
-import Flash from './components/Flash';
+import { propTypes as flashPropTypes } from 'models/flash';
+import Flash from 'scenes/Flashes/components/Flash';
 
 const SpacedDiv = styled.div`
   margin-top: -20px;

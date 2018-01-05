@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import { Grid } from 'react-bootstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import Footer from '../../components/Footer';
-import PrivateRoute from '../../components/PrivateRoute';
-import Flashes from '../../scenes/Flashes';
-import Header from '../../scenes/Header';
-import Home from '../../scenes/Home';
-import Schedule from '../../scenes/Schedule';
-import SignIn from '../../scenes/SignIn';
-import SignUp from '../../scenes/SignUp';
+import PrivateRoute from 'components/PrivateRoute';
+import Flashes from 'scenes/Flashes';
+import Header from 'scenes/Header';
+import Home from 'scenes/Home';
+import Schedule from 'scenes/Schedule';
+import SignIn from 'scenes/SignIn';
+import SignUp from 'scenes/SignUp';
 
 const App = ({ isSignedIn }) => (
   <div>
@@ -26,7 +25,6 @@ const App = ({ isSignedIn }) => (
         <Route exact path="/sign-up" component={SignUp} />
       </Switch>
     </Grid>
-    <Footer />
   </div>
 );
 

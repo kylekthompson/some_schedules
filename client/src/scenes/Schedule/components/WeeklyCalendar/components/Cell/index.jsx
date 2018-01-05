@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import { FlexContainer } from '../../../../../../components/Flex';
+import { FlexContainer } from 'components/Flex';
 
 const Cell = styled(FlexContainer)`
   flex-direction: column;

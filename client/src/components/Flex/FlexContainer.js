@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import FlexChild, { propTypes } from './FlexChild';
+import FlexChild, { propTypes } from 'components/Flex/FlexChild';
 
 const FlexContainer = styled(FlexChild)`
   display: flex;

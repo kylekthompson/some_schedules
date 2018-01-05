@@ -4,9 +4,9 @@ import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { propTypes as shiftPropTypes } from '../../../../../../models/shift';
-import { propTypes as userPropTypes } from '../../../../../../models/user';
-import { FlexContainer } from '../../../../../../components/Flex';
+import { propTypes as shiftPropTypes } from 'models/shift';
+import { propTypes as userPropTypes } from 'models/user';
+import { FlexContainer } from 'components/Flex';
 import AddShift from '../AddShift';
 import Cell from '../Cell';
 import Shift from '../Shift';

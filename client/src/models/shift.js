@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { propTypes as userPropTypes } from './user';
+import { propTypes as userPropTypes } from 'models/user';
 
 export const propTypes = PropTypes.shape({
   endTime: PropTypes.string,

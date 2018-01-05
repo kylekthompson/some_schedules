@@ -1,2 +1,2 @@
-export { default as FlexChild } from './FlexChild';
-export { default as FlexContainer } from './FlexContainer';
+export { default as FlexChild } from 'components/Flex/FlexChild';
+export { default as FlexContainer } from 'components/Flex/FlexContainer';

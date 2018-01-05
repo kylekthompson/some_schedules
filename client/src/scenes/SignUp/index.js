@@ -1,4 +1,4 @@
-import ConnectedSignUp from './container';
+import ConnectedSignUp from 'scenes/SignUp/container';
 
-export { default as SignUp } from './SignUp';
+export { default as SignUp } from 'scenes/SignUp/SignUp';
 export default ConnectedSignUp;

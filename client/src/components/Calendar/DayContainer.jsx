@@ -4,11 +4,11 @@ import styled, { css } from 'styled-components';
 
 import { FlexChild } from 'components/Flex';
 
-const DayWrapper = styled(FlexChild)`
+const DayContainer = styled(FlexChild)`
   background-color: white;
-  border-radius: 2px;
   cursor: pointer;
   margin: 1px;
+  padding: 5px;
   text-align: center;
 
   &:hover {
@@ -28,11 +28,11 @@ const DayWrapper = styled(FlexChild)`
   }
 `;
 
-DayWrapper.propTypes = {
+DayContainer.propTypes = {
   ...FlexChild.propTypes,
   currentMonth: PropTypes.instanceOf(moment).isRequired,
   day: PropTypes.instanceOf(moment).isRequired,
   selectedDay: PropTypes.instanceOf(moment).isRequired,
 }
 
-export default DayWrapper;
+export default DayContainer;

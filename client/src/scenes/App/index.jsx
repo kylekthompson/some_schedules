@@ -6,7 +6,7 @@ import { Redirect, Switch } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import Header from 'components/Header';
-import { Container, HeaderLinks } from 'components/App';
+import { Container, HeaderContainer, HeaderLinks } from 'components/App';
 import PrivateRoute from 'components/PrivateRoute';
 import Schedule from 'scenes/Schedule';
 import { requestSignOut } from 'services/store/Authentication/actionCreators';
@@ -27,9 +27,11 @@ export class App extends Component {
 
     return (
       <Container>
-        <Header darkTheme>
-          <HeaderLinks requestSignOut={requestSignOut} />
-        </Header>
+        <HeaderContainer>
+          <Header darkTheme>
+            <HeaderLinks requestSignOut={requestSignOut} />
+          </Header>
+        </HeaderContainer>
         <Switch>
           <PrivateRoute
             component={Schedule}

@@ -3,10 +3,10 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
-import DayWrapper from '../DayWrapper';
+import DayContainer from 'components/Calendar/DayContainer';
 
 const Day = ({ currentMonth, day, onClick, selectedDay }) => (
-  <DayWrapper
+  <DayContainer
     flex="1"
     currentMonth={currentMonth}
     day={day}
@@ -14,7 +14,7 @@ const Day = ({ currentMonth, day, onClick, selectedDay }) => (
     selectedDay={selectedDay}
   >
     {day.format('DD')}
-  </DayWrapper>
+  </DayContainer>
 );
 
 Day.propTypes = {

@@ -1,11 +1,4 @@
-import moment from 'moment-timezone';
-
 import { gql, graphql } from 'services/graphql/helpers';
-
-export class ScheduleView {
-  static WEEK = 'week';
-  static DAY = 'day';
-}
 
 export const addShiftToState = (state, shift) => {
   const viewer = { ...state.viewer };
@@ -25,6 +18,7 @@ export const addShiftToState = (state, shift) => {
 };
 
 export const getViewer = (after, before) => graphql.query({
+  fetchPolicy: 'network-only',
   query: gql`
     query Viewer($after: DateType, $before: DateType) {
       viewer {
@@ -57,5 +51,3 @@ export const getViewer = (after, before) => graphql.query({
     before,
   },
 });
-
-export const toMoment = (time) => moment.utc(time, 'YYYY-MM-DD HH-mm-ss UTC').tz(moment.tz.guess());

@@ -3,9 +3,8 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
+import Day from 'components/Calendar/Day';
 import { FlexChild, FlexContainer } from 'components/Flex';
-import Day from '../Day';
-import PickerWrapper from '../PickerWrapper';
 
 const renderDays = (
   currentMonth,
@@ -38,7 +37,7 @@ const renderWeek = (
   </FlexContainer>
 );
 
-const Picker = ({ currentMonth, onDayPick, onMonthChange, selectedDay, visible }) => {
+const Picker = ({ currentMonth, onDayPick, onMonthChange, selectedDay }) => {
   const iteratingDay = currentMonth.clone().startOf('month').startOf('week').subtract(1, 'day');
   const lastDay = currentMonth.clone().endOf('month').endOf('week');
 
@@ -57,14 +56,14 @@ const Picker = ({ currentMonth, onDayPick, onMonthChange, selectedDay, visible }
   );
 
   return (
-    <PickerWrapper visible={visible}>
+    <div>
       <button onClick={onMonthChange(currentMonth.clone().subtract(1, 'month'))}>&lt;</button>
       {currentMonth.format('MMMM YYYY')}
       <button onClick={onMonthChange(currentMonth.clone().add(1, 'month'))}>&gt;</button>
       <FlexContainer flexDirection="column">
         {weekRows}
       </FlexContainer>
-    </PickerWrapper>
+    </div>
   );
 };
 
@@ -73,7 +72,6 @@ Picker.propTypes = {
   onDayPick: PropTypes.func.isRequired,
   onMonthChange: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(moment).isRequired,
-  visible: PropTypes.bool.isRequired,
 };
 
 export default Picker;

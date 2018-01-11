@@ -7,7 +7,6 @@ import { propTypes as shiftPropTypes } from 'models/shift';
 import { propTypes as userPropTypes } from 'models/user';
 import { FlexContainer } from 'components/Flex';
 import Header from './components/Header';
-import Navigation from './components/Navigation';
 import Row from './components/Row';
 import Scroller from './components/Scroller';
 
@@ -27,17 +26,11 @@ const renderUserRow = (
   />
 );
 
-const WeeklyCalendar = ({ onAddShift, onDayPick, selectedDay, shifts, users }) => {
+const WeeklyCalendar = ({ onAddShift, selectedDay, shifts, users }) => {
   const startOfWeek = selectedDay.clone().startOf('week');
   return (
     <FlexContainer flexDirection="column">
-      <Navigation
-        onDayPick={onDayPick}
-        selectedDay={selectedDay}
-      />
-      <Header
-        startOfWeek={startOfWeek}
-      />
+      <Header startOfWeek={startOfWeek} />
       <Scroller>
         {users.map((user) => renderUserRow(user, shifts, onAddShift, startOfWeek))}
       </Scroller>
@@ -47,7 +40,6 @@ const WeeklyCalendar = ({ onAddShift, onDayPick, selectedDay, shifts, users }) =
 
 WeeklyCalendar.propTypes = {
   onAddShift: PropTypes.func.isRequired,
-  onDayPick: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(moment).isRequired,
   shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
   users: PropTypes.arrayOf(userPropTypes).isRequired,

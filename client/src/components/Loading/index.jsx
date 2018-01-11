@@ -1,21 +1,13 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import { FlexChild, FlexContainer } from 'components/Flex';
-import { Spinning } from 'components/Loading/styledComponents';
-
-const SpinningGlyphicon = Spinning(Glyphicon);
+import { FlexContainer } from 'components/Flex';
 
 const Loading = ({ message }) => (
   <FlexContainer alignItems="center" flexDirection="column" justifyContent="center">
-    <FlexChild>
-      <SpinningGlyphicon glyph="refresh" />
-    </FlexChild>
-    <FlexChild>
-      <p>{message}</p>
-    </FlexChild>
+    <i className="fal fa-2x fa-spin fa-spinner-third" />
+    <p>{message}</p>
   </FlexContainer>
 );
 

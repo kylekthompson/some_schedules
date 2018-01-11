@@ -7,5 +7,4 @@ export default styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 0 20px;
 `;

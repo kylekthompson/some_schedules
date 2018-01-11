@@ -12,13 +12,13 @@ export const addFlash = (flash) => ({
   type: actionTypes.ADD_FLASH,
 });
 
-export const clearFlash = (uuid) => ({
+export const dismissFlash = (uuid) => ({
   payload: {
     flashUuid: uuid,
   },
-  type: actionTypes.CLEAR_FLASH,
+  type: actionTypes.DISMISS_FLASH,
 });
 
-export const clearFlashes = () => ({
-  type: actionTypes.CLEAR_FLASHES,
+export const dismissFlashes = () => ({
+  type: actionTypes.DISMISS_FLASHES,
 });

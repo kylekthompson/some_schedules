@@ -33,7 +33,7 @@ export const ShiftTimeWrapper = styled(FlexChild)`
 
 ShiftTimeWrapper.propTypes = {
   ...FlexChild.propTypes,
-  isPublished: PropTypes.bool.isRequired,
+  isPublished: PropTypes.bool,
 };
 
 const Shift = ({ shift }) => (

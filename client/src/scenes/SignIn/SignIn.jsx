@@ -29,9 +29,7 @@ class SignIn extends React.Component {
   };
 
   render() {
-    if (this.props.isSignedIn) {
-      return <Redirect to="/schedule" />;
-    }
+    if (this.props.isSignedIn) { return <Redirect to="/" />; }
 
     return (
       <div>

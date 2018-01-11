@@ -14,12 +14,12 @@ export default (state = initialState, { type, payload }) => {
 
       return newState;
 
-    case actionTypes.CLEAR_FLASH:
+    case actionTypes.DISMISS_FLASH:
       newState = state.filter((flash) => flash.uuid !== payload.flashUuid);
 
       return newState;
 
-    case actionTypes.CLEAR_FLASHES:
+    case actionTypes.DISMISS_FLASHES:
       newState = [];
 
       return newState;

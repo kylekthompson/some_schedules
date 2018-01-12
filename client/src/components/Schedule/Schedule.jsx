@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 
-import moment from 'moment-timezone';
+import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import { viewerPropTypes } from 'models/propTypes';
+import time from 'models/time';
 
 import ShiftCreationModal from './components/ShiftCreationModal';
 import WeeklyCalendar from './components/WeeklyCalendar';
@@ -11,13 +12,13 @@ import WeeklyCalendar from './components/WeeklyCalendar';
 class Schedule extends Component {
   static propTypes = {
     onAddShift: PropTypes.func.isRequired,
-    selectedDay: PropTypes.instanceOf(moment).isRequired,
+    selectedDay: PropTypes.instanceOf(Moment).isRequired,
     viewer: viewerPropTypes.isRequired,
   };
 
   state = {
     shiftCreationModal: {
-      day: moment.tz(moment.tz.guess()),
+      day: time.current(),
       userId: 0,
       visible: false,
       x: 0,

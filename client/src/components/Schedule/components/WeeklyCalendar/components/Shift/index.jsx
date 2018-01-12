@@ -5,16 +5,9 @@ import styled, { css } from 'styled-components';
 
 import { propTypes as shiftPropTypes } from 'models/shift';
 import { FlexChild } from 'components/Flex';
-import { toMoment } from '../../../../helpers';
+import time from 'models/time';
 
-const formatTime = (time) => {
-  const timeMoment = toMoment(time);
-  const timeString = timeMoment.minutes() === 0
-    ? timeMoment.format('ha')
-    : timeMoment.format('h:mma');
-
-  return timeString.replace(/([ap])m/, (substring) => substring.charAt(0));
-};
+const { formatForSchedule, toMoment } = time;
 
 export const ShiftTimeWrapper = styled(FlexChild)`
   border-radius: 2px;
@@ -38,7 +31,9 @@ ShiftTimeWrapper.propTypes = {
 
 const Shift = ({ shift }) => (
   <ShiftTimeWrapper isPublished={shift.published}>
-    <span>{formatTime(shift.startTime)} - {formatTime(shift.endTime)}</span>
+    <span>
+      {formatForSchedule(toMoment(shift.startTime))} - {formatForSchedule(toMoment(shift.endTime))}
+    </span>
   </ShiftTimeWrapper>
 );
 

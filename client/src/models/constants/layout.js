@@ -1,3 +1,5 @@
+const headerHeight = '64px';
+
 export default {
-  headerHeight: '64px',
+  headerHeight,
 };

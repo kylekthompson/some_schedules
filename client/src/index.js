@@ -5,12 +5,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 
-import { fonts } from 'models/constants';
+import { fonts } from 'models/styles';
 import Landing from 'scenes/Landing';
 import { registerServiceWorker } from 'services/serviceWorker';
 import configureStore from 'services/store/configureStore';
 
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-light.css';
+import '@fortawesome/fontawesome-pro-webfonts/css/fa-regular.css';
 import '@fortawesome/fontawesome-pro-webfonts/css/fontawesome.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/css/bootstrap.css';

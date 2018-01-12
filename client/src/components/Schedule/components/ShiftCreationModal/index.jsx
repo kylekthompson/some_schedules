@@ -1,7 +1,7 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 
-import moment from 'moment-timezone';
+import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import { propTypes as userPropTypes } from 'models/user';
@@ -17,7 +17,7 @@ import { parseTimesInput } from './helpers';
 
 class ShiftCreationModal extends React.Component {
   static propTypes = {
-    day: PropTypes.instanceOf(moment).isRequired,
+    day: PropTypes.instanceOf(Moment).isRequired,
     dismissModal: PropTypes.func.isRequired,
     onAddShift: PropTypes.func.isRequired,
     user: userPropTypes.isRequired,

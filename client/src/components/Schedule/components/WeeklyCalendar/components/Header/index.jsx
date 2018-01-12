@@ -1,6 +1,6 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
+import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -17,11 +17,11 @@ const HeaderColumn = ({ previousDay, weekday }) => (
 );
 
 HeaderColumn.propTypes = {
-  previousDay: PropTypes.instanceOf(moment).isRequired,
+  previousDay: PropTypes.instanceOf(Moment).isRequired,
   weekday: PropTypes.string.isRequired,
 };
 
-const renderWeekdays = (previousDay) => moment.weekdaysShort().map((weekday) =>
+const renderWeekdays = (previousDay) => Moment.weekdaysShort().map((weekday) =>
   <HeaderColumn key={weekday} previousDay={previousDay} weekday={weekday} />
 );
 
@@ -49,7 +49,7 @@ const Header = ({ startOfWeek }) => {
 };
 
 Header.propTypes = {
-  startOfWeek: PropTypes.instanceOf(moment).isRequired,
+  startOfWeek: PropTypes.instanceOf(Moment).isRequired,
 };
 
 export default Header;

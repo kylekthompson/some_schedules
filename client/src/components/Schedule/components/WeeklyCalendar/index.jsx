@@ -1,6 +1,6 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
+import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import { propTypes as shiftPropTypes } from 'models/shift';
@@ -40,7 +40,7 @@ const WeeklyCalendar = ({ onAddShift, selectedDay, shifts, users }) => {
 
 WeeklyCalendar.propTypes = {
   onAddShift: PropTypes.func.isRequired,
-  selectedDay: PropTypes.instanceOf(moment).isRequired,
+  selectedDay: PropTypes.instanceOf(Moment).isRequired,
   shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
   users: PropTypes.arrayOf(userPropTypes).isRequired,
 };

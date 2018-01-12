@@ -1,31 +1,46 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
+import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
-import Picker from 'components/Calendar/Picker';
+import Container from 'components/Calendar/Container';
+import Month from 'components/Calendar/Month';
+import Navigation from 'components/Calendar/Navigation';
 
 class Calender extends React.Component {
   static propTypes = {
-    onDayPick: PropTypes.func.isRequired,
-    selectedDay: PropTypes.instanceOf(moment).isRequired,
+    onDayClick: PropTypes.func.isRequired,
+    selectedDay: PropTypes.instanceOf(Moment).isRequired,
   };
 
   state = {
     currentMonth: this.props.selectedDay.clone(),
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedDay !== nextProps.selectedDay) {
+      this.setState({
+        currentMonth: nextProps.selectedDay.clone(),
+      });
+    }
+  }
+
   render() {
     const { selectedDay } = this.props;
     const { currentMonth } = this.state;
 
     return (
-      <Picker
-        currentMonth={currentMonth}
-        onDayPick={this.props.onDayPick}
-        onMonthChange={this.onMonthChange}
-        selectedDay={selectedDay}
-      />
+      <Container>
+        <Navigation
+          currentMonth={currentMonth}
+          onMonthChange={this.onMonthChange}
+        />
+        <Month
+          currentMonth={currentMonth}
+          onDayClick={this.props.onDayClick}
+          selectedDay={selectedDay}
+        />
+      </Container>
     );
   }
 

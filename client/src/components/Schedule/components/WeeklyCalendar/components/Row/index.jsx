@@ -1,6 +1,6 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
+import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -20,7 +20,7 @@ class Row extends React.Component {
   static propTypes = {
     onAddShift: PropTypes.func.isRequired,
     shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
-    startOfWeek: PropTypes.instanceOf(moment).isRequired,
+    startOfWeek: PropTypes.instanceOf(Moment).isRequired,
     user: userPropTypes.isRequired,
   };
 
@@ -46,7 +46,7 @@ class Row extends React.Component {
 
   renderWeekdayCells = () => {
     const previousDay = this.props.startOfWeek.clone().subtract(1, 'day');
-    return moment.weekdaysShort().map((weekday) => this.renderWeekdayCell(weekday, previousDay));
+    return Moment.weekdaysShort().map((weekday) => this.renderWeekdayCell(weekday, previousDay));
   }
 
   renderWeekdayCell = (weekday, previousDay) => {

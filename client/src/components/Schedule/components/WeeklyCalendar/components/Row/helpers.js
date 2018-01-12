@@ -1,12 +1,12 @@
-import { toMoment } from '../../../../helpers';
+import time from 'models/time';
 
 export const sortedShiftsForCurrentDay = (currentDay, shifts) => shifts.filter((shift) =>
-  currentDay.isSame(toMoment(shift.startTime), 'day')
+  currentDay.isSame(time.toMoment(shift.startTime), 'day')
 ).sort((a, b) => {
-  const aStart = toMoment(a.startTime);
-  const aEnd = toMoment(a.endTime);
-  const bStart = toMoment(b.startTime);
-  const bEnd = toMoment(b.endTime);
+  const aStart = time.toMoment(a.startTime);
+  const aEnd = time.toMoment(a.endTime);
+  const bStart = time.toMoment(b.startTime);
+  const bEnd = time.toMoment(b.endTime);
 
   if (aStart.isSame(bStart, 'minute')) {
     if (aEnd.isBefore(bEnd)) {

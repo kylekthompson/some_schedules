@@ -1,20 +1,20 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
+import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import Calendar from 'components/Calendar';
 
-const Sidebar = ({ onDayPick, selectedDay }) => (
+const Sidebar = ({ onDayClick, selectedDay }) => (
   <Calendar
-    onDayPick={onDayPick}
+    onDayClick={onDayClick}
     selectedDay={selectedDay}
   />
 );
 
 Sidebar.propTypes = {
-  onDayPick: PropTypes.func.isRequired,
-  selectedDay: PropTypes.instanceOf(moment).isRequired,
+  onDayClick: PropTypes.func.isRequired,
+  selectedDay: PropTypes.instanceOf(Moment).isRequired,
 };
 
 export default Sidebar;

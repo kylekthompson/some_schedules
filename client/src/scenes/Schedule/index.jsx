@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import moment from 'moment-timezone';
-
 import Loading from 'components/Loading';
 import {
   Container,
   Schedule as ScheduleComponent,
   ScheduleContainer,
   Sidebar,
+  SidebarContainer,
 } from 'components/Schedule';
+import time from 'models/time';
 
 import { addShiftToState, getViewer } from './helpers';
 
@@ -16,7 +16,7 @@ class Schedule extends Component {
   state = {
     errors: null,
     isLoaded: false,
-    selectedDay: moment.tz(moment.tz.guess()),
+    selectedDay: time.current(),
     viewer: null,
   };
 
@@ -44,10 +44,12 @@ class Schedule extends Component {
 
     return (
       <Container>
-        <Sidebar
-          onDayPick={this.setSelectedDay}
-          selectedDay={this.state.selectedDay}
-        />
+        <SidebarContainer>
+          <Sidebar
+            onDayClick={this.setSelectedDay}
+            selectedDay={this.state.selectedDay}
+          />
+        </SidebarContainer>
         <ScheduleContainer>
           {body}
         </ScheduleContainer>

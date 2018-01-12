@@ -1,9 +1,10 @@
 import { css } from 'styled-components';
 
-import colors from 'models/constants/colors'
+import { colors } from 'models/constants'
 
 const createLinkStyle = (primaryColor, secondaryColor) => css`
   color: ${primaryColor};
+  cursor: pointer;
 
   &:hover {
     color: ${secondaryColor};
@@ -17,7 +18,10 @@ const createLinkStyle = (primaryColor, secondaryColor) => css`
   }
 `;
 
+const darkLink = createLinkStyle(colors.black(), colors.darkGrey());
+const lightLink = createLinkStyle(colors.white(), colors.lightGrey());
+
 export default {
-  darkLink: createLinkStyle(colors.black(), colors.darkGrey()),
-  lightLink: createLinkStyle(colors.white(), colors.lightGrey()),
-}
+  darkLink,
+  lightLink,
+};

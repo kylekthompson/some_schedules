@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Loading from 'components/Loading';
 import {
@@ -8,17 +8,21 @@ import {
   Sidebar,
   SidebarContainer,
 } from 'components/Schedule';
-import time from 'models/time';
+import ShiftCreationModal from 'components/ShiftCreationModal';
 
-import { addShiftToState, getViewer } from './helpers';
+import { findUser, get } from 'models/viewer';
+import {
+  handleAddShift,
+  handleCloseShiftCreationModal,
+  handleDayClick,
+  handleOpenShiftCreationModal,
+  handleViewerLoaded,
+  handleViewerLoading,
+  initialState,
+} from 'state/schedule';
 
 class Schedule extends Component {
-  state = {
-    errors: null,
-    isLoaded: false,
-    selectedDay: time.current(),
-    viewer: null,
-  };
+  state = initialState;
 
   componentDidMount() {
     this.loadViewer();
@@ -31,7 +35,7 @@ class Schedule extends Component {
   }
 
   render() {
-    const { errors, isLoaded } = this.state;
+    const { errors, isLoaded } = this.state.viewer;
     let body = null;
 
     if (!isLoaded) {
@@ -46,7 +50,7 @@ class Schedule extends Component {
       <Container>
         <SidebarContainer>
           <Sidebar
-            onDayClick={this.setSelectedDay}
+            onDayClick={this.handleDayClick}
             selectedDay={this.state.selectedDay}
           />
         </SidebarContainer>
@@ -57,57 +61,45 @@ class Schedule extends Component {
     );
   }
 
-  renderErrors = () => (
-    <p>
-      It looks like we ran into a problem! We'll look into that.
-    </p>
-  )
-
-  renderLoader = () => (
-    <Loading message="Loading..." />
-  )
-
+  renderErrors = () => <p>It looks like we ran into a problem! We'll look into that.</p>
+  renderLoader = () => <Loading message="Loading..." />
   renderSchedule = () => (
-    <ScheduleComponent
-      onAddShift={this.handleAddShift}
-      selectedDay={this.state.selectedDay}
-      viewer={this.state.viewer}
-    />
+    <Fragment>
+      <ScheduleComponent
+        onAddShift={this.handleOpenShiftCreationModal}
+        selectedDay={this.state.selectedDay}
+        viewer={this.state.viewer.data}
+      />
+      <ShiftCreationModal
+        {...this.state.shiftCreationModal}
+        dismissModal={this.handleCloseShiftCreationModal}
+        onAddShift={this.handleAddShift}
+        user={findUser(this.state.viewer.data, this.state.shiftCreationModal.userId)}
+      />
+    </Fragment>
   )
 
-  setSelectedDay = (day) => () => {
-    this.setState({
-      selectedDay: day,
-    });
+  handleAddShift = (shift) => this.setState(handleAddShift(shift))
+  handleCloseShiftCreationModal = () => this.setState(handleCloseShiftCreationModal)
+  handleDayClick = (day) => () => this.setState(handleDayClick(day))
+  handleOpenShiftCreationModal = (userId, day) => (event) => {
+    event.stopPropagation();
+    const { clientX, clientY } = event;
+    this.setState(handleOpenShiftCreationModal(userId, day, clientX, clientY));
   }
 
-  handleAddShift = (shift) => {
-    this.setState((prevState) => addShiftToState(prevState, shift));
-  }
-
-  loadViewer = () => {
+  loadViewer = async () => {
     const after = this.state.selectedDay.clone().startOf('week').format();
     const before = this.state.selectedDay.clone().endOf('week').format();
 
-    this.setState({
-      isLoaded: false,
+    this.setState(handleViewerLoading);
+
+    const viewer = await get({
+      after,
+      before,
     });
 
-    getViewer(after, before).then(({ data: { viewer }, errors }) => {
-      if (viewer) {
-        this.setState({
-          viewer,
-          isLoaded: true,
-        });
-      } else {
-        this.setState({
-          errors,
-          isLoaded: true,
-        });
-      }
-    }).catch((_error) => {
-      // TODO: handle error
-    });
+    this.setState(handleViewerLoaded(viewer));
   }
 }
 

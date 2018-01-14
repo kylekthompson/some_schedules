@@ -4,37 +4,33 @@ import { findDOMNode } from 'react-dom';
 import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
+import BackgroundMuter from 'components/ShiftCreationModal/BackgroundMuter';
+import CreateButton from 'components/ShiftCreationModal/CreateButton';
+import DismissButton from 'components/ShiftCreationModal/DismissButton';
+import FontSizeAdjuster from 'components/ShiftCreationModal/FontSizeAdjuster';
+import Modal from 'components/ShiftCreationModal/Modal';
+import Separator from 'components/ShiftCreationModal/Separator';
+import TimeInput from 'components/ShiftCreationModal/TimeInput';
 import { propTypes as userPropTypes } from 'models/user';
 import { createShift } from 'services/graphql/mutations/createShift';
-import BackgroundMuter from './components/BackgroundMuter';
-import CreateButton from './components/CreateButton';
-import DismissButton from './components/DismissButton';
-import FontSizeAdjuster from './components/FontSizeAdjuster';
-import Modal from './components/Modal';
-import Separator from './components/Separator';
-import TimeInput from './components/TimeInput';
 import { parseTimesInput } from './helpers';
 
 class ShiftCreationModal extends React.Component {
   static propTypes = {
-    day: PropTypes.instanceOf(Moment).isRequired,
+    day: PropTypes.instanceOf(Moment),
     dismissModal: PropTypes.func.isRequired,
     onAddShift: PropTypes.func.isRequired,
-    user: userPropTypes.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
+    user: userPropTypes,
+    visible: PropTypes.bool.isRequired,
+    x: PropTypes.number,
+    y: PropTypes.number,
   }
 
   modal = null;
-
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      showParsedTimes: false,
-      timesInput: '',
-    };
-  }
+  state = {
+    showParsedTimes: false,
+    timesInput: '',
+  };
 
   componentDidMount() {
     window.addEventListener('click', this.handleOutsideClick);
@@ -47,6 +43,8 @@ class ShiftCreationModal extends React.Component {
   }
 
   render() {
+    if (!this.props.visible) { return null; }
+
     return (
       <div>
         <Modal ref={this.setModalRef} x={this.props.x} y={this.props.y}>
@@ -109,6 +107,8 @@ class ShiftCreationModal extends React.Component {
   }
 
   handleOutsideClick = (event) => {
+    if (!this.modal) { return; }
+
     const isInsideClick = findDOMNode(this.modal).contains(event.target);
     if (!isInsideClick) {
       this.props.dismissModal();

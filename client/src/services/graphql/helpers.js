@@ -3,7 +3,7 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import HttpLink from 'apollo-link-http';
 
-import { getToken } from 'services/utils/authentication';
+import { getToken } from 'models/authentication';
 
 const uri = '/api/v1/graphql';
 const setContext = (context) => {

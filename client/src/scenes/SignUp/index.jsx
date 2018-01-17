@@ -11,7 +11,7 @@ import * as validations from 'scenes/SignUp/validations';
 class SignUp extends React.Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
-    persistSignIn: PropTypes.func.isRequired,
+    requestSignIn: PropTypes.func.isRequired,
   };
 
   state = {
@@ -184,7 +184,7 @@ class SignUp extends React.Component {
       },
     }) => {
       if (token) {
-        this.props.persistSignIn(token);
+        this.props.requestSignIn(token);
       } else if (companyErrors || errors || userErrors) {
         this.setState({
           companyErrors: companyErrors || {},

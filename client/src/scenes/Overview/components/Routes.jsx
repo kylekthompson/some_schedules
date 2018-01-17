@@ -7,27 +7,37 @@ import About from 'components/About';
 import SignIn from 'scenes/SignIn';
 import SignUp from 'scenes/SignUp';
 
-export default class Content extends Component {
+class Routes extends Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
+    requestSignIn: PropTypes.func.isRequired,
+    requestSignOut: PropTypes.func.isRequired,
   };
+
+  get authenticationProps() {
+    return {
+      isSignedIn: this.props.isSignedIn,
+      requestSignIn: this.props.requestSignIn,
+      requestSignOut: this.props.requestSignOut,
+    };
+  }
 
   get publicRoutes() {
     return ([
       {
         exact: true,
         path: '/',
-        component: About,
+        render: (props) => <About {...props} {...this.authenticationProps} />,
       },
       {
         exact: true,
         path: '/sign-in',
-        component: SignIn,
+        render: (props) => <SignIn {...props} {...this.authenticationProps} />,
       },
       {
         exact: true,
         path: '/sign-up',
-        component: SignUp,
+        render: (props) => <SignUp {...props} {...this.authenticationProps} />,
       },
     ]);
   }
@@ -47,3 +57,5 @@ export default class Content extends Component {
     />
   ));
 }
+
+export default Routes;

@@ -1,14 +1,10 @@
 import React, { Component, Fragment } from 'react';
 
 import Loading from 'components/Loading';
-import {
-  Container,
-  Schedule as ScheduleComponent,
-  ScheduleContainer,
-  Sidebar,
-  SidebarContainer,
-} from 'components/Schedule';
+import ScheduleComponent from 'components/Schedule';
+import ScheduleSidebar from 'components/ScheduleSidebar';
 import ShiftCreationModal from 'components/ShiftCreationModal';
+import { Container, ContentContainer, SidebarContainer } from 'scenes/Schedule/components';
 
 import { findUser, get } from 'models/viewer';
 import {
@@ -49,14 +45,14 @@ class Schedule extends Component {
     return (
       <Container>
         <SidebarContainer>
-          <Sidebar
+          <ScheduleSidebar
             onDayClick={this.handleDayClick}
             selectedDay={this.state.selectedDay}
           />
         </SidebarContainer>
-        <ScheduleContainer>
+        <ContentContainer>
           {body}
-        </ScheduleContainer>
+        </ContentContainer>
       </Container>
     );
   }

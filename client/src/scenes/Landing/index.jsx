@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import Overview from 'scenes/Overview';
 import PrivateRoute from 'components/PrivateRoute';
 import App from 'scenes/App';
+import Overview from 'scenes/Overview';
 
 export class Landing extends Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
+    requestSignIn: PropTypes.func.isRequired,
+    requestSignOut: PropTypes.func.isRequired,
   };
+
+  get componentProps() {
+    return {
+      isSignedIn: this.props.isSignedIn,
+      requestSignIn: this.props.requestSignIn,
+      requestSignOut: this.props.requestSignOut,
+    };
+  }
 
   render() {
     return (
       <Switch>
         <PrivateRoute
           component={App}
+          componentProps={this.componentProps}
           isSignedIn={this.props.isSignedIn}
           path="/app"
         />
@@ -31,14 +41,10 @@ export class Landing extends Component {
 
   renderOverview = (props) => (
     <Overview
-      isSignedIn={this.props.isSignedIn}
       {...props}
+      {...this.componentProps}
     />
   )
 }
 
-export default withRouter(connect(
-  (state) => ({
-    isSignedIn: state.authentication.isSignedIn,
-  }),
-)(Landing));
+export default Landing;

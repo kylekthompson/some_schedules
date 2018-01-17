@@ -12,7 +12,7 @@ import * as validations from 'scenes/SignIn/validations';
 class SignIn extends React.Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
-    persistSignIn: PropTypes.func.isRequired,
+    requestSignIn: PropTypes.func.isRequired,
   };
 
   state = {
@@ -33,7 +33,7 @@ class SignIn extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.signUp}>
+        <form onSubmit={this.signIn}>
           <Input
             autoFocus
             autoComplete="email"
@@ -88,7 +88,7 @@ class SignIn extends React.Component {
 
   isValid = () => Object.values(this.state.validations).every((value) => Boolean(value));
 
-  signUp = (event) => {
+  signIn = (event) => {
     event.preventDefault();
 
     this.setState({
@@ -98,7 +98,7 @@ class SignIn extends React.Component {
 
     signIn(this.state.auth).then(({ data: { signIn: { errors, token } } }) => {
       if (token) {
-        this.props.persistSignIn(token);
+        this.props.requestSignIn(token);
       } else {
         this.setState({
           didSubmit: false,

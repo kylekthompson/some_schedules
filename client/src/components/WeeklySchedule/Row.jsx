@@ -6,14 +6,19 @@ import styled from 'styled-components';
 
 import { propTypes as shiftPropTypes } from 'models/shift';
 import { propTypes as userPropTypes } from 'models/user';
-import { FlexContainer } from 'components/Flex';
-import AddShift from '../AddShift';
-import Cell from '../Cell';
-import Shift from '../Shift';
-import { sortedShiftsForCurrentDay } from './helpers';
+import Cell from 'components/WeeklySchedule/Cell';
+import Shift from 'components/WeeklySchedule/Shift';
+import { sortedShiftsForCurrentDay } from 'components/WeeklySchedule/helpers';
+import Week from 'components/WeeklySchedule/Week';
 
-const NameHolder = styled.span`
-  padding-top: 6px;
+const NameCell = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 44px;
+  justify-content: center;
+`;
+const NameHolder = styled.p`
+  margin: 0;
 `;
 
 class Row extends React.Component {
@@ -26,21 +31,23 @@ class Row extends React.Component {
 
   render() {
     return (
-      <FlexContainer flexDirection="row">
+      <Week>
         {this.renderNameCell()}
         {this.renderWeekdayCells()}
-      </FlexContainer>
+      </Week>
     );
   }
 
   renderNameCell = () => (
     <Cell
-      isLeftColumn
-      flex="0"
+      flex="1"
       maxWidth="150px"
       minWidth="150px"
     >
-      <NameHolder>{this.props.user.firstName} {this.props.user.lastName}</NameHolder>
+      <NameCell>
+        <NameHolder>{this.props.user.firstName}</NameHolder>
+        <NameHolder>{this.props.user.lastName}</NameHolder>
+      </NameCell>
     </Cell>
   )
 
@@ -54,17 +61,9 @@ class Row extends React.Component {
     const { onAddShift, shifts, user } = this.props;
     const shiftsForToday = sortedShiftsForCurrentDay(currentDay, shifts);
 
-    if (shiftsForToday.length > 0) {
-      return (
-        <Cell key={weekday}>
-          {shiftsForToday.map((shift) => <Shift key={shift.id} shift={shift} />)}
-        </Cell>
-      );
-    }
-
     return (
-      <Cell key={weekday}>
-        <AddShift onClick={onAddShift(user.id, currentDay.clone())} />
+      <Cell key={weekday} onClick={onAddShift(user.id, currentDay.clone())}>
+        {shiftsForToday.map((shift) => <Shift key={shift.id} shift={shift} />)}
       </Cell>
     );
   }

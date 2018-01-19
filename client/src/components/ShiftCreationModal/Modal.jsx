@@ -28,9 +28,8 @@ const Modal = styled.div`
     : css`left: ${x - 20}px;`
   }
   ${({ y }) => {
-    // the 80 here is to account for the footer's height and margin
     return y > document.body.clientHeight / 2
-      ? css`bottom: ${document.body.clientHeight - y + 10 + 80}px;`
+      ? css`bottom: ${document.body.clientHeight - y + 10}px;`
       : css`top: ${y + 10}px;`;
   }}
 `;

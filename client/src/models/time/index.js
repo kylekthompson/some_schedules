@@ -4,6 +4,7 @@ const FORMATS = {
   HOURS_AND_PERIOD: 'ha',
   HOURS_MINUTES_AND_PERIOD: 'h:mma',
   MONTH_AND_YEAR: 'MMMM YYYY',
+  SHORT_WEEKDAY_ONLY: 'ddd',
 };
 
 const current = () => Moment.tz(Moment.tz.guess());
@@ -13,6 +14,8 @@ const nextMonth = (moment) => moment.clone().add(1, 'month');
 const toMoment = (time) => Moment.utc(time, 'YYYY-MM-DD HH-mm-ss UTC').tz(Moment.tz.guess());
 
 const formatForCalendar = (moment) => moment.format(FORMATS.MONTH_AND_YEAR);
+const formatShortWeekdayOnly = (moment) => moment.format(FORMATS.SHORT_WEEKDAY_ONLY);
+
 const formatForSchedule = (moment) => {
   if (moment.minutes() === 0) {
     return moment.format(FORMATS.HOURS_AND_PERIOD);
@@ -28,6 +31,7 @@ export default {
   firstDayOfMonth,
   formatForCalendar,
   formatForSchedule,
+  formatShortWeekdayOnly,
   lastMonth,
   nextMonth,
   toMoment,

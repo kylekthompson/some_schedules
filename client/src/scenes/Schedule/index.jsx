@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Loading from 'components/Loading';
-import ScheduleComponent from 'components/Schedule';
+import WeeklySchedule from 'components/WeeklySchedule';
 import ScheduleSidebar from 'components/ScheduleSidebar';
 import ShiftCreationModal from 'components/ShiftCreationModal';
 import { Container, ContentContainer, SidebarContainer } from 'scenes/Schedule/components';
@@ -61,7 +61,7 @@ class Schedule extends Component {
   renderLoader = () => <Loading message="Loading..." />
   renderSchedule = () => (
     <Fragment>
-      <ScheduleComponent
+      <WeeklySchedule
         onAddShift={this.handleOpenShiftCreationModal}
         selectedDay={this.state.selectedDay}
         viewer={this.state.viewer.data}

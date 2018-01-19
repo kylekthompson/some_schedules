@@ -31,6 +31,7 @@ const FlexChild = styled.div`
   ${({ flexGrow }) => flexGrow ? css`flex-grow: ${flexGrow};` : ''}
   ${({ flexShrink }) => flexShrink ? css`flex-shrink: ${flexShrink};` : ''}
   ${({ flexWrap }) => flexWrap ? css`flex-wrap: ${flexWrap};` : ''}
+  ${({ height }) => height ? css`height: ${height};` : ''}
   ${({ justifyContent }) => justifyContent ? css`justify-content: ${justifyContent};` : ''}
   ${({ maxWidth }) => maxWidth ? css`max-width: ${maxWidth};` : ''}
   ${({ minWidth }) => minWidth ? css`min-width: ${minWidth};` : ''}

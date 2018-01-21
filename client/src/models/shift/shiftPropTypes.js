@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-import { propTypes as userPropTypes } from 'models/user';
+import { userPropTypes } from 'models/user';
 
-const propTypes = PropTypes.shape({
+const shiftPropTypes = PropTypes.shape({
   endTime: PropTypes.string,
   id: PropTypes.number,
   published: PropTypes.bool,
@@ -10,4 +10,4 @@ const propTypes = PropTypes.shape({
   user: userPropTypes,
 });
 
-export default propTypes;
+export default shiftPropTypes;

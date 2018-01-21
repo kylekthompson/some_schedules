@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
-const propTypes = PropTypes.shape({
+const userPropTypes = PropTypes.shape({
   firstName: PropTypes.string,
   id: PropTypes.number,
   lastName: PropTypes.string,
 });
 
-export default propTypes;
+export default userPropTypes;

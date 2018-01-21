@@ -1,11 +1,10 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-import { propTypes as shiftPropTypes } from 'models/shift';
-import { FlexChild } from 'components/Flex';
+import ShiftContainer from 'components/WeeklySchedule/ShiftContainer';
 import { colors } from 'models/constants';
+import { shiftPropTypes } from 'models/shift';
 import time from 'models/time';
 
 const { formatForSchedule, toMoment } = time;
@@ -34,27 +33,14 @@ const Text = styled.p`
   margin: 0;
 `;
 
-export const ShiftWrapper = styled(FlexChild)`
-  align-items: center;
-  border-radius: 2px;
-  display: flex;
-  flex: none;
-  flex-direction: row;
-  margin-bottom: 5px;
-
-  :last-child {
-    margin-bottom: 0;
-  }
-`;
-
 const Shift = ({ shift }) => (
-  <ShiftWrapper>
+  <ShiftContainer>
     <ColoredDot color={colors.shakespeareBlue()} />
     <PublishedIcon isPublished={shift.isPublished} />
     <Text>
       {formatForSchedule(toMoment(shift.startTime))} - {formatForSchedule(toMoment(shift.endTime))}
     </Text>
-  </ShiftWrapper>
+  </ShiftContainer>
 );
 
 Shift.propTypes = {

@@ -62,9 +62,10 @@ class Schedule extends Component {
   renderSchedule = () => (
     <Fragment>
       <WeeklySchedule
-        onAddShift={this.handleOpenShiftCreationModal}
-        selectedDay={this.state.selectedDay}
-        viewer={this.state.viewer.data}
+        onClick={this.handleOpenShiftCreationModal}
+        shifts={this.state.viewer.data.company.shifts}
+        startOfWeek={this.state.selectedDay.clone().startOf('week')}
+        users={this.state.viewer.data.company.users}
       />
       <ShiftCreationModal
         {...this.state.shiftCreationModal}

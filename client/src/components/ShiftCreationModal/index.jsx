@@ -11,7 +11,7 @@ import FontSizeAdjuster from 'components/ShiftCreationModal/FontSizeAdjuster';
 import Modal from 'components/ShiftCreationModal/Modal';
 import Separator from 'components/ShiftCreationModal/Separator';
 import TimeInput from 'components/ShiftCreationModal/TimeInput';
-import { propTypes as userPropTypes } from 'models/user';
+import { userPropTypes } from 'models/user';
 import { createShift } from 'services/graphql/mutations/createShift';
 import { parseTimesInput } from './helpers';
 

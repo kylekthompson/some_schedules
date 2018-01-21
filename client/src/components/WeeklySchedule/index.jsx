@@ -1,54 +1,63 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
-import { FlexContainer } from 'components/Flex';
+import Container from 'components/WeeklySchedule/Container';
 import Header from 'components/WeeklySchedule/Header';
 import Row from 'components/WeeklySchedule/Row';
 import Scroller from 'components/WeeklySchedule/Scroller';
-import { propTypes as shiftPropTypes } from 'models/shift';
-import { propTypes as userPropTypes } from 'models/user';
-import { propTypes as viewerPropTypes } from 'models/viewer';
-
-const shiftsForUser = (shifts, user) => shifts.filter((shift) => shift.user.id === user.id);
-const renderUserRow = (
-  user,
-  shifts,
-  onAddShift,
-  startOfWeek,
-) => (
-  <Row
-    key={user.id}
-    onAddShift={onAddShift}
-    startOfWeek={startOfWeek}
-    user={user}
-    shifts={shiftsForUser(shifts, user)}
-  />
-);
+import {
+  shiftPropTypes,
+  shiftsForUserId,
+  sortShiftsByTimeIncreasing,
+} from 'models/shift';
+import {
+  sortUsersByLastNameThenFirstNameIncreasing,
+  userPropTypes,
+} from 'models/user';
 
 export class WeeklySchedule extends Component {
   static propTypes = {
-    onAddShift: PropTypes.func.isRequired,
-    selectedDay: PropTypes.instanceOf(Moment).isRequired,
-    viewer: viewerPropTypes.isRequired,
+    onCellClick: PropTypes.func.isRequired,
+    shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
+    sortShifts: PropTypes.func.isRequired,
+    sortUsers: PropTypes.func.isRequired,
+    startOfWeek: PropTypes.instanceOf(Moment).isRequired,
+    users: PropTypes.arrayOf(userPropTypes).isRequired,
+  };
+
+  static defaultProps = {
+    onCellClick: () => {},
+    sortShifts: sortShiftsByTimeIncreasing,
+    sortUsers: sortUsersByLastNameThenFirstNameIncreasing,
   };
 
   get sortedUsers() {
-    return [...this.props.viewer.company.users].sort((userA, userB) => userA.id - userB.id);
+    return this.props.sortUsers(this.props.users);
   }
 
   render() {
-    const startOfWeek = this.props.selectedDay.clone().startOf('week');
     return (
-      <FlexContainer flexDirection="column" height="100%">
-        <Header startOfWeek={startOfWeek} />
+      <Container>
+        <Header startOfWeek={this.props.startOfWeek} />
         <Scroller>
-          {this.sortedUsers.map((user) => renderUserRow(user, this.props.viewer.company.shifts, this.props.onAddShift, startOfWeek))}
+          {this.renderRows()}
         </Scroller>
-      </FlexContainer>
+      </Container>
     );
   }
+
+  renderRows = () => this.sortedUsers.map((user) => (
+    <Row
+      key={user.id}
+      onCellClick={this.props.onCellClick}
+      shifts={shiftsForUserId(this.props.shifts, user.id)}
+      sortShifts={this.props.sortShifts}
+      startOfWeek={this.props.startOfWeek}
+      user={user}
+    />
+  ))
 }
 
 export default WeeklySchedule;

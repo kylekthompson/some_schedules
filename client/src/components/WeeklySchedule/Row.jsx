@@ -2,53 +2,37 @@ import React from 'react';
 
 import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-import { propTypes as shiftPropTypes } from 'models/shift';
-import { propTypes as userPropTypes } from 'models/user';
 import Cell from 'components/WeeklySchedule/Cell';
+import NameCell from 'components/WeeklySchedule/NameCell';
+import RowContainer from 'components/WeeklySchedule/RowContainer';
 import Shift from 'components/WeeklySchedule/Shift';
-import { sortedShiftsForCurrentDay } from 'components/WeeklySchedule/helpers';
-import Week from 'components/WeeklySchedule/Week';
-
-const NameCell = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 44px;
-  justify-content: center;
-`;
-const NameHolder = styled.p`
-  margin: 0;
-`;
+import { shiftPropTypes, shiftsForDay } from 'models/shift';
+import { userPropTypes } from 'models/user';
 
 class Row extends React.Component {
   static propTypes = {
-    onAddShift: PropTypes.func.isRequired,
+    onCellClick: PropTypes.func.isRequired,
     shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
+    sortShifts: PropTypes.func.isRequired,
     startOfWeek: PropTypes.instanceOf(Moment).isRequired,
     user: userPropTypes.isRequired,
   };
 
   render() {
     return (
-      <Week>
+      <RowContainer>
         {this.renderNameCell()}
         {this.renderWeekdayCells()}
-      </Week>
+      </RowContainer>
     );
   }
 
   renderNameCell = () => (
-    <Cell
-      flex="1"
-      maxWidth="150px"
-      minWidth="150px"
-    >
-      <NameCell>
-        <NameHolder>{this.props.user.firstName}</NameHolder>
-        <NameHolder>{this.props.user.lastName}</NameHolder>
-      </NameCell>
-    </Cell>
+    <NameCell>
+      <p>{this.props.user.firstName}</p>
+      <p>{this.props.user.lastName}</p>
+    </NameCell>
   )
 
   renderWeekdayCells = () => {
@@ -58,11 +42,11 @@ class Row extends React.Component {
 
   renderWeekdayCell = (weekday, previousDay) => {
     const currentDay = previousDay.add(1, 'day');
-    const { onAddShift, shifts, user } = this.props;
-    const shiftsForToday = sortedShiftsForCurrentDay(currentDay, shifts);
+    const { onCellClick, shifts, sortShifts, user } = this.props;
+    const shiftsForToday = sortShifts(shiftsForDay(shifts, currentDay));
 
     return (
-      <Cell key={weekday} onClick={onAddShift(user.id, currentDay.clone())}>
+      <Cell key={weekday} onClick={onCellClick(user.id, currentDay.clone())}>
         {shiftsForToday.map((shift) => <Shift key={shift.id} shift={shift} />)}
       </Cell>
     );

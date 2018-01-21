@@ -2,13 +2,13 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { FlexContainer } from 'components/Flex';
+import Container from 'components/Loading/Container';
 
 const Loading = ({ message }) => (
-  <FlexContainer alignItems="center" flexDirection="column" justifyContent="center">
+  <Container>
     <i className="fal fa-2x fa-spin fa-spinner-third" />
     <p>{message}</p>
-  </FlexContainer>
+  </Container>
 );
 
 Loading.propTypes = {

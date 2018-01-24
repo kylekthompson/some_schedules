@@ -6,6 +6,6 @@ export default styled.div`
   background: ${colors.bahamaBlue()} linear-gradient(to right, ${colors.shakespeareBlue(1)}, ${colors.shakespeareBlue(0.2)});
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   padding: 0 20px;
 `;

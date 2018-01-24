@@ -10,6 +10,7 @@ const white = (alpha = 1) => rgba(255, 255, 255, alpha);                // #FFFF
 // colors
 const bahamaBlue = (alpha = 1) => rgba(4, 110, 143, alpha);             // #046E8F
 const shakespeareBlue = (alpha = 1) => rgba(56, 174, 204, alpha);       // #38AECC
+const stilettoRed = (alpha = 1) => rgba(156, 51, 54, alpha);            // #9C3336
 
 export default {
   bahamaBlue,
@@ -18,5 +19,6 @@ export default {
   darkGrey,
   lightGrey,
   shakespeareBlue,
+  stilettoRed,
   white,
 };

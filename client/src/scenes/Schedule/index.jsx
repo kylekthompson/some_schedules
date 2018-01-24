@@ -4,9 +4,8 @@ import Loading from 'components/Loading';
 import WeeklySchedule from 'components/WeeklySchedule';
 import ScheduleSidebar from 'components/ScheduleSidebar';
 import ShiftCreationModal from 'components/ShiftCreationModal';
-import { Container, ContentContainer, SidebarContainer } from 'scenes/Schedule/components';
-
 import { findUser, get } from 'models/viewer';
+import { Container, ContentContainer, SidebarContainer } from 'scenes/Schedule/components';
 import {
   handleAddShift,
   handleCloseShiftCreationModal,
@@ -15,7 +14,7 @@ import {
   handleViewerLoaded,
   handleViewerLoading,
   initialState,
-} from 'state/schedule';
+} from 'scenes/Schedule/state';
 
 class Schedule extends Component {
   state = initialState;

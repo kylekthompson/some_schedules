@@ -16,6 +16,6 @@ export const passwordValidator = new Validator([
   ({ password }) => atLeastEightCharacters(password),
 ]);
 
-export const currentPasswordValidator = new Validator([
+export const passwordConfirmationValidator = new Validator([
   ({ password, passwordConfirmation }) => matches(password, passwordConfirmation),
 ]);

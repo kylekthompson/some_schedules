@@ -1,4 +1,3 @@
-import { pluralize } from 'models/string';
 import Validator from 'models/validations/validator';
 
 const EMAIL_REGEX = /^.+@.+\..+$/;

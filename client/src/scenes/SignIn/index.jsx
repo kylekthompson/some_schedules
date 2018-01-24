@@ -30,8 +30,8 @@ class SignIn extends React.Component {
     );
   }
 
-  handleSubmit = (auth) => {
-    signIn(auth).then(({ data: { signIn: { errors, token } } }) => {
+  handleSubmit = (form) => {
+    signIn(form).then(({ data: { signIn: { errors, token } } }) => {
       if (token) {
         this.props.requestSignIn(token);
       } else {

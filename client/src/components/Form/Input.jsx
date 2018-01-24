@@ -10,7 +10,6 @@ export default styled.input`
   border-bottom: 1px solid ${({ isValid }) => isValid ? colors.catskillWhite() : colors.stilettoRed()};
   color: ${colors.white()};
   font-size: 14px;
-  margin-bottom: 30px;
   padding: 5px;
 
   &:focus {

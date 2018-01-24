@@ -25,6 +25,7 @@ export default styled(Submit)`
   box-shadow: none;
   color: ${colors.white()};
   font-size: 14px;
+  margin-top: 30px;
   padding: 5px;
 
   &:focus,

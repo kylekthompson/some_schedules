@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import Container from 'components/Form/Container';
+import Errors from 'components/Form/Errors';
 import HeaderContainer from 'components/Form/HeaderContainer';
 import Input from 'components/Form/Input';
 import Label from 'components/Form/Label';
@@ -14,6 +15,7 @@ const Form = styled.form`
 `;
 
 Form.Container = Container;
+Form.Errors = Errors;
 Form.HeaderContainer = HeaderContainer;
 Form.Input = Input;
 Form.Label = Label;

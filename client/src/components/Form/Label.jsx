@@ -7,4 +7,8 @@ export default styled.p`
   ${fonts.light}
   color: ${colors.white()};
   font-size: 14px;
+
+  &:not(:first-child) {
+    margin-top: 30px;
+  }
 `;

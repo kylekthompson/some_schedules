@@ -1,13 +1,18 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { fonts, links } from 'models/styles';
 
 const HeaderLink = ({ darkTheme, ...rest }) => (
   <Link {...rest} />
 );
+
+HeaderLink.propTypes = {
+  darkTheme: PropTypes.bool,
+};
 
 export default styled(HeaderLink)`
   ${fonts.regular}

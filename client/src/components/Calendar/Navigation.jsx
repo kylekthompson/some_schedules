@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Moment from 'moment-timezone';
+import PropTypes from 'prop-types';
+
 import NavigationButton from 'components/Calendar/NavigationButton';
 import NavigationContainer from 'components/Calendar/NavigationContainer';
 import NavigationText from 'components/Calendar/NavigationText';
@@ -18,5 +21,10 @@ const Navigation = ({ currentMonth, onMonthChange }) => (
     </NavigationButton>
   </NavigationContainer>
 );
+
+Navigation.propTypes = {
+  currentMonth: PropTypes.instanceOf(Moment).isRequired,
+  onMonthChange: PropTypes.func.isRequired,
+};
 
 export default Navigation;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import ShiftContainer from 'components/WeeklySchedule/ShiftContainer';
@@ -22,6 +23,11 @@ const Icon = ({ className, isPublished }) => {
   return (
     <i className={`${icon} ${className || ''}`} />
   );
+};
+
+Icon.propTypes = {
+  className: PropTypes.string,
+  isPublished: PropTypes.bool,
 };
 
 const PublishedIcon = styled(Icon)`

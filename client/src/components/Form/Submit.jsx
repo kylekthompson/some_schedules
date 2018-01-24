@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { colors } from 'models/constants';
 import { fonts } from 'models/styles';
 
 class Submit extends Component {
+  static propTypes = {
+    onClick: PropTypes.func,
+  };
+
   render() {
     const { onClick, ...rest } = this.props;
     return <button onClick={this.handleClick} type="submit" {...rest} />;

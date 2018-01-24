@@ -7,7 +7,7 @@ import MonthContainer from 'components/Calendar/MonthContainer';
 import MonthDays from 'components/Calendar/MonthDays';
 import MonthHeader from 'components/Calendar/MonthHeader';
 
-const Month = ({ currentMonth, onDayClick, onMonthChange, selectedDay }) => (
+const Month = ({ currentMonth, onDayClick, selectedDay }) => (
   <MonthContainer>
     <MonthHeader />
     <MonthDays

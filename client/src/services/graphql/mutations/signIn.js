@@ -1,4 +1,4 @@
-import { gql, graphql } from '../helpers';
+import { gql, graphql } from 'services/graphql/helpers';
 
 export const signIn = (input) => graphql.mutate({
   mutation: gql`

@@ -4,7 +4,9 @@ import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import Container from 'components/Calendar/Container';
-import Month from 'components/Calendar/Month';
+import MonthContainer from 'components/Calendar/MonthContainer';
+import MonthDays from 'components/Calendar/MonthDays';
+import MonthHeader from 'components/Calendar/MonthHeader';
 import Navigation from 'components/Calendar/Navigation';
 
 class Calender extends React.Component {
@@ -26,7 +28,7 @@ class Calender extends React.Component {
   }
 
   render() {
-    const { selectedDay } = this.props;
+    const { onDayClick, selectedDay } = this.props;
     const { currentMonth } = this.state;
 
     return (
@@ -35,11 +37,14 @@ class Calender extends React.Component {
           currentMonth={currentMonth}
           onMonthChange={this.onMonthChange}
         />
-        <Month
-          currentMonth={currentMonth}
-          onDayClick={this.props.onDayClick}
-          selectedDay={selectedDay}
-        />
+        <MonthContainer>
+          <MonthHeader />
+          <MonthDays
+            currentMonth={currentMonth}
+            onDayClick={onDayClick}
+            selectedDay={selectedDay}
+          />
+        </MonthContainer>
       </Container>
     );
   }

@@ -5,7 +5,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 class PrivateRoute extends React.Component {
   static propTypes = {
-    component: PropTypes.func,
+    component: PropTypes.func.isRequired,
     componentProps: PropTypes.object.isRequired,
     isSignedIn: PropTypes.bool.isRequired,
   };

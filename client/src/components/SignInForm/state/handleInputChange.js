@@ -5,7 +5,7 @@ const handleInputChange = (field, validations, event) => {
   return (state) => {
     let errors = [];
 
-    if (state.form[field].didBlur) {
+    if (state.form[field].didBlur && state.form[field].isDirty) {
       errors = validations[field].run({
         ...formValuesFromState(state),
         [field]: value,
@@ -19,6 +19,7 @@ const handleInputChange = (field, validations, event) => {
         [field]: {
           ...state.form[field],
           errors,
+          isDirty: true,
           value,
         },
       },

@@ -5,6 +5,7 @@ const initialFormState = FORM_FIELDS.reduce((state, field) => ({
   [field]: {
     didBlur: false,
     errors: [],
+    isDirty: false,
     value: '',
   },
 }), {});

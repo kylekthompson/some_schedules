@@ -12,8 +12,6 @@ import { registerServiceWorker } from 'services/serviceWorker';
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-light.css';
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-regular.css';
 import '@fortawesome/fontawesome-pro-webfonts/css/fontawesome.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-import 'bootstrap/dist/css/bootstrap.css';
 
 injectGlobal`
   @font-face {
@@ -25,8 +23,16 @@ injectGlobal`
     ${fonts.regular}
   }
 
+  body {
+    margin: 0;
+  }
+
   p {
     margin: 0;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 

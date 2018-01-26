@@ -6,11 +6,20 @@ import { deleteToken, isSignedIn, setToken } from 'models/authentication';
 
 class AuthenticationProvider extends React.Component {
   static propTypes = {
+    deleteToken: PropTypes.func.isRequired,
+    isSignedIn: PropTypes.func.isRequired,
     render: PropTypes.func.isRequired,
+    setToken: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    deleteToken,
+    isSignedIn,
+    setToken,
   };
 
   state = {
-    isSignedIn: isSignedIn(),
+    isSignedIn: this.props.isSignedIn(),
   };
 
   render() {
@@ -22,14 +31,14 @@ class AuthenticationProvider extends React.Component {
   }
 
   handleSignIn = (token) => {
-    setToken(token);
+    this.props.setToken(token);
     this.setState({
       isSignedIn: true,
     });
   }
 
   handleSignOut = (token) => {
-    deleteToken();
+    this.props.deleteToken();
     this.setState({
       isSignedIn: false,
     });

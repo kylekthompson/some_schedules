@@ -32,6 +32,7 @@
     "start": "NODE_PATH=src/ react-scripts start",
     "build": "NODE_PATH=src/ react-scripts build && mv build/* ../public",
     "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
+    "test:debug": "NODE_PATH=src/ react-scripts --inspect-brk test --env=jsdom --runInBand",
     "eject": "NODE_PATH=src/ react-scripts eject"
   }
 }

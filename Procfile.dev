@@ -1,2 +1,2 @@
-rails: bin/rails s
-react: cd client && npm run start
+rails: bin/rails s -p 5000
+react: cd client && yarn start

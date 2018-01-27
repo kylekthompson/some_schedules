@@ -44,7 +44,7 @@ RSpec.describe Resolvers::Shift::Creator, type: :model do
     include_context 'with stubbed policies'
 
     context 'when everything is correct' do
-      specify { expect { resolver.to_h }.to change { Shift.count }.by(1) }
+      specify { expect { resolver.to_h }.to change(Shift, :count).by(1) }
       specify { expect(resolver.to_h[:errors]).to be_nil }
       specify { expect(resolver.to_h[:shift]).not_to be_nil }
 

@@ -2,13 +2,13 @@ language: ruby
 cache:
   bundler: true
   directories:
-    - client/node_modules
+  - $HOME/client/.yarn-cache
 
 rvm:
-  - 2.4.2
+  - 2.5.0
 
 node_js:
-  - 8.7.0
+  - 9.4.0
 
 sudo: required
 dist: trusty
@@ -22,12 +22,16 @@ notifications:
   email: false
 
 before_install:
-  - nvm install 8.7.0
-  - nvm use 8.7.0
+  - nvm install 9.4.0
+  - nvm use 9.4.0
+  - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
+  - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq yarn
 
 install:
   - bundle install
-  - (cd client && npm install)
+  - (cd client && yarn install)
 
 script:
   - script/cibuild

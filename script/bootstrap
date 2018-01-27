@@ -17,10 +17,10 @@ if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
   }
 fi
 
-if ! ruby --version | grep --quiet 2.4.2; then
-  echo "==> Installing rbenv and ruby 2.4.2..."
+if ! ruby --version | grep --quiet 2.5.0; then
+  echo "==> Installing rbenv and ruby 2.5.0..."
 
-  rbenv install 2.4.2
+  rbenv install 2.5.0
   gem install bundler
 fi
 

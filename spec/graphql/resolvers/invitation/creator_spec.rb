@@ -44,7 +44,7 @@ RSpec.describe Resolvers::Invitation::Creator, type: :model do
     include_context 'with stubbed policies'
 
     context 'when everything is correct' do
-      specify { expect { resolver.to_h }.to change { current_user.invitations.count }.by(1) }
+      specify { expect { resolver.to_h }.to change(current_user.invitations, :count).by(1) }
       specify { expect(resolver.to_h[:errors]).to be_nil }
       specify { expect(resolver.to_h[:invitation]).not_to be_nil }
 

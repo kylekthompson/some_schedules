@@ -19,7 +19,7 @@ import {
 
 export class WeeklySchedule extends Component {
   static propTypes = {
-    onCellClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
     sortShifts: PropTypes.func.isRequired,
     sortUsers: PropTypes.func.isRequired,
@@ -28,7 +28,6 @@ export class WeeklySchedule extends Component {
   };
 
   static defaultProps = {
-    onCellClick: () => {},
     sortShifts: sortShiftsByTimeIncreasing,
     sortUsers: sortUsersByLastNameThenFirstNameIncreasing,
   };
@@ -51,7 +50,7 @@ export class WeeklySchedule extends Component {
   renderRows = () => this.sortedUsers.map((user) => (
     <Row
       key={user.id}
-      onCellClick={this.props.onCellClick}
+      onCellClick={this.props.onClick}
       shifts={shiftsForUserId(this.props.shifts, user.id)}
       sortShifts={this.props.sortShifts}
       startOfWeek={this.props.startOfWeek}

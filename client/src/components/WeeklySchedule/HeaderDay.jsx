@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { fonts } from 'models/styles';
-import time from 'models/time';
+import { format } from 'models/time';
 
 const WeekdayText = styled.p`
   ${fonts.regular}
@@ -21,7 +21,7 @@ const DateText = styled.p`
 const HeaderDay = ({ className, day }) => (
   <div className={className}>
     <WeekdayText>
-      {time.formatShortWeekdayOnly(day)}
+      {format.shortWeekdayOnly(day)}
     </WeekdayText>
     <DateText>
       {day.date()}

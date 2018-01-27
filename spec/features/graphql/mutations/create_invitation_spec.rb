@@ -25,7 +25,7 @@ RSpec.describe 'mutation { createInvitation }' do
   include_context 'with stubbed policies'
 
   it 'creates an invitation for the user' do
-    expect { execution_result }.to change { current_user.invitations.count }.by(1)
+    expect { execution_result }.to change(current_user.invitations, :count).by(1)
   end
 
   describe 'authentication' do

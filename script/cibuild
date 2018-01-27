@@ -9,4 +9,4 @@ bin/rails db:setup
 bin/rubocop -D
 bin/rspec
 
-(cd client && npm run test)
+(cd client && yarn test)

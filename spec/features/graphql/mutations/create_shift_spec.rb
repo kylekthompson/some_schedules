@@ -31,7 +31,7 @@ RSpec.describe 'mutation { createShift }' do
   specify { expect(data[:createShift][:shift][:published]).to be(false) }
 
   it 'creates a shift for the user' do
-    expect { execution_result }.to change { current_user.shifts.count }.by(1)
+    expect { execution_result }.to change(current_user.shifts, :count).by(1)
   end
 
   it 'creates a shift with the correct start time' do

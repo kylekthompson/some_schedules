@@ -78,8 +78,8 @@ RSpec.describe Resolvers::SignUp, type: :model do
     end
 
     context 'when everything is valid' do
-      specify { expect { resolver.to_h }.to change { Company.count }.by(1) }
-      specify { expect { resolver.to_h }.to change { User.count }.by(1) }
+      specify { expect { resolver.to_h }.to change(Company, :count).by(1) }
+      specify { expect { resolver.to_h }.to change(User, :count).by(1) }
       specify { expect(resolver.to_h[:company_errors]).to be_nil }
       specify { expect(resolver.to_h[:user_errors]).to be_nil }
       specify { expect(resolver.to_h[:company]).not_to be_nil }

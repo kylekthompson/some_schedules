@@ -12,11 +12,12 @@ import Modal from 'components/ShiftCreationModal/Modal';
 import Separator from 'components/ShiftCreationModal/Separator';
 import TimeInput from 'components/ShiftCreationModal/TimeInput';
 import { userPropTypes } from 'models/user';
-import { parseInput } from 'models/time';
+import { format, parseInput } from 'models/time';
 import { createShift } from 'services/graphql/mutations/createShift';
 
 class ShiftCreationModal extends React.Component {
   static propTypes = {
+    createShift: PropTypes.func.isRequired,
     day: PropTypes.instanceOf(Moment),
     dismissModal: PropTypes.func.isRequired,
     onAddShift: PropTypes.func.isRequired,
@@ -24,7 +25,11 @@ class ShiftCreationModal extends React.Component {
     visible: PropTypes.bool.isRequired,
     x: PropTypes.number,
     y: PropTypes.number,
-  }
+  };
+
+  static defaultProps = {
+    createShift,
+  };
 
   modal = null;
   state = {
@@ -117,9 +122,9 @@ class ShiftCreationModal extends React.Component {
 
   handleShiftCreation = () => {
     if (this.state.startTime && this.state.endTime) {
-      createShift({
-        endTime: this.state.endTime.format(),
-        startTime: this.state.startTime.format(),
+      this.props.createShift({
+        endTime: format.forServer(this.state.endTime),
+        startTime: format.forServer(this.state.startTime),
         userId: this.props.user.id,
       }).then(({ data: { createShift: { shift } } }) => {
         if (shift) {

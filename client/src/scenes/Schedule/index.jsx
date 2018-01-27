@@ -4,6 +4,7 @@ import Loading from 'components/Loading';
 import WeeklySchedule from 'components/WeeklySchedule';
 import ScheduleSidebar from 'components/ScheduleSidebar';
 import ShiftCreationModal from 'components/ShiftCreationModal';
+import { format } from 'models/time';
 import { findUser, get } from 'models/viewer';
 import { Container, ContentContainer, SidebarContainer } from 'scenes/Schedule/components';
 import {
@@ -85,8 +86,8 @@ class Schedule extends Component {
   }
 
   loadViewer = async () => {
-    const after = this.state.selectedDay.clone().startOf('week').format();
-    const before = this.state.selectedDay.clone().endOf('week').format();
+    const after = format.forServer(this.state.selectedDay.clone().startOf('week'));
+    const before = format.forServer(this.state.selectedDay.clone().endOf('week'));
 
     this.setState(handleViewerLoading);
 

@@ -1,5 +1,7 @@
 import Moment from 'moment-timezone';
 
-const toMoment = (time) => Moment.utc(time, 'YYYY-MM-DD HH-mm-ss UTC').tz(Moment.tz.guess());
+import { FORMATS } from 'models/time/format';
+
+const toMoment = (time) => Moment.utc(time, FORMATS.SERVER).tz(Moment.tz.guess());
 
 export default toMoment;

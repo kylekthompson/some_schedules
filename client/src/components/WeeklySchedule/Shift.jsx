@@ -6,9 +6,7 @@ import styled from 'styled-components';
 import ShiftContainer from 'components/WeeklySchedule/ShiftContainer';
 import { colors } from 'models/constants';
 import { shiftPropTypes } from 'models/shift';
-import time from 'models/time';
-
-const { formatForSchedule, toMoment } = time;
+import { format, toMoment } from 'models/time';
 
 const ColoredDot = styled.div`
   background-color: ${({ color }) => color};
@@ -44,7 +42,7 @@ const Shift = ({ shift }) => (
     <ColoredDot color={colors.shakespeareBlue()} />
     <PublishedIcon isPublished={shift.isPublished} />
     <Text>
-      {formatForSchedule(toMoment(shift.startTime))} - {formatForSchedule(toMoment(shift.endTime))}
+      {format.forSchedule(toMoment(shift.startTime))} - {format.forSchedule(toMoment(shift.endTime))}
     </Text>
   </ShiftContainer>
 );

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Day from 'components/Calendar/Day';
 import Week from 'components/Calendar/Week';
 import array from 'models/array';
-import time, { DAYS_IN_WEEK, WEEKS_IN_CALENDAR } from 'models/time';
+import { constants } from 'models/time';
 
 class MonthDays extends Component {
   static propTypes = {
@@ -24,15 +24,15 @@ class MonthDays extends Component {
   }
 
   renderWeeks = () => {
-    const iteratingDay = time.firstDayOfMonth(this.props.currentMonth).subtract(1, 'day');
-    return array.ofSize(WEEKS_IN_CALENDAR).map((index) => (
+    const iteratingDay = this.props.currentMonth.clone().startOf('month').startOf('week').subtract(1, 'day');
+    return array.ofSize(constants.WEEKS_IN_CALENDAR).map((index) => (
       <Week key={`${this.props.currentMonth.month()}-${index}`}>
         {this.renderDays(iteratingDay)}
       </Week>
     ));
   }
 
-  renderDays = (iteratingDay) => array.ofSize(DAYS_IN_WEEK).map((index) => {
+  renderDays = (iteratingDay) => array.ofSize(constants.DAYS_IN_WEEK).map((index) => {
     const day = iteratingDay.add(1, 'day').clone();
     return (
       <Day

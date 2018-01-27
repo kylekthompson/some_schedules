@@ -12,8 +12,8 @@ import Modal from 'components/ShiftCreationModal/Modal';
 import Separator from 'components/ShiftCreationModal/Separator';
 import TimeInput from 'components/ShiftCreationModal/TimeInput';
 import { userPropTypes } from 'models/user';
+import { parseInput } from 'models/time';
 import { createShift } from 'services/graphql/mutations/createShift';
-import { parseTimesInput } from './helpers';
 
 class ShiftCreationModal extends React.Component {
   static propTypes = {
@@ -87,7 +87,7 @@ class ShiftCreationModal extends React.Component {
   }
 
   parseTimesInput = () => {
-    const [startTime, endTime] = parseTimesInput(this.props.day, this.state.timesInput);
+    const [startTime, endTime] = parseInput(this.props.day, this.state.timesInput);
 
     if (startTime && endTime) {
       this.setState({

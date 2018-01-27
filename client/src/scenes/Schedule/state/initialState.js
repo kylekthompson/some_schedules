@@ -1,7 +1,7 @@
-import time from 'models/time';
+import { current } from 'models/time';
 
 export default {
-  selectedDay: time.current(),
+  selectedDay: current(),
   shiftCreationModal: {
     visible: false,
   },

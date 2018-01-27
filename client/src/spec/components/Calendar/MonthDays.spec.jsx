@@ -6,7 +6,7 @@ import Moment from 'moment';
 import Day from 'components/Calendar/Day';
 import MonthDays from 'components/Calendar/MonthDays';
 import Week from 'components/Calendar/Week';
-import { DAYS_IN_WEEK, WEEKS_IN_CALENDAR } from 'models/time';
+import { constants } from 'models/time';
 
 const mountComponent = (props) => mount(
   <MonthDays
@@ -21,13 +21,13 @@ describe('<MonthDays />', () => {
   it('renders the correct number of weeks', () => {
     const wrapper = mountComponent();
 
-    expect(wrapper.find(Week)).toHaveLength(WEEKS_IN_CALENDAR);
+    expect(wrapper.find(Week)).toHaveLength(constants.WEEKS_IN_CALENDAR);
   });
 
   it('renders the correct number of days', () => {
     const wrapper = mountComponent();
 
-    expect(wrapper.find(Day)).toHaveLength(DAYS_IN_WEEK * WEEKS_IN_CALENDAR);
+    expect(wrapper.find(Day)).toHaveLength(constants.DAYS_IN_WEEK * constants.WEEKS_IN_CALENDAR);
   });
 
   it('calls onDayClick() when any day is clicked', () => {
@@ -38,6 +38,6 @@ describe('<MonthDays />', () => {
 
     wrapper.find(Day).forEach((day) => day.simulate('click'));
 
-    expect(onClick).toHaveBeenCalledTimes(DAYS_IN_WEEK * WEEKS_IN_CALENDAR);
+    expect(onClick).toHaveBeenCalledTimes(constants.DAYS_IN_WEEK * constants.WEEKS_IN_CALENDAR);
   });
 });

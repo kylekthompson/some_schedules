@@ -1,38 +1,5 @@
-import Moment from 'moment-timezone';
-
-const FORMATS = {
-  HOURS_AND_PERIOD: 'ha',
-  HOURS_MINUTES_AND_PERIOD: 'h:mma',
-  MONTH_AND_YEAR: 'MMMM YYYY',
-  SHORT_WEEKDAY_ONLY: 'ddd',
-};
-
-const current = () => Moment.tz(Moment.tz.guess());
-const firstDayOfMonth = (moment) => moment.clone().startOf('month').startOf('week');
-const lastMonth = (moment) => moment.clone().subtract(1, 'month');
-const nextMonth = (moment) => moment.clone().add(1, 'month');
-const toMoment = (time) => Moment.utc(time, 'YYYY-MM-DD HH-mm-ss UTC').tz(Moment.tz.guess());
-
-const formatForCalendar = (moment) => moment.format(FORMATS.MONTH_AND_YEAR);
-const formatShortWeekdayOnly = (moment) => moment.format(FORMATS.SHORT_WEEKDAY_ONLY);
-
-const formatForSchedule = (moment) => {
-  if (moment.minutes() === 0) {
-    return moment.format(FORMATS.HOURS_AND_PERIOD);
-  }
-
-  return moment.format(FORMATS.HOURS_MINUTES_AND_PERIOD);
-};
-
-export const DAYS_IN_WEEK = 7;
-export const WEEKS_IN_CALENDAR = 6;
-export default {
-  current,
-  firstDayOfMonth,
-  formatForCalendar,
-  formatForSchedule,
-  formatShortWeekdayOnly,
-  lastMonth,
-  nextMonth,
-  toMoment,
-};
+export { default as constants } from 'models/time/constants';
+export { default as current } from 'models/time/current';
+export { default as format } from 'models/time/format';
+export { default as parseInput } from 'models/time/parseInput';
+export { default as toMoment } from 'models/time/toMoment';

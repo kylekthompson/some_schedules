@@ -4,6 +4,7 @@ import { mount } from 'enzyme';
 
 import Form from 'components/Form';
 import SignInForm from 'components/SignInForm';
+import { changeValue, findTestId } from 'spec/utilities';
 
 const mountComponent = (props) => mount(
   <SignInForm
@@ -17,7 +18,7 @@ describe('<SignInForm />', () => {
     it('shows errors for invalid fields', () => {
       const wrapper = mountComponent();
 
-      wrapper.find('input').find('[id="email"]').props().onBlur({
+      findTestId(wrapper, 'email').props().onBlur({
         currentTarget: {
           value: 'not an email',
         },
@@ -51,17 +52,8 @@ describe('<SignInForm />', () => {
           onSubmit,
         });
 
-        wrapper.find('input').find('[id="email"]').props().onChange({
-          currentTarget: {
-            value: 'email@example.com',
-          },
-        });
-
-        wrapper.find('input').find('[id="password"]').props().onChange({
-          currentTarget: {
-            value: 'password',
-          },
-        });
+        changeValue(wrapper, 'email', 'email@example.com');
+        changeValue(wrapper, 'password', 'password');
 
         wrapper.find(Form).simulate('submit');
 

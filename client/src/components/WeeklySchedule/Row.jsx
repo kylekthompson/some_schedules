@@ -46,7 +46,7 @@ class Row extends React.Component {
     const shiftsForToday = sortShifts(shiftsForDay(shifts, currentDay));
 
     return (
-      <Cell key={weekday} onClick={onCellClick(user.id, currentDay.clone())}>
+      <Cell key={weekday} onClick={onCellClick(user.id, currentDay.clone())} testId={`user-${user.id}-${weekday}`}>
         {shiftsForToday.map((shift) => <Shift key={shift.id} shift={shift} />)}
       </Cell>
     );

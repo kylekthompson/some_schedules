@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import EmptyHeaderCell from 'components/WeeklySchedule/EmptyHeaderCell';
 import HeaderCell from 'components/WeeklySchedule/HeaderCell';
 import HeaderDay from 'components/WeeklySchedule/HeaderDay';
-import array from 'models/array';
+import { ofSize } from 'models/array';
 import { colors } from 'models/constants';
 import { constants } from 'models/time';
 
@@ -28,7 +28,7 @@ class Header extends Component {
 
   renderHeaderDays = () => {
     const dayBeforeStartOfWeek = this.props.startOfWeek.clone().subtract(1, 'day');
-    return array.ofSize(constants.DAYS_IN_WEEK).map((index) => (
+    return ofSize(constants.DAYS_IN_WEEK).map((index) => (
       <HeaderCell key={index}>
         <HeaderDay day={dayBeforeStartOfWeek.add(1, 'day').clone()} />
       </HeaderCell>

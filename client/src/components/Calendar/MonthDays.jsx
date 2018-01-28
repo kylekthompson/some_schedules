@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Day from 'components/Calendar/Day';
 import Week from 'components/Calendar/Week';
-import array from 'models/array';
+import { ofSize } from 'models/array';
 import { constants } from 'models/time';
 
 class MonthDays extends Component {
@@ -25,14 +25,14 @@ class MonthDays extends Component {
 
   renderWeeks = () => {
     const iteratingDay = this.props.currentMonth.clone().startOf('month').startOf('week').subtract(1, 'day');
-    return array.ofSize(constants.WEEKS_IN_CALENDAR).map((index) => (
+    return ofSize(constants.WEEKS_IN_CALENDAR).map((index) => (
       <Week key={`${this.props.currentMonth.month()}-${index}`}>
         {this.renderDays(iteratingDay)}
       </Week>
     ));
   }
 
-  renderDays = (iteratingDay) => array.ofSize(constants.DAYS_IN_WEEK).map((index) => {
+  renderDays = (iteratingDay) => ofSize(constants.DAYS_IN_WEEK).map((index) => {
     const day = iteratingDay.add(1, 'day').clone();
     return (
       <Day

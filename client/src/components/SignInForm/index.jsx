@@ -46,11 +46,11 @@ class SignInForm extends Component {
       <Form.Input
         autoFocus
         autoComplete="email"
-        id="email"
         isValid={this.isValid('email')}
         onBlur={this.handleBlur('email')}
         onChange={this.handleChange('email')}
         placeholder="jane@example.com"
+        testId="email"
         type="email"
         value={this.value('email')}
       />
@@ -63,11 +63,11 @@ class SignInForm extends Component {
       <Form.Label>Password</Form.Label>
       <Form.Input
         autoComplete="current-password"
-        id="password"
         isValid={this.isValid('password')}
         placeholder="••••••••"
         onBlur={this.handleBlur('password')}
         onChange={this.handleChange('password')}
+        testId="password"
         type="password"
         value={this.value('password')}
       />

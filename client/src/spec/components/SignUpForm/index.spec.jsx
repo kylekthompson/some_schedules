@@ -4,6 +4,7 @@ import { mount } from 'enzyme';
 
 import Form from 'components/Form';
 import SignUpForm from 'components/SignUpForm';
+import { changeValue, findTestId } from 'spec/utilities';
 
 const mountComponent = (props) => mount(
   <SignUpForm
@@ -17,7 +18,7 @@ describe('<SignUpForm />', () => {
     it('shows errors for invalid fields', () => {
       const wrapper = mountComponent();
 
-      wrapper.find('input').find('[id="user-email"]').props().onBlur({
+      findTestId(wrapper, 'user-email').props().onBlur({
         currentTarget: {
           value: 'not an email',
         },
@@ -45,27 +46,19 @@ describe('<SignUpForm />', () => {
 
   describe('when it is valid', () => {
     describe('when the Sign Up button is clicked', () => {
-      const setField = (wrapper, id, value) => {
-        wrapper.find('input').find(`[id="${id}"]`).props().onChange({
-          currentTarget: {
-            value,
-          },
-        });
-      };
-
       it('calls onSubmit()', () => {
         const onSubmit = jest.fn();
         const wrapper = mountComponent({
           onSubmit,
         });
 
-        setField(wrapper, 'company-name', 'Company');
-        setField(wrapper, 'company-slug', 'company');
-        setField(wrapper, 'user-email', 'email@example.com');
-        setField(wrapper, 'user-first-name', 'First');
-        setField(wrapper, 'user-last-name', 'Last');
-        setField(wrapper, 'user-password', 'password');
-        setField(wrapper, 'user-password-confirmation', 'password');
+        changeValue(wrapper, 'company-name', 'Company');
+        changeValue(wrapper, 'company-slug', 'company');
+        changeValue(wrapper, 'user-email', 'email@example.com');
+        changeValue(wrapper, 'user-first-name', 'First');
+        changeValue(wrapper, 'user-last-name', 'Last');
+        changeValue(wrapper, 'user-password', 'password');
+        changeValue(wrapper, 'user-password-confirmation', 'password');
 
         wrapper.find(Form).simulate('submit');
 

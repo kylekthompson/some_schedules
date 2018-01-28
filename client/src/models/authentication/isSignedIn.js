@@ -1,10 +1,10 @@
-import * as decode from 'jwt-decode';
+import decode from 'jwt-decode';
 
 import getToken from 'models/authentication/getToken';
 
-const isSignedIn = () => {
+const isSignedIn = (now = Date.now() / 1000) => {
   const token = getToken();
-  return Boolean(token) && Date.now() / 1000 < decode(token).exp;
+  return Boolean(token) && now < decode(token).exp;
 };
 
 export default isSignedIn;

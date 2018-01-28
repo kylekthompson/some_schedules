@@ -57,11 +57,11 @@ class SignUpForm extends Component {
       <Form.Label>Company Name</Form.Label>
       <Form.Input
         autoFocus
-        id="company-name"
         isValid={this.isValid('name')}
         onBlur={this.handleBlur('name')}
         onChange={this.handleChange('name')}
         placeholder="Jane's Company"
+        testId="company-name"
         type="text"
         value={this.value('name')}
       />
@@ -73,11 +73,11 @@ class SignUpForm extends Component {
     <Fragment>
       <Form.Label>Company Identifier</Form.Label>
       <Form.Input
-        id="company-slug"
         isValid={this.isValid('slug')}
         onBlur={this.handleBlur('slug')}
         onChange={this.handleChange('slug')}
         placeholder="janes-company"
+        testId="company-slug"
         type="text"
         value={this.value('slug')}
       />
@@ -90,11 +90,11 @@ class SignUpForm extends Component {
       <Form.Label>First Name</Form.Label>
       <Form.Input
         autoComplete="given-name"
-        id="user-first-name"
         isValid={this.isValid('firstName')}
         onBlur={this.handleBlur('firstName')}
         onChange={this.handleChange('firstName')}
         placeholder="Jane"
+        testId="user-first-name"
         type="text"
         value={this.value('firstName')}
       />
@@ -107,11 +107,11 @@ class SignUpForm extends Component {
       <Form.Label>Last Name</Form.Label>
       <Form.Input
         autoComplete="family-name"
-        id="user-last-name"
         isValid={this.isValid('lastName')}
         onBlur={this.handleBlur('lastName')}
         onChange={this.handleChange('lastName')}
         placeholder="Smith"
+        testId="user-last-name"
         type="text"
         value={this.value('lastName')}
       />
@@ -124,11 +124,11 @@ class SignUpForm extends Component {
       <Form.Label>Email</Form.Label>
       <Form.Input
         autoComplete="email"
-        id="user-email"
         isValid={this.isValid('email')}
         onBlur={this.handleBlur('email')}
         onChange={this.handleChange('email')}
         placeholder="jane@example.com"
+        testId="user-email"
         type="email"
         value={this.value('email')}
       />
@@ -141,11 +141,11 @@ class SignUpForm extends Component {
       <Form.Label>Password</Form.Label>
       <Form.Input
         autoComplete="new-password"
-        id="user-password"
         isValid={this.isValid('password')}
         placeholder="••••••••"
         onBlur={this.handleBlur('password')}
         onChange={this.handleChange('password')}
+        testId="user-password"
         type="password"
         value={this.value('password')}
       />
@@ -158,11 +158,11 @@ class SignUpForm extends Component {
       <Form.Label>Password Confirmation</Form.Label>
       <Form.Input
         autoComplete="new-password"
-        id="user-password-confirmation"
         isValid={this.isValid('passwordConfirmation')}
         placeholder="••••••••"
         onBlur={this.handleBlur('passwordConfirmation')}
         onChange={this.handleChange('passwordConfirmation')}
+        testId="user-password-confirmation"
         type="password"
         value={this.value('passwordConfirmation')}
       />

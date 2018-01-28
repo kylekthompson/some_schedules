@@ -1,5 +1,1 @@
-const ofSize = (size) => Array.from(new Array(size).keys());
-
-export default {
-  ofSize,
-};
+export { default as ofSize } from 'models/array/ofSize';

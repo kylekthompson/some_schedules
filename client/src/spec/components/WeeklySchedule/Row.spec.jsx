@@ -18,7 +18,7 @@ const mountComponent = (props) => {
       onCellClick={() => () => {}}
       shifts={[shift]}
       sortShifts={(s) => s}
-      startOfWeek={Moment([2018, 11, 25]).startOf('week')}
+      startOfWeek={Moment.utc([2018, 11, 25]).startOf('week')}
       user={user}
       {...props}
     />

@@ -12,7 +12,7 @@ import { User } from 'spec/factories';
 
 const mountComponent = (props) => mount(
   <ShiftCreationModal
-    day={Moment([2018, 11, 25])}
+    day={Moment.utc([2018, 11, 25])}
     dismissModal={() => {}}
     onAddShift={() => {}}
     user={new User()}
@@ -103,7 +103,7 @@ describe('<ShiftCreationModal />', () => {
             },
           };
           const createShift = jest.fn().mockReturnValue(Promise.resolve(result));
-          const day = Moment([2018, 11, 25]);
+          const day = Moment.utc([2018, 11, 25]);
           const user = new User();
           const wrapper = setup({
             createShift,

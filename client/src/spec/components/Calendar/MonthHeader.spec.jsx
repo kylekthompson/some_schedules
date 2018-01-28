@@ -10,8 +10,8 @@ import { constants } from 'models/time';
 
 const mountComponent = (props) => mount(
   <MonthHeader
-    currentMonth={Moment([2018, 11, 25])}
-    selectedDay={Moment([2018, 11, 25])}
+    currentMonth={Moment.utc([2018, 11, 25])}
+    selectedDay={Moment.utc([2018, 11, 25])}
     onDayClick={() => () => {}}
     {...props}
   />

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Form from 'components/Form';
-import { handleInputBlur, handleInputChange, initialState } from 'components/SignUpForm/state';
+import { forceValidation, handleInputBlur, handleInputChange, initialState } from 'components/SignUpForm/state';
 import { formValuesFromState } from 'models/form';
 import { nameValidator, slugValidator } from 'models/validations/company';
 import { emailValidator } from 'models/validations/email';
@@ -57,11 +57,12 @@ class SignUpForm extends Component {
       <Form.Label>Company Name</Form.Label>
       <Form.Input
         autoFocus
+        id="company-name"
+        isValid={this.isValid('name')}
         onBlur={this.handleBlur('name')}
         onChange={this.handleChange('name')}
         placeholder="Jane's Company"
         type="text"
-        isValid={this.isValid('name')}
         value={this.value('name')}
       />
       {!this.isValid('name') && <Form.Errors errors={this.errors('name')} />}
@@ -72,11 +73,12 @@ class SignUpForm extends Component {
     <Fragment>
       <Form.Label>Company Identifier</Form.Label>
       <Form.Input
+        id="company-slug"
+        isValid={this.isValid('slug')}
         onBlur={this.handleBlur('slug')}
         onChange={this.handleChange('slug')}
         placeholder="janes-company"
         type="text"
-        isValid={this.isValid('slug')}
         value={this.value('slug')}
       />
       {!this.isValid('slug') && <Form.Errors errors={this.errors('slug')} />}
@@ -88,11 +90,12 @@ class SignUpForm extends Component {
       <Form.Label>First Name</Form.Label>
       <Form.Input
         autoComplete="given-name"
+        id="user-first-name"
+        isValid={this.isValid('firstName')}
         onBlur={this.handleBlur('firstName')}
         onChange={this.handleChange('firstName')}
         placeholder="Jane"
         type="text"
-        isValid={this.isValid('firstName')}
         value={this.value('firstName')}
       />
       {!this.isValid('firstName') && <Form.Errors errors={this.errors('firstName')} />}
@@ -104,11 +107,12 @@ class SignUpForm extends Component {
       <Form.Label>Last Name</Form.Label>
       <Form.Input
         autoComplete="family-name"
+        id="user-last-name"
+        isValid={this.isValid('lastName')}
         onBlur={this.handleBlur('lastName')}
         onChange={this.handleChange('lastName')}
         placeholder="Smith"
         type="text"
-        isValid={this.isValid('lastName')}
         value={this.value('lastName')}
       />
       {!this.isValid('lastName') && <Form.Errors errors={this.errors('lastName')} />}
@@ -120,11 +124,12 @@ class SignUpForm extends Component {
       <Form.Label>Email</Form.Label>
       <Form.Input
         autoComplete="email"
+        id="user-email"
+        isValid={this.isValid('email')}
         onBlur={this.handleBlur('email')}
         onChange={this.handleChange('email')}
         placeholder="jane@example.com"
         type="email"
-        isValid={this.isValid('email')}
         value={this.value('email')}
       />
       {!this.isValid('email') && <Form.Errors errors={this.errors('email')} />}
@@ -136,11 +141,12 @@ class SignUpForm extends Component {
       <Form.Label>Password</Form.Label>
       <Form.Input
         autoComplete="new-password"
+        id="user-password"
+        isValid={this.isValid('password')}
         placeholder="••••••••"
         onBlur={this.handleBlur('password')}
         onChange={this.handleChange('password')}
         type="password"
-        isValid={this.isValid('password')}
         value={this.value('password')}
       />
       {!this.isValid('password') && <Form.Errors errors={this.errors('password')} />}
@@ -152,11 +158,12 @@ class SignUpForm extends Component {
       <Form.Label>Password Confirmation</Form.Label>
       <Form.Input
         autoComplete="new-password"
+        id="user-password-confirmation"
+        isValid={this.isValid('passwordConfirmation')}
         placeholder="••••••••"
         onBlur={this.handleBlur('passwordConfirmation')}
         onChange={this.handleChange('passwordConfirmation')}
         type="password"
-        isValid={this.isValid('passwordConfirmation')}
         value={this.value('passwordConfirmation')}
       />
       {!this.isValid('passwordConfirmation') && <Form.Errors errors={this.errors('passwordConfirmation')} />}
@@ -168,13 +175,16 @@ class SignUpForm extends Component {
   errors = (field) => this.state.form[field].errors
   value = (field) => this.state.form[field].value
 
+  forceValidation = (callback = () => {}) => this.setState(forceValidation(this.props.validations), callback)
   handleBlur = (field) => (event) => this.setState(handleInputBlur(field, this.props.validations, event))
   handleChange = (field) => (event) => this.setState(handleInputChange(field, this.props.validations, event))
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (this.isSubmitDisabled()) { return; }
-    this.props.onSubmit(formValuesFromState(this.state));
+    this.forceValidation(() => {
+      if (this.isSubmitDisabled()) { return; }
+      this.props.onSubmit(formValuesFromState(this.state));
+    });
   }
 }
 

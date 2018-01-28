@@ -4,8 +4,9 @@ const handleInputBlur = (field, validations, event) => {
   const value = event.currentTarget.value;
   return (state) => {
     let errors = [];
+    const isDirty = state.form[field].didBlur || Boolean(value);
 
-    if (state.form[field].isDirty) {
+    if (isDirty) {
       errors = validations[field].run({
         ...formValuesFromState(state),
         [field]: value,
@@ -20,6 +21,7 @@ const handleInputBlur = (field, validations, event) => {
           ...state.form[field],
           didBlur: true,
           errors,
+          isDirty,
           value,
         },
       },

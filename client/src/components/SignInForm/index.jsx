@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Form from 'components/Form';
-import { handleInputBlur, handleInputChange, initialState } from 'components/SignInForm/state';
+import { forceValidation, handleInputBlur, handleInputChange, initialState } from 'components/SignInForm/state';
 import { formValuesFromState } from 'models/form';
 import { emailValidator } from 'models/validations/email';
 import { passwordValidator } from 'models/validations/password';
@@ -46,11 +46,12 @@ class SignInForm extends Component {
       <Form.Input
         autoFocus
         autoComplete="email"
+        id="email"
+        isValid={this.isValid('email')}
         onBlur={this.handleBlur('email')}
         onChange={this.handleChange('email')}
         placeholder="jane@example.com"
         type="email"
-        isValid={this.isValid('email')}
         value={this.value('email')}
       />
       {!this.isValid('email') && <Form.Errors errors={this.errors('email')} />}
@@ -62,11 +63,12 @@ class SignInForm extends Component {
       <Form.Label>Password</Form.Label>
       <Form.Input
         autoComplete="current-password"
+        id="password"
+        isValid={this.isValid('password')}
         placeholder="••••••••"
         onBlur={this.handleBlur('password')}
         onChange={this.handleChange('password')}
         type="password"
-        isValid={this.isValid('password')}
         value={this.value('password')}
       />
       {!this.isValid('password') && <Form.Errors errors={this.errors('password')} />}
@@ -78,13 +80,16 @@ class SignInForm extends Component {
   errors = (field) => this.state.form[field].errors
   value = (field) => this.state.form[field].value
 
+  forceValidation = (callback = () => {}) => this.setState(forceValidation(this.props.validations), callback)
   handleBlur = (field) => (event) => this.setState(handleInputBlur(field, this.props.validations, event))
   handleChange = (field) => (event) => this.setState(handleInputChange(field, this.props.validations, event))
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (this.isSubmitDisabled()) { return; }
-    this.props.onSubmit(formValuesFromState(this.state));
+    this.forceValidation(() => {
+      if (this.isSubmitDisabled()) { return; }
+      this.props.onSubmit(formValuesFromState(this.state));
+    });
   }
 }
 

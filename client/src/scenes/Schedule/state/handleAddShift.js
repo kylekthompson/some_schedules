@@ -1,5 +1,8 @@
 const handleAddShift = (shift) => (state) => ({
   ...state,
+  shiftCreationModal: {
+    visible: false,
+  },
   viewer: {
     ...state.viewer,
     data: {

@@ -33,7 +33,6 @@ class ShiftCreationModal extends React.Component {
 
   modal = null;
   state = {
-    showParsedTimes: false,
     timesInput: '',
   };
 
@@ -128,6 +127,11 @@ class ShiftCreationModal extends React.Component {
         userId: this.props.user.id,
       }).then(({ data: { createShift: { shift } } }) => {
         if (shift) {
+          this.setState({
+            endTime: null,
+            startTime: null,
+            timesInput: '',
+          });
           this.props.onAddShift(shift);
           this.props.dismissModal();
         }

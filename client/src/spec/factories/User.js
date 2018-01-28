@@ -1,4 +1,7 @@
+import { ofSize } from 'models/array';
+import Company from 'spec/factories/Company';
 import Factory from 'spec/factories/Factory';
+import Shift from 'spec/factories/Shift';
 
 class User extends Factory {
   constructor(user = {}) {
@@ -9,6 +12,16 @@ class User extends Factory {
       lastName: 'Thompson',
       ...user,
     });
+  }
+
+  withCompany(company = {}) {
+    this.company = new Company(company);
+    return this;
+  }
+
+  withShifts(shifts = [], shiftCount = 1) {
+    this.shifts = ofSize(shiftCount).map((index) => new Shift(shifts[index] || {}));
+    return this;
   }
 }
 

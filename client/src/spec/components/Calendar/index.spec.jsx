@@ -8,7 +8,7 @@ import Navigation from 'components/Calendar/Navigation';
 
 const mountComponent = (props) => mount(
   <Calendar
-    selectedDay={Moment([2018, 11, 25])}
+    selectedDay={Moment.utc([2018, 11, 25])}
     onDayClick={() => () => {}}
     {...props}
   />
@@ -16,7 +16,7 @@ const mountComponent = (props) => mount(
 
 describe('<Calendar />', () => {
   it('correctly sets the initial state', () => {
-    const selectedDay = Moment([2018, 11, 25]);
+    const selectedDay = Moment.utc([2018, 11, 25]);
     const wrapper = mountComponent({
       selectedDay,
     });
@@ -26,7 +26,7 @@ describe('<Calendar />', () => {
 
   describe('when navigating to a different month', () => {
     it('is reflected in state', () => {
-      const newMonth = Moment([2018, 1, 25]);
+      const newMonth = Moment.utc([2018, 1, 25]);
       const wrapper = mountComponent();
 
       wrapper.find(Navigation).props().onMonthChange(newMonth)();
@@ -38,14 +38,14 @@ describe('<Calendar />', () => {
   describe('componentWillReceiveProps()', () => {
     describe('when the selectedDay changes', () => {
       it('updates the currentMonth', () => {
-        let selectedDay = Moment([2018, 11, 25]);
+        let selectedDay = Moment.utc([2018, 11, 25]);
         const wrapper = mountComponent({
           selectedDay,
         });
 
         expect(wrapper.state().currentMonth.isSame(selectedDay)).toEqual(true);
 
-        selectedDay = Moment([2018, 11, 15]);
+        selectedDay = Moment.utc([2018, 11, 15]);
         wrapper.setProps({
           selectedDay
         });

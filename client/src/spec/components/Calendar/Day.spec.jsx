@@ -9,9 +9,9 @@ import DayInOtherMonth from 'components/Calendar/DayInOtherMonth';
 import Today from 'components/Calendar/Today';
 
 const mountComponent = (props) => {
-  const currentMonth = Moment([2018, 11, 25]);
-  const day = Moment([2018, 11, 25]);
-  const selectedDay = Moment([2018, 11, 25]);
+  const currentMonth = Moment.utc([2018, 11, 25]);
+  const day = Moment.utc([2018, 11, 25]);
+  const selectedDay = Moment.utc([2018, 11, 25]);
   return mount(
     <Day
       currentMonth={currentMonth}
@@ -26,8 +26,8 @@ const mountComponent = (props) => {
 describe('<Day />', () => {
   describe('when day selected is the same day as the day being rendered', () => {
     it('uses the correct component', () => {
-      const day = Moment([2018, 11, 25]);
-      const selectedDay = Moment([2018, 11, 25]);
+      const day = Moment.utc([2018, 11, 25]);
+      const selectedDay = Moment.utc([2018, 11, 25]);
       const wrapper = mountComponent({
         day,
         selectedDay,
@@ -39,9 +39,9 @@ describe('<Day />', () => {
 
   describe('when day selected is not the same day but the current month is the same month as the day being rendered', () => {
     it('uses the correct component', () => {
-      const currentMonth = Moment([2018, 11, 25]);
-      const day = Moment([2018, 11, 25]);
-      const selectedDay = Moment([2018, 11, 24]);
+      const currentMonth = Moment.utc([2018, 11, 25]);
+      const day = Moment.utc([2018, 11, 25]);
+      const selectedDay = Moment.utc([2018, 11, 24]);
       const wrapper = mountComponent({
         currentMonth,
         day,
@@ -54,9 +54,9 @@ describe('<Day />', () => {
 
   describe('when day selected is not the same day and the current month is not the same month as the day being rendered', () => {
     it('uses the correct component', () => {
-      const currentMonth = Moment([2018, 10, 25]);
-      const day = Moment([2018, 11, 25]);
-      const selectedDay = Moment([2018, 11, 24]);
+      const currentMonth = Moment.utc([2018, 10, 25]);
+      const day = Moment.utc([2018, 11, 25]);
+      const selectedDay = Moment.utc([2018, 11, 24]);
       const wrapper = mountComponent({
         currentMonth,
         day,

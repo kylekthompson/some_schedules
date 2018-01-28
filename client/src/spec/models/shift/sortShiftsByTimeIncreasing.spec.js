@@ -6,7 +6,7 @@ import { Shift } from 'spec/factories';
 
 describe('sortShiftsByTimeIncreasing()', () => {
   it('gets the correct shifts', () => {
-    const base = Moment([2018, 11, 25]);
+    const base = Moment.utc([2018, 11, 25]);
 
     const shift1 = new Shift({
       endTime: base.clone().add(10, 'hours').format(FORMATS.SERVER),

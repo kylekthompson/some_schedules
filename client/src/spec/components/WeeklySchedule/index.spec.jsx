@@ -14,7 +14,7 @@ const mountComponent = (props) => {
     <WeeklySchedule
       onClick={() => () => {}}
       shifts={[shift]}
-      startOfWeek={Moment([2018, 11, 25]).startOf('week')}
+      startOfWeek={Moment.utc([2018, 11, 25]).startOf('week')}
       users={[user]}
       {...props}
     />

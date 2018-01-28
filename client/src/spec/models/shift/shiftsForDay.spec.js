@@ -6,7 +6,7 @@ import { Shift } from 'spec/factories';
 
 describe('shiftsForDay()', () => {
   it('gets the correct shifts', () => {
-    const day = Moment([2018, 11, 25]);
+    const day = Moment.utc([2018, 11, 25]);
     const shiftOnOtherDay = new Shift({
       endTime: day.clone().add(1, 'day').add(10, 'hours').format(FORMATS.SERVER),
       startTime: day.clone().add(1, 'day').add(5, 'hours').format(FORMATS.SERVER),

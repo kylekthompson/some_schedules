@@ -8,7 +8,7 @@ import NavigationButton from 'components/Calendar/NavigationButton';
 
 const mountComponent = (props) => mount(
   <Navigation
-    currentMonth={Moment([2018, 11, 25])}
+    currentMonth={Moment.utc([2018, 11, 25])}
     onMonthChange={() => () => {}}
     {...props}
   />
@@ -19,7 +19,7 @@ describe('<Navigation />', () => {
   const secondCallArguments = (jestFn) => jestFn.mock.calls[1][0];
 
   it('has navigation buttons', () => {
-    const currentMonth = Moment([2018, 11, 25]);
+    const currentMonth = Moment.utc([2018, 11, 25]);
     const navigateLeft = jest.fn();
     const navigateRight = jest.fn();
     const onMonthChange = jest.fn()

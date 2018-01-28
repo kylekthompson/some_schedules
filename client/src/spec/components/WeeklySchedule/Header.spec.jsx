@@ -9,14 +9,14 @@ import { constants } from 'models/time';
 
 const mountComponent = (props) => mount(
   <Header
-    startOfWeek={Moment([2018, 11, 25])}
+    startOfWeek={Moment.utc([2018, 11, 25])}
     {...props}
   />
 );
 
 describe('<Header />', () => {
   it('renders the correct days', () => {
-    const startOfWeek = Moment([2018, 11, 25]);
+    const startOfWeek = Moment.utc([2018, 11, 25]);
     const wrapper = mountComponent({
       startOfWeek,
     });

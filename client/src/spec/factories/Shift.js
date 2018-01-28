@@ -7,10 +7,10 @@ import User from 'spec/factories/User';
 class Shift extends Factory {
   constructor(shift = {}) {
     super({
-      endTime: Moment([2018, 11, 25]).format(FORMATS.SERVER),
+      endTime: Moment.utc([2018, 11, 25]).format(FORMATS.SERVER),
       id: Math.floor(Math.random() * 100000000),
       published: true,
-      startTime: Moment([2018, 11, 25]).format(FORMATS.SERVER),
+      startTime: Moment.utc([2018, 11, 25]).format(FORMATS.SERVER),
       user: new User(),
       ...shift,
     });

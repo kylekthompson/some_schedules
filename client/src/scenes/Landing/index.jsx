@@ -33,7 +33,7 @@ export class Landing extends Component {
         />
         <Route
           path="/"
-          render={(props) => this.renderOverview(props)}
+          render={this.renderOverview}
         />
       </Switch>
     );

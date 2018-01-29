@@ -11,6 +11,7 @@ import Schedule from 'scenes/Schedule';
 export class App extends Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
+    requestSignOut: PropTypes.func.isRequired,
   };
 
   render() {

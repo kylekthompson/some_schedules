@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import PropTypes from 'prop-types';
+
 import Loading from 'components/Loading';
 import WeeklySchedule from 'components/WeeklySchedule';
 import ScheduleSidebar from 'components/ScheduleSidebar';
@@ -18,6 +20,14 @@ import {
 } from 'scenes/Schedule/state';
 
 class Schedule extends Component {
+  static propTypes = {
+    getViewer: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    getViewer: get,
+  };
+
   state = initialState;
 
   componentDidMount() {
@@ -48,6 +58,7 @@ class Schedule extends Component {
           <ScheduleSidebar
             onDayClick={this.handleDayClick}
             selectedDay={this.state.selectedDay}
+            testId="schedule-sidebar"
           />
         </SidebarContainer>
         <ContentContainer>
@@ -65,12 +76,14 @@ class Schedule extends Component {
         onClick={this.handleOpenShiftCreationModal}
         shifts={this.state.viewer.data.company.shifts}
         startOfWeek={this.state.selectedDay.clone().startOf('week')}
+        testId="weekly-schedule"
         users={this.state.viewer.data.company.users}
       />
       <ShiftCreationModal
         {...this.state.shiftCreationModal}
         dismissModal={this.handleCloseShiftCreationModal}
         onAddShift={this.handleAddShift}
+        testId="shift-creation-modal"
         user={findUser(this.state.viewer.data, this.state.shiftCreationModal.userId)}
       />
     </Fragment>
@@ -91,7 +104,7 @@ class Schedule extends Component {
 
     this.setState(handleViewerLoading);
 
-    const viewer = await get({
+    const viewer = await this.props.getViewer({
       after,
       before,
     });

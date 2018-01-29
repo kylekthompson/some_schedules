@@ -16,7 +16,7 @@ const createGetViewer = () => {
   return jest.fn().mockReturnValue(Promise.resolve({ data: viewer }));
 };
 
-const mountComponent = (props, initialRoute = '/app') => mount(
+const mountComponent = (props) => mount(
   <Schedule
     getViewer={createGetViewer()}
     {...props}

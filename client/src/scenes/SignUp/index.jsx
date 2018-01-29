@@ -11,6 +11,11 @@ class SignUp extends React.Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
     requestSignIn: PropTypes.func.isRequired,
+    signUp: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    signUp,
   };
 
   state = {
@@ -25,6 +30,7 @@ class SignUp extends React.Component {
         <SignUpForm
           errors={this.state.errors}
           onSubmit={this.handleSubmit}
+          testId="sign-up-form"
         />
       </Container>
     );
@@ -34,7 +40,7 @@ class SignUp extends React.Component {
     const { name, slug, ...user } = form;
     const company = { name, slug };
 
-    signUp({ company, user, }).then(({
+    this.props.signUp({ company, user, }).then(({
       data: {
         signUp: {
           companyErrors,

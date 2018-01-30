@@ -7,5 +7,8 @@ set -e
 cd "$(dirname "$0")/.."
 
 echo "==> Running the tests..."
-bin/rubocop
+bin/rubocop -D
 bin/rspec
+
+(cd client && yarn lint)
+(cd client && CI=true yarn test)

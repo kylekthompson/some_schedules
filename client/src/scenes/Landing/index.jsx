@@ -7,7 +7,7 @@ import PrivateRoute from 'components/PrivateRoute';
 import App from 'scenes/App';
 import Overview from 'scenes/Overview';
 
-export class Landing extends Component {
+class Landing extends Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
     requestSignIn: PropTypes.func.isRequired,

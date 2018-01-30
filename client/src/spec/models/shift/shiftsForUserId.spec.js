@@ -1,7 +1,4 @@
-import Moment from 'moment-timezone';
-
 import shiftsForUserId from 'models/shift/shiftsForUserId';
-import { FORMATS } from 'models/time/format';
 import { Shift } from 'spec/factories';
 
 describe('shiftsForUserId()', () => {

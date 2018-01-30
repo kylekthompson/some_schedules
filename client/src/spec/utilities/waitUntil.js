@@ -1,8 +1,7 @@
 const waitUntil = (condition) => new Promise((resolve, reject) => {
-  let timeout;
   let interval;
 
-  timeout = setTimeout(() => {
+  const timeout = setTimeout(() => {
     clearTimeout(timeout);
     clearInterval(interval);
     reject();

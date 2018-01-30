@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-filename-extension */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -7,12 +9,12 @@ import { injectGlobal } from 'styled-components';
 import AuthenticationProvider from 'components/AuthenticationProvider';
 import { fonts } from 'models/styles';
 import Landing from 'scenes/Landing';
-import { registerServiceWorker } from 'services/serviceWorker';
 
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-light.css';
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-regular.css';
 import '@fortawesome/fontawesome-pro-webfonts/css/fontawesome.css';
 
+// eslint-disable-next-line no-unused-expressions
 injectGlobal`
   @font-face {
     font-family: 'Open Sans';
@@ -45,6 +47,5 @@ const render = (props) => (
 
 ReactDOM.render(
   <AuthenticationProvider render={render} />,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
-registerServiceWorker();

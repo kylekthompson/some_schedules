@@ -1,3 +1,5 @@
+/* eslint-disable no-multi-spaces */
+
 const rgba = (red, green, blue, alpha) => `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 
 // greys

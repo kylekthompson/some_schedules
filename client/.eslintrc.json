@@ -1,0 +1,24 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "jest/globals": true
+  },
+  "parser": "babel-eslint",
+  "plugins": ["jest"],
+  "rules": {
+    "arrow-parens": ["error", "always"],
+    "max-len": ["error", 120],
+    "import/prefer-default-export": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "node_modules",
+          "src"
+        ]
+      }
+    }
+  }
+}

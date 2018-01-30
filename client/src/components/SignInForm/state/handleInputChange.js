@@ -1,7 +1,7 @@
 import { formValuesFromState } from 'models/form';
 
 const handleInputChange = (field, validations, event) => {
-  const value = event.currentTarget.value;
+  const { value } = event.currentTarget;
   return (state) => {
     let errors = [];
 

@@ -21,7 +21,7 @@ import {
 
 class Schedule extends Component {
   static propTypes = {
-    getViewer: PropTypes.func.isRequired,
+    getViewer: PropTypes.func,
   };
 
   static defaultProps = {
@@ -39,6 +39,50 @@ class Schedule extends Component {
       this.loadViewer();
     }
   }
+
+  handleAddShift = (shift) => this.setState(handleAddShift(shift))
+  handleCloseShiftCreationModal = () => this.setState(handleCloseShiftCreationModal)
+  handleDayClick = (day) => () => this.setState(handleDayClick(day))
+  handleOpenShiftCreationModal = (userId, day) => (event) => {
+    event.stopPropagation();
+    const { clientX, clientY } = event;
+    this.setState(handleOpenShiftCreationModal(userId, day, clientX, clientY));
+  }
+
+  loadViewer = async () => {
+    const after = format.forServer(this.state.selectedDay.clone().startOf('week'));
+    const before = format.forServer(this.state.selectedDay.clone().endOf('week'));
+
+    this.setState(handleViewerLoading);
+
+    const viewer = await this.props.getViewer({
+      after,
+      before,
+    });
+
+    this.setState(handleViewerLoaded(viewer));
+  }
+
+  renderErrors = () => <p>{'It looks like we ran into a problem! We\'ll look into that.'}</p>
+  renderLoader = () => <Loading message="Loading..." />
+  renderSchedule = () => (
+    <Fragment>
+      <WeeklySchedule
+        onClick={this.handleOpenShiftCreationModal}
+        shifts={this.state.viewer.data.company.shifts}
+        startOfWeek={this.state.selectedDay.clone().startOf('week')}
+        testId="weekly-schedule"
+        users={this.state.viewer.data.company.users}
+      />
+      <ShiftCreationModal
+        {...this.state.shiftCreationModal}
+        dismissModal={this.handleCloseShiftCreationModal}
+        onAddShift={this.handleAddShift}
+        testId="shift-creation-modal"
+        user={findUser(this.state.viewer.data, this.state.shiftCreationModal.userId)}
+      />
+    </Fragment>
+  )
 
   render() {
     const { errors, isLoaded } = this.state.viewer;
@@ -66,50 +110,6 @@ class Schedule extends Component {
         </ContentContainer>
       </Container>
     );
-  }
-
-  renderErrors = () => <p>It looks like we ran into a problem! We'll look into that.</p>
-  renderLoader = () => <Loading message="Loading..." />
-  renderSchedule = () => (
-    <Fragment>
-      <WeeklySchedule
-        onClick={this.handleOpenShiftCreationModal}
-        shifts={this.state.viewer.data.company.shifts}
-        startOfWeek={this.state.selectedDay.clone().startOf('week')}
-        testId="weekly-schedule"
-        users={this.state.viewer.data.company.users}
-      />
-      <ShiftCreationModal
-        {...this.state.shiftCreationModal}
-        dismissModal={this.handleCloseShiftCreationModal}
-        onAddShift={this.handleAddShift}
-        testId="shift-creation-modal"
-        user={findUser(this.state.viewer.data, this.state.shiftCreationModal.userId)}
-      />
-    </Fragment>
-  )
-
-  handleAddShift = (shift) => this.setState(handleAddShift(shift))
-  handleCloseShiftCreationModal = () => this.setState(handleCloseShiftCreationModal)
-  handleDayClick = (day) => () => this.setState(handleDayClick(day))
-  handleOpenShiftCreationModal = (userId, day) => (event) => {
-    event.stopPropagation();
-    const { clientX, clientY } = event;
-    this.setState(handleOpenShiftCreationModal(userId, day, clientX, clientY));
-  }
-
-  loadViewer = async () => {
-    const after = format.forServer(this.state.selectedDay.clone().startOf('week'));
-    const before = format.forServer(this.state.selectedDay.clone().endOf('week'));
-
-    this.setState(handleViewerLoading);
-
-    const viewer = await this.props.getViewer({
-      after,
-      before,
-    });
-
-    this.setState(handleViewerLoaded(viewer));
   }
 }
 

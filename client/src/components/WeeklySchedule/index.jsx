@@ -17,12 +17,12 @@ import {
   userPropTypes,
 } from 'models/user';
 
-export class WeeklySchedule extends Component {
+class WeeklySchedule extends Component {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
     shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
-    sortShifts: PropTypes.func.isRequired,
-    sortUsers: PropTypes.func.isRequired,
+    sortShifts: PropTypes.func,
+    sortUsers: PropTypes.func,
     startOfWeek: PropTypes.instanceOf(Moment).isRequired,
     users: PropTypes.arrayOf(userPropTypes).isRequired,
   };
@@ -36,17 +36,6 @@ export class WeeklySchedule extends Component {
     return this.props.sortUsers(this.props.users);
   }
 
-  render() {
-    return (
-      <Container>
-        <Header startOfWeek={this.props.startOfWeek} />
-        <Scroller>
-          {this.renderRows()}
-        </Scroller>
-      </Container>
-    );
-  }
-
   renderRows = () => this.sortedUsers.map((user) => (
     <Row
       key={user.id}
@@ -57,6 +46,17 @@ export class WeeklySchedule extends Component {
       user={user}
     />
   ))
+
+  render() {
+    return (
+      <Container>
+        <Header startOfWeek={this.props.startOfWeek} />
+        <Scroller>
+          {this.renderRows()}
+        </Scroller>
+      </Container>
+    );
+  }
 }
 
 export default WeeklySchedule;

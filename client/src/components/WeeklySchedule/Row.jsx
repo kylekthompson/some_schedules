@@ -19,15 +19,6 @@ class Row extends React.Component {
     user: userPropTypes.isRequired,
   };
 
-  render() {
-    return (
-      <RowContainer>
-        {this.renderNameCell()}
-        {this.renderWeekdayCells()}
-      </RowContainer>
-    );
-  }
-
   renderNameCell = () => (
     <NameCell>
       <p>{this.props.user.firstName}</p>
@@ -41,14 +32,28 @@ class Row extends React.Component {
   }
 
   renderWeekdayCell = (weekday, previousDay) => {
+    const {
+      onCellClick,
+      shifts,
+      sortShifts,
+      user,
+    } = this.props;
     const currentDay = previousDay.add(1, 'day');
-    const { onCellClick, shifts, sortShifts, user } = this.props;
     const shiftsForToday = sortShifts(shiftsForDay(shifts, currentDay));
 
     return (
       <Cell key={weekday} onClick={onCellClick(user.id, currentDay.clone())} testId={`user-${user.id}-${weekday}`}>
         {shiftsForToday.map((shift) => <Shift key={shift.id} shift={shift} />)}
       </Cell>
+    );
+  }
+
+  render() {
+    return (
+      <RowContainer>
+        {this.renderNameCell()}
+        {this.renderWeekdayCells()}
+      </RowContainer>
     );
   }
 }

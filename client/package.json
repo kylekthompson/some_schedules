@@ -37,7 +37,7 @@
   "scripts": {
     "build": "NODE_PATH=src/ react-scripts build && mv build/* ../public",
     "eject": "NODE_PATH=src/ react-scripts eject",
-    "lint": "NODE_PATH=src/ eslint . —ext js,jsx",
+    "lint": "NODE_PATH=src/ eslint src/**/*.js*",
     "start": "NODE_PATH=src/ react-scripts start",
     "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
     "test:debug": "NODE_PATH=src/ react-scripts --inspect-brk test --env=jsdom --runInBand"

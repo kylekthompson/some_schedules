@@ -4,12 +4,12 @@ import { mount } from 'enzyme';
 
 import Loading from 'components/Loading';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <Loading
     message="message"
     {...props}
   />
-);
+));
 
 describe('<Loading />', () => {
   it('renders the loading message', () => {

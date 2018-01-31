@@ -14,6 +14,10 @@ Icon.propTypes = {
   className: PropTypes.string,
 };
 
+Icon.defaultProps = {
+  className: '',
+};
+
 const ErrorIcon = styled(Icon)`
   color: ${colors.stilettoRed()};
   margin-right: 6px;
@@ -35,6 +39,10 @@ const Errors = ({ className, errors }) => (
 Errors.propTypes = {
   className: PropTypes.string,
   errors: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+Errors.defaultProps = {
+  className: '',
 };
 
 export default styled(Errors)`

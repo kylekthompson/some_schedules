@@ -27,6 +27,12 @@ class Calender extends React.Component {
     }
   }
 
+  onMonthChange = (newMonth) => () => {
+    this.setState({
+      currentMonth: newMonth,
+    });
+  }
+
   render() {
     const { onDayClick, selectedDay } = this.props;
     const { currentMonth } = this.state;
@@ -47,12 +53,6 @@ class Calender extends React.Component {
         </MonthContainer>
       </Container>
     );
-  }
-
-  onMonthChange = (newMonth) => () => {
-    this.setState({
-      currentMonth: newMonth,
-    });
   }
 }
 

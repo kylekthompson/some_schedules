@@ -8,12 +8,12 @@ import Row from 'components/WeeklySchedule/Row';
 import ShiftComponent from 'components/WeeklySchedule/Shift';
 import { constants } from 'models/time';
 import { Shift, User } from 'spec/factories';
-import { changeValue, findTestId } from 'spec/utilities';
+import { findTestId } from 'spec/utilities';
 
 const mountComponent = (props) => {
   const user = new User();
   const shift = new Shift({ user });
-  return mount(
+  return mount((
     <Row
       onCellClick={() => () => {}}
       shifts={[shift]}
@@ -22,7 +22,7 @@ const mountComponent = (props) => {
       user={user}
       {...props}
     />
-  );
+  ));
 };
 
 describe('<Row />', () => {

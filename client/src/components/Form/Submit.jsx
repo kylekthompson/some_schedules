@@ -11,14 +11,18 @@ class Submit extends Component {
     onClick: PropTypes.func,
   };
 
-  render() {
-    const { onClick, ...rest } = this.props;
-    return <button onClick={this.handleClick} type="submit" {...rest} />;
-  }
+  static defaultProps = {
+    onClick: () => {},
+  };
 
   handleClick = (event) => {
     event.target.blur();
-    this.props.onClick && this.props.onClick(event);
+    this.props.onClick(event);
+  }
+
+  render() {
+    const { onClick, ...rest } = this.props;
+    return <button onClick={this.handleClick} type="submit" {...rest} />;
   }
 }
 
@@ -63,7 +67,7 @@ export default styled(Submit)`
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    ${'' /* this is a gross hack to remove the yellow autofill background color */}
+    ${''/* this is a gross hack to remove the yellow autofill background color */}
     transition: color 9999s ease-out, background-color 9999s ease-out;
   }
 `;

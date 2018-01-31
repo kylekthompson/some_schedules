@@ -14,9 +14,19 @@ HeaderLink.propTypes = {
   darkTheme: PropTypes.bool,
 };
 
+HeaderLink.defaultProps = {
+  darkTheme: false,
+};
+
 export default styled(HeaderLink)`
   ${fonts.regular}
-  ${({ darkTheme }) => darkTheme ? links.darkLink : links.lightLink}
+  ${({ darkTheme }) => {
+    if (darkTheme) {
+      return links.darkLink;
+    }
+
+    return links.lightLink;
+  }}
   font-size: 14px;
 
   &:not(:first-child) {

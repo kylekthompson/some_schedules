@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import { Link, MemoryRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { Link, MemoryRouter as Router } from 'react-router-dom';
 
 import Overview from 'scenes/Overview';
 import SignIn from 'scenes/SignIn';
 import SignUp from 'scenes/SignUp';
 
-const mountComponent = (props, initialRoute = '/app') => mount(
+const mountComponent = (props, initialRoute = '/app') => mount((
   <Router initialEntries={[initialRoute]}>
     <Overview
       isSignedIn={false}
@@ -16,7 +16,7 @@ const mountComponent = (props, initialRoute = '/app') => mount(
       {...props}
     />
   </Router>
-);
+));
 
 describe('<Overview />', () => {
   describe('when signed in', () => {

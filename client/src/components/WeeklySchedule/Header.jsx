@@ -17,14 +17,9 @@ class Header extends Component {
     startOfWeek: PropTypes.instanceOf(Moment).isRequired,
   };
 
-  render() {
-    return (
-      <div className={this.props.className}>
-        <EmptyHeaderCell />
-        {this.renderHeaderDays()}
-      </div>
-    );
-  }
+  static defaultProps = {
+    className: '',
+  };
 
   renderHeaderDays = () => {
     const dayBeforeStartOfWeek = this.props.startOfWeek.clone().subtract(1, 'day');
@@ -33,6 +28,15 @@ class Header extends Component {
         <HeaderDay day={dayBeforeStartOfWeek.add(1, 'day').clone()} />
       </HeaderCell>
     ));
+  }
+
+  render() {
+    return (
+      <div className={this.props.className}>
+        <EmptyHeaderCell />
+        {this.renderHeaderDays()}
+      </div>
+    );
   }
 }
 

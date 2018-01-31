@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import { MemoryRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 
 import App from 'scenes/App';
 import Landing from 'scenes/Landing';
 import Overview from 'scenes/Overview';
 
-const mountComponent = (props, initialRoute = '/app') => mount(
+const mountComponent = (props, initialRoute = '/app') => mount((
   <Router initialEntries={[initialRoute]}>
     <Landing
       isSignedIn={false}
@@ -16,7 +16,7 @@ const mountComponent = (props, initialRoute = '/app') => mount(
       {...props}
     />
   </Router>
-);
+));
 
 describe('<Landing />', () => {
   describe('when signed in', () => {

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import { MemoryRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
 
 import PrivateRoute from 'components/PrivateRoute';
 
 const Component = () => <p>Component</p>;
 const SignIn = () => <p>Sign In</p>;
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <Router initialEntries={['/private']}>
     <Switch>
       <PrivateRoute
@@ -24,7 +24,7 @@ const mountComponent = (props) => mount(
       />
     </Switch>
   </Router>
-);
+));
 
 describe('<PrivateRoute />', () => {
   describe('when signed in', () => {

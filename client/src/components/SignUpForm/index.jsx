@@ -8,6 +8,7 @@ import { nameValidator, slugValidator } from 'models/validations/company';
 import { emailValidator } from 'models/validations/email';
 import { firstNameValidator, lastNameValidator } from 'models/validations/user';
 import { passwordValidator, passwordConfirmationValidator } from 'models/validations/password';
+import Validator from 'models/validations/validator';
 
 const VALIDATIONS = {
   email: emailValidator,
@@ -22,7 +23,15 @@ const VALIDATIONS = {
 class SignUpForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    validations: PropTypes.object.isRequired,
+    validations: PropTypes.shape({
+      email: PropTypes.instanceOf(Validator).isRequired,
+      firstName: PropTypes.instanceOf(Validator).isRequired,
+      lastName: PropTypes.instanceOf(Validator).isRequired,
+      name: PropTypes.instanceOf(Validator).isRequired,
+      password: PropTypes.instanceOf(Validator).isRequired,
+      passwordConfirmation: PropTypes.instanceOf(Validator).isRequired,
+      slug: PropTypes.instanceOf(Validator).isRequired,
+    }),
   };
 
   static defaultProps = {
@@ -31,25 +40,21 @@ class SignUpForm extends Component {
 
   state = initialState;
 
-  render() {
-    return (
-      <Form.Container>
-        <Form.HeaderContainer>
-          <Form.Title>Sign up</Form.Title>
-          <Form.Subtitle>Hi! By signing up, you'll be able to schedule your employees faster than ever before. Give us a shot!</Form.Subtitle>
-        </Form.HeaderContainer>
-        <Form onSubmit={this.handleSubmit}>
-          {this.renderCompanyNameInput()}
-          {this.renderCompanySlugInput()}
-          {this.renderFirstNameInput()}
-          {this.renderLastNameInput()}
-          {this.renderEmailInput()}
-          {this.renderPasswordInput()}
-          {this.renderPasswordConfirmationInput()}
-          <Form.Submit disabled={this.isSubmitDisabled()}>Sign up</Form.Submit>
-        </Form>
-      </Form.Container>
-    );
+  isValid = (field) => this.state.form[field].errors.length === 0
+  isSubmitDisabled = () => Object.keys(this.state.form).some((field) => !this.isValid(field))
+  errors = (field) => this.state.form[field].errors
+  value = (field) => this.state.form[field].value
+
+  forceValidation = (callback = () => {}) => this.setState(forceValidation(this.props.validations), callback)
+  handleBlur = (field) => (event) => this.setState(handleInputBlur(field, this.props.validations, event))
+  handleChange = (field) => (event) => this.setState(handleInputChange(field, this.props.validations, event))
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.forceValidation(() => {
+      if (this.isSubmitDisabled()) { return; }
+      this.props.onSubmit(formValuesFromState(this.state));
+    });
   }
 
   renderCompanyNameInput = () => (
@@ -170,21 +175,27 @@ class SignUpForm extends Component {
     </Fragment>
   )
 
-  isValid = (field) => this.state.form[field].errors.length === 0
-  isSubmitDisabled = () => Object.keys(this.state.form).some((field) => !this.isValid(field))
-  errors = (field) => this.state.form[field].errors
-  value = (field) => this.state.form[field].value
-
-  forceValidation = (callback = () => {}) => this.setState(forceValidation(this.props.validations), callback)
-  handleBlur = (field) => (event) => this.setState(handleInputBlur(field, this.props.validations, event))
-  handleChange = (field) => (event) => this.setState(handleInputChange(field, this.props.validations, event))
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.forceValidation(() => {
-      if (this.isSubmitDisabled()) { return; }
-      this.props.onSubmit(formValuesFromState(this.state));
-    });
+  render() {
+    return (
+      <Form.Container>
+        <Form.HeaderContainer>
+          <Form.Title>Sign up</Form.Title>
+          <Form.Subtitle>
+            {'Hi! By signing up, you\'ll be able to schedule your employees faster than ever before. Give us a shot!'}
+          </Form.Subtitle>
+        </Form.HeaderContainer>
+        <Form onSubmit={this.handleSubmit}>
+          {this.renderCompanyNameInput()}
+          {this.renderCompanySlugInput()}
+          {this.renderFirstNameInput()}
+          {this.renderLastNameInput()}
+          {this.renderEmailInput()}
+          {this.renderPasswordInput()}
+          {this.renderPasswordConfirmationInput()}
+          <Form.Submit disabled={this.isSubmitDisabled()}>Sign up</Form.Submit>
+        </Form>
+      </Form.Container>
+    );
   }
 }
 

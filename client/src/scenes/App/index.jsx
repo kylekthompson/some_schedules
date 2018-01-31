@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 import { Redirect, Switch } from 'react-router-dom';
@@ -8,33 +8,31 @@ import PrivateRoute from 'components/PrivateRoute';
 import { Container, HeaderContainer, HeaderLinks } from 'scenes/App/components';
 import Schedule from 'scenes/Schedule';
 
-export class App extends Component {
-  static propTypes = {
-    isSignedIn: PropTypes.bool.isRequired,
-    requestSignOut: PropTypes.func.isRequired,
-  };
+const App = ({ isSignedIn, requestSignOut }) => {
+  if (!isSignedIn) { return <Redirect to="/" />; }
 
-  render() {
-    if (!this.props.isSignedIn) { return <Redirect to="/" />; }
+  return (
+    <Container>
+      <HeaderContainer>
+        <Header darkTheme>
+          <HeaderLinks requestSignOut={requestSignOut} />
+        </Header>
+      </HeaderContainer>
+      <Switch>
+        <PrivateRoute
+          component={Schedule}
+          exact
+          isSignedIn={isSignedIn}
+          path="/app/schedule"
+        />
+      </Switch>
+    </Container>
+  );
+};
 
-    return (
-      <Container>
-        <HeaderContainer>
-          <Header darkTheme>
-            <HeaderLinks requestSignOut={this.props.requestSignOut} />
-          </Header>
-        </HeaderContainer>
-        <Switch>
-          <PrivateRoute
-            component={Schedule}
-            exact
-            isSignedIn={this.props.isSignedIn}
-            path="/app/schedule"
-          />
-        </Switch>
-      </Container>
-    );
-  }
-}
+App.propTypes = {
+  isSignedIn: PropTypes.bool.isRequired,
+  requestSignOut: PropTypes.func.isRequired,
+};
 
 export default App;

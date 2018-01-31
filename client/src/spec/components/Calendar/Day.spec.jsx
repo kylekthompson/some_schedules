@@ -12,7 +12,7 @@ const mountComponent = (props) => {
   const currentMonth = Moment.utc([2018, 11, 25]);
   const day = Moment.utc([2018, 11, 25]);
   const selectedDay = Moment.utc([2018, 11, 25]);
-  return mount(
+  return mount((
     <Day
       currentMonth={currentMonth}
       day={day}
@@ -20,7 +20,7 @@ const mountComponent = (props) => {
       onClick={() => {}}
       {...props}
     />
-  );
+  ));
 };
 
 describe('<Day />', () => {
@@ -37,33 +37,35 @@ describe('<Day />', () => {
     });
   });
 
-  describe('when day selected is not the same day but the current month is the same month as the day being rendered', () => {
-    it('uses the correct component', () => {
-      const currentMonth = Moment.utc([2018, 11, 25]);
-      const day = Moment.utc([2018, 11, 25]);
-      const selectedDay = Moment.utc([2018, 11, 24]);
-      const wrapper = mountComponent({
-        currentMonth,
-        day,
-        selectedDay,
-      });
+  describe('when day selected is not the same day', () => {
+    describe('when the current month is the same month as the day being rendered', () => {
+      it('uses the correct component', () => {
+        const currentMonth = Moment.utc([2018, 11, 25]);
+        const day = Moment.utc([2018, 11, 25]);
+        const selectedDay = Moment.utc([2018, 11, 24]);
+        const wrapper = mountComponent({
+          currentMonth,
+          day,
+          selectedDay,
+        });
 
-      expect(wrapper.find(DayInCurrentMonth)).toHaveLength(1);
+        expect(wrapper.find(DayInCurrentMonth)).toHaveLength(1);
+      });
     });
-  });
 
-  describe('when day selected is not the same day and the current month is not the same month as the day being rendered', () => {
-    it('uses the correct component', () => {
-      const currentMonth = Moment.utc([2018, 10, 25]);
-      const day = Moment.utc([2018, 11, 25]);
-      const selectedDay = Moment.utc([2018, 11, 24]);
-      const wrapper = mountComponent({
-        currentMonth,
-        day,
-        selectedDay,
+    describe('the current month is not the same month as the day being rendered', () => {
+      it('uses the correct component', () => {
+        const currentMonth = Moment.utc([2018, 10, 25]);
+        const day = Moment.utc([2018, 11, 25]);
+        const selectedDay = Moment.utc([2018, 11, 24]);
+        const wrapper = mountComponent({
+          currentMonth,
+          day,
+          selectedDay,
+        });
+
+        expect(wrapper.find(DayInOtherMonth)).toHaveLength(1);
       });
-
-      expect(wrapper.find(DayInOtherMonth)).toHaveLength(1);
     });
   });
 });

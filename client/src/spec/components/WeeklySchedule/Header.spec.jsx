@@ -7,12 +7,12 @@ import Header from 'components/WeeklySchedule/Header';
 import HeaderDay from 'components/WeeklySchedule/HeaderDay';
 import { constants } from 'models/time';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <Header
     startOfWeek={Moment.utc([2018, 11, 25])}
     {...props}
   />
-);
+));
 
 describe('<Header />', () => {
   it('renders the correct days', () => {

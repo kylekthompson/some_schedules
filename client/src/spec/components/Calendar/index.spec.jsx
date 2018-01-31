@@ -6,13 +6,13 @@ import Moment from 'moment';
 import Calendar from 'components/Calendar';
 import Navigation from 'components/Calendar/Navigation';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <Calendar
     selectedDay={Moment.utc([2018, 11, 25])}
     onDayClick={() => () => {}}
     {...props}
   />
-);
+));
 
 describe('<Calendar />', () => {
   it('correctly sets the initial state', () => {
@@ -47,7 +47,7 @@ describe('<Calendar />', () => {
 
         selectedDay = Moment.utc([2018, 11, 15]);
         wrapper.setProps({
-          selectedDay
+          selectedDay,
         });
 
         expect(wrapper.state().currentMonth.isSame(selectedDay)).toEqual(true);

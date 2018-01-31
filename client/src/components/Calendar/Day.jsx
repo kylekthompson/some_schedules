@@ -7,7 +7,12 @@ import DayInCurrentMonth from 'components/Calendar/DayInCurrentMonth';
 import DayInOtherMonth from 'components/Calendar/DayInOtherMonth';
 import Today from 'components/Calendar/Today';
 
-const Day = ({ currentMonth, day, onClick, selectedDay }) => {
+const Day = ({
+  currentMonth,
+  day,
+  onClick,
+  selectedDay,
+}) => {
   let DayComponent = DayInCurrentMonth;
 
   if (day.isSame(selectedDay, 'day')) {

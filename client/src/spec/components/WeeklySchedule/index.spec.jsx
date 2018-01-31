@@ -10,7 +10,7 @@ import { Shift, User } from 'spec/factories';
 const mountComponent = (props) => {
   const user = new User();
   const shift = new Shift({ user });
-  return mount(
+  return mount((
     <WeeklySchedule
       onClick={() => () => {}}
       shifts={[shift]}
@@ -18,7 +18,7 @@ const mountComponent = (props) => {
       users={[user]}
       {...props}
     />
-  );
+  ));
 };
 
 describe('<WeeklySchedule />', () => {
@@ -49,7 +49,7 @@ describe('<WeeklySchedule />', () => {
     const rowWithShifts = wrapper.find(Row).findWhere((row) => row.props().user === users[0]);
 
     expect(rowWithShifts.props().shifts).toEqual(shifts);
-    wrapper.find(Row).filterWhere((row) => row.props().user !== users[0]).forEach((row, index) => {
+    wrapper.find(Row).filterWhere((row) => row.props().user !== users[0]).forEach((row) => {
       expect(row.props().shifts).toEqual([]);
     });
   });

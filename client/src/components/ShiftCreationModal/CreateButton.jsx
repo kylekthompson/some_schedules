@@ -12,7 +12,13 @@ const CreateButton = styled.button`
   padding: 7px;
   text-decoration: none;
 
-  ${({ disabled }) => disabled ? css`border-color: lightgrey; background-color: lightgrey;` : ''}
+  ${({ disabled }) => {
+    if (disabled) {
+      return css`border-color: lightgrey; background-color: lightgrey;`;
+    }
+
+    return '';
+  }}
 `;
 
 CreateButton.propTypes = {

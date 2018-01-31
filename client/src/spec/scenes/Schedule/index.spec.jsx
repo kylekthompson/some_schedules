@@ -2,7 +2,6 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 import Moment from 'moment-timezone';
-import { Link, MemoryRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
 import Schedule from 'scenes/Schedule';
 import { Company, User } from 'spec/factories';
@@ -16,12 +15,12 @@ const createGetViewer = () => {
   return jest.fn().mockReturnValue(Promise.resolve({ data: viewer }));
 };
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <Schedule
     getViewer={createGetViewer()}
     {...props}
   />
-);
+));
 
 describe('<Schedule />', () => {
   describe('changing weeks', () => {
@@ -30,7 +29,7 @@ describe('<Schedule />', () => {
       const wrapper = mountComponent({
         getViewer,
       });
-      const selectedDay = wrapper.state().selectedDay;
+      const { selectedDay } = wrapper.state();
       const newDay = selectedDay.clone().subtract(1, 'week');
 
       expect(getViewer).toHaveBeenCalledTimes(1);

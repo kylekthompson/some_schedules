@@ -6,6 +6,7 @@ import { forceValidation, handleInputBlur, handleInputChange, initialState } fro
 import { formValuesFromState } from 'models/form';
 import { emailValidator } from 'models/validations/email';
 import { passwordValidator } from 'models/validations/password';
+import Validator from 'models/validations/validator';
 
 const VALIDATIONS = {
   email: emailValidator,
@@ -15,7 +16,10 @@ const VALIDATIONS = {
 class SignInForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    validations: PropTypes.object.isRequired,
+    validations: PropTypes.shape({
+      email: PropTypes.instanceOf(Validator).isRequired,
+      password: PropTypes.instanceOf(Validator).isRequired,
+    }),
   };
 
   static defaultProps = {
@@ -24,20 +28,21 @@ class SignInForm extends Component {
 
   state = initialState;
 
-  render() {
-    return (
-      <Form.Container>
-        <Form.HeaderContainer>
-          <Form.Title>Sign in</Form.Title>
-          <Form.Subtitle>Hi! To start looking at some schedules, go ahead and sign in.</Form.Subtitle>
-        </Form.HeaderContainer>
-        <Form onSubmit={this.handleSubmit}>
-          {this.renderEmailInput()}
-          {this.renderPasswordInput()}
-          <Form.Submit disabled={this.isSubmitDisabled()}>Sign in</Form.Submit>
-        </Form>
-      </Form.Container>
-    );
+  isValid = (field) => this.state.form[field].errors.length === 0
+  isSubmitDisabled = () => Object.keys(this.state.form).some((field) => !this.isValid(field))
+  errors = (field) => this.state.form[field].errors
+  value = (field) => this.state.form[field].value
+
+  forceValidation = (callback = () => {}) => this.setState(forceValidation(this.props.validations), callback)
+  handleBlur = (field) => (event) => this.setState(handleInputBlur(field, this.props.validations, event))
+  handleChange = (field) => (event) => this.setState(handleInputChange(field, this.props.validations, event))
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.forceValidation(() => {
+      if (this.isSubmitDisabled()) { return; }
+      this.props.onSubmit(formValuesFromState(this.state));
+    });
   }
 
   renderEmailInput = () => (
@@ -75,21 +80,20 @@ class SignInForm extends Component {
     </Fragment>
   )
 
-  isValid = (field) => this.state.form[field].errors.length === 0
-  isSubmitDisabled = () => Object.keys(this.state.form).some((field) => !this.isValid(field))
-  errors = (field) => this.state.form[field].errors
-  value = (field) => this.state.form[field].value
-
-  forceValidation = (callback = () => {}) => this.setState(forceValidation(this.props.validations), callback)
-  handleBlur = (field) => (event) => this.setState(handleInputBlur(field, this.props.validations, event))
-  handleChange = (field) => (event) => this.setState(handleInputChange(field, this.props.validations, event))
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.forceValidation(() => {
-      if (this.isSubmitDisabled()) { return; }
-      this.props.onSubmit(formValuesFromState(this.state));
-    });
+  render() {
+    return (
+      <Form.Container>
+        <Form.HeaderContainer>
+          <Form.Title>Sign in</Form.Title>
+          <Form.Subtitle>Hi! To start looking at some schedules, go ahead and sign in.</Form.Subtitle>
+        </Form.HeaderContainer>
+        <Form onSubmit={this.handleSubmit}>
+          {this.renderEmailInput()}
+          {this.renderPasswordInput()}
+          <Form.Submit disabled={this.isSubmitDisabled()}>Sign in</Form.Submit>
+        </Form>
+      </Form.Container>
+    );
   }
 }
 

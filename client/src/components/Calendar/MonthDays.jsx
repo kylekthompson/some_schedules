@@ -15,14 +15,6 @@ class MonthDays extends Component {
     selectedDay: PropTypes.instanceOf(Moment).isRequired,
   };
 
-  render() {
-    return (
-      <Fragment>
-        {this.renderWeeks()}
-      </Fragment>
-    );
-  }
-
   renderWeeks = () => {
     const iteratingDay = this.props.currentMonth.clone().startOf('month').startOf('week').subtract(1, 'day');
     return ofSize(constants.WEEKS_IN_CALENDAR).map((index) => (
@@ -32,7 +24,7 @@ class MonthDays extends Component {
     ));
   }
 
-  renderDays = (iteratingDay) => ofSize(constants.DAYS_IN_WEEK).map((index) => {
+  renderDays = (iteratingDay) => ofSize(constants.DAYS_IN_WEEK).map(() => {
     const day = iteratingDay.add(1, 'day').clone();
     return (
       <Day
@@ -44,6 +36,14 @@ class MonthDays extends Component {
       />
     );
   })
+
+  render() {
+    return (
+      <Fragment>
+        {this.renderWeeks()}
+      </Fragment>
+    );
+  }
 }
 
 export default MonthDays;

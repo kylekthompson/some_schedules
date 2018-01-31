@@ -34,6 +34,10 @@ HeaderDay.propTypes = {
   day: PropTypes.instanceOf(Moment).isRequired,
 };
 
+HeaderDay.defaultProps = {
+  className: '',
+};
+
 export default styled(HeaderDay)`
   flex: 1;
   flex-direction: column;

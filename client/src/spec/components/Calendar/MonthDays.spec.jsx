@@ -8,14 +8,14 @@ import MonthDays from 'components/Calendar/MonthDays';
 import Week from 'components/Calendar/Week';
 import { constants } from 'models/time';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <MonthDays
     currentMonth={Moment.utc([2018, 11, 25])}
     selectedDay={Moment.utc([2018, 11, 25])}
     onDayClick={() => () => {}}
     {...props}
   />
-);
+));
 
 describe('<MonthDays />', () => {
   it('renders the correct number of weeks', () => {

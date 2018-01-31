@@ -11,7 +11,7 @@ class SignUp extends React.Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
     requestSignIn: PropTypes.func.isRequired,
-    signUp: PropTypes.func.isRequired,
+    signUp: PropTypes.func,
   };
 
   static defaultProps = {
@@ -22,25 +22,11 @@ class SignUp extends React.Component {
     errors: {},
   };
 
-  render() {
-    if (this.props.isSignedIn) { return <Redirect to="/" />; }
-
-    return (
-      <Container>
-        <SignUpForm
-          errors={this.state.errors}
-          onSubmit={this.handleSubmit}
-          testId="sign-up-form"
-        />
-      </Container>
-    );
-  }
-
   handleSubmit = (form) => {
     const { name, slug, ...user } = form;
     const company = { name, slug };
 
-    this.props.signUp({ company, user, }).then(({
+    this.props.signUp({ company, user }).then(({
       data: {
         signUp: {
           companyErrors,
@@ -61,7 +47,21 @@ class SignUp extends React.Component {
           },
         });
       }
-    })
+    });
+  }
+
+  render() {
+    if (this.props.isSignedIn) { return <Redirect to="/" />; }
+
+    return (
+      <Container>
+        <SignUpForm
+          errors={this.state.errors}
+          onSubmit={this.handleSubmit}
+          testId="sign-up-form"
+        />
+      </Container>
+    );
   }
 }
 

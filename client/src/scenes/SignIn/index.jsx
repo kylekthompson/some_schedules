@@ -11,7 +11,7 @@ class SignIn extends React.Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
     requestSignIn: PropTypes.func.isRequired,
-    signIn: PropTypes.func.isRequired,
+    signIn: PropTypes.func,
   };
 
   static defaultProps = {
@@ -21,6 +21,18 @@ class SignIn extends React.Component {
   state = {
     errors: {},
   };
+
+  handleSubmit = (form) => {
+    this.props.signIn(form).then(({ data: { signIn: { errors, token } } }) => {
+      if (token) {
+        this.props.requestSignIn(token);
+      } else {
+        this.setState({
+          errors: errors || {},
+        });
+      }
+    });
+  }
 
   render() {
     if (this.props.isSignedIn) { return <Redirect to="/" />; }
@@ -34,18 +46,6 @@ class SignIn extends React.Component {
         />
       </Container>
     );
-  }
-
-  handleSubmit = (form) => {
-    this.props.signIn(form).then(({ data: { signIn: { errors, token } } }) => {
-      if (token) {
-        this.props.requestSignIn(token);
-      } else {
-        this.setState({
-          errors: errors || {},
-        });
-      }
-    });
   }
 }
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import { Link, MemoryRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { Link, MemoryRouter as Router, Route, Switch } from 'react-router-dom';
 
 import App from 'scenes/App';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <Router initialEntries={['/app']}>
     <Switch>
       <Route
@@ -26,7 +26,7 @@ const mountComponent = (props) => mount(
       />
     </Switch>
   </Router>
-);
+));
 
 describe('<App />', () => {
   describe('when signed in', () => {

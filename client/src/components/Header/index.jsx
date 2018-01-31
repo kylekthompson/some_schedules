@@ -17,4 +17,8 @@ Header.propTypes = {
   darkTheme: PropTypes.bool,
 };
 
+Header.defaultProps = {
+  darkTheme: false,
+};
+
 export default Header;

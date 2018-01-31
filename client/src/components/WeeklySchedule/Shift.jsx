@@ -28,6 +28,11 @@ Icon.propTypes = {
   isPublished: PropTypes.bool,
 };
 
+Icon.defaultProps = {
+  className: '',
+  isPublished: false,
+};
+
 const PublishedIcon = styled(Icon)`
   margin-right: 5px;
 `;

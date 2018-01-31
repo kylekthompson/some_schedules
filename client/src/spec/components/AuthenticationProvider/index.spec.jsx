@@ -4,12 +4,12 @@ import { mount } from 'enzyme';
 
 import AuthenticationProvider from 'components/AuthenticationProvider';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <AuthenticationProvider
     render={() => null}
     {...props}
   />
-);
+));
 
 describe('<AuthenticationProvider />', () => {
   it('renders using the render prop', () => {
@@ -23,7 +23,7 @@ describe('<AuthenticationProvider />', () => {
 
   it('passes the correct props to the render function', () => {
     const render = jest.fn().mockReturnValue(null);
-    const wrapper = mountComponent({ render });
+    mountComponent({ render });
 
     expect(render).toHaveBeenCalledTimes(1);
     expect(render).toHaveBeenCalledWith(expect.objectContaining({

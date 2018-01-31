@@ -15,6 +15,10 @@ About.propTypes = {
   className: PropTypes.string,
 };
 
+About.defaultProps = {
+  className: '',
+};
+
 export default styled(About)`
   color: ${colors.white()};
 `;

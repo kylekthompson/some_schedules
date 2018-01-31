@@ -42,6 +42,13 @@ class Routes extends Component {
     ]);
   }
 
+  renderPublicRoutes = () => this.publicRoutes.map((route) => (
+    <Route
+      key={`public-${route.path}`}
+      {...route}
+    />
+  ))
+
   render() {
     return (
       <Switch>
@@ -49,13 +56,6 @@ class Routes extends Component {
       </Switch>
     );
   }
-
-  renderPublicRoutes = () => this.publicRoutes.map((route) => (
-    <Route
-      key={`public-${route.path}`}
-      {...route}
-    />
-  ));
 }
 
 export default Routes;

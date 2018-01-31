@@ -4,12 +4,12 @@ import { mount } from 'enzyme';
 
 import Submit from 'components/Form/Submit';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <Submit
     onClick={() => {}}
     {...props}
   />
-);
+));
 
 describe('<Submit />', () => {
   it('has a default type of submit', () => {

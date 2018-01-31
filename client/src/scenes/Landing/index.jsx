@@ -22,6 +22,13 @@ class Landing extends Component {
     };
   }
 
+  renderOverview = (props) => (
+    <Overview
+      {...props}
+      {...this.componentProps}
+    />
+  )
+
   render() {
     return (
       <Switch>
@@ -38,13 +45,6 @@ class Landing extends Component {
       </Switch>
     );
   }
-
-  renderOverview = (props) => (
-    <Overview
-      {...props}
-      {...this.componentProps}
-    />
-  )
 }
 
 export default Landing;

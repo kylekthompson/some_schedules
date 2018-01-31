@@ -10,7 +10,7 @@ import TimeInput from 'components/ShiftCreationModal/TimeInput';
 import { format } from 'models/time';
 import { User } from 'spec/factories';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <ShiftCreationModal
     day={Moment.utc([2018, 11, 25])}
     dismissModal={() => {}}
@@ -21,7 +21,7 @@ const mountComponent = (props) => mount(
     y={0}
     {...props}
   />
-);
+));
 
 describe('<ShiftCreationModal />', () => {
   describe('when not visible', () => {

@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import Moment from 'moment-timezone';
-import { Link, MemoryRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
 import SignUp from 'scenes/SignUp';
-import { Company, User } from 'spec/factories';
 import { findTestId, waitUntil } from 'spec/utilities';
 
 const createSignUp = (callback = () => {}) => {
@@ -21,14 +18,14 @@ const createSignUp = (callback = () => {}) => {
   }));
 };
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <SignUp
     isSignedIn={false}
     requestSignIn={jest.fn()}
     signUp={createSignUp()}
     {...props}
   />
-);
+));
 
 describe('<SignUp />', () => {
   describe('signing in', () => {
@@ -46,7 +43,9 @@ describe('<SignUp />', () => {
     it('calls requestSignIn() when the sign in was a success', async (done) => {
       let resolved = false;
       const requestSignIn = jest.fn();
-      const signUp = createSignUp(() => resolved = true);
+      const signUp = createSignUp(() => {
+        resolved = true;
+      });
       const wrapper = mountComponent({
         requestSignIn,
         signUp,

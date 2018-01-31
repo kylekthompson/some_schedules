@@ -6,13 +6,13 @@ import Moment from 'moment';
 import Navigation from 'components/Calendar/Navigation';
 import NavigationButton from 'components/Calendar/NavigationButton';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <Navigation
     currentMonth={Moment.utc([2018, 11, 25])}
     onMonthChange={() => () => {}}
     {...props}
   />
-);
+));
 
 describe('<Navigation />', () => {
   const firstCallArguments = (jestFn) => jestFn.mock.calls[0][0];

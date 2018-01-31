@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React from 'react';
 
 import PropTypes from 'prop-types';
@@ -20,6 +22,10 @@ const HeaderLinks = ({ className, requestSignOut }) => (
 HeaderLinks.propTypes = {
   className: PropTypes.string,
   requestSignOut: PropTypes.func.isRequired,
+};
+
+HeaderLinks.defaultProps = {
+  className: '',
 };
 
 export default styled(HeaderLinks)`

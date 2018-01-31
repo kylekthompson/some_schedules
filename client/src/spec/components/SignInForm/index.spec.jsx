@@ -6,12 +6,12 @@ import Form from 'components/Form';
 import SignInForm from 'components/SignInForm';
 import { changeValue, findTestId } from 'spec/utilities';
 
-const mountComponent = (props) => mount(
+const mountComponent = (props) => mount((
   <SignInForm
     onSubmit={() => {}}
     {...props}
   />
-);
+));
 
 describe('<SignInForm />', () => {
   describe('when it is not valid', () => {

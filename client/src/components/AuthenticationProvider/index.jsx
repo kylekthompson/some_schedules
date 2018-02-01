@@ -2,39 +2,30 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { deleteToken, isSignedIn, setToken } from 'models/authentication';
+import { signIn, signOut } from 'components/AuthenticationProvider/state/actions';
+import createInitialState from 'components/AuthenticationProvider/state/createInitialState';
+import reduce from 'components/AuthenticationProvider/state/reduce';
 
 class AuthenticationProvider extends React.Component {
   static propTypes = {
-    deleteToken: PropTypes.func,
-    isSignedIn: PropTypes.func,
+    createInitialState: PropTypes.func,
+    reduce: PropTypes.func,
     render: PropTypes.func.isRequired,
-    setToken: PropTypes.func,
+    signIn: PropTypes.func,
+    signOut: PropTypes.func,
   };
 
   static defaultProps = {
-    deleteToken,
-    isSignedIn,
-    setToken,
+    createInitialState,
+    reduce,
+    signIn,
+    signOut,
   };
 
-  state = {
-    isSignedIn: this.props.isSignedIn(),
-  };
+  state = this.props.createInitialState()
 
-  handleSignIn = (token) => {
-    this.props.setToken(token);
-    this.setState({
-      isSignedIn: true,
-    });
-  }
-
-  handleSignOut = () => {
-    this.props.deleteToken();
-    this.setState({
-      isSignedIn: false,
-    });
-  }
+  handleSignIn = (token) => this.setState(this.props.reduce(this.props.signIn(token)))
+  handleSignOut = () => this.setState(this.props.reduce(this.props.signOut()))
 
   render() {
     return this.props.render({

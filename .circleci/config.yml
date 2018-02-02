@@ -23,8 +23,9 @@ workflows:
       - branch
       - merge:
           filters:
-            tags:
-              ignore: master
+              branches:
+                ignore:
+                  - master
 
 jobs:
   branch:
@@ -36,31 +37,31 @@ jobs:
 
       - restore_cache:
           keys:
-            - bundle-cache-{{ checksum "Gemfile.lock" }}
-            - bundle-cache-
+            - bundle-{{ checksum "Gemfile.lock" }}
+            - bundle-
 
       - run:
           name: bundle install
           command: bundle check || bundle install
 
       - save_cache:
-          key: bundle-cache-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
       - restore_cache:
           keys:
-            - yarn-cache-{{ checksum "client/yarn.lock" }}
-            - yarn-cache-
+            - yarn-{{ checksum "client/yarn.lock" }}
+            - yarn-
 
       - run:
           name: yarn install
-          command: (cd client && yarn install --cache-folder .cache/yarn)
+          command: (cd client && yarn install --cache-folder ~/repo-branch/.cache/yarn)
 
       - save_cache:
-          key: yarn-cache-{{ checksum "client/yarn.lock" }}
+          key: yarn-{{ checksum "client/yarn.lock" }}
           paths:
-            - client/.cache/yarn
+            - ~/repo-branch/.cache/yarn
 
       - run:
           name: rubocop
@@ -104,31 +105,31 @@ jobs:
 
       - restore_cache:
           keys:
-            - bundle-cache-{{ checksum "Gemfile.lock" }}
-            - bundle-cache-
+            - bundle-{{ checksum "Gemfile.lock" }}
+            - bundle-
 
       - run:
           name: bundle install
           command: bundle check || bundle install
 
       - save_cache:
-          key: bundle-cache-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
       - restore_cache:
           keys:
-            - yarn-cache-{{ checksum "client/yarn.lock" }}
-            - yarn-cache-
+            - yarn-{{ checksum "client/yarn.lock" }}
+            - yarn-
 
       - run:
           name: yarn install
-          command: (cd client && yarn install --cache-folder .cache/yarn)
+          command: (cd client && yarn install --cache-folder ~/repo-merge/.cache/yarn)
 
       - save_cache:
-          key: yarn-cache-{{ checksum "client/yarn.lock" }}
+          key: yarn-{{ checksum "client/yarn.lock" }}
           paths:
-            - client/.cache/yarn
+            - ~/repo-merge/.cache/yarn
 
       - run:
           name: rubocop

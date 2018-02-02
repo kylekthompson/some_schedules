@@ -1,0 +1,71 @@
+version: 2
+jobs:
+  build:
+    parallelism: 1
+    working_directory: ~/repo
+    docker:
+      - image: circleci/ruby:2.5.0-node
+        environment:
+          BUNDLE_JOBS: 1
+          BUNDLE_RETRY: 1
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+          CI: true
+      - image: circleci/postgres:10.1-alpine-ram
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: some_schedules_test
+          POSTGRES_PASSWORD: postgres
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - bundle-cache-{{ checksum "Gemfile.lock" }}
+            - bundle-cache-
+
+      - run:
+          name: bundle install
+          command: bundle check || bundle install
+
+      - save_cache:
+          key: bundle-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          keys:
+            - yarn-cache-{{ checksum "client/yarn.lock" }}
+            - yarn-cache-
+
+      - run:
+          name: yarn install
+          command: (cd client && yarn install --cache-folder ~/.cache/yarn)
+
+      - save_cache:
+          key: yarn-cache-{{ checksum "client/yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          name: rubocop
+          command: bin/rubocop -D
+
+      - run:
+          name: yarn lint
+          command: (cd client && yarn lint)
+
+      - run:
+          name: wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: set up database
+          command: bin/rails db:setup
+
+      - run:
+          name: run tests
+          command: |
+            bin/rspec
+            (cd client && yarn test)

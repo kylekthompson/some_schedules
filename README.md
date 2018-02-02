@@ -10,7 +10,7 @@
 
 <br>
 
-[![](https://img.shields.io/travis/kylekthompson/some_schedules.svg?style=flat-square)][travis]
+[![](	https://img.shields.io/circleci/project/github/kylekthompson/some_schedules/master.svg?style=flat-square)][circleci]
 [![](https://img.shields.io/codecov/c/github/kylekthompson/some_schedules.svg?style=flat-square)][codecov]
 [![](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)][license]
 
@@ -59,7 +59,7 @@ Copyright (c) 2017 "SomeSchedules" kylekthompson
 
 Licensed under the [MIT License](./LICENSE.md).
 
-[travis]: https://travis-ci.org/kylekthompson/some_schedules
+[circleci]: https://circleci.com/gh/kylekthompson/some_schedules
 [codecov]: https://codecov.io/gh/kylekthompson/some_schedules
 [license]: ./LICENSE.md
 

@@ -9,6 +9,12 @@ cd "$(dirname "$0")/.."
 
 script/bootstrap
 
+if ! docker-compose ps | grep --silent some_schedules; then
+  echo "==> Starting postgres..."
+
+  docker-compose up -d
+fi
+
 echo "==> Setting up database..."
 bin/rails db:reset
 

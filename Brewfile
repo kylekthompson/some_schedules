@@ -1,4 +1,5 @@
 # frozen_string_literal: true
 
 brew 'rbenv'
-brew 'postgresql'
+cask 'docker'
+brew 'docker-compose'

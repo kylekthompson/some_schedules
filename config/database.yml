@@ -1,7 +1,14 @@
-default: &default
+shared: &shared
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+default: &default
+  <<: *shared
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432
 
 development:
   <<: *default
@@ -12,5 +19,5 @@ test:
   database: some_schedules_test
 
 production:
-  <<: *default
+  <<: *shared
   url: <%= ENV['DATABASE_URL'] %>

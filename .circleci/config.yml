@@ -1,21 +1,35 @@
 version: 2
-jobs:
+
+setup: &setup
+  parallelism: 1
+  docker:
+    - image: circleci/ruby:2.5.0-node
+      environment:
+        BUNDLE_JOBS: 1
+        BUNDLE_RETRY: 1
+        BUNDLE_PATH: vendor/bundle
+        RAILS_ENV: test
+        CI: true
+    - image: circleci/postgres:10.1-alpine-ram
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_DB: some_schedules_test
+        POSTGRES_PASSWORD: postgres
+
+workflows:
+  version: 2
   build:
-    parallelism: 1
-    working_directory: ~/repo
-    docker:
-      - image: circleci/ruby:2.5.0-node
-        environment:
-          BUNDLE_JOBS: 1
-          BUNDLE_RETRY: 1
-          BUNDLE_PATH: vendor/bundle
-          RAILS_ENV: test
-          CI: true
-      - image: circleci/postgres:10.1-alpine-ram
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: some_schedules_test
-          POSTGRES_PASSWORD: postgres
+    jobs:
+      - branch
+      - merge:
+          filters:
+            tags:
+              ignore: master
+
+jobs:
+  branch:
+    <<: *setup
+    working_directory: ~/repo-branch
 
     steps:
       - checkout
@@ -41,12 +55,12 @@ jobs:
 
       - run:
           name: yarn install
-          command: (cd client && yarn install --cache-folder ~/.cache/yarn)
+          command: (cd client && yarn install --cache-folder .cache/yarn)
 
       - save_cache:
           key: yarn-cache-{{ checksum "client/yarn.lock" }}
           paths:
-            - ~/.cache/yarn
+            - client/.cache/yarn
 
       - run:
           name: rubocop
@@ -65,7 +79,81 @@ jobs:
           command: bin/rails db:setup
 
       - run:
-          name: run tests
+          name: rspec
+          command: bin/rspec
+
+      - run:
+          name: start rails server
+          command: bin/rails s -d -p 5000
+
+      - run:
+          name: yarn test
+          command: (cd client && yarn test)
+
+  merge:
+    <<: *setup
+    working_directory: ~/repo-merge
+
+    steps:
+      - checkout
+
+      - run:
+          name: merge branch into master
           command: |
-            bin/rspec
-            (cd client && yarn test)
+            git pull --ff-only origin "refs/pull/${CI_PULL_REQUEST//*pull\//}/merge"
+
+      - restore_cache:
+          keys:
+            - bundle-cache-{{ checksum "Gemfile.lock" }}
+            - bundle-cache-
+
+      - run:
+          name: bundle install
+          command: bundle check || bundle install
+
+      - save_cache:
+          key: bundle-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          keys:
+            - yarn-cache-{{ checksum "client/yarn.lock" }}
+            - yarn-cache-
+
+      - run:
+          name: yarn install
+          command: (cd client && yarn install --cache-folder .cache/yarn)
+
+      - save_cache:
+          key: yarn-cache-{{ checksum "client/yarn.lock" }}
+          paths:
+            - client/.cache/yarn
+
+      - run:
+          name: rubocop
+          command: bin/rubocop -D
+
+      - run:
+          name: yarn lint
+          command: (cd client && yarn lint)
+
+      - run:
+          name: wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: set up database
+          command: bin/rails db:setup
+
+      - run:
+          name: rspec
+          command: bin/rspec
+
+      - run:
+          name: start rails server
+          command: bin/rails s -d -p 5000
+
+      - run:
+          name: yarn test
+          command: (cd client && yarn test)

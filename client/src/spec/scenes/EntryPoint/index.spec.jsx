@@ -4,12 +4,12 @@ import { mount } from 'enzyme';
 import { MemoryRouter as Router } from 'react-router-dom';
 
 import App from 'scenes/App';
-import Landing from 'scenes/Landing';
+import EntryPoint from 'scenes/EntryPoint';
 import Overview from 'scenes/Overview';
 
 const mountComponent = (props, initialRoute = '/app') => mount((
   <Router initialEntries={[initialRoute]}>
-    <Landing
+    <EntryPoint
       isSignedIn={false}
       requestSignIn={() => {}}
       requestSignOut={() => {}}
@@ -18,7 +18,7 @@ const mountComponent = (props, initialRoute = '/app') => mount((
   </Router>
 ));
 
-describe('<Landing />', () => {
+describe('<EntryPoint />', () => {
   describe('when signed in', () => {
     describe('when going to /app', () => {
       it('renders App', () => {

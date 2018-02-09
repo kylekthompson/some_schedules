@@ -8,7 +8,7 @@ import { injectGlobal } from 'styled-components';
 
 import AuthenticationProvider from 'components/AuthenticationProvider';
 import { fonts } from 'models/styles';
-import Landing from 'scenes/Landing';
+import EntryPoint from 'scenes/EntryPoint';
 
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-light.css';
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-regular.css';
@@ -41,7 +41,7 @@ injectGlobal`
 
 const render = (props) => (
   <BrowserRouter>
-    <Landing {...props} />
+    <EntryPoint {...props} />
   </BrowserRouter>
 );
 

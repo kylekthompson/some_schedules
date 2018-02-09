@@ -7,14 +7,14 @@ import PrivateRoute from 'components/PrivateRoute';
 import App from 'scenes/App';
 import Overview from 'scenes/Overview';
 
-class Landing extends Component {
+class EntryPoint extends Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
     requestSignIn: PropTypes.func.isRequired,
     requestSignOut: PropTypes.func.isRequired,
   };
 
-  get componentProps() {
+  get authenticationProps() {
     return {
       isSignedIn: this.props.isSignedIn,
       requestSignIn: this.props.requestSignIn,
@@ -22,10 +22,10 @@ class Landing extends Component {
     };
   }
 
-  renderOverview = (props) => (
-    <Overview
+  renderComponent = (ComponentToRender) => (props) => (
+    <ComponentToRender
       {...props}
-      {...this.componentProps}
+      {...this.authenticationProps}
     />
   )
 
@@ -33,18 +33,17 @@ class Landing extends Component {
     return (
       <Switch>
         <PrivateRoute
-          component={App}
-          componentProps={this.componentProps}
           isSignedIn={this.props.isSignedIn}
           path="/app"
+          render={this.renderComponent(App)}
         />
         <Route
           path="/"
-          render={this.renderOverview}
+          render={this.renderComponent(Overview)}
         />
       </Switch>
     );
   }
 }
 
-export default Landing;
+export default EntryPoint;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Link from 'components/Header/Link';
+import { header } from 'models/constants';
 import { fonts, links } from 'models/styles';
 
 const Logo = ({ className }) => (
@@ -22,8 +23,8 @@ Logo.defaultProps = {
 
 export default styled(Logo)`
   ${fonts.extraBold}
-  ${({ darkTheme }) => {
-    if (darkTheme) {
+  ${({ theme }) => {
+    if (theme === header.DARK_THEME) {
       return links.darkLink;
     }
 

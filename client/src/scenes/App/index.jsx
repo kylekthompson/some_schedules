@@ -7,6 +7,7 @@ import Header from 'components/Header';
 import PrivateRoute from 'components/PrivateRoute';
 import { Container, HeaderContainer, HeaderLinks } from 'scenes/App/components';
 import Schedule from 'scenes/Schedule';
+import { header } from 'models/constants';
 
 const App = ({ isSignedIn, requestSignOut }) => {
   if (!isSignedIn) { return <Redirect to="/" />; }
@@ -14,7 +15,7 @@ const App = ({ isSignedIn, requestSignOut }) => {
   return (
     <Container>
       <HeaderContainer>
-        <Header darkTheme>
+        <Header theme={header.DARK_THEME}>
           <HeaderLinks requestSignOut={requestSignOut} />
         </Header>
       </HeaderContainer>

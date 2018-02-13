@@ -22,6 +22,7 @@ import {
 class Schedule extends Component {
   static propTypes = {
     getViewer: PropTypes.func,
+    setHeaderLinks: PropTypes.func.isRequired,
   };
 
   static defaultProps = {

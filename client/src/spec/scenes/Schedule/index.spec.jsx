@@ -18,6 +18,7 @@ const createGetViewer = () => {
 const mountComponent = (props) => mount((
   <Schedule
     getViewer={createGetViewer()}
+    setHeaderLinks={() => {}}
     {...props}
   />
 ));

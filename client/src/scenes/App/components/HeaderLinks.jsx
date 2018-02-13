@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Link from 'components/Header/Link';
+import { header } from 'models/constants';
 
 const HeaderLinks = ({ className, requestSignOut }) => (
   <div className={className}>
     <Link
-      darkTheme
       onClick={requestSignOut}
+      theme={header.DARK_THEME}
       to="/"
     >
       Sign Out

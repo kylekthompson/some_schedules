@@ -28,29 +28,27 @@ const mountComponent = (props) => mount((
 
 describe('<PrivateRoute />', () => {
   describe('when signed in', () => {
-    it('renders the component', () => {
-      const wrapper = mountComponent({
-        isSignedIn: true,
-      });
+    describe('when passed a component', () => {
+      it('renders the component', () => {
+        const wrapper = mountComponent({
+          component: Component,
+          isSignedIn: true,
+          render: null,
+        });
 
-      expect(wrapper.contains(Component)).toEqual(true);
+        expect(wrapper.contains(Component)).toEqual(true);
+      });
     });
 
-    describe('when there are extra props for the component', () => {
-      it('passes them', () => {
-        const componentProps = {
-          propOne: 'propOne',
-          propTwo: 'propTwo',
-        };
+    describe('when passed a render prop', () => {
+      it('renders the render prop', () => {
         const wrapper = mountComponent({
-          componentProps,
+          component: null,
           isSignedIn: true,
+          render: () => <Component />,
         });
 
-        const component = wrapper.find(Component);
-        Object.keys(componentProps).forEach((prop) => {
-          expect(component.prop(prop)).toEqual(componentProps[prop]);
-        });
+        expect(wrapper.contains(Component)).toEqual(true);
       });
     });
   });

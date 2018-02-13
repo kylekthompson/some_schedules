@@ -5,13 +5,14 @@ import { Redirect, Route } from 'react-router-dom';
 
 class PrivateRoute extends React.Component {
   static propTypes = {
-    component: PropTypes.func.isRequired,
-    componentProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    component: PropTypes.func,
     isSignedIn: PropTypes.bool.isRequired,
+    render: PropTypes.func,
   };
 
   static defaultProps = {
-    componentProps: {},
+    component: null,
+    render: null,
   };
 
   redirectTo = (url, routeProps) => ({
@@ -20,19 +21,22 @@ class PrivateRoute extends React.Component {
   })
 
   renderComponentOrRedirect = (routeProps) => {
-    if (this.props.isSignedIn) {
-      const { component: Component, componentProps } = this.props;
-      return <Component {...routeProps} {...componentProps} />;
+    if (!this.props.isSignedIn) { return <Redirect to={this.redirectTo('/sign-in', routeProps)} />; }
+
+    const { component: Component, render } = this.props;
+
+    if (Component) {
+      return <Component {...routeProps} />;
     }
 
-    return <Redirect to={this.redirectTo('/sign-in', routeProps)} />;
+    return render(routeProps);
   }
 
   render() {
     const {
       component: Component,
-      componentProps,
       isSignedIn,
+      render,
       ...rest
     } = this.props;
 

@@ -33,101 +33,49 @@ describe('<AuthenticationProvider />', () => {
     }));
   });
 
-  describe('the first render', () => {
-    describe('when the user is already signed in', () => {
-      it('has the correct starting state', () => {
-        const wrapper = mountComponent({
-          isSignedIn: () => true,
-        });
-
-        expect(wrapper.state().isSignedIn).toEqual(true);
-      });
+  it('sets the initial state with createInitialState', () => {
+    const state = { state: 'state' };
+    const createInitialState = jest.fn().mockReturnValue(state);
+    const wrapper = mountComponent({
+      createInitialState,
     });
 
-    describe('when the user is not already signed in', () => {
-      it('has the correct starting state', () => {
-        const wrapper = mountComponent({
-          isSignedIn: () => false,
-        });
+    expect(wrapper.state()).toBe(state);
+  });
 
-        expect(wrapper.state().isSignedIn).toEqual(false);
+  describe('requestSignIn()', () => {
+    it('signs the user in', () => {
+      const state = { isSignedIn: false };
+      const createInitialState = jest.fn().mockReturnValue(state);
+      const render = jest.fn().mockReturnValue(null);
+      const wrapper = mountComponent({
+        createInitialState,
+        render,
       });
+
+      const renderArguments = render.mock.calls[0][0];
+
+      renderArguments.requestSignIn('token');
+
+      expect(wrapper.state().isSignedIn).toEqual(true);
     });
   });
 
-  describe('when requestSignOut() is called', () => {
-    describe('when the user is signed in', () => {
-      it('signs the user out', () => {
-        const deleteToken = jest.fn();
-        const render = jest.fn().mockReturnValue(null);
-        const wrapper = mountComponent({
-          deleteToken,
-          isSignedIn: () => true,
-          render,
-        });
-
-        render.mock.calls[0][0].requestSignOut();
-
-        expect(deleteToken).toHaveBeenCalledTimes(1);
-        expect(wrapper.state().isSignedIn).toEqual(false);
+  describe('requestSignOut()', () => {
+    it('signs the user out', () => {
+      const state = { isSignedIn: true };
+      const createInitialState = jest.fn().mockReturnValue(state);
+      const render = jest.fn().mockReturnValue(null);
+      const wrapper = mountComponent({
+        createInitialState,
+        render,
       });
-    });
 
-    describe('when the user is not already signed in', () => {
-      it('keeps the user signed out', () => {
-        const deleteToken = jest.fn();
-        const render = jest.fn().mockReturnValue(null);
-        const wrapper = mountComponent({
-          deleteToken,
-          isSignedIn: () => false,
-          render,
-        });
+      const renderArguments = render.mock.calls[0][0];
 
-        render.mock.calls[0][0].requestSignOut();
+      renderArguments.requestSignOut();
 
-        expect(deleteToken).toHaveBeenCalledTimes(1);
-        expect(wrapper.state().isSignedIn).toEqual(false);
-      });
-    });
-  });
-
-  describe('when requestSignIn() is called', () => {
-    describe('when the user is signed in', () => {
-      it('keeps the user signed in', () => {
-        const token = 'some_token';
-        const setToken = jest.fn();
-        const render = jest.fn().mockReturnValue(null);
-        const wrapper = mountComponent({
-          setToken,
-          isSignedIn: () => true,
-          render,
-        });
-
-        render.mock.calls[0][0].requestSignIn(token);
-
-        expect(setToken).toHaveBeenCalledTimes(1);
-        expect(setToken).toHaveBeenCalledWith(token);
-        expect(wrapper.state().isSignedIn).toEqual(true);
-      });
-    });
-
-    describe('when the user is not already signed in', () => {
-      it('keeps the user signed out', () => {
-        const token = 'some_token';
-        const setToken = jest.fn();
-        const render = jest.fn().mockReturnValue(null);
-        const wrapper = mountComponent({
-          setToken,
-          isSignedIn: () => false,
-          render,
-        });
-
-        render.mock.calls[0][0].requestSignIn(token);
-
-        expect(setToken).toHaveBeenCalledTimes(1);
-        expect(setToken).toHaveBeenCalledWith(token);
-        expect(wrapper.state().isSignedIn).toEqual(true);
-      });
+      expect(wrapper.state().isSignedIn).toEqual(false);
     });
   });
 });

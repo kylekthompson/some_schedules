@@ -1,16 +1,16 @@
-import { toMoment } from 'models/time';
+import { isBefore, isSameMinute, toDate } from 'models/time';
 
 const sortShiftsByTimeIncreasing = (shifts) => [...shifts].sort((shift1, shift2) => {
-  const start1 = toMoment(shift1.startTime);
-  const end1 = toMoment(shift1.endTime);
-  const start2 = toMoment(shift2.startTime);
-  const end2 = toMoment(shift2.endTime);
+  const start1 = toDate(shift1.startTime);
+  const end1 = toDate(shift1.endTime);
+  const start2 = toDate(shift2.startTime);
+  const end2 = toDate(shift2.endTime);
 
-  if (start1.isSame(start2, 'minute') && end1.isBefore(end2)) {
+  if (isSameMinute(start1, start2) && isBefore(end1, end2)) {
     return -1;
-  } else if (start1.isSame(start2, 'minute') && !end1.isBefore(end2)) {
+  } else if (isSameMinute(start1, start2) && !isBefore(end1, end2)) {
     return 1;
-  } else if (start1.isBefore(start2, 'minute')) {
+  } else if (isBefore(start1, start2)) {
     return -1;
   }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -24,14 +23,14 @@ const HeaderDay = ({ className, day }) => (
       {format.shortWeekdayOnly(day)}
     </WeekdayText>
     <DateText>
-      {day.date()}
+      {format.dateOnly(day)}
     </DateText>
   </div>
 );
 
 HeaderDay.propTypes = {
   className: PropTypes.string,
-  day: PropTypes.instanceOf(Moment).isRequired,
+  day: PropTypes.instanceOf(Date).isRequired,
 };
 
 HeaderDay.defaultProps = {

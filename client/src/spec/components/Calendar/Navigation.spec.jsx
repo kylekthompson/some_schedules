@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import Moment from 'moment';
 
 import Navigation from 'components/Calendar/Navigation';
 import NavigationButton from 'components/Calendar/NavigationButton';
+import { addMonths, isEqual, subtractMonths } from 'models/time';
 
 const mountComponent = (props) => mount((
   <Navigation
-    currentMonth={Moment.utc([2018, 11, 25])}
+    currentMonth={new Date(Date.UTC(2018, 11, 25))}
     onMonthChange={() => () => {}}
     {...props}
   />
@@ -19,7 +19,7 @@ describe('<Navigation />', () => {
   const secondCallArguments = (jestFn) => jestFn.mock.calls[1][0];
 
   it('has navigation buttons', () => {
-    const currentMonth = Moment.utc([2018, 11, 25]);
+    const currentMonth = new Date(Date.UTC(2018, 11, 25));
     const navigateLeft = jest.fn();
     const navigateRight = jest.fn();
     const onMonthChange = jest.fn()
@@ -37,7 +37,7 @@ describe('<Navigation />', () => {
     expect(onMonthChange).toHaveBeenCalledTimes(2);
     expect(navigateLeft).toHaveBeenCalledTimes(1);
     expect(navigateRight).toHaveBeenCalledTimes(1);
-    expect(firstCallArguments(onMonthChange).isSame(currentMonth.clone().subtract(1, 'month'))).toEqual(true);
-    expect(secondCallArguments(onMonthChange).isSame(currentMonth.clone().add(1, 'month'))).toEqual(true);
+    expect(isEqual(firstCallArguments(onMonthChange), subtractMonths(currentMonth, 1))).toEqual(true);
+    expect(isEqual(secondCallArguments(onMonthChange), addMonths(currentMonth, 1))).toEqual(true);
   });
 });

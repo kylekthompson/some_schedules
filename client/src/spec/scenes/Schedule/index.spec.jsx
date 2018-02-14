@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import Moment from 'moment-timezone';
 
+import { subtractWeeks } from 'models/time';
 import Schedule from 'scenes/Schedule';
 import { Company, User } from 'spec/factories';
 import { findTestId, waitUntil } from 'spec/utilities';
@@ -31,7 +31,7 @@ describe('<Schedule />', () => {
         getViewer,
       });
       const { selectedDay } = wrapper.state();
-      const newDay = selectedDay.clone().subtract(1, 'week');
+      const newDay = subtractWeeks(selectedDay, 1);
 
       expect(getViewer).toHaveBeenCalledTimes(1);
 
@@ -53,7 +53,7 @@ describe('<Schedule />', () => {
       event.clientX = 0;
       event.clientY = 0;
 
-      findTestId(wrapper, 'weekly-schedule').props().onClick(viewer.id, Moment([2018, 11, 25]))(event);
+      findTestId(wrapper, 'weekly-schedule').props().onClick(viewer.id, new Date(Date.UTC(2018, 11, 25)))(event);
       wrapper.update();
 
       expect(findTestId(wrapper, 'shift-creation-modal').props().visible).toEqual(true);

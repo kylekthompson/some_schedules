@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import Moment from 'moment';
 
 import Day from 'components/Calendar/Day';
 import MonthDays from 'components/Calendar/MonthDays';
@@ -10,8 +9,8 @@ import { constants } from 'models/time';
 
 const mountComponent = (props) => mount((
   <MonthDays
-    currentMonth={Moment.utc([2018, 11, 25])}
-    selectedDay={Moment.utc([2018, 11, 25])}
+    currentMonth={new Date(Date.UTC(2018, 11, 25))}
+    selectedDay={new Date(Date.UTC(2018, 11, 25))}
     onDayClick={() => () => {}}
     {...props}
   />

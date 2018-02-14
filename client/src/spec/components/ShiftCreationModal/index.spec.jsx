@@ -1,18 +1,17 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import Moment from 'moment-timezone';
 
 import ShiftCreationModal from 'components/ShiftCreationModal';
 import CreateButton from 'components/ShiftCreationModal/CreateButton';
 import Modal from 'components/ShiftCreationModal/Modal';
 import TimeInput from 'components/ShiftCreationModal/TimeInput';
-import { format } from 'models/time';
+import { format, setHours } from 'models/time';
 import { User } from 'spec/factories';
 
 const mountComponent = (props) => mount((
   <ShiftCreationModal
-    day={Moment.utc([2018, 11, 25])}
+    day={new Date(Date.UTC(2018, 11, 25))}
     dismissModal={() => {}}
     onAddShift={() => {}}
     user={new User()}
@@ -103,7 +102,7 @@ describe('<ShiftCreationModal />', () => {
             },
           };
           const createShift = jest.fn().mockReturnValue(Promise.resolve(result));
-          const day = Moment.utc([2018, 11, 25]);
+          const day = new Date(Date.UTC(2018, 11, 25));
           const user = new User();
           const wrapper = setup({
             createShift,
@@ -115,8 +114,8 @@ describe('<ShiftCreationModal />', () => {
 
           expect(createShift).toHaveBeenCalledTimes(1);
           expect(createShift).toHaveBeenCalledWith({
-            endTime: format.forServer(day.clone().hours(17)),
-            startTime: format.forServer(day.clone().hours(9)),
+            endTime: format.forServer(setHours(day, 17)),
+            startTime: format.forServer(setHours(day, 9)),
             userId: user.id,
           });
         });

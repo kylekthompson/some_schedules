@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import DayInCurrentMonth from 'components/Calendar/DayInCurrentMonth';
 import DayInOtherMonth from 'components/Calendar/DayInOtherMonth';
 import Today from 'components/Calendar/Today';
+import { format, isSameDay, isSameMonth } from 'models/time';
 
 const Day = ({
   currentMonth,
@@ -15,24 +15,24 @@ const Day = ({
 }) => {
   let DayComponent = DayInCurrentMonth;
 
-  if (day.isSame(selectedDay, 'day')) {
+  if (isSameDay(day, selectedDay)) {
     DayComponent = Today;
-  } else if (!day.isSame(currentMonth, 'month')) {
+  } else if (!isSameMonth(day, currentMonth)) {
     DayComponent = DayInOtherMonth;
   }
 
   return (
     <DayComponent onClick={onClick}>
-      {day.format('D')}
+      {format.dateOnly(day)}
     </DayComponent>
   );
 };
 
 Day.propTypes = {
-  currentMonth: PropTypes.instanceOf(Moment).isRequired,
-  day: PropTypes.instanceOf(Moment).isRequired,
+  currentMonth: PropTypes.instanceOf(Date).isRequired,
+  day: PropTypes.instanceOf(Date).isRequired,
   onClick: PropTypes.func.isRequired,
-  selectedDay: PropTypes.instanceOf(Moment).isRequired,
+  selectedDay: PropTypes.instanceOf(Date).isRequired,
 };
 
 export default Day;

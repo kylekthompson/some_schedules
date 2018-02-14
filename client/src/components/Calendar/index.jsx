@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import Container from 'components/Calendar/Container';
@@ -12,17 +11,17 @@ import Navigation from 'components/Calendar/Navigation';
 class Calender extends React.Component {
   static propTypes = {
     onDayClick: PropTypes.func.isRequired,
-    selectedDay: PropTypes.instanceOf(Moment).isRequired,
+    selectedDay: PropTypes.instanceOf(Date).isRequired,
   };
 
   state = {
-    currentMonth: this.props.selectedDay.clone(),
+    currentMonth: this.props.selectedDay,
   };
 
   componentWillReceiveProps(nextProps) {
     if (this.props.selectedDay !== nextProps.selectedDay) {
       this.setState({
-        currentMonth: nextProps.selectedDay.clone(),
+        currentMonth: nextProps.selectedDay,
       });
     }
   }

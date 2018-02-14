@@ -6,7 +6,7 @@ import Loading from 'components/Loading';
 import WeeklySchedule from 'components/WeeklySchedule';
 import ScheduleSidebar from 'components/ScheduleSidebar';
 import ShiftCreationModal from 'components/ShiftCreationModal';
-import { format } from 'models/time';
+import { endOfWeek, format, startOfWeek } from 'models/time';
 import { findUser, get } from 'models/viewer';
 import { Container, ContentContainer, SidebarContainer } from 'scenes/Schedule/components';
 import {
@@ -51,8 +51,8 @@ class Schedule extends Component {
   }
 
   loadViewer = async () => {
-    const after = format.forServer(this.state.selectedDay.clone().startOf('week'));
-    const before = format.forServer(this.state.selectedDay.clone().endOf('week'));
+    const after = format.forServer(startOfWeek(this.state.selectedDay));
+    const before = format.forServer(endOfWeek(this.state.selectedDay));
 
     this.setState(handleViewerLoading);
 
@@ -71,7 +71,7 @@ class Schedule extends Component {
       <WeeklySchedule
         onClick={this.handleOpenShiftCreationModal}
         shifts={this.state.viewer.data.company.shifts}
-        startOfWeek={this.state.selectedDay.clone().startOf('week')}
+        startOfWeek={startOfWeek(this.state.selectedDay)}
         testId="weekly-schedule"
         users={this.state.viewer.data.company.users}
       />

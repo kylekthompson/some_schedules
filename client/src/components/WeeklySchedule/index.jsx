@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import Container from 'components/WeeklySchedule/Container';
@@ -23,7 +22,7 @@ class WeeklySchedule extends Component {
     shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
     sortShifts: PropTypes.func,
     sortUsers: PropTypes.func,
-    startOfWeek: PropTypes.instanceOf(Moment).isRequired,
+    startOfWeek: PropTypes.instanceOf(Date).isRequired,
     users: PropTypes.arrayOf(userPropTypes).isRequired,
   };
 

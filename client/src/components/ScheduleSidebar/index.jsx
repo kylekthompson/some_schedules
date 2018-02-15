@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import Calendar from 'components/Calendar';
@@ -14,7 +13,7 @@ const Sidebar = ({ onDayClick, selectedDay }) => (
 
 Sidebar.propTypes = {
   onDayClick: PropTypes.func.isRequired,
-  selectedDay: PropTypes.instanceOf(Moment).isRequired,
+  selectedDay: PropTypes.instanceOf(Date).isRequired,
 };
 
 export default Sidebar;

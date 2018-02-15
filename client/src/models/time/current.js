@@ -1,5 +1,3 @@
-import Moment from 'moment-timezone';
-
-const current = () => Moment.tz(Moment.tz.guess());
+const current = () => new Date();
 
 export default current;

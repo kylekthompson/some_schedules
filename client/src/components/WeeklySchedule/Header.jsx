@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -9,26 +8,25 @@ import HeaderCell from 'components/WeeklySchedule/HeaderCell';
 import HeaderDay from 'components/WeeklySchedule/HeaderDay';
 import { ofSize } from 'models/array';
 import { colors } from 'models/constants';
-import { constants } from 'models/time';
+import { addDays, constants, getDate, getMonth } from 'models/time';
 
 class Header extends Component {
   static propTypes = {
     className: PropTypes.string,
-    startOfWeek: PropTypes.instanceOf(Moment).isRequired,
+    startOfWeek: PropTypes.instanceOf(Date).isRequired,
   };
 
   static defaultProps = {
     className: '',
   };
 
-  renderHeaderDays = () => {
-    const dayBeforeStartOfWeek = this.props.startOfWeek.clone().subtract(1, 'day');
-    return ofSize(constants.DAYS_IN_WEEK).map((index) => (
-      <HeaderCell key={index}>
-        <HeaderDay day={dayBeforeStartOfWeek.add(1, 'day').clone()} />
+  renderHeaderDays = () => ofSize(constants.DAYS_IN_WEEK)
+    .map((day) => addDays(this.props.startOfWeek, day))
+    .map((day) => (
+      <HeaderCell key={`day-${getMonth(day)}-${getDate(day)}`}>
+        <HeaderDay day={day} />
       </HeaderCell>
-    ));
-  }
+    ))
 
   render() {
     return (

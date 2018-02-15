@@ -1,41 +1,41 @@
 import React, { Component, Fragment } from 'react';
 
-import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import Day from 'components/Calendar/Day';
 import Week from 'components/Calendar/Week';
 import { ofSize } from 'models/array';
-import { constants } from 'models/time';
+import { addDays, constants, getDate, getMonth, startOfMonth, startOfWeek } from 'models/time';
 
 class MonthDays extends Component {
   static propTypes = {
-    currentMonth: PropTypes.instanceOf(Moment).isRequired,
+    currentMonth: PropTypes.instanceOf(Date).isRequired,
     onDayClick: PropTypes.func.isRequired,
-    selectedDay: PropTypes.instanceOf(Moment).isRequired,
+    selectedDay: PropTypes.instanceOf(Date).isRequired,
   };
 
   renderWeeks = () => {
-    const iteratingDay = this.props.currentMonth.clone().startOf('month').startOf('week').subtract(1, 'day');
-    return ofSize(constants.WEEKS_IN_CALENDAR).map((index) => (
-      <Week key={`${this.props.currentMonth.month()}-${index}`}>
-        {this.renderDays(iteratingDay)}
-      </Week>
-    ));
+    const firstDayOfFirstWeek = startOfWeek(startOfMonth(this.props.currentMonth));
+    return ofSize(constants.WEEKS_IN_CALENDAR)
+      .map((week) => addDays(firstDayOfFirstWeek, week * constants.DAYS_IN_WEEK))
+      .map((firstDayOfWeek) => (
+        <Week key={`week-${getMonth(this.props.currentMonth)}-${getMonth(firstDayOfWeek)}-${getDate(firstDayOfWeek)}`}>
+          {this.renderDays(firstDayOfWeek)}
+        </Week>
+      ));
   }
 
-  renderDays = (iteratingDay) => ofSize(constants.DAYS_IN_WEEK).map(() => {
-    const day = iteratingDay.add(1, 'day').clone();
-    return (
+  renderDays = (firstDayOfWeek) => ofSize(constants.DAYS_IN_WEEK)
+    .map((day) => addDays(firstDayOfWeek, day))
+    .map((day) => (
       <Day
-        key={`${day.month()}-${day.day()}`}
+        key={`day-${getMonth(day)}-${getDate(day)}`}
         currentMonth={this.props.currentMonth}
         day={day}
         onClick={this.props.onDayClick(day)}
         selectedDay={this.props.selectedDay}
       />
-    );
-  })
+    ));
 
   render() {
     return (

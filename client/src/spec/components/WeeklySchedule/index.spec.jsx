@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import Moment from 'moment';
 
 import WeeklySchedule from 'components/WeeklySchedule';
 import Row from 'components/WeeklySchedule/Row';
+import { startOfWeek } from 'models/time';
 import { Shift, User } from 'spec/factories';
 
 const mountComponent = (props) => {
@@ -14,7 +14,7 @@ const mountComponent = (props) => {
     <WeeklySchedule
       onClick={() => () => {}}
       shifts={[shift]}
-      startOfWeek={Moment.utc([2018, 11, 25]).startOf('week')}
+      startOfWeek={startOfWeek(new Date(Date.UTC(2018, 11, 25)))}
       users={[user]}
       {...props}
     />

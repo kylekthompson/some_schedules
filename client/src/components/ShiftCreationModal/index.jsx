@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 
 import BackgroundMuter from 'components/ShiftCreationModal/BackgroundMuter';
@@ -17,7 +16,7 @@ import { createShift } from 'services/graphql/mutations/createShift';
 class ShiftCreationModal extends React.Component {
   static propTypes = {
     createShift: PropTypes.func,
-    day: PropTypes.instanceOf(Moment),
+    day: PropTypes.instanceOf(Date),
     dismissModal: PropTypes.func.isRequired,
     onAddShift: PropTypes.func.isRequired,
     user: userPropTypes,
@@ -59,7 +58,7 @@ class ShiftCreationModal extends React.Component {
       this.setState({
         endTime,
         startTime,
-        timesInput: `${startTime.format('h:mm a')} - ${endTime.format('h:mm a')}`,
+        timesInput: `${format.forSchedule(startTime)} - ${format.forSchedule(endTime)}`,
       });
     } else {
       this.setState({
@@ -119,7 +118,7 @@ class ShiftCreationModal extends React.Component {
           </div>
           <Separator />
           <span>
-            {this.props.day.format('ddd, MMM Do')} from&nbsp;
+            {format.forTimeInput(this.props.day)} from&nbsp;
             <TimeInput
               onChange={this.handleTimesInputChange}
               onBlur={this.parseTimesInput}

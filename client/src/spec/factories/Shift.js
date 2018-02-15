@@ -1,16 +1,14 @@
-import Moment from 'moment-timezone';
-
-import { FORMATS } from 'models/time/format';
+import { format } from 'models/time';
 import Factory from 'spec/factories/Factory';
 import User from 'spec/factories/User';
 
 class Shift extends Factory {
   constructor(shift = {}) {
     super({
-      endTime: Moment.utc([2018, 11, 25]).format(FORMATS.SERVER),
+      endTime: format.fromServer(new Date(Date.UTC(2018, 11, 25))),
       id: Math.floor(Math.random() * 100000000),
       published: true,
-      startTime: Moment.utc([2018, 11, 25]).format(FORMATS.SERVER),
+      startTime: format.fromServer(new Date(Date.UTC(2018, 11, 25))),
       user: new User(),
       ...shift,
     });

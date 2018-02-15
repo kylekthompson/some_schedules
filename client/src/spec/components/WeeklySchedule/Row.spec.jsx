@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { mount } from 'enzyme';
-import Moment from 'moment';
 
 import Cell from 'components/WeeklySchedule/Cell';
 import Row from 'components/WeeklySchedule/Row';
 import ShiftComponent from 'components/WeeklySchedule/Shift';
-import { constants } from 'models/time';
+import { constants, startOfWeek } from 'models/time';
 import { Shift, User } from 'spec/factories';
 import { findTestId } from 'spec/utilities';
 
@@ -18,7 +17,7 @@ const mountComponent = (props) => {
       onCellClick={() => () => {}}
       shifts={[shift]}
       sortShifts={(s) => s}
-      startOfWeek={Moment.utc([2018, 11, 25]).startOf('week')}
+      startOfWeek={startOfWeek(new Date(Date.UTC(2018, 11, 25)))}
       user={user}
       {...props}
     />
@@ -54,7 +53,7 @@ describe('<Row />', () => {
         user,
       });
 
-      findTestId(wrapper, `user-${user.id}-Sun`).props().onClick();
+      findTestId(wrapper, `user-${user.id}-6`).props().onClick();
 
       expect(onCellClick).toHaveBeenCalledTimes(1);
     });

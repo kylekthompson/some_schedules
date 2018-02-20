@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::GraphqlController, type: :request do
+RSpec.describe API::V1::GraphqlController, type: :request do
   describe 'POST #execute' do
     let(:user) { create(:user) }
     let(:headers) { authenticated_headers(user: user) }

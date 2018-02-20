@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Api
+module API
   module V1
-    class GraphqlController < Api::ApplicationController
+    class GraphqlController < API::ApplicationController
       skip_before_action :authenticate_user
 
       def execute

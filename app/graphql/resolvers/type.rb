@@ -3,11 +3,6 @@
 module Resolvers
   module Type
     class << self
-      ##
-      # Resolves an instance of an object to the correct GraphQL Type
-      #
-      # [1] pry(main)> Resolvers::Type.call(nil, User.first, nil)
-      # => Types::Object::UserType
       def call(_type, object, _context)
         Types::Object.const_get("#{object.class.name}Type")
       rescue NameError

@@ -11,35 +11,16 @@ module Resolvers
 
       attr_accessor :email, :user, :password
 
-      ##
-      # An entry point that simulates a Proc to sign a user in
-      #
-      # [1] pry(main)> arguments = { email: 'test@example.com', password: 'password' }
-      # [2] pry(main)> Resolvers::User::SignIn.call(nil, arguments, nil)
-      # => { token: '...', user: #<User email: 'test@example.com'> }
       def self.call(_object, arguments, _context)
         new(arguments).to_h
       end
 
-      ##
-      # Creates a new instance of Resolvers::User::SignIn
-      #
-      # [1] pry(main)> arguments = { email: 'test@example.com', password: 'password' }
-      # [2] pry(main)> Resolvers::User::SignIn.new(arguments)
-      # => #<Resolvers::User::SignIn>
       def initialize(arguments)
         @email = arguments[:email]
         @user = ::User.find_by(email: email)
         @password = arguments[:password]
       end
 
-      ##
-      # Returns the hash representation of the result of signing a user in (either errors or a user and token)
-      #
-      # [1] pry(main)> arguments = { email: 'test@example.com', password: 'password' }
-      # [2] pry(main)> resolver = Resolvers::User::SignIn.new(arguments)
-      # [3] pry(main)> resolver.to_h
-      # => { token: '...', user: #<User> }
       def to_h
         return { errors: errors.messages } unless valid?
         { token: token, user: user }

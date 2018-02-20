@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe API::V1::GraphqlController, type: :request do
+RSpec.describe API::GraphqlController, type: :request do
   describe 'POST #execute' do
     let(:user) { create(:user) }
     let(:headers) { authenticated_headers(user: user) }
@@ -31,7 +31,7 @@ RSpec.describe API::V1::GraphqlController, type: :request do
       QUERY
     end
     let(:request) do
-      post('/api/v1/graphql', params: { query: query }.to_json, headers: headers)
+      post('/api/graphql', params: { query: query }.to_json, headers: headers)
     end
     let(:response_body) { JSON.parse(response.body).with_indifferent_access }
 

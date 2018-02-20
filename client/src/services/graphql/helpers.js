@@ -5,7 +5,7 @@ import { HttpLink } from 'apollo-link-http';
 
 import { getToken } from 'models/authentication';
 
-const uri = '/api/v1/graphql';
+const uri = '/api/graphql';
 const setContext = (context) => {
   const token = getToken();
 

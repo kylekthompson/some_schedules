@@ -5,9 +5,15 @@ en:
         missing_email: 'An email must be provided to sign in.'
         missing_password: 'A password must be provided to sign in.'
         not_found: 'It looks like your email or password is incorrect!'
+    companies:
+      sign_up:
+        unauthorized: 'You are not authorized to create a company.'
     token:
       decode:
         error: 'Error while decoding token. Please sign in again.'
         missing_token: 'A token must be provided to decode.'
       encode:
         missing_user: 'A user must be provided to encode.'
+    users:
+      sign_up:
+        unauthorized: 'You are not authorized to create a user.'

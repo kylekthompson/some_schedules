@@ -25,16 +25,16 @@ module Token
 
     def missing_user
       OpenStruct.new(
-        success?: false,
+        error: I18n.t!('services.token.encode.missing_user'),
         status: :unprocessable_entity,
-        error: I18n.t!('services.token.encode.missing_user')
+        success?: false
       )
     end
 
     def encoded(token)
       OpenStruct.new(
-        success?: true,
         status: :created,
+        success?: true,
         token: token
       )
     end

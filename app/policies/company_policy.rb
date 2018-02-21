@@ -8,6 +8,10 @@ class CompanyPolicy < Policy
   end
 
   def can_create?
-    current_user.present? && current_user.company.nil?
+    no_user = current_user.nil?
+    is_user_without_company = current_user.present? && current_user.company.nil?
+    is_admin_user = current_user&.admin?
+
+    no_user || is_user_without_company || is_admin_user
   end
 end

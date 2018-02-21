@@ -44,33 +44,33 @@ module Authentication
 
     def missing_email
       OpenStruct.new(
-        success?: false,
+        error: I18n.t!('services.authentication.sign_in.missing_email'),
         status: :unprocessable_entity,
-        error: I18n.t!('services.authentication.sign_in.missing_email')
+        success?: false
       )
     end
 
     def missing_password
       OpenStruct.new(
-        success?: false,
+        error: I18n.t!('services.authentication.sign_in.missing_password'),
         status: :unprocessable_entity,
-        error: I18n.t!('services.authentication.sign_in.missing_password')
+        success?: false
       )
     end
 
     def not_found
       OpenStruct.new(
-        success?: false,
+        error: I18n.t!('services.authentication.sign_in.not_found'),
         status: :not_found,
-        error: I18n.t!('services.authentication.sign_in.not_found')
+        success?: false
       )
     end
 
     def signed_in(user)
       OpenStruct.new(
         authentication_context: Authentication::ContextService.build(user: user).context,
-        success?: true,
         status: :ok,
+        success?: true,
         token: Token::EncodeService.encode(user: user).token
       )
     end

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         get :context
         post :sign_in
         post :sign_out
+        post :sign_up
       end
     end
   end

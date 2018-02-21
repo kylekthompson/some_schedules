@@ -28,26 +28,26 @@ module Token
 
     def missing_token
       OpenStruct.new(
-        success?: false,
+        error: I18n.t!('services.token.decode.missing_token'),
         status: :unauthorized,
-        error: I18n.t!('services.token.decode.missing_token')
+        success?: false
       )
     end
 
     def decode_error
       OpenStruct.new(
-        success?: false,
+        error: I18n.t!('services.token.decode.error'),
         status: :unauthorized,
-        error: I18n.t!('services.token.decode.error')
+        success?: false
       )
     end
 
     def decoded(token)
       OpenStruct.new(
-        success?: true,
-        status: :ok,
+        header: token.header,
         payload: token.payload,
-        header: token.header
+        status: :ok,
+        success?: true
       )
     end
   end

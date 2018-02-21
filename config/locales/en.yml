@@ -1,2 +1,8 @@
 en:
-  hello: "Hello world"
+  services:
+    token:
+      decode:
+        error: 'Error while decoding token. Please sign in again.'
+        missing_token: 'A token must be provided to decode.'
+      encode:
+        missing_user: 'A user must be provided to encode.'

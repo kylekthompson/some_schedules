@@ -27,6 +27,11 @@ module API
       end
     end
 
+    def sign_out
+      session[:token] = nil
+      head :no_content
+    end
+
     private
 
     def sign_in_params

@@ -82,4 +82,22 @@ RSpec.describe API::AuthenticationController, type: :request do
       end
     end
   end
+
+  describe 'POST #sign_out' do
+    include_context 'with authentication'
+
+    before do
+      sign_in
+      post('/api/authentication/sign_out')
+    end
+
+    it 'renders no content' do
+      expect(response).to have_http_status(:no_content)
+    end
+
+    it 'signs out' do
+      get('/api/authentication/context')
+      expect(parsed_body[:context][:is_signed_in]).to eq(false)
+    end
+  end
 end

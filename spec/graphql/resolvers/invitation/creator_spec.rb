@@ -54,7 +54,7 @@ RSpec.describe Resolvers::Invitation::Creator, type: :model do
     end
 
     context 'when not authorized to create the shift' do
-      let(:invitation_policy) { instance_double(InvitationPolicy, can_create?: false) }
+      let(:invitation_policy) { instance_double(InvitationPolicy, can_invite?: false) }
 
       it 'raises an authorization error' do
         expect { resolver.to_h }.to raise_error(GraphQL::ExecutionError, /auth/i)

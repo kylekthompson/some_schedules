@@ -8,15 +8,15 @@ class InvitationPolicy < Policy
     Invitation.joins(user: :company).where(users: { companies: { id: current_user.company_id } })
   end
 
-  def can_create?
+  def can_invite?
     return false if current_user.nil?
-    return can_create_instance? if subject_is_instance?
+    return can_invite_instance? if subject_is_instance?
     false
   end
 
   private
 
-  def can_create_instance?
+  def can_invite_instance?
     return true if current_user.admin?
     return false if current_user.employee?
     subject.user == current_user

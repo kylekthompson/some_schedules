@@ -38,7 +38,7 @@ module Resolvers
         raise GraphQL::ExecutionError, INVITATION_AUTHORIZATION_ERROR_MESSAGE unless Policy.for(
           current_user: current_user,
           subject: invitation
-        ).can_create?
+        ).can_invite?
 
         invitation.save
       end

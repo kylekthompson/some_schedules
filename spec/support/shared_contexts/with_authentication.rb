@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'with authentication' do
-  let(:current_user) { create(:user, password: password) }
+  let(:current_user) { create(:user) }
   let(:password) { 'password' }
 
   def sign_in

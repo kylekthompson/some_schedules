@@ -8,6 +8,9 @@ en:
     companies:
       sign_up:
         unauthorized: 'You are not authorized to create a company.'
+    invitations:
+      invite:
+        unauthorized: 'You are not authorized to invite "%{email}".'
     token:
       decode:
         error: 'Error while decoding token. Please sign in again.'

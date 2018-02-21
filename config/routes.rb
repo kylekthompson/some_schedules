@@ -14,5 +14,11 @@ Rails.application.routes.draw do
         post :sign_up
       end
     end
+
+    resources :invitations, only: [] do
+      collection do
+        post :invite
+      end
+    end
   end
 end

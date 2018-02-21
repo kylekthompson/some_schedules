@@ -12,12 +12,12 @@ module API
 
     def current_user
       return @current_user if @current_user.present?
-      result = Token::DecodeService.decode(token: session[:token])
+      result = Tokens::DecodeService.decode(token: session[:token])
 
       return nil unless result.success?
 
       @current_user = User.find_by(email: result.payload.email).tap do |user|
-        session[:token] = Token::EncodeService.encode(user: user).token
+        session[:token] = Tokens::EncodeService.encode(user: user).token
       end
     end
   end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Token::EncodeService, type: :model do
+RSpec.describe Tokens::EncodeService, type: :model do
   describe '.encode' do
     context 'when the user is nil' do
       let(:user) { nil }
@@ -28,7 +28,7 @@ RSpec.describe Token::EncodeService, type: :model do
 
       it 'returns a valid token for that user' do
         encode_result = described_class.encode(user: user)
-        decode_result = Token::DecodeService.decode(token: encode_result.token)
+        decode_result = Tokens::DecodeService.decode(token: encode_result.token)
         expect(decode_result.success?).to eq(true)
       end
     end

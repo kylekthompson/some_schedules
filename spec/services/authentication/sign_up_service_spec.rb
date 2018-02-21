@@ -36,7 +36,7 @@ RSpec.describe Authentication::SignUpService, type: :model do
         end
 
         it 'returns a token' do
-          decoded_token = Token::DecodeService.decode(token: result.token)
+          decoded_token = Tokens::DecodeService.decode(token: result.token)
           expect(decoded_token.payload.email).to eq(result.user.email)
         end
       end

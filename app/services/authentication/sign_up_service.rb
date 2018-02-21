@@ -74,7 +74,7 @@ module Authentication
         company: company_result.company,
         status: :created,
         success?: true,
-        token: Token::EncodeService.encode(user: user_result.user).token,
+        token: Tokens::EncodeService.encode(user: user_result.user).token,
         user: user_result.user
       )
     end

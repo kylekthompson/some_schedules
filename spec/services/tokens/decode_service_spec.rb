@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Token::DecodeService, type: :model do
+RSpec.describe Tokens::DecodeService, type: :model do
   describe '.decode' do
     context 'when the token is nil' do
       let(:token) { nil }
@@ -34,7 +34,7 @@ RSpec.describe Token::DecodeService, type: :model do
 
     context 'when the token is valid' do
       let(:user) { build(:user) }
-      let(:token) { Token::EncodeService.encode(user: user).token }
+      let(:token) { Tokens::EncodeService.encode(user: user).token }
 
       it 'is successful' do
         result = described_class.decode(token: token)

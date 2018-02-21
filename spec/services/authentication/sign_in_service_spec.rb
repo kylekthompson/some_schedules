@@ -69,7 +69,7 @@ RSpec.describe Authentication::SignInService, type: :model do
 
       it 'returns a token' do
         result = described_class.sign_in(email: user.email, password: user.password)
-        decoded_token = Token::DecodeService.decode(token: result.token)
+        decoded_token = Tokens::DecodeService.decode(token: result.token)
         expect(decoded_token.payload.email).to eq(user.email)
       end
     end

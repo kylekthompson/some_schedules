@@ -71,7 +71,7 @@ module Authentication
         authentication_context: Authentication::ContextService.build(user: user).context,
         status: :ok,
         success?: true,
-        token: Token::EncodeService.encode(user: user).token
+        token: Tokens::EncodeService.encode(user: user).token
       )
     end
   end

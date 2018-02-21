@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Token
+module Tokens
   class DecodeService
     attr_reader :token
 

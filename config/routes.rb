@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :authentication, only: [] do
       collection do
         get :context
+        post :sign_in
       end
     end
   end

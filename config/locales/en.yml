@@ -1,5 +1,10 @@
 en:
   services:
+    authentication:
+      sign_in:
+        missing_email: 'An email must be provided to sign in.'
+        missing_password: 'A password must be provided to sign in.'
+        not_found: 'It looks like your email or password is incorrect!'
     token:
       decode:
         error: 'Error while decoding token. Please sign in again.'

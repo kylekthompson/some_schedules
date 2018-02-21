@@ -2,7 +2,7 @@
 
 module API
   class GraphqlController < API::ApplicationController
-    skip_before_action :authenticate_user
+    skip_before_action :authenticate_user!
 
     def execute
       context = { current_user: current_user }

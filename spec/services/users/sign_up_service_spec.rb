@@ -42,7 +42,7 @@ RSpec.describe Users::SignUpService, type: :model do
       end
     end
 
-    context 'when the current user is in a user and is not an admin' do
+    context 'when the current user is in a company and is not an admin' do
       let(:current_user) { create(:user, :owner) }
 
       context 'when the params are valid' do
@@ -78,7 +78,7 @@ RSpec.describe Users::SignUpService, type: :model do
       end
     end
 
-    context 'when the current user is in a user and is an admin' do
+    context 'when the current user is in a company and is an admin' do
       let(:current_user) { create(:user, :owner, :admin) }
 
       context 'when the params are valid' do

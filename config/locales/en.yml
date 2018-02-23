@@ -11,6 +11,9 @@ en:
     invitations:
       invite:
         unauthorized: 'You are not authorized to invite "%{email}".'
+    shifts:
+      creation:
+        unauthorized: 'You are not authorized to create that shift.'
     token:
       decode:
         error: 'Error while decoding token. Please sign in again.'

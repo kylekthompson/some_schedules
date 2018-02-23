@@ -20,5 +20,9 @@ Rails.application.routes.draw do
         post :invite
       end
     end
+
+    resources :users, only: [] do
+      resources :shifts, only: :create
+    end
   end
 end

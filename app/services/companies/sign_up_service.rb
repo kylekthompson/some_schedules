@@ -2,7 +2,7 @@
 
 module Companies
   class SignUpService
-    attr_reader :params, :current_user
+    attr_reader :current_user, :params
 
     def self.sign_up(current_user: nil, params:)
       new(current_user: current_user, params: params).result

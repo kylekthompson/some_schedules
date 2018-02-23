@@ -20,5 +20,13 @@ module API
         session[:token] = Tokens::EncodeService.encode(user: user).token
       end
     end
+
+    def serialized(instance, options = {})
+      return nil unless instance.present?
+
+      serializer = "#{instance.class}Serializer"
+      return serializer.constantize.new(instance).serializable_hash(options) if Object.const_defined?(serializer)
+      instance
+    end
   end
 end

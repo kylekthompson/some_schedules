@@ -115,7 +115,7 @@ RSpec.describe API::AuthenticationController, type: :request do
       end
 
       it 'has an error' do
-        expect(parsed_body[:error]).not_to be_nil
+        expect(parsed_body[:errors][:company][:name]).not_to be_empty
       end
     end
 

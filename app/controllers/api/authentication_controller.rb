@@ -8,20 +8,20 @@ module API
       result = Authentication::ContextService.build(user: current_user)
 
       render json: {
-        context: result.context,
-        error: result.error
+        context: serialized(result.context),
+        error: serialized(result.error)
       }, status: result.status
     end
 
     def sign_in
       result = Authentication::SignInService.sign_in(sign_in_params)
 
-      if result.success?
-        session[:token] = result.token
-        render json: { context: result.authentication_context }, status: result.status
-      else
-        render json: { error: result.error }, status: result.status
-      end
+      session[:token] = result.token if result.success?
+
+      render json: {
+        context: serialized(result.authentication_context),
+        error: serialized(result.error)
+      }, status: result.status
     end
 
     def sign_out
@@ -32,12 +32,13 @@ module API
     def sign_up
       result = Authentication::SignUpService.sign_up(sign_up_params)
 
-      if result.success?
-        session[:token] = result.token
-        render json: { context: result.authentication_context }, status: result.status
-      else
-        render json: { error: result.error, errors: result.errors }, status: result.status
-      end
+      session[:token] = result.token if result.success?
+
+      render json: {
+        context: serialized(result.authentication_context),
+        error: serialized(result.error),
+        errors: serialized(result.errors)
+      }, status: result.status
     end
 
     private

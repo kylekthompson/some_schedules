@@ -6,9 +6,9 @@ module API
       result = Invitations::InviteService.invite(current_user: current_user, email: invite_params[:email])
 
       render json: {
-        error: result.error,
-        errors: result.errors,
-        invitation: result.invitation
+        error: serialized(result.error),
+        errors: serialized(result.errors),
+        invitation: serialized(result.invitation)
       }, status: result.status
     end
 

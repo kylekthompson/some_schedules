@@ -88,21 +88,11 @@ GEM
       thor (~> 0.19.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    graphiql-rails (1.4.8)
-      rails
-    graphql (1.7.8)
-    graphql-batch (0.3.9)
-      graphql (>= 0.8, < 2)
-      promise.rb (~> 0.7.2)
     i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     json (2.1.0)
     jsonapi-renderer (0.2.0)
     jwt (1.5.6)
-    knock (2.1.1)
-      bcrypt (~> 3.1)
-      jwt (~> 1.5)
-      rails (>= 4.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -125,7 +115,6 @@ GEM
       ast (~> 2.3)
     pg (0.21.0)
     powerpack (0.1.1)
-    promise.rb (0.7.4)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -267,11 +256,7 @@ DEPENDENCIES
   factory_bot_rails
   ffaker
   foreman
-  graphiql-rails
-  graphql
-  graphql-batch
   jwt
-  knock
   listen (>= 3.0.5, < 3.2)
   oj
   pg (~> 0.18)

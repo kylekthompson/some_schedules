@@ -23,7 +23,6 @@ module SomeSchedules
     config.load_defaults 5.1
     config.generators.system_tests = nil
     config.eager_load_paths += %W[
-      #{config.root}/app/graphql
       #{config.root}/app/policies
       #{config.root}/app/serializers
       #{config.root}/app/services

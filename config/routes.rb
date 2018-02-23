@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/api/graphql' if Rails.env.development?
-
   namespace :api do
-    post 'graphql', to: 'graphql#execute'
-
     resources :authentication, only: [] do
       collection do
         get :context

@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Switch } from 'react-router-dom';
 
+import { Consumer } from 'components/Authentication';
 import Header from 'components/Header';
 import HeaderLinksProvider from 'components/HeaderLinksProvider';
 import PrivateRoute from 'components/PrivateRoute';
@@ -17,7 +18,7 @@ const renderSchedule = (setHeaderLinks) => (props) => (
   />
 );
 
-const App = ({ isSignedIn, requestSignOut }) => {
+export const App = ({ isSignedIn, requestSignOut }) => {
   if (!isSignedIn) { return <Redirect to="/" />; }
 
   return (
@@ -49,4 +50,14 @@ App.propTypes = {
   requestSignOut: PropTypes.func.isRequired,
 };
 
-export default App;
+export default (props) => (
+  <Consumer
+    render={({ isSignedIn, requestSignOut }) => (
+      <App
+        isSignedIn={isSignedIn}
+        requestSignOut={requestSignOut}
+        {...props}
+      />
+    )}
+  />
+);

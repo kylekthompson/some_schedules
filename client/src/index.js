@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { injectGlobal } from 'styled-components';
 
-import AuthenticationProvider from 'components/AuthenticationProvider';
+import { Provider as AuthenticationProvider } from 'components/Authentication';
 import { fonts } from 'models/styles';
 import EntryPoint from 'scenes/EntryPoint';
 
@@ -16,10 +16,7 @@ import '@fortawesome/fontawesome-pro-webfonts/css/fontawesome.css';
 
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`
-  @font-face {
-    font-family: 'Open Sans';
-    src: url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
-  }
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
 
   html * {
     ${fonts.regular}
@@ -38,14 +35,11 @@ injectGlobal`
   }
 `;
 
-
-const render = (props) => (
-  <BrowserRouter>
-    <EntryPoint {...props} />
-  </BrowserRouter>
-);
-
 ReactDOM.render(
-  <AuthenticationProvider render={render} />,
+  <AuthenticationProvider>
+    <BrowserRouter>
+      <EntryPoint />
+    </BrowserRouter>
+  </AuthenticationProvider>,
   document.getElementById('root'),
 );

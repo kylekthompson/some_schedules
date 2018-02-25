@@ -2,26 +2,30 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import { Consumer } from 'components/Authentication';
 import Header from 'components/Header';
 import { Container, HeaderLinks, Routes } from 'scenes/Overview/components';
 
-const Overview = ({ isSignedIn, requestSignIn, requestSignOut }) => (
+export const Overview = ({ isSignedIn }) => (
   <Container>
     <Header>
       <HeaderLinks isSignedIn={isSignedIn} />
     </Header>
-    <Routes
-      isSignedIn={isSignedIn}
-      requestSignIn={requestSignIn}
-      requestSignOut={requestSignOut}
-    />
+    <Routes />
   </Container>
 );
 
 Overview.propTypes = {
   isSignedIn: PropTypes.bool.isRequired,
-  requestSignIn: PropTypes.func.isRequired,
-  requestSignOut: PropTypes.func.isRequired,
 };
 
-export default Overview;
+export default (props) => (
+  <Consumer
+    render={({ isSignedIn }) => (
+      <Overview
+        isSignedIn={isSignedIn}
+        {...props}
+      />
+    )}
+  />
+);

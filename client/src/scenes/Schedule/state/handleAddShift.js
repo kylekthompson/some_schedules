@@ -3,18 +3,12 @@ const handleAddShift = (shift) => (state) => ({
   shiftCreationModal: {
     visible: false,
   },
-  viewer: {
-    ...state.viewer,
-    data: {
-      ...state.viewer.data,
-      company: {
-        ...state.viewer.data.company,
-        shifts: [
-          ...state.viewer.data.company.shifts,
-          shift,
-        ],
-      },
-    },
+  context: {
+    ...state.context,
+    shifts: [
+      ...state.context.shifts,
+      shift,
+    ],
   },
 });
 

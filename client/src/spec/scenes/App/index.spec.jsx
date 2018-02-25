@@ -4,35 +4,39 @@ import { mount } from 'enzyme';
 import { Link, MemoryRouter as Router, Route, Switch } from 'react-router-dom';
 
 import App from 'scenes/App';
+import { AuthenticationContextValue } from 'spec/factories';
+import { Provider } from 'spec/mocks/components/Authentication';
 
-const mountComponent = (props) => mount((
-  <Router initialEntries={['/app']}>
-    <Switch>
-      <Route
-        path="/app"
-        render={(routeProps) => (
-          <App
-            isSignedIn={false}
-            requestSignOut={() => {}}
-            {...routeProps}
-            {...props}
-          />
-        )}
-      />
-      <Route
-        exact
-        path="/"
-        render={() => null}
-      />
-    </Switch>
-  </Router>
+const mountComponent = (props = {}) => mount((
+  <Provider value={new AuthenticationContextValue(props.value)}>
+    <Router initialEntries={['/app']}>
+      <Switch>
+        <Route
+          path="/app"
+          render={(routeProps) => (
+            <App
+              {...routeProps}
+              {...props}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/"
+          render={() => null}
+        />
+      </Switch>
+    </Router>
+  </Provider>
 ));
 
 describe('<App />', () => {
   describe('when signed in', () => {
     it('renders the App', () => {
       const wrapper = mountComponent({
-        isSignedIn: true,
+        value: {
+          isSignedIn: true,
+        },
       });
 
       expect(wrapper.contains(App)).toEqual(true);
@@ -42,8 +46,10 @@ describe('<App />', () => {
       it('calls requestSignOut()', () => {
         const requestSignOut = jest.fn();
         const wrapper = mountComponent({
-          isSignedIn: true,
-          requestSignOut,
+          value: {
+            isSignedIn: true,
+            requestSignOut,
+          },
         });
 
         wrapper.find(Link).filterWhere((link) => link.props().onClick === requestSignOut).props().onClick();
@@ -56,7 +62,9 @@ describe('<App />', () => {
   describe('when signed out', () => {
     it('renders a redirect to /', () => {
       const wrapper = mountComponent({
-        isSignedIn: false,
+        value: {
+          isSignedIn: false,
+        },
       });
 
       expect(wrapper.contains(App)).toEqual(false);

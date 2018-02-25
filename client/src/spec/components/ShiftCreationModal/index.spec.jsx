@@ -96,11 +96,7 @@ describe('<ShiftCreationModal />', () => {
 
       describe('when creating the shift', () => {
         it('calls createShift()', () => {
-          const result = {
-            data: {
-              createShift: {},
-            },
-          };
+          const result = {};
           const createShift = jest.fn().mockReturnValue(Promise.resolve(result));
           const day = new Date(Date.UTC(2018, 11, 25));
           const user = new User();
@@ -113,10 +109,9 @@ describe('<ShiftCreationModal />', () => {
           wrapper.find(CreateButton).simulate('click');
 
           expect(createShift).toHaveBeenCalledTimes(1);
-          expect(createShift).toHaveBeenCalledWith({
+          expect(createShift).toHaveBeenCalledWith(user, {
             endTime: format.forServer(setHours(day, 17)),
             startTime: format.forServer(setHours(day, 9)),
-            userId: user.id,
           });
         });
       });

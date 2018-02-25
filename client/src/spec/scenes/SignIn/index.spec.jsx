@@ -3,28 +3,30 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import SignIn from 'scenes/SignIn';
+import { AuthenticationContextValue } from 'spec/factories';
+import { Provider } from 'spec/mocks/components/Authentication';
 import { findTestId, waitUntil } from 'spec/utilities';
 
 const createSignIn = (callback = () => {}) => {
   const data = {
-    signIn: {
-      token: 'token',
+    context: {
+      isSignedIn: true,
     },
   };
 
   return jest.fn().mockReturnValue(new Promise((resolve) => {
-    resolve({ data });
+    resolve(data);
     callback();
   }));
 };
 
 const mountComponent = (props) => mount((
-  <SignIn
-    isSignedIn={false}
-    requestSignIn={jest.fn()}
-    signIn={createSignIn()}
-    {...props}
-  />
+  <Provider value={new AuthenticationContextValue(props.value)}>
+    <SignIn
+      signIn={createSignIn()}
+      {...props}
+    />
+  </Provider>
 ));
 
 describe('<SignIn />', () => {
@@ -47,8 +49,10 @@ describe('<SignIn />', () => {
         resolved = true;
       });
       const wrapper = mountComponent({
-        requestSignIn,
         signIn,
+        value: {
+          requestSignIn,
+        },
       });
 
       findTestId(wrapper, 'sign-in-form').props().onSubmit();

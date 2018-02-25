@@ -2,6 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import { postCreate as createShift } from 'apis/shifts';
 import BackgroundMuter from 'components/ShiftCreationModal/BackgroundMuter';
 import CreateButton from 'components/ShiftCreationModal/CreateButton';
 import DismissButton from 'components/ShiftCreationModal/DismissButton';
@@ -11,7 +12,6 @@ import Separator from 'components/ShiftCreationModal/Separator';
 import TimeInput from 'components/ShiftCreationModal/TimeInput';
 import { userPropTypes } from 'models/user';
 import { format, parseInput } from 'models/time';
-import { createShift } from 'services/graphql/mutations/createShift';
 
 class ShiftCreationModal extends React.Component {
   static propTypes = {
@@ -86,11 +86,10 @@ class ShiftCreationModal extends React.Component {
 
   handleShiftCreation = () => {
     if (this.state.startTime && this.state.endTime) {
-      this.props.createShift({
+      this.props.createShift(this.props.user, {
         endTime: format.forServer(this.state.endTime),
         startTime: format.forServer(this.state.startTime),
-        userId: this.props.user.id,
-      }).then(({ data: { createShift: { shift } } }) => {
+      }).then(({ shift }) => {
         if (shift) {
           this.setState({
             endTime: null,

@@ -2,58 +2,70 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import { subtractWeeks } from 'models/time';
+import { current, subtractWeeks } from 'models/time';
 import Schedule from 'scenes/Schedule';
-import { Company, User } from 'spec/factories';
+import { AuthenticationContextValue, User, Shift } from 'spec/factories';
+import { Provider } from 'spec/mocks/components/Authentication';
 import { findTestId, waitUntil } from 'spec/utilities';
 
-const createGetViewer = () => {
-  const viewer = new User().withShifts();
-  const company = new Company().withUsers();
-  company.users.push(viewer);
-  viewer.company = company;
-  return jest.fn().mockReturnValue(Promise.resolve({ data: viewer }));
+const createGetSchedulesContext = (overrides = {}) => {
+  const shift = overrides.shift || new Shift();
+  const user = overrides.user || new User();
+  shift.user = user;
+
+  return jest.fn().mockReturnValue(Promise.resolve({
+    context: {
+      shifts: [shift],
+      users: [user],
+    },
+  }));
 };
 
-const mountComponent = (props) => mount((
-  <Schedule
-    getViewer={createGetViewer()}
-    setHeaderLinks={() => {}}
-    {...props}
-  />
+const mountComponent = (props = {}) => mount((
+  <Provider value={new AuthenticationContextValue(props.value)}>
+    <Schedule
+      getSchedulesContext={createGetSchedulesContext()}
+      setHeaderLinks={() => {}}
+      {...props}
+    />
+  </Provider>
 ));
 
 describe('<Schedule />', () => {
   describe('changing weeks', () => {
-    it('gets the viewer again', () => {
-      const getViewer = createGetViewer();
+    it('gets the context again', () => {
+      const getSchedulesContext = createGetSchedulesContext();
       const wrapper = mountComponent({
-        getViewer,
+        getSchedulesContext,
       });
-      const { selectedDay } = wrapper.state();
-      const newDay = subtractWeeks(selectedDay, 1);
+      const newDay = subtractWeeks(current(), 1);
 
-      expect(getViewer).toHaveBeenCalledTimes(1);
+      expect(getSchedulesContext).toHaveBeenCalledTimes(1);
 
       findTestId(wrapper, 'schedule-sidebar').props().onDayClick(newDay)();
 
-      expect(getViewer).toHaveBeenCalledTimes(2);
+      expect(getSchedulesContext).toHaveBeenCalledTimes(2);
     });
   });
 
   describe('when clicking a cell', () => {
     it('opens the shift creation modal', async (done) => {
-      const wrapper = mountComponent();
+      const user = new User();
+      const getSchedulesContext = createGetSchedulesContext({ user });
+      const wrapper = mountComponent({
+        getSchedulesContext,
+      });
 
-      await waitUntil(() => wrapper.state().viewer.isLoaded);
-      wrapper.update();
+      await waitUntil(() => {
+        wrapper.update();
+        return findTestId(wrapper, 'shift-creation-modal').length === 1;
+      });
 
-      const viewer = wrapper.state().viewer.data;
       const event = new Event('click');
       event.clientX = 0;
       event.clientY = 0;
 
-      findTestId(wrapper, 'weekly-schedule').props().onClick(viewer.id, new Date(Date.UTC(2018, 11, 25)))(event);
+      findTestId(wrapper, 'weekly-schedule').props().onClick(user.id, new Date(Date.UTC(2018, 11, 25)))(event);
       wrapper.update();
 
       expect(findTestId(wrapper, 'shift-creation-modal').props().visible).toEqual(true);

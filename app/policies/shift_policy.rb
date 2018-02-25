@@ -1,22 +1,12 @@
 # frozen_string_literal: true
 
 class ShiftPolicy < Policy
-  ##
-  # Returns an ActiveRecord::Relation scoped to what shifts are visible by the current user
-  #
-  # [1] pry(main)> ShiftPolicy.new(current_user: User.first).scope
-  # => #<ActiveRecord::Relation>
   def scope
     return Shift.none unless current_user.present?
     return Shift.all if current_user.admin?
     non_admin_scope
   end
 
-  ##
-  # Returns true if the user is able to create a shift
-  #
-  # [1] pry(main)> ShiftPolicy.new(current_user: nil).can_create?
-  # => false
   def can_create?
     return false if current_user.nil?
     return can_create_instance? if subject_is_instance?

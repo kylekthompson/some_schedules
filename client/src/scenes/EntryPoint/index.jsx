@@ -3,31 +3,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
+import { Consumer } from 'components/Authentication';
 import PrivateRoute from 'components/PrivateRoute';
 import App from 'scenes/App';
 import Overview from 'scenes/Overview';
 
-class EntryPoint extends Component {
+export class EntryPoint extends Component {
   static propTypes = {
     isSignedIn: PropTypes.bool.isRequired,
-    requestSignIn: PropTypes.func.isRequired,
-    requestSignOut: PropTypes.func.isRequired,
   };
 
-  get authenticationProps() {
-    return {
-      isSignedIn: this.props.isSignedIn,
-      requestSignIn: this.props.requestSignIn,
-      requestSignOut: this.props.requestSignOut,
-    };
-  }
-
-  renderComponent = (ComponentToRender) => (props) => (
-    <ComponentToRender
-      {...props}
-      {...this.authenticationProps}
-    />
-  )
+  renderComponent = (ComponentToRender) => (props) => <ComponentToRender {...props} />
 
   render() {
     return (
@@ -46,4 +32,13 @@ class EntryPoint extends Component {
   }
 }
 
-export default EntryPoint;
+export default (props) => (
+  <Consumer
+    render={({ isSignedIn }) => (
+      <EntryPoint
+        isSignedIn={isSignedIn}
+        {...props}
+      />
+    )}
+  />
+);

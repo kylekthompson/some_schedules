@@ -9,7 +9,8 @@
   "rules": {
     "arrow-parens": ["error", "always"],
     "max-len": ["error", 120],
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "import/no-named-as-default": 0
   },
   "settings": {
     "import/resolver": {

@@ -1,2 +1,29 @@
 en:
-  hello: "Hello world"
+  services:
+    authentication:
+      sign_in:
+        missing_email: 'An email must be provided to sign in.'
+        missing_password: 'A password must be provided to sign in.'
+        not_found: 'It looks like your email or password is incorrect!'
+    companies:
+      sign_up:
+        unauthorized: 'You are not authorized to create a company.'
+    invitations:
+      invite:
+        unauthorized: 'You are not authorized to invite "%{email}".'
+    schedules:
+      context:
+        after_must_be_earlier_than_before: 'The lower bound date must be earlier than the upper bound date.'
+        missing_param: 'Missing parameter "%{param}".'
+    shifts:
+      creation:
+        unauthorized: 'You are not authorized to create that shift.'
+    token:
+      decode:
+        error: 'Error while decoding token. Please sign in again.'
+        missing_token: 'A token must be provided to decode.'
+      encode:
+        missing_user: 'A user must be provided to encode.'
+    users:
+      sign_up:
+        unauthorized: 'You are not authorized to create a user.'

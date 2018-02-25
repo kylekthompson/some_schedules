@@ -6,23 +6,24 @@ import { Link, MemoryRouter as Router } from 'react-router-dom';
 import Overview from 'scenes/Overview';
 import SignIn from 'scenes/SignIn';
 import SignUp from 'scenes/SignUp';
+import { AuthenticationContextValue } from 'spec/factories';
+import { Provider } from 'spec/mocks/components/Authentication';
 
-const mountComponent = (props, initialRoute = '/app') => mount((
-  <Router initialEntries={[initialRoute]}>
-    <Overview
-      isSignedIn={false}
-      requestSignIn={() => {}}
-      requestSignOut={() => {}}
-      {...props}
-    />
-  </Router>
+const mountComponent = (props = {}, initialRoute = '/app') => mount((
+  <Provider value={new AuthenticationContextValue(props.value)}>
+    <Router initialEntries={[initialRoute]}>
+      <Overview {...props} />
+    </Router>
+  </Provider>
 ));
 
 describe('<Overview />', () => {
   describe('when signed in', () => {
     it('renders a link to the schedule', () => {
       const wrapper = mountComponent({
-        isSignedIn: true,
+        value: {
+          isSignedIn: true,
+        },
       }, '/');
 
       const scheduleLink = wrapper.find(Link).filterWhere((link) => link.props().to === '/app/schedule');
@@ -34,7 +35,9 @@ describe('<Overview />', () => {
   describe('when signed out', () => {
     it('renders a link to sign in', () => {
       const wrapper = mountComponent({
-        isSignedIn: false,
+        value: {
+          isSignedIn: false,
+        },
       }, '/');
 
       const signInLink = wrapper.find(Link).filterWhere((link) => link.props().to === '/sign-in');
@@ -44,7 +47,9 @@ describe('<Overview />', () => {
 
     it('renders a link to sign up', () => {
       const wrapper = mountComponent({
-        isSignedIn: false,
+        value: {
+          isSignedIn: false,
+        },
       }, '/');
 
       const signUpLink = wrapper.find(Link).filterWhere((link) => link.props().to === '/sign-up');
@@ -55,7 +60,9 @@ describe('<Overview />', () => {
     describe('when going to /sign-in', () => {
       it('renders SignIn', () => {
         const wrapper = mountComponent({
-          isSignedIn: false,
+          value: {
+            isSignedIn: false,
+          },
         }, '/sign-in');
 
         expect(wrapper.find(SignIn)).toHaveLength(1);
@@ -65,7 +72,9 @@ describe('<Overview />', () => {
     describe('when going to /sign-up', () => {
       it('renders SignUp', () => {
         const wrapper = mountComponent({
-          isSignedIn: false,
+          value: {
+            isSignedIn: false,
+          },
         }, '/sign-up');
 
         expect(wrapper.find(SignUp)).toHaveLength(1);

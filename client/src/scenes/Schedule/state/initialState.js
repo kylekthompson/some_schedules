@@ -5,9 +5,10 @@ export default {
   shiftCreationModal: {
     visible: false,
   },
-  viewer: {
-    errors: null,
-    data: null,
+  context: {
+    error: null,
     isLoaded: false,
+    shifts: null,
+    users: null,
   },
 };

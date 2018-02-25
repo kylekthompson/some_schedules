@@ -7,28 +7,12 @@ class Policy
 
   attr_reader :current_user, :subject
 
-  ##
-  # Returns an instance of a policy and checks to make sure that the correct policy was chosen
-  #
-  # Parameters:
-  #   current_user: the current user of the application
-  #   subject: the value for which the current user is requesting access
-  #
-  # [1] pry(main)> Policy.new(current_user: User.first)
-  # => #<Policy>
   def initialize(current_user:, subject: nil)
     @current_user = current_user
     @subject = subject
     raise WrongPolicyError, wrong_policy_message unless correct_policy?
   end
 
-  ##
-  # Returns an ActiveRecord::Relation scoped to what the user has permission to interact with
-  #
-  # Requires that the subject is an ActiveRecord model
-  #
-  # [1] pry(main)> UserPolicy.new(current_user: User.first).scope
-  # => #<ActiveRecord::Relation>
   def scope
     raise UnableToScopeError unless model_class.ancestors.include?(ApplicationRecord)
     model_class.all
@@ -36,20 +20,10 @@ class Policy
 
   protected
 
-  ##
-  # Returns true if the subject is an instance of the policy's model class
-  #
-  # [1] pry(main)> UserPolicy.new(current_user: User.first, subject: User.first).send(:subject_is_instance?)
-  # => true
   def subject_is_instance?
     subject.is_a?(model_class)
   end
 
-  ##
-  # Returns true if the subject is the policy's model class
-  #
-  # [1] pry(main)> UserPolicy.new(current_user: User.first, subject: User).send(:subject_is_class?)
-  # => true
   def subject_is_class?
     subject == model_class
   end
@@ -77,20 +51,10 @@ class Policy
   end
 
   class << self
-    ##
-    # Returns the correct policy class for a given user and subject
-    #
-    # [1] pry(main)> Policy.for(current_user: User.first, subject: User)
-    # => #<UserPolicy>
     def for(current_user:, subject:)
       policy_class_for(subject).new(current_user: current_user, subject: subject)
     end
 
-    ##
-    # Returns the correct scope for a given user and subject
-    #
-    # [1] pry(main)> Policy.scope(current_user: User.first, subject: User)
-    # => #<ActiveRecord::Relation>
     def scope(current_user:, subject:)
       self.for(current_user: current_user, subject: subject).scope
     end

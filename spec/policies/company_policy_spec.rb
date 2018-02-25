@@ -49,7 +49,7 @@ RSpec.describe CompanyPolicy, type: :model do
       let(:current_user) { nil }
       let(:policy_subject) { Company }
 
-      specify { expect(policy.can_create?).to be(false) }
+      specify { expect(policy.can_create?).to be(true) }
     end
 
     context 'when there is a current user with a company' do
@@ -61,6 +61,13 @@ RSpec.describe CompanyPolicy, type: :model do
 
     context 'when there is a current user without a company' do
       let(:current_user) { build(:user, company: nil) }
+      let(:policy_subject) { Company }
+
+      specify { expect(policy.can_create?).to be(true) }
+    end
+
+    context 'when there is a current user with a company and the user is an admin' do
+      let(:current_user) { build(:user, :admin, company: nil) }
       let(:policy_subject) { Company }
 
       specify { expect(policy.can_create?).to be(true) }

@@ -2,31 +2,31 @@ import React, { Component, Fragment } from 'react';
 
 import PropTypes from 'prop-types';
 
+import { getContext as getSchedulesContext } from 'apis/schedules';
 import Loading from 'components/Loading';
 import WeeklySchedule from 'components/WeeklySchedule';
 import ScheduleSidebar from 'components/ScheduleSidebar';
 import ShiftCreationModal from 'components/ShiftCreationModal';
 import { endOfWeek, format, startOfWeek } from 'models/time';
-import { findUser, get } from 'models/viewer';
 import { Container, ContentContainer, SidebarContainer } from 'scenes/Schedule/components';
 import {
   handleAddShift,
   handleCloseShiftCreationModal,
   handleDayClick,
   handleOpenShiftCreationModal,
-  handleViewerLoaded,
-  handleViewerLoading,
+  handleContextLoaded,
+  handleContextLoading,
   initialState,
 } from 'scenes/Schedule/state';
 
 class Schedule extends Component {
   static propTypes = {
-    getViewer: PropTypes.func,
+    getSchedulesContext: PropTypes.func,
     setHeaderLinks: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    getViewer: get,
+    getSchedulesContext,
   };
 
   state = initialState;
@@ -54,45 +54,42 @@ class Schedule extends Component {
     const after = format.forServer(startOfWeek(this.state.selectedDay));
     const before = format.forServer(endOfWeek(this.state.selectedDay));
 
-    this.setState(handleViewerLoading);
+    this.setState(handleContextLoading);
 
-    const viewer = await this.props.getViewer({
-      after,
-      before,
-    });
+    const { context, error } = await this.props.getSchedulesContext(after, before);
 
-    this.setState(handleViewerLoaded(viewer));
+    this.setState(handleContextLoaded(context, error));
   }
 
-  renderErrors = () => <p>{'It looks like we ran into a problem! We\'ll look into that.'}</p>
+  renderError = () => <p>{this.state.context.error}</p>
   renderLoader = () => <Loading message="Loading..." />
   renderSchedule = () => (
     <Fragment>
       <WeeklySchedule
         onClick={this.handleOpenShiftCreationModal}
-        shifts={this.state.viewer.data.company.shifts}
+        shifts={this.state.context.shifts}
         startOfWeek={startOfWeek(this.state.selectedDay)}
         testId="weekly-schedule"
-        users={this.state.viewer.data.company.users}
+        users={this.state.context.users}
       />
       <ShiftCreationModal
         {...this.state.shiftCreationModal}
         dismissModal={this.handleCloseShiftCreationModal}
         onAddShift={this.handleAddShift}
         testId="shift-creation-modal"
-        user={findUser(this.state.viewer.data, this.state.shiftCreationModal.userId)}
+        user={this.state.context.users.find(({ id }) => id === this.state.shiftCreationModal.userId)}
       />
     </Fragment>
   )
 
   render() {
-    const { errors, isLoaded } = this.state.viewer;
+    const { error, isLoaded } = this.state.context;
     let body = null;
 
     if (!isLoaded) {
       body = this.renderLoader();
-    } else if (errors) {
-      body = this.renderErrors();
+    } else if (error) {
+      body = this.renderError();
     } else {
       body = this.renderSchedule();
     }

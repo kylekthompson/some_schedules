@@ -5,7 +5,6 @@ AllCops:
   Exclude:
     - db/schema.rb
     - bin/**/*
-    - config/**/*
     - log/**/*
     - node_modules/**/*
     - public/**/*

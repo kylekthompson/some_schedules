@@ -3,44 +3,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
+import { postSignIn as signIn } from 'apis/authentication';
+import { Consumer } from 'components/Authentication';
 import SignInForm from 'components/SignInForm';
+import { redirectedFrom } from 'models/path';
 import { Container } from 'scenes/SignIn/components';
-import { signIn } from 'services/graphql/mutations/signIn';
 
-class SignIn extends React.Component {
+export class SignIn extends React.Component {
   static propTypes = {
+    location: PropTypes.shape({
+      state: PropTypes.shape({
+        from: PropTypes.shape({
+          pathname: PropTypes.string,
+        }),
+      }),
+    }),
     isSignedIn: PropTypes.bool.isRequired,
     requestSignIn: PropTypes.func.isRequired,
     signIn: PropTypes.func,
   };
 
   static defaultProps = {
+    location: {},
     signIn,
   };
 
   state = {
-    errors: {},
+    error: null,
   };
 
   handleSubmit = (form) => {
-    this.props.signIn(form).then(({ data: { signIn: { errors, token } } }) => {
-      if (token) {
-        this.props.requestSignIn(token);
+    this.props.signIn(form).then(({ context, error }) => {
+      if (context && context.isSignedIn) {
+        this.props.requestSignIn(context);
       } else {
         this.setState({
-          errors: errors || {},
+          error,
         });
       }
     });
   }
 
   render() {
-    if (this.props.isSignedIn) { return <Redirect to="/" />; }
+    if (this.props.isSignedIn) { return <Redirect to={redirectedFrom(this.props.location)} />; }
 
     return (
       <Container>
         <SignInForm
-          errors={this.state.errors}
+          error={this.state.error}
           onSubmit={this.handleSubmit}
           testId="sign-in-form"
         />
@@ -49,4 +59,14 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default (props) => (
+  <Consumer
+    render={({ isSignedIn, requestSignIn }) => (
+      <SignIn
+        isSignedIn={isSignedIn}
+        requestSignIn={requestSignIn}
+        {...props}
+      />
+    )}
+  />
+);

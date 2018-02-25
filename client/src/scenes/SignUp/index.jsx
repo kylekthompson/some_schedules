@@ -3,22 +3,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
+import { postSignUp as signUp } from 'apis/authentication';
+import { Consumer } from 'components/Authentication';
 import SignUpForm from 'components/SignUpForm';
+import { redirectedFrom } from 'models/path';
 import { Container } from 'scenes/SignUp/components';
-import { signUp } from 'services/graphql/mutations/signUp';
 
 class SignUp extends React.Component {
   static propTypes = {
+    location: PropTypes.shape({
+      state: PropTypes.shape({
+        from: PropTypes.shape({
+          pathname: PropTypes.string,
+        }),
+      }),
+    }),
     isSignedIn: PropTypes.bool.isRequired,
     requestSignIn: PropTypes.func.isRequired,
     signUp: PropTypes.func,
   };
 
   static defaultProps = {
+    location: {},
     signUp,
   };
 
   state = {
+    error: null,
     errors: {},
   };
 
@@ -26,36 +37,25 @@ class SignUp extends React.Component {
     const { name, slug, ...user } = form;
     const company = { name, slug };
 
-    this.props.signUp({ company, user }).then(({
-      data: {
-        signUp: {
-          companyErrors,
-          errors,
-          userErrors,
-          token,
-        },
-      },
-    }) => {
-      if (token) {
-        this.props.requestSignIn(token);
+    this.props.signUp(user, company).then(({ context, error, errors }) => {
+      if (context && context.isSignedIn) {
+        this.props.requestSignIn(context);
       } else {
         this.setState({
-          errors: {
-            ...(companyErrors || {}),
-            ...(userErrors || {}),
-            ...(errors || {}),
-          },
+          error,
+          errors,
         });
       }
     });
   }
 
   render() {
-    if (this.props.isSignedIn) { return <Redirect to="/" />; }
+    if (this.props.isSignedIn) { return <Redirect to={redirectedFrom(this.props.location)} />; }
 
     return (
       <Container>
         <SignUpForm
+          error={this.state.error}
           errors={this.state.errors}
           onSubmit={this.handleSubmit}
           testId="sign-up-form"
@@ -65,4 +65,14 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default (props) => (
+  <Consumer
+    render={({ isSignedIn, requestSignIn }) => (
+      <SignUp
+        isSignedIn={isSignedIn}
+        requestSignIn={requestSignIn}
+        {...props}
+      />
+    )}
+  />
+);

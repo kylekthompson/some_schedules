@@ -1,4 +1,4 @@
-export { default as AuthenticationContextValue } from 'spec/factories/AuthenticationContextValue';
-export { default as Company } from 'spec/factories/Company';
-export { default as Shift } from 'spec/factories/Shift';
-export { default as User } from 'spec/factories/User';
+export { default as AuthenticationContextValue } from 'spec/factories/authentication-context-value';
+export { default as Company } from 'spec/factories/company';
+export { default as Shift } from 'spec/factories/shift';
+export { default as User } from 'spec/factories/user';

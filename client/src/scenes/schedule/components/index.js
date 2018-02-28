@@ -1,3 +1,3 @@
-export { default as Container } from 'scenes/Schedule/components/Container';
-export { default as ContentContainer } from 'scenes/Schedule/components/ContentContainer';
-export { default as SidebarContainer } from 'scenes/Schedule/components/SidebarContainer';
+export { default as Container } from 'scenes/schedule/components/container';
+export { default as ContentContainer } from 'scenes/schedule/components/content-container';
+export { default as SidebarContainer } from 'scenes/schedule/components/sidebar-container';

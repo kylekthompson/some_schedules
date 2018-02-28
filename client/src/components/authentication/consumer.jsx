@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import Context from 'components/Authentication/Context';
+import Context from 'components/authentication/context';
 
 const Consumer = ({ render }) => (
   <Context.Consumer>

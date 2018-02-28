@@ -2,9 +2,9 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import SignUp from 'scenes/SignUp';
+import SignUp from 'scenes/sign-up';
 import { AuthenticationContextValue } from 'spec/factories';
-import { Provider } from 'spec/mocks/components/Authentication';
+import { Provider } from 'spec/mocks/components/authentication';
 import { findTestId, waitUntil } from 'spec/utilities';
 
 const createSignUp = (callback = () => {}) => {

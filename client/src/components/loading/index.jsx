@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import Container from 'components/Loading/Container';
+import Container from 'components/loading/container';
 
 const Loading = ({ message }) => (
   <Container>

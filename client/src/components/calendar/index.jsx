@@ -2,11 +2,11 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import Container from 'components/Calendar/Container';
-import MonthContainer from 'components/Calendar/MonthContainer';
-import MonthDays from 'components/Calendar/MonthDays';
-import MonthHeader from 'components/Calendar/MonthHeader';
-import Navigation from 'components/Calendar/Navigation';
+import Container from 'components/calendar/container';
+import MonthContainer from 'components/calendar/month-container';
+import MonthDays from 'components/calendar/month-days';
+import MonthHeader from 'components/calendar/month-header';
+import Navigation from 'components/calendar/navigation';
 
 class Calender extends React.Component {
   static propTypes = {

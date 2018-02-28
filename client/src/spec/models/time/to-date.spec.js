@@ -1,5 +1,5 @@
 import { subtractMinutes } from 'models/time';
-import toDate from 'models/time/toDate';
+import toDate from 'models/time/to-date';
 
 describe('toDate()', () => {
   it('works', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import HeaderLinksProvider from 'components/HeaderLinksProvider';
+import HeaderLinksProvider from 'components/header-links-provider';
 
 const mountComponent = (props) => mount((
   <HeaderLinksProvider

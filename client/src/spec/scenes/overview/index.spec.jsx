@@ -3,11 +3,11 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Link, MemoryRouter as Router } from 'react-router-dom';
 
-import Overview from 'scenes/Overview';
-import SignIn from 'scenes/SignIn';
-import SignUp from 'scenes/SignUp';
+import Overview from 'scenes/overview';
+import SignIn from 'scenes/sign-in';
+import SignUp from 'scenes/sign-up';
 import { AuthenticationContextValue } from 'spec/factories';
-import { Provider } from 'spec/mocks/components/Authentication';
+import { Provider } from 'spec/mocks/components/authentication';
 
 const mountComponent = (props = {}, initialRoute = '/app') => mount((
   <Provider value={new AuthenticationContextValue(props.value)}>

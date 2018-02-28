@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import Calendar from 'components/Calendar';
+import Calendar from 'components/calendar';
 
 const Sidebar = ({ onDayClick, selectedDay }) => (
   <Calendar

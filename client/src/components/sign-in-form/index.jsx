@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import Form from 'components/Form';
-import { forceValidation, handleInputBlur, handleInputChange, initialState } from 'components/SignInForm/state';
+import Form from 'components/form';
+import { forceValidation, handleInputBlur, handleInputChange, initialState } from 'components/sign-in-form/state';
 import { formValuesFromState } from 'models/form';
 import { emailValidator } from 'models/validations/email';
 import { passwordValidator } from 'models/validations/password';

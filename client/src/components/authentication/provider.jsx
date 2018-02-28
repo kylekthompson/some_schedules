@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { getContext, postSignOut } from 'apis/authentication';
-import Context from 'components/Authentication/Context';
-import { cache } from 'models/authenticationContext';
+import Context from 'components/authentication/context';
+import { cache } from 'models/authentication-context';
 
 class Provider extends Component {
   static propTypes = {

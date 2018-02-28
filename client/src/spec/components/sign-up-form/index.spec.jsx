@@ -2,8 +2,8 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Form from 'components/Form';
-import SignUpForm from 'components/SignUpForm';
+import Form from 'components/form';
+import SignUpForm from 'components/sign-up-form';
 import { changeValue, findTestId } from 'spec/utilities';
 
 const mountComponent = (props) => mount((

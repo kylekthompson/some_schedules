@@ -2,9 +2,9 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Cell from 'components/WeeklySchedule/Cell';
-import Row from 'components/WeeklySchedule/Row';
-import ShiftComponent from 'components/WeeklySchedule/Shift';
+import Cell from 'components/weekly-schedule/cell';
+import Row from 'components/weekly-schedule/row';
+import ShiftComponent from 'components/weekly-schedule/shift';
 import { constants, startOfWeek } from 'models/time';
 import { Shift, User } from 'spec/factories';
 import { findTestId } from 'spec/utilities';

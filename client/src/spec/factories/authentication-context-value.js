@@ -1,4 +1,4 @@
-import Factory from 'spec/factories/Factory';
+import Factory from 'spec/factories/factory';
 
 class AuthenticationContextValue extends Factory {
   constructor(value = {}) {

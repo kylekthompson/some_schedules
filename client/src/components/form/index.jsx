@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-import Container from 'components/Form/Container';
-import Errors from 'components/Form/Errors';
-import HeaderContainer from 'components/Form/HeaderContainer';
-import Input from 'components/Form/Input';
-import Label from 'components/Form/Label';
-import Submit from 'components/Form/Submit';
-import Subtitle from 'components/Form/Subtitle';
-import Title from 'components/Form/Title';
+import Container from 'components/form/container';
+import Errors from 'components/form/errors';
+import HeaderContainer from 'components/form/header-container';
+import Input from 'components/form/input';
+import Label from 'components/form/label';
+import Submit from 'components/form/submit';
+import Subtitle from 'components/form/subtitle';
+import Title from 'components/form/title';
 
 const Form = styled.form`
   display: flex;

@@ -1,4 +1,4 @@
-import parseInput from 'models/time/parseInput';
+import parseInput from 'models/time/parse-input';
 
 describe('parseInput()', () => {
   it('works', () => {

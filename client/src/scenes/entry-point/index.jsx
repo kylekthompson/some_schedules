@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
-import { Consumer } from 'components/Authentication';
-import PrivateRoute from 'components/PrivateRoute';
-import App from 'scenes/App';
-import Overview from 'scenes/Overview';
+import { Consumer } from 'components/authentication';
+import PrivateRoute from 'components/private-route';
+import App from 'scenes/app';
+import Overview from 'scenes/overview';
 
 export class EntryPoint extends Component {
   static propTypes = {

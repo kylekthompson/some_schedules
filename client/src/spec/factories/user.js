@@ -1,7 +1,7 @@
 import { ofSize } from 'models/array';
-import Company from 'spec/factories/Company';
-import Factory from 'spec/factories/Factory';
-import Shift from 'spec/factories/Shift';
+import Company from 'spec/factories/company';
+import Factory from 'spec/factories/factory';
+import Shift from 'spec/factories/shift';
 
 class User extends Factory {
   constructor(user = {}) {

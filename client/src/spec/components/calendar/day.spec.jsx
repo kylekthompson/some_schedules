@@ -2,10 +2,10 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Day from 'components/Calendar/Day';
-import DayInCurrentMonth from 'components/Calendar/DayInCurrentMonth';
-import DayInOtherMonth from 'components/Calendar/DayInOtherMonth';
-import Today from 'components/Calendar/Today';
+import Day from 'components/calendar/day';
+import DayInCurrentMonth from 'components/calendar/day-in-current-month';
+import DayInOtherMonth from 'components/calendar/day-in-other-month';
+import Today from 'components/calendar/today';
 
 const mountComponent = (props) => {
   const currentMonth = new Date(Date.UTC(2018, 11, 25));

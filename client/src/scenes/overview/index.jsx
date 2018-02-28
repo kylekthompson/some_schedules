@@ -2,9 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Consumer } from 'components/Authentication';
-import Header from 'components/Header';
-import { Container, HeaderLinks, Routes } from 'scenes/Overview/components';
+import { Consumer } from 'components/authentication';
+import Header from 'components/header';
+import { Container, HeaderLinks, Routes } from 'scenes/overview/components';
 
 export const Overview = ({ isSignedIn }) => (
   <Container>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import { Consumer, Provider } from 'components/Authentication';
+import { Consumer, Provider } from 'components/authentication';
 import { waitUntil } from 'spec/utilities';
 
 const mountComponent = (props) => mount((

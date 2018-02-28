@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Submit from 'components/Form/Submit';
+import Submit from 'components/form/submit';
 
 const mountComponent = (props) => mount((
   <Submit

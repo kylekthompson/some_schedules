@@ -1,4 +1,4 @@
-import ofSize from 'models/array/ofSize';
+import ofSize from 'models/array/of-size';
 
 describe('ofSize()', () => {
   it('returns an array of the correct size', () => {

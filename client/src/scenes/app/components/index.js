@@ -1,3 +1,3 @@
-export { default as Container } from 'scenes/App/components/Container';
-export { default as HeaderContainer } from 'scenes/App/components/HeaderContainer';
-export { default as HeaderLinks } from 'scenes/App/components/HeaderLinks';
+export { default as Container } from 'scenes/app/components/container';
+export { default as HeaderContainer } from 'scenes/app/components/header-container';
+export { default as HeaderLinks } from 'scenes/app/components/header-links';

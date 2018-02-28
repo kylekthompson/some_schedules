@@ -1,4 +1,4 @@
-import constants from 'models/authenticationContext/constants';
+import constants from 'models/authentication-context/constants';
 
 const defaultContext = {
   isAdmin: false,

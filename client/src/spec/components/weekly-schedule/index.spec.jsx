@@ -2,8 +2,8 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import WeeklySchedule from 'components/WeeklySchedule';
-import Row from 'components/WeeklySchedule/Row';
+import WeeklySchedule from 'components/weekly-schedule';
+import Row from 'components/weekly-schedule/row';
 import { startOfWeek } from 'models/time';
 import { Shift, User } from 'spec/factories';
 

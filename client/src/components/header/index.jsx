@@ -2,8 +2,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import Container from 'components/Header/Container';
-import Logo from 'components/Header/Logo';
+import Container from 'components/header/container';
+import Logo from 'components/header/logo';
 import { header } from 'models/constants';
 
 const Header = ({ children, theme }) => (

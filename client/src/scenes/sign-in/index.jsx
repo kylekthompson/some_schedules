@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import { postSignIn as signIn } from 'apis/authentication';
-import { Consumer } from 'components/Authentication';
-import SignInForm from 'components/SignInForm';
+import { Consumer } from 'components/authentication';
+import SignInForm from 'components/sign-in-form';
 import { redirectedFrom } from 'models/path';
-import { Container } from 'scenes/SignIn/components';
+import { Container } from 'scenes/sign-in/components';
 
 export class SignIn extends React.Component {
   static propTypes = {

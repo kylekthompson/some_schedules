@@ -2,8 +2,8 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Calendar from 'components/Calendar';
-import Navigation from 'components/Calendar/Navigation';
+import Calendar from 'components/calendar';
+import Navigation from 'components/calendar/navigation';
 
 const mountComponent = (props) => mount((
   <Calendar

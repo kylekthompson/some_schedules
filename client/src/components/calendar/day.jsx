@@ -2,9 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import DayInCurrentMonth from 'components/Calendar/DayInCurrentMonth';
-import DayInOtherMonth from 'components/Calendar/DayInOtherMonth';
-import Today from 'components/Calendar/Today';
+import DayInCurrentMonth from 'components/calendar/day-in-current-month';
+import DayInOtherMonth from 'components/calendar/day-in-other-month';
+import Today from 'components/calendar/today';
 import { format, isSameDay, isSameMonth } from 'models/time';
 
 const Day = ({

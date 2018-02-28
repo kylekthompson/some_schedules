@@ -2,8 +2,8 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Navigation from 'components/Calendar/Navigation';
-import NavigationButton from 'components/Calendar/NavigationButton';
+import Navigation from 'components/calendar/navigation';
+import NavigationButton from 'components/calendar/navigation-button';
 import { addMonths, isEqual, subtractMonths } from 'models/time';
 
 const mountComponent = (props) => mount((

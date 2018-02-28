@@ -3,9 +3,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { current, subtractWeeks } from 'models/time';
-import Schedule from 'scenes/Schedule';
+import Schedule from 'scenes/schedule';
 import { AuthenticationContextValue, User, Shift } from 'spec/factories';
-import { Provider } from 'spec/mocks/components/Authentication';
+import { Provider } from 'spec/mocks/components/authentication';
 import { findTestId, waitUntil } from 'spec/utilities';
 
 const createGetSchedulesContext = (overrides = {}) => {

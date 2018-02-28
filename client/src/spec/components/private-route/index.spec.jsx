@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
 
-import PrivateRoute from 'components/PrivateRoute';
+import PrivateRoute from 'components/private-route';
 
 const Component = () => <p>Component</p>;
 const SignIn = () => <p>Sign In</p>;

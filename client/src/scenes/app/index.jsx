@@ -3,12 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Switch } from 'react-router-dom';
 
-import { Consumer } from 'components/Authentication';
-import Header from 'components/Header';
-import HeaderLinksProvider from 'components/HeaderLinksProvider';
-import PrivateRoute from 'components/PrivateRoute';
-import { Container, HeaderContainer, HeaderLinks } from 'scenes/App/components';
-import Schedule from 'scenes/Schedule';
+import { Consumer } from 'components/authentication';
+import Header from 'components/header';
+import HeaderLinksProvider from 'components/header-links-provider';
+import PrivateRoute from 'components/private-route';
+import { Container, HeaderContainer, HeaderLinks } from 'scenes/app/components';
+import Schedule from 'scenes/schedule';
 import { header } from 'models/constants';
 
 const renderSchedule = (setHeaderLinks) => (props) => (

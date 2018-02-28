@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Errors from 'components/Form/Errors';
+import Errors from 'components/form/errors';
 
 const mountComponent = (props) => mount((
   <Errors

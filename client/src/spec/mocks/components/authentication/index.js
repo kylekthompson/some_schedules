@@ -1,1 +1,1 @@
-export { default as Provider } from 'spec/mocks/components/Authentication/Provider';
+export { default as Provider } from 'spec/mocks/components/authentication/provider';

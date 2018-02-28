@@ -3,13 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { postCreate as createShift } from 'apis/shifts';
-import BackgroundMuter from 'components/ShiftCreationModal/BackgroundMuter';
-import CreateButton from 'components/ShiftCreationModal/CreateButton';
-import DismissButton from 'components/ShiftCreationModal/DismissButton';
-import FontSizeAdjuster from 'components/ShiftCreationModal/FontSizeAdjuster';
-import Modal from 'components/ShiftCreationModal/Modal';
-import Separator from 'components/ShiftCreationModal/Separator';
-import TimeInput from 'components/ShiftCreationModal/TimeInput';
+import BackgroundMuter from 'components/shift-creation-modal/background-muter';
+import CreateButton from 'components/shift-creation-modal/create-button';
+import DismissButton from 'components/shift-creation-modal/dismiss-button';
+import FontSizeAdjuster from 'components/shift-creation-modal/font-size-adjuster';
+import Modal from 'components/shift-creation-modal/modal';
+import Separator from 'components/shift-creation-modal/separator';
+import TimeInput from 'components/shift-creation-modal/time-input';
 import { userPropTypes } from 'models/user';
 import { format, parseInput } from 'models/time';
 

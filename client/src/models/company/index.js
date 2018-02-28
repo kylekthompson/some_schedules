@@ -1,1 +1,1 @@
-export { default as propTypes } from 'models/company/propTypes';
+export { default as propTypes } from 'models/company/prop-types';

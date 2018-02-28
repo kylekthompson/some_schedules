@@ -1,6 +1,6 @@
 import { format } from 'models/time';
-import Factory from 'spec/factories/Factory';
-import User from 'spec/factories/User';
+import Factory from 'spec/factories/factory';
+import User from 'spec/factories/user';
 
 class Shift extends Factory {
   constructor(shift = {}) {

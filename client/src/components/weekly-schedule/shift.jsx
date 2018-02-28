@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import ShiftContainer from 'components/WeeklySchedule/ShiftContainer';
+import ShiftContainer from 'components/weekly-schedule/shift-container';
 import { colors } from 'models/constants';
 import { shiftPropTypes } from 'models/shift';
 import { format, toDate } from 'models/time';

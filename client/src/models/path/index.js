@@ -1,1 +1,1 @@
-export { default as redirectedFrom } from 'models/path/redirectedFrom';
+export { default as redirectedFrom } from 'models/path/redirected-from';

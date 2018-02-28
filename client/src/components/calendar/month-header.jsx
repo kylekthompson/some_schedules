@@ -1,7 +1,7 @@
 import React from 'react';
 
-import HeaderDay from 'components/Calendar/HeaderDay';
-import Week from 'components/Calendar/Week';
+import HeaderDay from 'components/calendar/header-day';
+import Week from 'components/calendar/week';
 
 const MonthHeader = () => (
   <Week>

@@ -3,9 +3,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Link, MemoryRouter as Router, Route, Switch } from 'react-router-dom';
 
-import App from 'scenes/App';
+import App from 'scenes/app';
 import { AuthenticationContextValue } from 'spec/factories';
-import { Provider } from 'spec/mocks/components/Authentication';
+import { Provider } from 'spec/mocks/components/authentication';
 
 const mountComponent = (props = {}) => mount((
   <Provider value={new AuthenticationContextValue(props.value)}>

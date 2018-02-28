@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import { postSignUp as signUp } from 'apis/authentication';
-import { Consumer } from 'components/Authentication';
-import SignUpForm from 'components/SignUpForm';
+import { Consumer } from 'components/authentication';
+import SignUpForm from 'components/sign-up-form';
 import { redirectedFrom } from 'models/path';
-import { Container } from 'scenes/SignUp/components';
+import { Container } from 'scenes/sign-up/components';
 
 class SignUp extends React.Component {
   static propTypes = {

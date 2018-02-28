@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 
-import Container from 'components/WeeklySchedule/Container';
-import Header from 'components/WeeklySchedule/Header';
-import Row from 'components/WeeklySchedule/Row';
-import Scroller from 'components/WeeklySchedule/Scroller';
+import Container from 'components/weekly-schedule/container';
+import Header from 'components/weekly-schedule/header';
+import Row from 'components/weekly-schedule/row';
+import Scroller from 'components/weekly-schedule/scroller';
 import {
   shiftPropTypes,
   shiftsForUserId,

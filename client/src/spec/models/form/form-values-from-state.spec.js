@@ -1,4 +1,4 @@
-import formValuesFromState from 'models/form/formValuesFromState';
+import formValuesFromState from 'models/form/form-values-from-state';
 
 describe('formValuesFromState()', () => {
   it('gets the correct values', () => {

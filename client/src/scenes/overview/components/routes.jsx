@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 
-import About from 'components/About';
-import SignIn from 'scenes/SignIn';
-import SignUp from 'scenes/SignUp';
+import About from 'components/about';
+import SignIn from 'scenes/sign-in';
+import SignUp from 'scenes/sign-up';
 
 const publicRoutes = [
   {

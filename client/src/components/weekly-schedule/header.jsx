@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import EmptyHeaderCell from 'components/WeeklySchedule/EmptyHeaderCell';
-import HeaderCell from 'components/WeeklySchedule/HeaderCell';
-import HeaderDay from 'components/WeeklySchedule/HeaderDay';
+import EmptyHeaderCell from 'components/weekly-schedule/empty-header-cell';
+import HeaderCell from 'components/weekly-schedule/header-cell';
+import HeaderDay from 'components/weekly-schedule/header-day';
 import { ofSize } from 'models/array';
 import { colors } from 'models/constants';
 import { addDays, constants, getDate, getMonth } from 'models/time';

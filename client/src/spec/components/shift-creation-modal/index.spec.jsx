@@ -2,10 +2,10 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import ShiftCreationModal from 'components/ShiftCreationModal';
-import CreateButton from 'components/ShiftCreationModal/CreateButton';
-import Modal from 'components/ShiftCreationModal/Modal';
-import TimeInput from 'components/ShiftCreationModal/TimeInput';
+import ShiftCreationModal from 'components/shift-creation-modal';
+import CreateButton from 'components/shift-creation-modal/create-button';
+import Modal from 'components/shift-creation-modal/modal';
+import TimeInput from 'components/shift-creation-modal/time-input';
 import { format, setHours } from 'models/time';
 import { User } from 'spec/factories';
 

@@ -1,4 +1,4 @@
-import shiftsForUserId from 'models/shift/shiftsForUserId';
+import shiftsForUserId from 'models/shift/shifts-for-user-id';
 import { Shift } from 'spec/factories';
 
 describe('shiftsForUserId()', () => {

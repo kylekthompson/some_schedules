@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import Cell from 'components/WeeklySchedule/Cell';
+import Cell from 'components/weekly-schedule/cell';
 
 export default styled(Cell)`
   height: 60px;

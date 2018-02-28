@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Link from 'components/Header/Link';
+import Link from 'components/header/link';
 
 const SignedInLinks = () => (
   <Fragment>

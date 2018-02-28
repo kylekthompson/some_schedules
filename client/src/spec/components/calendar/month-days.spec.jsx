@@ -2,9 +2,9 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Day from 'components/Calendar/Day';
-import MonthDays from 'components/Calendar/MonthDays';
-import Week from 'components/Calendar/Week';
+import Day from 'components/calendar/day';
+import MonthDays from 'components/calendar/month-days';
+import Week from 'components/calendar/week';
 import { constants } from 'models/time';
 
 const mountComponent = (props) => mount((

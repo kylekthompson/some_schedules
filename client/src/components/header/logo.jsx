@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Link from 'components/Header/Link';
+import Link from 'components/header/link';
 import { header } from 'models/constants';
 import { fonts, links } from 'models/styles';
 

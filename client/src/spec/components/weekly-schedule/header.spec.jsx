@@ -2,8 +2,8 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Header from 'components/WeeklySchedule/Header';
-import HeaderDay from 'components/WeeklySchedule/HeaderDay';
+import Header from 'components/weekly-schedule/header';
+import HeaderDay from 'components/weekly-schedule/header-day';
 import { addDays, constants } from 'models/time';
 
 const mountComponent = (props) => mount((

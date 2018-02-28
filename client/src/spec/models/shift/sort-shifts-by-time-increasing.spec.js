@@ -1,4 +1,4 @@
-import sortShiftsByTimeIncreasing from 'models/shift/sortShiftsByTimeIncreasing';
+import sortShiftsByTimeIncreasing from 'models/shift/sort-shifts-by-time-increasing';
 import { addDays, addHours, format } from 'models/time';
 import { Shift } from 'spec/factories';
 

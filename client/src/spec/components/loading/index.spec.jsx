@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Loading from 'components/Loading';
+import Loading from 'components/loading';
 
 const mountComponent = (props) => mount((
   <Loading

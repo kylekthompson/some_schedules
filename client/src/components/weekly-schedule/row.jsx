@@ -2,10 +2,10 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import Cell from 'components/WeeklySchedule/Cell';
-import NameCell from 'components/WeeklySchedule/NameCell';
-import RowContainer from 'components/WeeklySchedule/RowContainer';
-import Shift from 'components/WeeklySchedule/Shift';
+import Cell from 'components/weekly-schedule/cell';
+import NameCell from 'components/weekly-schedule/name-cell';
+import RowContainer from 'components/weekly-schedule/row-container';
+import Shift from 'components/weekly-schedule/shift';
 import { ofSize } from 'models/array';
 import { shiftPropTypes, shiftsForDay } from 'models/shift';
 import { addDays, constants, getDate, getDayOfWeek, getMonth } from 'models/time';

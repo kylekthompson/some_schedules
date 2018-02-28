@@ -1,6 +1,6 @@
 import { ofSize } from 'models/array';
-import Factory from 'spec/factories/Factory';
-import User from 'spec/factories/User';
+import Factory from 'spec/factories/factory';
+import User from 'spec/factories/user';
 
 class Company extends Factory {
   constructor(company = {}) {

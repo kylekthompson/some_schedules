@@ -3,12 +3,12 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { getContext as getSchedulesContext } from 'apis/schedules';
-import Loading from 'components/Loading';
-import WeeklySchedule from 'components/WeeklySchedule';
-import ScheduleSidebar from 'components/ScheduleSidebar';
-import ShiftCreationModal from 'components/ShiftCreationModal';
+import Loading from 'components/loading';
+import WeeklySchedule from 'components/weekly-schedule';
+import ScheduleSidebar from 'components/schedule-sidebar';
+import ShiftCreationModal from 'components/shift-creation-modal';
 import { endOfWeek, format, startOfWeek } from 'models/time';
-import { Container, ContentContainer, SidebarContainer } from 'scenes/Schedule/components';
+import { Container, ContentContainer, SidebarContainer } from 'scenes/schedule/components';
 import {
   handleAddShift,
   handleCloseShiftCreationModal,
@@ -17,7 +17,7 @@ import {
   handleContextLoaded,
   handleContextLoading,
   initialState,
-} from 'scenes/Schedule/state';
+} from 'scenes/schedule/state';
 
 class Schedule extends Component {
   static propTypes = {

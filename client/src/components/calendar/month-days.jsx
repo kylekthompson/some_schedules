@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 
 import PropTypes from 'prop-types';
 
-import Day from 'components/Calendar/Day';
-import Week from 'components/Calendar/Week';
+import Day from 'components/calendar/day';
+import Week from 'components/calendar/week';
 import { ofSize } from 'models/array';
 import { addDays, constants, getDate, getMonth, startOfMonth, startOfWeek } from 'models/time';
 

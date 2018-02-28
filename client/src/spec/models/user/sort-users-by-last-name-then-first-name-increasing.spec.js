@@ -1,4 +1,4 @@
-import sortUsersByLastNameThenFirstNameIncreasing from 'models/user/sortUsersByLastNameThenFirstNameIncreasing';
+import sortUsersByLastNameThenFirstNameIncreasing from 'models/user/sort-users-by-last-name-then-first-name-increasing';
 import { User } from 'spec/factories';
 
 describe('sortUsersByLastNameThenFirstNameIncreasing()', () => {

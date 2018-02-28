@@ -1,5 +1,5 @@
-import cache from 'models/authenticationContext/cache';
-import constants from 'models/authenticationContext/constants';
+import cache from 'models/authentication-context/cache';
+import constants from 'models/authentication-context/constants';
 
 describe('clear()', () => {
   let removeItem;

@@ -1,4 +1,4 @@
-import shiftsForDay from 'models/shift/shiftsForDay';
+import shiftsForDay from 'models/shift/shifts-for-day';
 import { addDays, addHours, format } from 'models/time';
 import { Shift } from 'spec/factories';
 

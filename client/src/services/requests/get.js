@@ -2,14 +2,14 @@ import { decamelizeKeys } from 'humps';
 
 import { fetcher, sharedOptionsFactory } from 'services/requests/helpers';
 
-const buildQueryString = (params) =>
-  Object
-    .keys(decamelizeKeys(params))
-    .reduce((query, param) => `${query}&${param}=${params[param]}`, '')
-    .replace('&', '?');
+const buildUrl = (urlString, params) => {
+  const url = new URL(urlString.replace(/\/$/, ''));
+  Object.keys(params).forEach((param) => url.searchParams.set(decamelizeKeys(param), params[param]));
+  return url;
+};
 
 const get = (url, params = {}) => {
-  const request = new Request(`${url}${buildQueryString(params)}`, {
+  const request = new Request(buildUrl(url, params), {
     ...sharedOptionsFactory(),
     method: 'GET',
   });

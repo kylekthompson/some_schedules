@@ -5,18 +5,16 @@ import { mount } from 'enzyme';
 import { Consumer, Provider } from 'components/authentication';
 import { waitUntil } from 'spec/utilities';
 
-const mountComponent = (props) => mount((
-  <Provider
-    getContext={jest.fn().mockReturnValue(Promise.resolve({ context: {} }))}
-    postSignOut={jest.fn().mockReturnValue(Promise.resolve())}
-    {...props}
-  >
-    <Consumer
-      render={() => null}
+const mountComponent = (props) =>
+  mount(
+    <Provider
+      getContext={jest.fn().mockReturnValue(Promise.resolve({ context: {} }))}
+      postSignOut={jest.fn().mockReturnValue(Promise.resolve())}
       {...props}
-    />
-  </Provider>
-));
+    >
+      <Consumer render={() => null} {...props} />
+    </Provider>,
+  );
 
 describe('<Consumer />', () => {
   it('renders using the render prop', () => {
@@ -33,13 +31,15 @@ describe('<Consumer />', () => {
     mountComponent({ render });
 
     expect(render).toHaveBeenCalledTimes(1);
-    expect(render).toHaveBeenCalledWith(expect.objectContaining({
-      isAdmin: expect.any(Boolean),
-      isSignedIn: expect.any(Boolean),
-      requestSignIn: expect.any(Function),
-      requestSignOut: expect.any(Function),
-      role: null,
-    }));
+    expect(render).toHaveBeenCalledWith(
+      expect.objectContaining({
+        isAdmin: expect.any(Boolean),
+        isSignedIn: expect.any(Boolean),
+        requestSignIn: expect.any(Function),
+        requestSignOut: expect.any(Function),
+        role: null,
+      }),
+    );
   });
 
   describe('rendering', () => {
@@ -61,13 +61,15 @@ describe('<Consumer />', () => {
 
       expect(cache.get).toHaveBeenCalledTimes(1);
       expect(render).toHaveBeenCalledTimes(1);
-      expect(render).toHaveBeenCalledWith(expect.objectContaining({
-        isAdmin: false,
-        isSignedIn: true,
-        requestSignIn: expect.any(Function),
-        requestSignOut: expect.any(Function),
-        role: 'role',
-      }));
+      expect(render).toHaveBeenCalledWith(
+        expect.objectContaining({
+          isAdmin: false,
+          isSignedIn: true,
+          requestSignIn: expect.any(Function),
+          requestSignOut: expect.any(Function),
+          role: 'role',
+        }),
+      );
     });
   });
 
@@ -100,13 +102,15 @@ describe('<Consumer />', () => {
 
       expect(cache.set).toHaveBeenCalledTimes(1);
       expect(render).toHaveBeenCalledTimes(2);
-      expect(render).toHaveBeenCalledWith(expect.objectContaining({
-        isAdmin: false,
-        isSignedIn: false,
-        requestSignIn: expect.any(Function),
-        requestSignOut: expect.any(Function),
-        role: null,
-      }));
+      expect(render).toHaveBeenCalledWith(
+        expect.objectContaining({
+          isAdmin: false,
+          isSignedIn: false,
+          requestSignIn: expect.any(Function),
+          requestSignOut: expect.any(Function),
+          role: null,
+        }),
+      );
     });
   });
 
@@ -137,13 +141,15 @@ describe('<Consumer />', () => {
 
       expect(cache.set).toHaveBeenCalledTimes(2);
       expect(render).toHaveBeenCalledTimes(3);
-      expect(render).toHaveBeenCalledWith(expect.objectContaining({
-        isAdmin: true,
-        isSignedIn: true,
-        requestSignIn: expect.any(Function),
-        requestSignOut: expect.any(Function),
-        role: 'role',
-      }));
+      expect(render).toHaveBeenCalledWith(
+        expect.objectContaining({
+          isAdmin: true,
+          isSignedIn: true,
+          requestSignIn: expect.any(Function),
+          requestSignOut: expect.any(Function),
+          role: 'role',
+        }),
+      );
     });
   });
 
@@ -170,13 +176,15 @@ describe('<Consumer />', () => {
 
       expect(cache.clear).toHaveBeenCalledTimes(1);
       expect(render).toHaveBeenCalledTimes(3);
-      expect(render).toHaveBeenCalledWith(expect.objectContaining({
-        isAdmin: false,
-        isSignedIn: false,
-        requestSignIn: expect.any(Function),
-        requestSignOut: expect.any(Function),
-        role: null,
-      }));
+      expect(render).toHaveBeenCalledWith(
+        expect.objectContaining({
+          isAdmin: false,
+          isSignedIn: false,
+          requestSignIn: expect.any(Function),
+          requestSignOut: expect.any(Function),
+          role: null,
+        }),
+      );
     });
   });
 });

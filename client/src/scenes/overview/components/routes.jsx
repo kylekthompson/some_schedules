@@ -25,19 +25,13 @@ const publicRoutes = [
 ];
 
 class Routes extends Component {
-  renderPublicRoutes = () => publicRoutes.map((route) => (
-    <Route
-      key={`public-${route.path}`}
-      {...route}
-    />
-  ))
+  renderPublicRoutes = () =>
+    publicRoutes.map((route) => (
+      <Route key={`public-${route.path}`} {...route} />
+    ));
 
   render() {
-    return (
-      <Switch>
-        {this.renderPublicRoutes()}
-      </Switch>
-    );
+    return <Switch>{this.renderPublicRoutes()}</Switch>;
   }
 }
 

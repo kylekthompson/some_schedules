@@ -49,32 +49,39 @@ class ShiftCreationModal extends React.Component {
 
   setModalRef = (ref) => {
     this.modal = ref;
-  }
+  };
 
   parseTimesInput = () => {
-    const [startTime, endTime] = parseInput(this.props.day, this.state.timesInput);
+    const [startTime, endTime] = parseInput(
+      this.props.day,
+      this.state.timesInput,
+    );
 
     if (startTime && endTime) {
       this.setState({
         endTime,
         startTime,
-        timesInput: `${format.forSchedule(startTime)} - ${format.forSchedule(endTime)}`,
+        timesInput: `${format.forSchedule(startTime)} - ${format.forSchedule(
+          endTime,
+        )}`,
       });
     } else {
       this.setState({
         timesInput: '',
       });
     }
-  }
+  };
 
   handleOutsideClick = (event) => {
-    if (!this.modal) { return; }
+    if (!this.modal) {
+      return;
+    }
 
     const isInsideClick = this.modal.contains(event.target);
     if (!isInsideClick) {
       this.props.dismissModal();
     }
-  }
+  };
 
   handleTimesInputChange = (event) => {
     this.setState({
@@ -82,36 +89,41 @@ class ShiftCreationModal extends React.Component {
       startTime: undefined,
       timesInput: event.currentTarget.value,
     });
-  }
+  };
 
   handleShiftCreation = () => {
     if (this.state.startTime && this.state.endTime) {
-      this.props.createShift(this.props.user, {
-        endTime: format.forServer(this.state.endTime),
-        startTime: format.forServer(this.state.startTime),
-      }).then(({ shift }) => {
-        if (shift) {
-          this.setState({
-            endTime: null,
-            startTime: null,
-            timesInput: '',
-          });
-          this.props.onAddShift(shift);
-          this.props.dismissModal();
-        }
-      });
+      this.props
+        .createShift(this.props.user, {
+          endTime: format.forServer(this.state.endTime),
+          startTime: format.forServer(this.state.startTime),
+        })
+        .then(({ shift }) => {
+          if (shift) {
+            this.setState({
+              endTime: null,
+              startTime: null,
+              timesInput: '',
+            });
+            this.props.onAddShift(shift);
+            this.props.dismissModal();
+          }
+        });
     }
-  }
+  };
 
   render() {
-    if (!this.props.visible) { return null; }
+    if (!this.props.visible) {
+      return null;
+    }
 
     return (
       <div>
         <Modal innerRef={this.setModalRef} x={this.props.x} y={this.props.y}>
           <div>
             <FontSizeAdjuster fontSize={18}>
-              New shift for {this.props.user.firstName} {this.props.user.lastName}
+              New shift for {this.props.user.firstName}{' '}
+              {this.props.user.lastName}
             </FontSizeAdjuster>
             <DismissButton onClick={this.props.dismissModal} />
           </div>
@@ -131,7 +143,7 @@ class ShiftCreationModal extends React.Component {
             onClick={this.handleShiftCreation}
             onMouseEnter={this.parseTimesInput}
           >
-           Create
+            Create
           </CreateButton>
         </Modal>
         <BackgroundMuter />

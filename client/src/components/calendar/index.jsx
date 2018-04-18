@@ -30,7 +30,7 @@ class Calender extends React.Component {
     this.setState({
       currentMonth: newMonth,
     });
-  }
+  };
 
   render() {
     const { onDayClick, selectedDay } = this.props;

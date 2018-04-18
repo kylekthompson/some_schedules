@@ -18,7 +18,7 @@ class Submit extends Component {
   handleClick = (event) => {
     event.target.blur();
     this.props.onClick(event);
-  }
+  };
 
   render() {
     const { onClick, ...rest } = this.props;
@@ -67,7 +67,9 @@ export default styled(Submit)`
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    ${''/* this is a gross hack to remove the yellow autofill background color */}
+    ${
+      '' /* this is a gross hack to remove the yellow autofill background color */
+    }
     transition: color 9999s ease-out, background-color 9999s ease-out;
   }
 `;

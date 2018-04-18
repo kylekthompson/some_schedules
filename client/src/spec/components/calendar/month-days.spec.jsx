@@ -7,14 +7,15 @@ import MonthDays from 'components/calendar/month-days';
 import Week from 'components/calendar/week';
 import { constants } from 'models/time';
 
-const mountComponent = (props) => mount((
-  <MonthDays
-    currentMonth={new Date(Date.UTC(2018, 11, 25))}
-    selectedDay={new Date(Date.UTC(2018, 11, 25))}
-    onDayClick={() => () => {}}
-    {...props}
-  />
-));
+const mountComponent = (props) =>
+  mount(
+    <MonthDays
+      currentMonth={new Date(Date.UTC(2018, 11, 25))}
+      selectedDay={new Date(Date.UTC(2018, 11, 25))}
+      onDayClick={() => () => {}}
+      {...props}
+    />,
+  );
 
 describe('<MonthDays />', () => {
   it('renders the correct number of weeks', () => {
@@ -26,7 +27,9 @@ describe('<MonthDays />', () => {
   it('renders the correct number of days', () => {
     const wrapper = mountComponent();
 
-    expect(wrapper.find(Day)).toHaveLength(constants.DAYS_IN_WEEK * constants.WEEKS_IN_CALENDAR);
+    expect(wrapper.find(Day)).toHaveLength(
+      constants.DAYS_IN_WEEK * constants.WEEKS_IN_CALENDAR,
+    );
   });
 
   it('calls onDayClick() when any day is clicked', () => {
@@ -37,6 +40,8 @@ describe('<MonthDays />', () => {
 
     wrapper.find(Day).forEach((day) => day.simulate('click'));
 
-    expect(onClick).toHaveBeenCalledTimes(constants.DAYS_IN_WEEK * constants.WEEKS_IN_CALENDAR);
+    expect(onClick).toHaveBeenCalledTimes(
+      constants.DAYS_IN_WEEK * constants.WEEKS_IN_CALENDAR,
+    );
   });
 });

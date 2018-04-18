@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 import Calendar from 'components/calendar';
 
 const Sidebar = ({ onDayClick, selectedDay }) => (
-  <Calendar
-    onDayClick={onDayClick}
-    selectedDay={selectedDay}
-  />
+  <Calendar onDayClick={onDayClick} selectedDay={selectedDay} />
 );
 
 Sidebar.propTypes = {

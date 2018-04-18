@@ -4,12 +4,8 @@ import { mount } from 'enzyme';
 
 import Errors from 'components/form/errors';
 
-const mountComponent = (props) => mount((
-  <Errors
-    errors={['error']}
-    {...props}
-  />
-));
+const mountComponent = (props) =>
+  mount(<Errors errors={['error']} {...props} />);
 
 describe('<Errors />', () => {
   it('renders the first error of the errors passed in', () => {

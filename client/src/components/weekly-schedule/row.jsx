@@ -8,7 +8,13 @@ import RowContainer from 'components/weekly-schedule/row-container';
 import Shift from 'components/weekly-schedule/shift';
 import { ofSize } from 'models/array';
 import { shiftPropTypes, shiftsForDay } from 'models/shift';
-import { addDays, constants, getDate, getDayOfWeek, getMonth } from 'models/time';
+import {
+  addDays,
+  constants,
+  getDate,
+  getDayOfWeek,
+  getMonth,
+} from 'models/time';
 import { userPropTypes } from 'models/user';
 
 class Row extends React.Component {
@@ -25,19 +31,15 @@ class Row extends React.Component {
       <p>{this.props.user.firstName}</p>
       <p>{this.props.user.lastName}</p>
     </NameCell>
-  )
+  );
 
-  renderWeekdayCells = () => ofSize(constants.DAYS_IN_WEEK)
-    .map((day) => addDays(this.props.startOfWeek, day))
-    .map(this.renderWeekdayCell)
+  renderWeekdayCells = () =>
+    ofSize(constants.DAYS_IN_WEEK)
+      .map((day) => addDays(this.props.startOfWeek, day))
+      .map(this.renderWeekdayCell);
 
   renderWeekdayCell = (day) => {
-    const {
-      onCellClick,
-      shifts,
-      sortShifts,
-      user,
-    } = this.props;
+    const { onCellClick, shifts, sortShifts, user } = this.props;
 
     const shiftsForToday = sortShifts(shiftsForDay(shifts, day));
     return (
@@ -49,7 +51,7 @@ class Row extends React.Component {
         {shiftsForToday.map((shift) => <Shift key={shift.id} shift={shift} />)}
       </Cell>
     );
-  }
+  };
 
   render() {
     return (

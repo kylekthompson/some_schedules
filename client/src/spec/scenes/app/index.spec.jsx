@@ -7,28 +7,20 @@ import App from 'scenes/app';
 import { AuthenticationContextValue } from 'spec/factories';
 import { Provider } from 'spec/mocks/components/authentication';
 
-const mountComponent = (props = {}) => mount((
-  <Provider value={new AuthenticationContextValue(props.value)}>
-    <Router initialEntries={['/app']}>
-      <Switch>
-        <Route
-          path="/app"
-          render={(routeProps) => (
-            <App
-              {...routeProps}
-              {...props}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/"
-          render={() => null}
-        />
-      </Switch>
-    </Router>
-  </Provider>
-));
+const mountComponent = (props = {}) =>
+  mount(
+    <Provider value={new AuthenticationContextValue(props.value)}>
+      <Router initialEntries={['/app']}>
+        <Switch>
+          <Route
+            path="/app"
+            render={(routeProps) => <App {...routeProps} {...props} />}
+          />
+          <Route exact path="/" render={() => null} />
+        </Switch>
+      </Router>
+    </Provider>,
+  );
 
 describe('<App />', () => {
   describe('when signed in', () => {
@@ -52,7 +44,11 @@ describe('<App />', () => {
           },
         });
 
-        wrapper.find(Link).filterWhere((link) => link.props().onClick === requestSignOut).props().onClick();
+        wrapper
+          .find(Link)
+          .filterWhere((link) => link.props().onClick === requestSignOut)
+          .props()
+          .onClick();
 
         expect(requestSignOut).toHaveBeenCalledTimes(1);
       });

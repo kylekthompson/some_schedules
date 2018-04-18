@@ -7,24 +7,21 @@ import PrivateRoute from 'components/private-route';
 
 const Component = () => <p>Component</p>;
 const SignIn = () => <p>Sign In</p>;
-const mountComponent = (props) => mount((
-  <Router initialEntries={['/private']}>
-    <Switch>
-      <PrivateRoute
-        component={Component}
-        exact
-        isSignedIn={false}
-        path="/private"
-        {...props}
-      />
-      <Route
-        component={SignIn}
-        exact
-        path="/sign-in"
-      />
-    </Switch>
-  </Router>
-));
+const mountComponent = (props) =>
+  mount(
+    <Router initialEntries={['/private']}>
+      <Switch>
+        <PrivateRoute
+          component={Component}
+          exact
+          isSignedIn={false}
+          path="/private"
+          {...props}
+        />
+        <Route component={SignIn} exact path="/sign-in" />
+      </Switch>
+    </Router>,
+  );
 
 describe('<PrivateRoute />', () => {
   describe('when signed in', () => {

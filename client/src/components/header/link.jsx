@@ -7,9 +7,7 @@ import styled from 'styled-components';
 import { header } from 'models/constants';
 import { fonts, links } from 'models/styles';
 
-const HeaderLink = ({ theme, ...rest }) => (
-  <Link {...rest} />
-);
+const HeaderLink = ({ theme, ...rest }) => <Link {...rest} />;
 
 HeaderLink.propTypes = {
   theme: PropTypes.oneOf([header.DARK_THEME, header.LIGHT_THEME]),
@@ -20,8 +18,7 @@ HeaderLink.defaultProps = {
 };
 
 export default styled(HeaderLink)`
-  ${fonts.regular}
-  ${({ theme }) => {
+  ${fonts.regular} ${({ theme }) => {
     if (theme === header.DARK_THEME) {
       return links.darkLink;
     }

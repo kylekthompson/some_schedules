@@ -15,10 +15,6 @@ const Button = styled.a`
   }
 `;
 
-const DismissButton = (props) => (
-  <Button {...props}>
-    &times;
-  </Button>
-);
+const DismissButton = (props) => <Button {...props}>&times;</Button>;
 
 export default DismissButton;

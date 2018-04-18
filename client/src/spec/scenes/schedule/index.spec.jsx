@@ -13,23 +13,26 @@ const createGetSchedulesContext = (overrides = {}) => {
   const user = overrides.user || new User();
   shift.user = user;
 
-  return jest.fn().mockReturnValue(Promise.resolve({
-    context: {
-      shifts: [shift],
-      users: [user],
-    },
-  }));
+  return jest.fn().mockReturnValue(
+    Promise.resolve({
+      context: {
+        shifts: [shift],
+        users: [user],
+      },
+    }),
+  );
 };
 
-const mountComponent = (props = {}) => mount((
-  <Provider value={new AuthenticationContextValue(props.value)}>
-    <Schedule
-      getSchedulesContext={createGetSchedulesContext()}
-      setHeaderLinks={() => {}}
-      {...props}
-    />
-  </Provider>
-));
+const mountComponent = (props = {}) =>
+  mount(
+    <Provider value={new AuthenticationContextValue(props.value)}>
+      <Schedule
+        getSchedulesContext={createGetSchedulesContext()}
+        setHeaderLinks={() => {}}
+        {...props}
+      />
+    </Provider>,
+  );
 
 describe('<Schedule />', () => {
   describe('changing weeks', () => {
@@ -42,7 +45,9 @@ describe('<Schedule />', () => {
 
       expect(getSchedulesContext).toHaveBeenCalledTimes(1);
 
-      findTestId(wrapper, 'schedule-sidebar').props().onDayClick(newDay)();
+      findTestId(wrapper, 'schedule-sidebar')
+        .props()
+        .onDayClick(newDay)();
 
       expect(getSchedulesContext).toHaveBeenCalledTimes(2);
     });
@@ -65,10 +70,14 @@ describe('<Schedule />', () => {
       event.clientX = 0;
       event.clientY = 0;
 
-      findTestId(wrapper, 'weekly-schedule').props().onClick(user.id, new Date(Date.UTC(2018, 11, 25)))(event);
+      findTestId(wrapper, 'weekly-schedule')
+        .props()
+        .onClick(user.id, new Date(Date.UTC(2018, 11, 25)))(event);
       wrapper.update();
 
-      expect(findTestId(wrapper, 'shift-creation-modal').props().visible).toEqual(true);
+      expect(
+        findTestId(wrapper, 'shift-creation-modal').props().visible,
+      ).toEqual(true);
       done();
     });
   });

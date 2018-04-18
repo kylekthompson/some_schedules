@@ -12,7 +12,7 @@ class HeaderLinksProvider extends React.Component {
     headerLinks: this.props.initialHeaderLinks,
   };
 
-  handleSetHeaderLinks = (headerLinks) => this.setState({ headerLinks })
+  handleSetHeaderLinks = (headerLinks) => this.setState({ headerLinks });
 
   render() {
     return this.props.render({

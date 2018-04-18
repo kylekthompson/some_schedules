@@ -5,13 +5,14 @@ import { mount } from 'enzyme';
 import Calendar from 'components/calendar';
 import Navigation from 'components/calendar/navigation';
 
-const mountComponent = (props) => mount((
-  <Calendar
-    selectedDay={new Date(Date.UTC(2018, 11, 25))}
-    onDayClick={() => () => {}}
-    {...props}
-  />
-));
+const mountComponent = (props) =>
+  mount(
+    <Calendar
+      selectedDay={new Date(Date.UTC(2018, 11, 25))}
+      onDayClick={() => () => {}}
+      {...props}
+    />,
+  );
 
 describe('<Calendar />', () => {
   it('correctly sets the initial state', () => {
@@ -28,7 +29,10 @@ describe('<Calendar />', () => {
       const newMonth = new Date(Date.UTC(2018, 1, 25));
       const wrapper = mountComponent();
 
-      wrapper.find(Navigation).props().onMonthChange(newMonth)();
+      wrapper
+        .find(Navigation)
+        .props()
+        .onMonthChange(newMonth)();
 
       expect(wrapper.state().currentMonth).toEqual(newMonth);
     });

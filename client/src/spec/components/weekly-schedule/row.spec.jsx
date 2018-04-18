@@ -12,7 +12,7 @@ import { findTestId } from 'spec/utilities';
 const mountComponent = (props) => {
   const user = new User();
   const shift = new Shift({ user });
-  return mount((
+  return mount(
     <Row
       onCellClick={() => () => {}}
       shifts={[shift]}
@@ -20,8 +20,8 @@ const mountComponent = (props) => {
       startOfWeek={startOfWeek(new Date(Date.UTC(2018, 11, 25)))}
       user={user}
       {...props}
-    />
-  ));
+    />,
+  );
 };
 
 describe('<Row />', () => {
@@ -33,7 +33,11 @@ describe('<Row />', () => {
 
   it('renders all of the shifts', () => {
     const user = new User();
-    const shifts = [new Shift({ user }), new Shift({ user }), new Shift({ user })];
+    const shifts = [
+      new Shift({ user }),
+      new Shift({ user }),
+      new Shift({ user }),
+    ];
     const wrapper = mountComponent({
       shifts,
       user,
@@ -53,7 +57,9 @@ describe('<Row />', () => {
         user,
       });
 
-      findTestId(wrapper, `user-${user.id}-6`).props().onClick();
+      findTestId(wrapper, `user-${user.id}-6`)
+        .props()
+        .onClick();
 
       expect(onCellClick).toHaveBeenCalledTimes(1);
     });

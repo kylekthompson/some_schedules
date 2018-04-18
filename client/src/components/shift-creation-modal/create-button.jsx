@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const CreateButton = styled.button`
-  background-color: #FD4B00;
-  border: 1px solid #FD4B00;
+  background-color: #fd4b00;
+  border: 1px solid #fd4b00;
   border-radius: 4px;
   color: white;
   cursor: pointer;
@@ -14,11 +14,14 @@ const CreateButton = styled.button`
 
   ${({ disabled }) => {
     if (disabled) {
-      return css`border-color: lightgrey; background-color: lightgrey;`;
+      return css`
+        border-color: lightgrey;
+        background-color: lightgrey;
+      `;
     }
 
     return '';
-  }}
+  }};
 `;
 
 CreateButton.propTypes = {

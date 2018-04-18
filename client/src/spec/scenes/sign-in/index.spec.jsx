@@ -14,20 +14,20 @@ const createSignIn = (callback = () => {}) => {
     },
   };
 
-  return jest.fn().mockReturnValue(new Promise((resolve) => {
-    resolve(data);
-    callback();
-  }));
+  return jest.fn().mockReturnValue(
+    new Promise((resolve) => {
+      resolve(data);
+      callback();
+    }),
+  );
 };
 
-const mountComponent = (props) => mount((
-  <Provider value={new AuthenticationContextValue(props.value)}>
-    <SignIn
-      signIn={createSignIn()}
-      {...props}
-    />
-  </Provider>
-));
+const mountComponent = (props) =>
+  mount(
+    <Provider value={new AuthenticationContextValue(props.value)}>
+      <SignIn signIn={createSignIn()} {...props} />
+    </Provider>,
+  );
 
 describe('<SignIn />', () => {
   describe('signing in', () => {
@@ -37,7 +37,9 @@ describe('<SignIn />', () => {
         signIn,
       });
 
-      findTestId(wrapper, 'sign-in-form').props().onSubmit();
+      findTestId(wrapper, 'sign-in-form')
+        .props()
+        .onSubmit();
 
       expect(signIn).toHaveBeenCalledTimes(1);
     });
@@ -55,7 +57,9 @@ describe('<SignIn />', () => {
         },
       });
 
-      findTestId(wrapper, 'sign-in-form').props().onSubmit();
+      findTestId(wrapper, 'sign-in-form')
+        .props()
+        .onSubmit();
       await waitUntil(() => resolved === true);
 
       expect(requestSignIn).toHaveBeenCalledTimes(1);

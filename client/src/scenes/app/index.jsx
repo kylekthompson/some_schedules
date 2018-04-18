@@ -12,14 +12,13 @@ import Schedule from 'scenes/schedule';
 import { header } from 'models/constants';
 
 const renderSchedule = (setHeaderLinks) => (props) => (
-  <Schedule
-    {...props}
-    setHeaderLinks={setHeaderLinks}
-  />
+  <Schedule {...props} setHeaderLinks={setHeaderLinks} />
 );
 
 export const App = ({ isSignedIn, requestSignOut }) => {
-  if (!isSignedIn) { return <Redirect to="/" />; }
+  if (!isSignedIn) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <HeaderLinksProvider
@@ -27,9 +26,7 @@ export const App = ({ isSignedIn, requestSignOut }) => {
       render={({ headerLinks, setHeaderLinks }) => (
         <Container>
           <HeaderContainer>
-            <Header theme={header.DARK_THEME}>
-              {headerLinks}
-            </Header>
+            <Header theme={header.DARK_THEME}>{headerLinks}</Header>
           </HeaderContainer>
           <Switch>
             <PrivateRoute
@@ -53,11 +50,7 @@ App.propTypes = {
 export default (props) => (
   <Consumer
     render={({ isSignedIn, requestSignOut }) => (
-      <App
-        isSignedIn={isSignedIn}
-        requestSignOut={requestSignOut}
-        {...props}
-      />
+      <App isSignedIn={isSignedIn} requestSignOut={requestSignOut} {...props} />
     )}
   />
 );

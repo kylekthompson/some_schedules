@@ -18,9 +18,7 @@ const ColoredDot = styled.div`
 
 const Icon = ({ className, isPublished }) => {
   const icon = isPublished ? 'fal fa-eye' : 'fal fa-eye-slash';
-  return (
-    <i className={`${icon} ${className || ''}`} />
-  );
+  return <i className={`${icon} ${className || ''}`} />;
 };
 
 Icon.propTypes = {
@@ -47,7 +45,8 @@ const Shift = ({ shift }) => (
     <ColoredDot color={colors.shakespeareBlue()} />
     <PublishedIcon isPublished={shift.isPublished} />
     <Text>
-      {format.forSchedule(toDate(shift.startTime))} - {format.forSchedule(toDate(shift.endTime))}
+      {format.forSchedule(toDate(shift.startTime))} -{' '}
+      {format.forSchedule(toDate(shift.endTime))}
     </Text>
   </ShiftContainer>
 );

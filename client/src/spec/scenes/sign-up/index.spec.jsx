@@ -14,20 +14,24 @@ const createSignUp = (callback = () => {}) => {
     },
   };
 
-  return jest.fn().mockReturnValue(new Promise((resolve) => {
-    resolve(data);
-    callback();
-  }));
+  return jest.fn().mockReturnValue(
+    new Promise((resolve) => {
+      resolve(data);
+      callback();
+    }),
+  );
 };
 
-const mountComponent = (props) => mount((
-  <Provider value={new AuthenticationContextValue({ isSignedIn: false, ...props.value })}>
-    <SignUp
-      signUp={createSignUp()}
-      {...props}
-    />
-  </Provider>
-));
+const mountComponent = (props) =>
+  mount(
+    <Provider
+      value={
+        new AuthenticationContextValue({ isSignedIn: false, ...props.value })
+      }
+    >
+      <SignUp signUp={createSignUp()} {...props} />
+    </Provider>,
+  );
 
 describe('<SignUp />', () => {
   describe('signing up', () => {
@@ -37,7 +41,9 @@ describe('<SignUp />', () => {
         signUp,
       });
 
-      findTestId(wrapper, 'sign-up-form').props().onSubmit({});
+      findTestId(wrapper, 'sign-up-form')
+        .props()
+        .onSubmit({});
 
       expect(signUp).toHaveBeenCalledTimes(1);
     });
@@ -52,7 +58,9 @@ describe('<SignUp />', () => {
         signUp,
       });
 
-      findTestId(wrapper, 'sign-up-form').props().onSubmit({});
+      findTestId(wrapper, 'sign-up-form')
+        .props()
+        .onSubmit({});
 
       await waitUntil(() => requestSignIn.mock.calls.length >= 1);
       done();

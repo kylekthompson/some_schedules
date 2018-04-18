@@ -4,13 +4,14 @@ import { mount } from 'enzyme';
 
 import HeaderLinksProvider from 'components/header-links-provider';
 
-const mountComponent = (props) => mount((
-  <HeaderLinksProvider
-    initialHeaderLinks={<div />}
-    render={() => null}
-    {...props}
-  />
-));
+const mountComponent = (props) =>
+  mount(
+    <HeaderLinksProvider
+      initialHeaderLinks={<div />}
+      render={() => null}
+      {...props}
+    />,
+  );
 
 describe('<HeaderLinksProvider />', () => {
   it('renders using the render prop', () => {
@@ -27,10 +28,12 @@ describe('<HeaderLinksProvider />', () => {
     mountComponent({ render });
 
     expect(render).toHaveBeenCalledTimes(1);
-    expect(render).toHaveBeenCalledWith(expect.objectContaining({
-      headerLinks: expect.any(Object),
-      setHeaderLinks: expect.any(Function),
-    }));
+    expect(render).toHaveBeenCalledWith(
+      expect.objectContaining({
+        headerLinks: expect.any(Object),
+        setHeaderLinks: expect.any(Function),
+      }),
+    );
   });
 
   describe('the first render', () => {
@@ -44,9 +47,11 @@ describe('<HeaderLinksProvider />', () => {
       });
 
       expect(render).toHaveBeenCalledTimes(1);
-      expect(render).toHaveBeenCalledWith(expect.objectContaining({
-        headerLinks: initialHeaderLinks,
-      }));
+      expect(render).toHaveBeenCalledWith(
+        expect.objectContaining({
+          headerLinks: initialHeaderLinks,
+        }),
+      );
     });
   });
 
@@ -63,9 +68,11 @@ describe('<HeaderLinksProvider />', () => {
       render.mock.calls[0][0].setHeaderLinks(null);
 
       expect(render).toHaveBeenCalledTimes(2);
-      expect(render).toHaveBeenCalledWith(expect.objectContaining({
-        headerLinks: null,
-      }));
+      expect(render).toHaveBeenCalledWith(
+        expect.objectContaining({
+          headerLinks: null,
+        }),
+      );
     });
   });
 });

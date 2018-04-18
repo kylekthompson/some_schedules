@@ -11,15 +11,15 @@ const mountComponent = (props) => {
   const currentMonth = new Date(Date.UTC(2018, 11, 25));
   const day = new Date(Date.UTC(2018, 11, 25));
   const selectedDay = new Date(Date.UTC(2018, 11, 25));
-  return mount((
+  return mount(
     <Day
       currentMonth={currentMonth}
       day={day}
       selectedDay={selectedDay}
       onClick={() => {}}
       {...props}
-    />
-  ));
+    />,
+  );
 };
 
 describe('<Day />', () => {

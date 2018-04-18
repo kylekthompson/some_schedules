@@ -22,8 +22,7 @@ Logo.defaultProps = {
 };
 
 export default styled(Logo)`
-  ${fonts.extraBold}
-  ${({ theme }) => {
+  ${fonts.extraBold} ${({ theme }) => {
     if (theme === header.DARK_THEME) {
       return links.darkLink;
     }

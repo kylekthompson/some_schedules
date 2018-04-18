@@ -39,7 +39,9 @@ export default styled.input`
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    ${''/* this is a gross hack to remove the yellow autofill background color */}
+    ${
+      '' /* this is a gross hack to remove the yellow autofill background color */
+    }
     transition: color 9999s ease-out, background-color 9999s ease-out;
   }
 `;

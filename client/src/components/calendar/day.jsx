@@ -7,12 +7,7 @@ import DayInOtherMonth from 'components/calendar/day-in-other-month';
 import Today from 'components/calendar/today';
 import { format, isSameDay, isSameMonth } from 'models/time';
 
-const Day = ({
-  currentMonth,
-  day,
-  onClick,
-  selectedDay,
-}) => {
+const Day = ({ currentMonth, day, onClick, selectedDay }) => {
   let DayComponent = DayInCurrentMonth;
 
   if (isSameDay(day, selectedDay)) {
@@ -21,11 +16,7 @@ const Day = ({
     DayComponent = DayInOtherMonth;
   }
 
-  return (
-    <DayComponent onClick={onClick}>
-      {format.dateOnly(day)}
-    </DayComponent>
-  );
+  return <DayComponent onClick={onClick}>{format.dateOnly(day)}</DayComponent>;
 };
 
 Day.propTypes = {

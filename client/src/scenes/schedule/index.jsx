@@ -8,7 +8,11 @@ import WeeklySchedule from 'components/weekly-schedule';
 import ScheduleSidebar from 'components/schedule-sidebar';
 import ShiftCreationModal from 'components/shift-creation-modal';
 import { endOfWeek, format, startOfWeek } from 'models/time';
-import { Container, ContentContainer, SidebarContainer } from 'scenes/schedule/components';
+import {
+  Container,
+  ContentContainer,
+  SidebarContainer,
+} from 'scenes/schedule/components';
 import {
   handleAddShift,
   handleCloseShiftCreationModal,
@@ -41,14 +45,15 @@ class Schedule extends Component {
     }
   }
 
-  handleAddShift = (shift) => this.setState(handleAddShift(shift))
-  handleCloseShiftCreationModal = () => this.setState(handleCloseShiftCreationModal)
-  handleDayClick = (day) => () => this.setState(handleDayClick(day))
+  handleAddShift = (shift) => this.setState(handleAddShift(shift));
+  handleCloseShiftCreationModal = () =>
+    this.setState(handleCloseShiftCreationModal);
+  handleDayClick = (day) => () => this.setState(handleDayClick(day));
   handleOpenShiftCreationModal = (userId, day) => (event) => {
     event.stopPropagation();
     const { clientX, clientY } = event;
     this.setState(handleOpenShiftCreationModal(userId, day, clientX, clientY));
-  }
+  };
 
   loadViewer = async () => {
     const after = format.forServer(startOfWeek(this.state.selectedDay));
@@ -56,13 +61,16 @@ class Schedule extends Component {
 
     this.setState(handleContextLoading);
 
-    const { context, error } = await this.props.getSchedulesContext(after, before);
+    const { context, error } = await this.props.getSchedulesContext(
+      after,
+      before,
+    );
 
     this.setState(handleContextLoaded(context, error));
-  }
+  };
 
-  renderError = () => <p>{this.state.context.error}</p>
-  renderLoader = () => <Loading message="Loading..." />
+  renderError = () => <p>{this.state.context.error}</p>;
+  renderLoader = () => <Loading message="Loading..." />;
   renderSchedule = () => (
     <Fragment>
       <WeeklySchedule
@@ -77,10 +85,12 @@ class Schedule extends Component {
         dismissModal={this.handleCloseShiftCreationModal}
         onAddShift={this.handleAddShift}
         testId="shift-creation-modal"
-        user={this.state.context.users.find(({ id }) => id === this.state.shiftCreationModal.userId)}
+        user={this.state.context.users.find(
+          ({ id }) => id === this.state.shiftCreationModal.userId,
+        )}
       />
     </Fragment>
-  )
+  );
 
   render() {
     const { error, isLoaded } = this.state.context;
@@ -103,9 +113,7 @@ class Schedule extends Component {
             testId="schedule-sidebar"
           />
         </SidebarContainer>
-        <ContentContainer>
-          {body}
-        </ContentContainer>
+        <ContentContainer>{body}</ContentContainer>
       </Container>
     );
   }

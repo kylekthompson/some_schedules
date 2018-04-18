@@ -9,18 +9,19 @@ import TimeInput from 'components/shift-creation-modal/time-input';
 import { format, setHours } from 'models/time';
 import { User } from 'spec/factories';
 
-const mountComponent = (props) => mount((
-  <ShiftCreationModal
-    day={new Date(Date.UTC(2018, 11, 25))}
-    dismissModal={() => {}}
-    onAddShift={() => {}}
-    user={new User()}
-    visible={false}
-    x={0}
-    y={0}
-    {...props}
-  />
-));
+const mountComponent = (props) =>
+  mount(
+    <ShiftCreationModal
+      day={new Date(Date.UTC(2018, 11, 25))}
+      dismissModal={() => {}}
+      onAddShift={() => {}}
+      user={new User()}
+      visible={false}
+      x={0}
+      y={0}
+      {...props}
+    />,
+  );
 
 describe('<ShiftCreationModal />', () => {
   describe('when not visible', () => {
@@ -49,11 +50,14 @@ describe('<ShiftCreationModal />', () => {
           ...props,
         });
 
-        wrapper.find(TimeInput).props().onChange({
-          currentTarget: {
-            value: 'not a time',
-          },
-        });
+        wrapper
+          .find(TimeInput)
+          .props()
+          .onChange({
+            currentTarget: {
+              value: 'not a time',
+            },
+          });
 
         wrapper.find(CreateButton).simulate('mouseenter');
 
@@ -78,11 +82,14 @@ describe('<ShiftCreationModal />', () => {
           ...props,
         });
 
-        wrapper.find(TimeInput).props().onChange({
-          currentTarget: {
-            value: '9a - 5p',
-          },
-        });
+        wrapper
+          .find(TimeInput)
+          .props()
+          .onChange({
+            currentTarget: {
+              value: '9a - 5p',
+            },
+          });
 
         wrapper.find(CreateButton).simulate('mouseenter');
 
@@ -97,7 +104,9 @@ describe('<ShiftCreationModal />', () => {
       describe('when creating the shift', () => {
         it('calls createShift()', () => {
           const result = {};
-          const createShift = jest.fn().mockReturnValue(Promise.resolve(result));
+          const createShift = jest
+            .fn()
+            .mockReturnValue(Promise.resolve(result));
           const day = new Date(Date.UTC(2018, 11, 25));
           const user = new User();
           const wrapper = setup({

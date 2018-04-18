@@ -45,11 +45,7 @@ class HeaderLinks extends Component {
   render() {
     const { className } = this.props;
 
-    return (
-      <div className={className}>
-        {this.renderLinks()}
-      </div>
-    );
+    return <div className={className}>{this.renderLinks()}</div>;
   }
 }
 

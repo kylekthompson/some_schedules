@@ -10,11 +10,7 @@ import { header } from 'models/constants';
 
 const HeaderLinks = ({ className, requestSignOut }) => (
   <div className={className}>
-    <Link
-      onClick={requestSignOut}
-      theme={header.DARK_THEME}
-      to="/"
-    >
+    <Link onClick={requestSignOut} theme={header.DARK_THEME} to="/">
       Sign Out
     </Link>
   </div>

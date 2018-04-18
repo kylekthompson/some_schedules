@@ -47,10 +47,12 @@ class SignUp extends React.Component {
         });
       }
     });
-  }
+  };
 
   render() {
-    if (this.props.isSignedIn) { return <Redirect to={redirectedFrom(this.props.location)} />; }
+    if (this.props.isSignedIn) {
+      return <Redirect to={redirectedFrom(this.props.location)} />;
+    }
 
     return (
       <Container>

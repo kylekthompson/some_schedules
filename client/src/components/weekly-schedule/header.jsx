@@ -20,13 +20,14 @@ class Header extends Component {
     className: '',
   };
 
-  renderHeaderDays = () => ofSize(constants.DAYS_IN_WEEK)
-    .map((day) => addDays(this.props.startOfWeek, day))
-    .map((day) => (
-      <HeaderCell key={`day-${getMonth(day)}-${getDate(day)}`}>
-        <HeaderDay day={day} />
-      </HeaderCell>
-    ))
+  renderHeaderDays = () =>
+    ofSize(constants.DAYS_IN_WEEK)
+      .map((day) => addDays(this.props.startOfWeek, day))
+      .map((day) => (
+        <HeaderCell key={`day-${getMonth(day)}-${getDate(day)}`}>
+          <HeaderDay day={day} />
+        </HeaderCell>
+      ));
 
   render() {
     return (

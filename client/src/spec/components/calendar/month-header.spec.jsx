@@ -7,14 +7,15 @@ import MonthHeader from 'components/calendar/month-header';
 import Week from 'components/calendar/week';
 import { constants } from 'models/time';
 
-const mountComponent = (props) => mount((
-  <MonthHeader
-    currentMonth={new Date(Date.UTC(2018, 11, 25))}
-    selectedDay={new Date(Date.UTC(2018, 11, 25))}
-    onDayClick={() => () => {}}
-    {...props}
-  />
-));
+const mountComponent = (props) =>
+  mount(
+    <MonthHeader
+      currentMonth={new Date(Date.UTC(2018, 11, 25))}
+      selectedDay={new Date(Date.UTC(2018, 11, 25))}
+      onDayClick={() => () => {}}
+      {...props}
+    />,
+  );
 
 describe('<MonthHeader />', () => {
   it('renders the correct number of weeks', () => {

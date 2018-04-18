@@ -58,14 +58,14 @@ class Provider extends Component {
         ...context,
       });
     }
-  }
+  };
 
   handleSignIn = (context) => {
     this.props.cache.set(context);
     this.setState({
       ...context,
     });
-  }
+  };
 
   handleSignOut = () => {
     this.props.postSignOut();
@@ -75,7 +75,7 @@ class Provider extends Component {
       isSignedIn: false,
       role: null,
     });
-  }
+  };
 
   render() {
     return (

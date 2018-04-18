@@ -6,29 +6,26 @@ import Form from 'components/form';
 import SignUpForm from 'components/sign-up-form';
 import { changeValue, findTestId } from 'spec/utilities';
 
-const mountComponent = (props) => mount((
-  <SignUpForm
-    onSubmit={() => {}}
-    {...props}
-  />
-));
+const mountComponent = (props) =>
+  mount(<SignUpForm onSubmit={() => {}} {...props} />);
 
 describe('<SignUpForm />', () => {
   describe('when it is not valid', () => {
     it('shows errors for invalid fields', () => {
       const wrapper = mountComponent();
 
-      findTestId(wrapper, 'user-email').props().onBlur({
-        currentTarget: {
-          value: 'not an email',
-        },
-      });
+      findTestId(wrapper, 'user-email')
+        .props()
+        .onBlur({
+          currentTarget: {
+            value: 'not an email',
+          },
+        });
 
       wrapper.update();
 
       expect(wrapper.find(Form.Errors)).toHaveLength(1);
     });
-
 
     describe('when the Sign Up button is clicked', () => {
       it('does not call onSubmit()', () => {

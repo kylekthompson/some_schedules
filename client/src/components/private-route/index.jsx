@@ -18,10 +18,12 @@ class PrivateRoute extends React.Component {
   redirectTo = (url, routeProps) => ({
     pathname: url,
     state: { from: routeProps.location },
-  })
+  });
 
   renderComponentOrRedirect = (routeProps) => {
-    if (!this.props.isSignedIn) { return <Redirect to={this.redirectTo('/sign-in', routeProps)} />; }
+    if (!this.props.isSignedIn) {
+      return <Redirect to={this.redirectTo('/sign-in', routeProps)} />;
+    }
 
     const { component: Component, render } = this.props;
 
@@ -30,19 +32,12 @@ class PrivateRoute extends React.Component {
     }
 
     return render(routeProps);
-  }
+  };
 
   render() {
-    const {
-      component: Component,
-      isSignedIn,
-      render,
-      ...rest
-    } = this.props;
+    const { component: Component, isSignedIn, render, ...rest } = this.props;
 
-    return (
-      <Route {...rest} render={this.renderComponentOrRedirect} />
-    );
+    return <Route {...rest} render={this.renderComponentOrRedirect} />;
   }
 }
 

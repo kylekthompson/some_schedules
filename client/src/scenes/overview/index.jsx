@@ -21,11 +21,6 @@ Overview.propTypes = {
 
 export default (props) => (
   <Consumer
-    render={({ isSignedIn }) => (
-      <Overview
-        isSignedIn={isSignedIn}
-        {...props}
-      />
-    )}
+    render={({ isSignedIn }) => <Overview isSignedIn={isSignedIn} {...props} />}
   />
 );

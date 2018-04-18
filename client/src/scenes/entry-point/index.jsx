@@ -13,7 +13,9 @@ export class EntryPoint extends Component {
     isSignedIn: PropTypes.bool.isRequired,
   };
 
-  renderComponent = (ComponentToRender) => (props) => <ComponentToRender {...props} />
+  renderComponent = (ComponentToRender) => (props) => (
+    <ComponentToRender {...props} />
+  );
 
   render() {
     return (
@@ -23,10 +25,7 @@ export class EntryPoint extends Component {
           path="/app"
           render={this.renderComponent(App)}
         />
-        <Route
-          path="/"
-          render={this.renderComponent(Overview)}
-        />
+        <Route path="/" render={this.renderComponent(Overview)} />
       </Switch>
     );
   }
@@ -35,10 +34,7 @@ export class EntryPoint extends Component {
 export default (props) => (
   <Consumer
     render={({ isSignedIn }) => (
-      <EntryPoint
-        isSignedIn={isSignedIn}
-        {...props}
-      />
+      <EntryPoint isSignedIn={isSignedIn} {...props} />
     )}
   />
 );

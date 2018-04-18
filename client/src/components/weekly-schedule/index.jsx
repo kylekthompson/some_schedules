@@ -35,24 +35,23 @@ class WeeklySchedule extends Component {
     return this.props.sortUsers(this.props.users);
   }
 
-  renderRows = () => this.sortedUsers.map((user) => (
-    <Row
-      key={user.id}
-      onCellClick={this.props.onClick}
-      shifts={shiftsForUserId(this.props.shifts, user.id)}
-      sortShifts={this.props.sortShifts}
-      startOfWeek={this.props.startOfWeek}
-      user={user}
-    />
-  ))
+  renderRows = () =>
+    this.sortedUsers.map((user) => (
+      <Row
+        key={user.id}
+        onCellClick={this.props.onClick}
+        shifts={shiftsForUserId(this.props.shifts, user.id)}
+        sortShifts={this.props.sortShifts}
+        startOfWeek={this.props.startOfWeek}
+        user={user}
+      />
+    ));
 
   render() {
     return (
       <Container>
         <Header startOfWeek={this.props.startOfWeek} />
-        <Scroller>
-          {this.renderRows()}
-        </Scroller>
+        <Scroller>{this.renderRows()}</Scroller>
       </Container>
     );
   }

@@ -9,24 +9,30 @@ import SignUp from 'scenes/sign-up';
 import { AuthenticationContextValue } from 'spec/factories';
 import { Provider } from 'spec/mocks/components/authentication';
 
-const mountComponent = (props = {}, initialRoute = '/app') => mount((
-  <Provider value={new AuthenticationContextValue(props.value)}>
-    <Router initialEntries={[initialRoute]}>
-      <Overview {...props} />
-    </Router>
-  </Provider>
-));
+const mountComponent = (props = {}, initialRoute = '/app') =>
+  mount(
+    <Provider value={new AuthenticationContextValue(props.value)}>
+      <Router initialEntries={[initialRoute]}>
+        <Overview {...props} />
+      </Router>
+    </Provider>,
+  );
 
 describe('<Overview />', () => {
   describe('when signed in', () => {
     it('renders a link to the schedule', () => {
-      const wrapper = mountComponent({
-        value: {
-          isSignedIn: true,
+      const wrapper = mountComponent(
+        {
+          value: {
+            isSignedIn: true,
+          },
         },
-      }, '/');
+        '/',
+      );
 
-      const scheduleLink = wrapper.find(Link).filterWhere((link) => link.props().to === '/app/schedule');
+      const scheduleLink = wrapper
+        .find(Link)
+        .filterWhere((link) => link.props().to === '/app/schedule');
 
       expect(scheduleLink).toHaveLength(1);
     });
@@ -34,36 +40,49 @@ describe('<Overview />', () => {
 
   describe('when signed out', () => {
     it('renders a link to sign in', () => {
-      const wrapper = mountComponent({
-        value: {
-          isSignedIn: false,
+      const wrapper = mountComponent(
+        {
+          value: {
+            isSignedIn: false,
+          },
         },
-      }, '/');
+        '/',
+      );
 
-      const signInLink = wrapper.find(Link).filterWhere((link) => link.props().to === '/sign-in');
+      const signInLink = wrapper
+        .find(Link)
+        .filterWhere((link) => link.props().to === '/sign-in');
 
       expect(signInLink).toHaveLength(1);
     });
 
     it('renders a link to sign up', () => {
-      const wrapper = mountComponent({
-        value: {
-          isSignedIn: false,
+      const wrapper = mountComponent(
+        {
+          value: {
+            isSignedIn: false,
+          },
         },
-      }, '/');
+        '/',
+      );
 
-      const signUpLink = wrapper.find(Link).filterWhere((link) => link.props().to === '/sign-up');
+      const signUpLink = wrapper
+        .find(Link)
+        .filterWhere((link) => link.props().to === '/sign-up');
 
       expect(signUpLink).toHaveLength(1);
     });
 
     describe('when going to /sign-in', () => {
       it('renders SignIn', () => {
-        const wrapper = mountComponent({
-          value: {
-            isSignedIn: false,
+        const wrapper = mountComponent(
+          {
+            value: {
+              isSignedIn: false,
+            },
           },
-        }, '/sign-in');
+          '/sign-in',
+        );
 
         expect(wrapper.find(SignIn)).toHaveLength(1);
       });
@@ -71,11 +90,14 @@ describe('<Overview />', () => {
 
     describe('when going to /sign-up', () => {
       it('renders SignUp', () => {
-        const wrapper = mountComponent({
-          value: {
-            isSignedIn: false,
+        const wrapper = mountComponent(
+          {
+            value: {
+              isSignedIn: false,
+            },
           },
-        }, '/sign-up');
+          '/sign-up',
+        );
 
         expect(wrapper.find(SignUp)).toHaveLength(1);
       });

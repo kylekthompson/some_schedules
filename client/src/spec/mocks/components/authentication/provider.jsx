@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import Context from 'components/authentication/context';
 
 const Provider = ({ children, value }) => (
-  <Context.Provider value={value}>
-    {children}
-  </Context.Provider>
+  <Context.Provider value={value}>{children}</Context.Provider>
 );
 
 Provider.propTypes = {

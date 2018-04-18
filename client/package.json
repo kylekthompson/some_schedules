@@ -21,19 +21,32 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.16.0",
-    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jest": "^21.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.12.1",
     "react-test-renderer": "^16.2.0"
   },
   "scripts": {
     "build": "NODE_PATH=src/ react-scripts build && mv build/* ../public",
     "eject": "NODE_PATH=src/ react-scripts eject",
+    "format":
+      "prettier --single-quote --trailing-comma all --arrow-parens always --write **/*.{js,jsx,json}",
     "lint": "NODE_PATH=src/ eslint src/**/*.js*",
+    "precommit": "lint-staged",
     "start": "NODE_PATH=src/ react-scripts start",
     "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
-    "test:debug": "NODE_PATH=src/ react-scripts --inspect-brk test --env=jsdom --runInBand"
+    "test:debug":
+      "NODE_PATH=src/ react-scripts --inspect-brk test --env=jsdom --runInBand"
+  },
+  "lint-staged": {
+    "*.{js,jsx,json}": [
+      "prettier --single-quote --trailing-comma all --arrow-parens always --write",
+      "git add"
+    ]
   }
 }

@@ -1,12 +1,7 @@
 import constants from 'models/authentication-context/constants';
 
-const defaultContext = {
-  isAdmin: false,
-  isSignedIn: false,
-  role: null,
-};
-
-const clear = () => localStorage.removeItem(constants.AUTHENTICATION_CONTEXT_KEY);
+const clear = () =>
+  localStorage.removeItem(constants.AUTHENTICATION_CONTEXT_KEY);
 
 const get = () => {
   const cache = localStorage.getItem(constants.AUTHENTICATION_CONTEXT_KEY);
@@ -15,10 +10,14 @@ const get = () => {
     return JSON.parse(cache);
   }
 
-  return defaultContext;
+  return constants.DEFAULT_CONTEXT;
 };
 
-const set = (context) => localStorage.setItem(constants.AUTHENTICATION_CONTEXT_KEY, JSON.stringify(context));
+const set = (context) =>
+  localStorage.setItem(
+    constants.AUTHENTICATION_CONTEXT_KEY,
+    JSON.stringify(context),
+  );
 
 export default {
   clear,

@@ -1,31 +1,16 @@
-import React, { Component } from 'react';
-
-import PropTypes from 'prop-types';
-
-import { getContext, postSignOut } from 'apis/authentication';
 import Context from 'components/authentication/context';
-import { cache } from 'models/authentication-context';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { cache, constants } from 'models/authentication-context';
+import { getContext, postSignOut } from 'apis/authentication';
 
 class Provider extends Component {
   static propTypes = {
-    cache: PropTypes.shape({
-      clear: PropTypes.func.isRequired,
-      get: PropTypes.func.isRequired,
-      set: PropTypes.func.isRequired,
-    }),
     children: PropTypes.node.isRequired,
-    getContext: PropTypes.func,
-    postSignOut: PropTypes.func,
-  };
-
-  static defaultProps = {
-    cache,
-    getContext,
-    postSignOut,
   };
 
   state = {
-    ...this.props.cache.get(),
+    ...cache.get(),
   };
 
   componentDidMount() {
@@ -43,38 +28,33 @@ class Provider extends Component {
   }
 
   getContext = async () => {
-    const { context, error } = await this.props.getContext();
+    const { context, error } = await getContext();
 
     if (error) {
-      this.props.cache.clear();
-      this.setState({
-        isAdmin: false,
-        isSignedIn: false,
-        role: null,
-      });
+      cache.clear();
+      this.setState(constants.DEFAULT_CONTEXT);
     } else {
-      this.props.cache.set(context);
-      this.setState({
-        ...context,
-      });
+      cache.set(context);
+      this.setState(context);
     }
   };
 
   handleSignIn = (context) => {
-    this.props.cache.set(context);
-    this.setState({
-      ...context,
-    });
+    cache.set(context);
+    this.setState(context);
   };
 
-  handleSignOut = () => {
-    this.props.postSignOut();
-    this.props.cache.clear();
-    this.setState({
-      isAdmin: false,
-      isSignedIn: false,
-      role: null,
-    });
+  handleSignOut = async () => {
+    const { status } = await postSignOut();
+
+    if (status >= 300) {
+      throw new Error(
+        'We were unable to successfully sign you out. Please try again.',
+      );
+    }
+
+    cache.clear();
+    this.setState(constants.DEFAULT_CONTEXT);
   };
 
   render() {

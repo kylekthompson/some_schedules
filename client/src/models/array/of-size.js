@@ -1,3 +1,3 @@
-const ofSize = (size) => Array.from(new Array(size).keys());
-
-export default ofSize;
+export default function ofSize(size) {
+  return Array.from(new Array(size).keys());
+}

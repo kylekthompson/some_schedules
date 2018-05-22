@@ -1,3 +1,3 @@
-const current = () => new Date();
-
-export default current;
+export default function current() {
+  return new Date();
+}

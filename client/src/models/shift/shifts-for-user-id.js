@@ -1,3 +1,3 @@
-const shiftsForUserId = (shifts, userId) => shifts.filter((shift) => shift.user.id === userId);
-
-export default shiftsForUserId;
+export default function shiftsForUserId(shifts, userId) {
+  return shifts.filter((shift) => shift.user.id === userId);
+}

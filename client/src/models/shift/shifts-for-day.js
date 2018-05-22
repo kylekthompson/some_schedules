@@ -1,5 +1,5 @@
 import { toDate, isSameDay } from 'models/time';
 
-const shiftsForDay = (shifts, day) => shifts.filter((shift) => isSameDay(toDate(shift.startTime), day));
-
-export default shiftsForDay;
+export default function shiftsForDay(shifts, day) {
+  return shifts.filter((shift) => isSameDay(toDate(shift.startTime), day));
+}

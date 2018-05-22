@@ -1,4 +1,5 @@
-const redirectedFrom = (location = {}) =>
-  (location.state && location.state.from && location.state.from.pathname) || '/';
+import { get } from 'models/object';
 
-export default redirectedFrom;
+export default function redirectedFrom(location = {}, defaultValue = '/') {
+  return get(location, 'state.from.pathname', defaultValue);
+}

@@ -6,9 +6,11 @@ const defaultContext = {
   role: null,
 };
 
-const clear = () => localStorage.removeItem(constants.AUTHENTICATION_CONTEXT_KEY);
+function clear() {
+  return localStorage.removeItem(constants.AUTHENTICATION_CONTEXT_KEY);
+}
 
-const get = () => {
+function get() {
   const cache = localStorage.getItem(constants.AUTHENTICATION_CONTEXT_KEY);
 
   if (cache) {
@@ -16,9 +18,14 @@ const get = () => {
   }
 
   return defaultContext;
-};
+}
 
-const set = (context) => localStorage.setItem(constants.AUTHENTICATION_CONTEXT_KEY, JSON.stringify(context));
+function set(context) {
+  return localStorage.setItem(
+    constants.AUTHENTICATION_CONTEXT_KEY,
+    JSON.stringify(context),
+  );
+}
 
 export default {
   clear,

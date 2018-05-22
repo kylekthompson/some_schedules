@@ -1,18 +1,14 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
-import React from 'react';
-
 import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
-
-import Link from 'components/header/link';
+import { HeaderLink } from 'components/header/styled-components';
 import { header } from 'models/constants';
 
 const HeaderLinks = ({ className, requestSignOut }) => (
   <div className={className}>
-    <Link onClick={requestSignOut} theme={header.DARK_THEME} to="/">
+    <HeaderLink onClick={requestSignOut} theme={header.DARK_THEME} to="/">
       Sign Out
-    </Link>
+    </HeaderLink>
   </div>
 );
 

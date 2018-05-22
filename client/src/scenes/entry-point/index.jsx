@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-
-import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
-
-import { Consumer } from 'components/authentication';
-import PrivateRoute from 'components/private-route';
 import App from 'scenes/app';
 import Overview from 'scenes/overview';
+import PrivateRoute from 'components/private-route';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { authenticated } from 'components/authentication';
 
 export class EntryPoint extends Component {
   static propTypes = {
@@ -31,10 +29,4 @@ export class EntryPoint extends Component {
   }
 }
 
-export default (props) => (
-  <Consumer
-    render={({ isSignedIn }) => (
-      <EntryPoint isSignedIn={isSignedIn} {...props} />
-    )}
-  />
-);
+export default authenticated(EntryPoint);

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors, layout } from 'models/constants';
+import { colors, layout } from 'models/styles';
 
 export default styled.div`
   border-left: 1px solid ${colors.lightGrey()};

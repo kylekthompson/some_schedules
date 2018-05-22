@@ -1,26 +1,24 @@
-import React, { Component, Fragment } from 'react';
-
 import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-
-import Link from 'components/header/link';
+import { HeaderLink } from 'components/header/styled-components';
 
 const SignedInLinks = () => (
   <Fragment>
-    <Link href="/app/schedule" to="/app/schedule">
+    <HeaderLink href="/app/schedule" to="/app/schedule">
       Schedule <i className="fal fa-arrow-right" />
-    </Link>
+    </HeaderLink>
   </Fragment>
 );
 
 const SignedOutLinks = () => (
   <Fragment>
-    <Link href="/sign-in" to="/sign-in">
+    <HeaderLink href="/sign-in" to="/sign-in">
       Sign In
-    </Link>
-    <Link href="/sign-up" to="/sign-up">
+    </HeaderLink>
+    <HeaderLink href="/sign-up" to="/sign-up">
       Sign Up
-    </Link>
+    </HeaderLink>
   </Fragment>
 );
 

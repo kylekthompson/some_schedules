@@ -26,7 +26,6 @@ import {
 class Schedule extends Component {
   static propTypes = {
     getSchedulesContext: PropTypes.func,
-    setHeaderLinks: PropTypes.func.isRequired,
   };
 
   static defaultProps = {

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import { shiftPropTypes } from 'models/shift';
 import { userPropTypes } from 'models/user';
 

@@ -1,24 +1,24 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-
 import Form from 'components/form';
+import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
+import Validator from 'models/validations/validator';
+import { emailValidator } from 'models/validations/email';
 import {
   forceValidation,
+  formValuesFromState,
   handleInputBlur,
   handleInputChange,
-  initialState,
-} from 'components/sign-in-form/state';
-import { formValuesFromState } from 'models/form';
-import { emailValidator } from 'models/validations/email';
+  initialFormStateFactory,
+} from 'models/form';
 import { passwordValidator } from 'models/validations/password';
-import Validator from 'models/validations/validator';
 
+const FORM_FIELDS = ['email', 'password'];
 const VALIDATIONS = {
   email: emailValidator,
   password: passwordValidator,
 };
 
-class SignInForm extends Component {
+export default class SignInForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     validations: PropTypes.shape({
@@ -31,7 +31,9 @@ class SignInForm extends Component {
     validations: VALIDATIONS,
   };
 
-  state = initialState;
+  state = {
+    form: initialFormStateFactory(FORM_FIELDS),
+  };
 
   isValid = (field) => this.state.form[field].errors.length === 0;
   isSubmitDisabled = () =>
@@ -105,11 +107,9 @@ class SignInForm extends Component {
         <Form onSubmit={this.handleSubmit}>
           {this.renderEmailInput()}
           {this.renderPasswordInput()}
-          <Form.Submit disabled={this.isSubmitDisabled()}>Sign in</Form.Submit>
+          <Form.Submit disabled={this.isSubmitDisabled()} value="Sign in" />
         </Form>
       </Form.Container>
     );
   }
 }
-
-export default SignInForm;

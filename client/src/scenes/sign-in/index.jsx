@@ -1,13 +1,11 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-
-import { postSignIn as signIn } from 'apis/authentication';
-import { Consumer } from 'components/authentication';
+import React from 'react';
 import SignInForm from 'components/sign-in-form';
-import { redirectedFrom } from 'models/path';
 import { Container } from 'scenes/sign-in/components';
+import { Redirect } from 'react-router-dom';
+import { authenticated } from 'components/authentication';
+import { postSignIn as signIn } from 'apis/authentication';
+import { redirectedFrom } from 'models/path';
 
 export class SignIn extends React.Component {
   static propTypes = {
@@ -61,14 +59,4 @@ export class SignIn extends React.Component {
   }
 }
 
-export default (props) => (
-  <Consumer
-    render={({ isSignedIn, requestSignIn }) => (
-      <SignIn
-        isSignedIn={isSignedIn}
-        requestSignIn={requestSignIn}
-        {...props}
-      />
-    )}
-  />
-);
+export default authenticated(SignIn);

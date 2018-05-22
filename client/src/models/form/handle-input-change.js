@@ -1,12 +1,12 @@
-import { formValuesFromState } from 'models/form';
+import formValuesFromState from 'models/form/form-values-from-state';
 
-const handleInputBlur = (field, validations, event) => {
+export default function handleInputChange(field, validations, event) {
   const { value } = event.currentTarget;
-  return (state) => {
-    let errors = [];
-    const isDirty = state.form[field].didBlur || Boolean(value);
 
-    if (isDirty) {
+  return function(state) {
+    let errors = [];
+
+    if (state.form[field].didBlur && state.form[field].isDirty) {
       errors = validations[field].run({
         ...formValuesFromState(state),
         [field]: value,
@@ -19,14 +19,11 @@ const handleInputBlur = (field, validations, event) => {
         ...state.form,
         [field]: {
           ...state.form[field],
-          didBlur: true,
           errors,
-          isDirty,
+          isDirty: true,
           value,
         },
       },
     };
   };
-};
-
-export default handleInputBlur;
+}

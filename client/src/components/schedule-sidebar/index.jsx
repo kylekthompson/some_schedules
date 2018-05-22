@@ -1,16 +1,12 @@
+import Calendar from 'components/calendar';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import PropTypes from 'prop-types';
+export default function ScheduleSidebar({ onDayClick, selectedDay }) {
+  return <Calendar onDayClick={onDayClick} selectedDay={selectedDay} />;
+}
 
-import Calendar from 'components/calendar';
-
-const Sidebar = ({ onDayClick, selectedDay }) => (
-  <Calendar onDayClick={onDayClick} selectedDay={selectedDay} />
-);
-
-Sidebar.propTypes = {
+ScheduleSidebar.propTypes = {
   onDayClick: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date).isRequired,
 };
-
-export default Sidebar;

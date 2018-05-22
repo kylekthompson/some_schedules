@@ -1,7 +1,6 @@
 export { default as addDays } from 'models/time/add-days';
 export { default as addHours } from 'models/time/add-hours';
 export { default as addMonths } from 'models/time/add-months';
-export { default as adjustForCurrentTimezone } from 'models/time/adjust-for-current-timezone';
 export { default as constants } from 'models/time/constants';
 export { default as current } from 'models/time/current';
 export { default as endOfWeek } from 'models/time/end-of-week';

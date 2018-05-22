@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { colors } from 'models/constants';
+import { colors } from 'models/styles';
 
 const createLinkStyle = (primaryColor, secondaryColor) => css`
   color: ${primaryColor};

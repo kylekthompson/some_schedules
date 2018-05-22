@@ -1,17 +1,17 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
-
-import { postCreate as createShift } from 'apis/shifts';
-import BackgroundMuter from 'components/shift-creation-modal/background-muter';
-import CreateButton from 'components/shift-creation-modal/create-button';
-import DismissButton from 'components/shift-creation-modal/dismiss-button';
-import FontSizeAdjuster from 'components/shift-creation-modal/font-size-adjuster';
-import Modal from 'components/shift-creation-modal/modal';
-import Separator from 'components/shift-creation-modal/separator';
-import TimeInput from 'components/shift-creation-modal/time-input';
-import { userPropTypes } from 'models/user';
+import React from 'react';
+import {
+  BackgroundMuter,
+  CreateButton,
+  DismissButton,
+  Modal,
+  Separator,
+  Text,
+  TimeInput,
+} from 'components/shift-creation-modal/styled-components';
 import { format, parseInput } from 'models/time';
+import { postCreate as createShift } from 'apis/shifts';
+import { userPropTypes } from 'models/user';
 
 class ShiftCreationModal extends React.Component {
   static propTypes = {
@@ -121,14 +121,14 @@ class ShiftCreationModal extends React.Component {
       <div>
         <Modal innerRef={this.setModalRef} x={this.props.x} y={this.props.y}>
           <div>
-            <FontSizeAdjuster fontSize={18}>
+            <Text>
               New shift for {this.props.user.firstName}{' '}
               {this.props.user.lastName}
-            </FontSizeAdjuster>
+            </Text>
             <DismissButton onClick={this.props.dismissModal} />
           </div>
           <Separator />
-          <span>
+          <Text>
             {format.forTimeInput(this.props.day)} from&nbsp;
             <TimeInput
               onChange={this.handleTimesInputChange}
@@ -137,7 +137,7 @@ class ShiftCreationModal extends React.Component {
               type="text"
               value={this.state.timesInput}
             />
-          </span>
+          </Text>
           <CreateButton
             disabled={!(this.state.startTime && this.state.endTime)}
             onClick={this.handleShiftCreation}

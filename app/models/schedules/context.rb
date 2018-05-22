@@ -17,7 +17,7 @@ module Schedules
     end
 
     def shifts
-      @shifts ||= Policy.for(current_user: user, subject: Shift).scope.after(after).before(before)
+      @shifts ||= Policy.for(current_user: user, subject: Shift).scope.includes(:user).after(after).before(before)
     end
   end
 end

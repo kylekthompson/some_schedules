@@ -19,7 +19,7 @@ module Schedules
       return missing_param(:after) unless after.present?
       return after_must_be_earlier_than_before unless after_earlier_than_before?
 
-      authentication_context
+      schedule_context
     end
 
     private
@@ -52,7 +52,7 @@ module Schedules
       )
     end
 
-    def authentication_context
+    def schedule_context
       OpenStruct.new(
         context: Schedules::Context.new(after: after, before: before, user: user),
         status: :ok,

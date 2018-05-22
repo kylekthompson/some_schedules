@@ -1,23 +1,17 @@
-import React, { Component } from 'react';
-
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-import EmptyHeaderCell from 'components/weekly-schedule/empty-header-cell';
-import HeaderCell from 'components/weekly-schedule/header-cell';
 import HeaderDay from 'components/weekly-schedule/header-day';
-import { ofSize } from 'models/array';
-import { colors } from 'models/constants';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import {
+  EmptyHeaderCell,
+  HeaderCell,
+  HeaderContainer,
+} from 'components/weekly-schedule/styled-components';
 import { addDays, constants, getDate, getMonth } from 'models/time';
+import { ofSize } from 'models/array';
 
-class Header extends Component {
+export default class Header extends Component {
   static propTypes = {
-    className: PropTypes.string,
     startOfWeek: PropTypes.instanceOf(Date).isRequired,
-  };
-
-  static defaultProps = {
-    className: '',
   };
 
   renderHeaderDays = () =>
@@ -31,17 +25,10 @@ class Header extends Component {
 
   render() {
     return (
-      <div className={this.props.className}>
+      <HeaderContainer>
         <EmptyHeaderCell />
         {this.renderHeaderDays()}
-      </div>
+      </HeaderContainer>
     );
   }
 }
-
-export default styled(Header)`
-  border-bottom: 1px solid ${colors.lightGrey()};
-  display: flex;
-  flex: none;
-  flex-direction: row;
-`;

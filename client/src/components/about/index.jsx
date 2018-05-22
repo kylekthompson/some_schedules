@@ -1,22 +1,6 @@
 import React from 'react';
+import { DescriptionText } from 'components/about/styled-components';
 
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-import { colors } from 'models/constants';
-
-const About = ({ className }) => (
-  <p className={className}>A description of SomeSchedul.es</p>
-);
-
-About.propTypes = {
-  className: PropTypes.string,
-};
-
-About.defaultProps = {
-  className: '',
-};
-
-export default styled(About)`
-  color: ${colors.white()};
-`;
+export default function About() {
+  return <DescriptionText>A description of SomeSchedules</DescriptionText>;
+}

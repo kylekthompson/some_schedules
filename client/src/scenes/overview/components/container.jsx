@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors } from 'models/constants';
+import { colors } from 'models/styles';
 
 export default styled.div`
   background: ${colors.bahamaBlue()}

@@ -1,34 +1,20 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-import Link from 'components/header/link';
+import React from 'react';
+import { LogoLink } from 'components/header/styled-components';
 import { header } from 'models/constants';
-import { fonts, links } from 'models/styles';
 
-const Logo = ({ className }) => (
-  <Link className={className} href="/" to="/">
-    SomeSchedul.es
-  </Link>
-);
+export default function Logo({ theme }) {
+  return (
+    <LogoLink theme={theme} href="/" to="/">
+      SomeSchedules
+    </LogoLink>
+  );
+}
 
 Logo.propTypes = {
-  className: PropTypes.string,
+  theme: PropTypes.oneOf([header.DARK_THEME, header.LIGHT_THEME]),
 };
 
 Logo.defaultProps = {
-  className: '',
+  theme: header.LIGHT_THEME,
 };
-
-export default styled(Logo)`
-  ${fonts.extraBold} ${({ theme }) => {
-    if (theme === header.DARK_THEME) {
-      return links.darkLink;
-    }
-
-    return links.lightLink;
-  }}
-  flex: 0;
-  font-size: 22px;
-`;

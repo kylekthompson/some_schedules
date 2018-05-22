@@ -1,8 +1,9 @@
-import { formValuesFromState } from 'models/form';
+import formValuesFromState from 'models/form/form-values-from-state';
 
-const handleInputBlur = (field, validations, event) => {
+export default function handleInputBlur(field, validations, event) {
   const { value } = event.currentTarget;
-  return (state) => {
+
+  return function(state) {
     let errors = [];
     const isDirty = state.form[field].didBlur || Boolean(value);
 
@@ -27,6 +28,4 @@ const handleInputBlur = (field, validations, event) => {
       },
     };
   };
-};
-
-export default handleInputBlur;
+}

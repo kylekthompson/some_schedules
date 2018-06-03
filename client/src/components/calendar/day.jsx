@@ -1,23 +1,20 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
-
-import DayInCurrentMonth from 'components/calendar/day-in-current-month';
-import DayInOtherMonth from 'components/calendar/day-in-other-month';
-import Today from 'components/calendar/today';
+import React from 'react';
+import { DayContainer, DayText } from 'components/calendar/styled-components';
 import { format, isSameDay, isSameMonth } from 'models/time';
 
-const Day = ({ currentMonth, day, onClick, selectedDay }) => {
-  let DayComponent = DayInCurrentMonth;
+export default function Day({ currentMonth, day, onClick, selectedDay }) {
+  const activeMonth = isSameMonth(day, currentMonth);
+  const selected = isSameDay(day, selectedDay);
 
-  if (isSameDay(day, selectedDay)) {
-    DayComponent = Today;
-  } else if (!isSameMonth(day, currentMonth)) {
-    DayComponent = DayInOtherMonth;
-  }
-
-  return <DayComponent onClick={onClick}>{format.dateOnly(day)}</DayComponent>;
-};
+  return (
+    <DayContainer onClick={onClick} selected={selected}>
+      <DayText activeMonth={activeMonth} selected={selected}>
+        {format.dateOnly(day)}
+      </DayText>
+    </DayContainer>
+  );
+}
 
 Day.propTypes = {
   currentMonth: PropTypes.instanceOf(Date).isRequired,
@@ -25,5 +22,3 @@ Day.propTypes = {
   onClick: PropTypes.func.isRequired,
   selectedDay: PropTypes.instanceOf(Date).isRequired,
 };
-
-export default Day;

@@ -1,16 +1,30 @@
-import { addDays, addHours, isBefore, setHours, setMinutes, startOfDay } from 'models/time';
+import {
+  addDays,
+  addHours,
+  isBefore,
+  setHours,
+  setMinutes,
+  startOfDay,
+} from 'models/time';
 
 const ALLOWED_HOURS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-const parseInputPiece = (day, timeInput) => {
-  if (!timeInput) { return null; }
+function parseInputPiece(day, timeInput) {
+  if (!timeInput) {
+    return null;
+  }
 
   // matches strings that look like one of these: '1a', '1 pm', '1:00p', '1:00 am'
-  const timePieces = timeInput.match(/(?:(\d+)(?::(\d+))?(?:\s*)((?:a|p)m?)?)/i);
+  const timePieces = timeInput.match(
+    /(?:(\d+)(?::(\d+))?(?:\s*)((?:a|p)m?)?)/i,
+  );
   const [, hours, minutes, period] = Array.from(timePieces || []);
   let newDay = startOfDay(day);
 
-  if (hours && ALLOWED_HOURS.some((hour) => hour === parseInt(hours.slice(0, 2), 10))) {
+  if (
+    hours &&
+    ALLOWED_HOURS.some((hour) => hour === parseInt(hours.slice(0, 2), 10))
+  ) {
     newDay = setHours(newDay, parseInt(hours.slice(0, 2), 10));
   } else {
     return null;
@@ -25,10 +39,13 @@ const parseInputPiece = (day, timeInput) => {
   }
 
   return newDay;
-};
+}
 
-const parseInput = (day, timesInput) => {
-  const [startTime, endTime] = timesInput.split(/\s*-\s*/i).slice(0, 2).map((input) => parseInputPiece(day, input));
+export default function parseInput(day, timesInput) {
+  const [startTime, endTime] = timesInput
+    .split(/\s*-\s*/i)
+    .slice(0, 2)
+    .map((input) => parseInputPiece(day, input));
   let updatedEndTime = endTime;
 
   if (startTime && endTime && isBefore(endTime, startTime)) {
@@ -36,6 +53,4 @@ const parseInput = (day, timesInput) => {
   }
 
   return [startTime, updatedEndTime];
-};
-
-export default parseInput;
+}

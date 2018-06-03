@@ -1,23 +1,31 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-
 import Form from 'components/form';
-import {
-  forceValidation,
-  handleInputBlur,
-  handleInputChange,
-  initialState,
-} from 'components/sign-up-form/state';
-import { formValuesFromState } from 'models/form';
-import { nameValidator, slugValidator } from 'models/validations/company';
+import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
+import Validator from 'models/validations/validator';
 import { emailValidator } from 'models/validations/email';
 import { firstNameValidator, lastNameValidator } from 'models/validations/user';
+import {
+  forceValidation,
+  formValuesFromState,
+  handleInputBlur,
+  handleInputChange,
+  initialFormStateFactory,
+} from 'models/form';
+import { nameValidator, slugValidator } from 'models/validations/company';
 import {
   passwordValidator,
   passwordConfirmationValidator,
 } from 'models/validations/password';
-import Validator from 'models/validations/validator';
 
+const FORM_FIELDS = [
+  'name',
+  'slug',
+  'firstName',
+  'lastName',
+  'email',
+  'password',
+  'passwordConfirmation',
+];
 const VALIDATIONS = {
   email: emailValidator,
   firstName: firstNameValidator,
@@ -28,7 +36,7 @@ const VALIDATIONS = {
   slug: slugValidator,
 };
 
-class SignUpForm extends Component {
+export default class SignUpForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     validations: PropTypes.shape({
@@ -46,7 +54,9 @@ class SignUpForm extends Component {
     validations: VALIDATIONS,
   };
 
-  state = initialState;
+  state = {
+    form: initialFormStateFactory(FORM_FIELDS),
+  };
 
   isValid = (field) => this.state.form[field].errors.length === 0;
   isSubmitDisabled = () =>
@@ -216,11 +226,9 @@ class SignUpForm extends Component {
           {this.renderEmailInput()}
           {this.renderPasswordInput()}
           {this.renderPasswordConfirmationInput()}
-          <Form.Submit disabled={this.isSubmitDisabled()}>Sign up</Form.Submit>
+          <Form.Submit disabled={this.isSubmitDisabled()} value="Sign up" />
         </Form>
       </Form.Container>
     );
   }
 }
-
-export default SignUpForm;

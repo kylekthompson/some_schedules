@@ -1,13 +1,11 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
-
-import Cell from 'components/weekly-schedule/cell';
-import NameCell from 'components/weekly-schedule/name-cell';
-import RowContainer from 'components/weekly-schedule/row-container';
+import React from 'react';
 import Shift from 'components/weekly-schedule/shift';
-import { ofSize } from 'models/array';
-import { shiftPropTypes, shiftsForDay } from 'models/shift';
+import {
+  Cell,
+  NameCell,
+  RowContainer,
+} from 'components/weekly-schedule/styled-components';
 import {
   addDays,
   constants,
@@ -15,9 +13,11 @@ import {
   getDayOfWeek,
   getMonth,
 } from 'models/time';
+import { ofSize } from 'models/array';
+import { shiftPropTypes, shiftsForDay } from 'models/shift';
 import { userPropTypes } from 'models/user';
 
-class Row extends React.Component {
+export default class Row extends React.Component {
   static propTypes = {
     onCellClick: PropTypes.func.isRequired,
     shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
@@ -62,5 +62,3 @@ class Row extends React.Component {
     );
   }
 }
-
-export default Row;

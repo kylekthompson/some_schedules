@@ -1,5 +1,5 @@
-import { hasCharacters } from 'models/validations/shared';
 import Validator from 'models/validations/validator';
+import { hasCharacters } from 'models/validations/shared';
 
 export const firstNameValidator = new Validator([
   ({ firstName }) => hasCharacters(firstName),

@@ -1,10 +1,7 @@
-import React, { Component, Fragment } from 'react';
-
-import PropTypes from 'prop-types';
-
 import Day from 'components/calendar/day';
-import Week from 'components/calendar/week';
-import { ofSize } from 'models/array';
+import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
+import { Week } from 'components/calendar/styled-components';
 import {
   addDays,
   constants,
@@ -13,8 +10,9 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'models/time';
+import { ofSize } from 'models/array';
 
-class MonthDays extends Component {
+export default class MonthDays extends Component {
   static propTypes = {
     currentMonth: PropTypes.instanceOf(Date).isRequired,
     onDayClick: PropTypes.func.isRequired,
@@ -57,5 +55,3 @@ class MonthDays extends Component {
     return <Fragment>{this.renderWeeks()}</Fragment>;
   }
 }
-
-export default MonthDays;

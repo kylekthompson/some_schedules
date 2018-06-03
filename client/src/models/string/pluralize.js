@@ -1,4 +1,4 @@
-const pluralize = (count, string, pluralization) => {
+export default function pluralize(count, string, pluralization) {
   if (count === 1) {
     return string;
   }
@@ -8,6 +8,4 @@ const pluralize = (count, string, pluralization) => {
   }
 
   return `${string}s`;
-};
-
-export default pluralize;
+}

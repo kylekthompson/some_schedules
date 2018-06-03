@@ -23,9 +23,8 @@ module API
 
     def serialized(instance, options = {})
       return nil unless instance.present?
-
-      serializer = "#{instance.class}Serializer"
-      return serializer.constantize.new(instance).serializable_hash(options) if Object.const_defined?(serializer)
+      "#{instance.class}Serializer".constantize.new(instance).serializable_hash(options)
+    rescue NameError
       instance
     end
   end

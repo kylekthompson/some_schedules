@@ -1,16 +1,24 @@
 import { get, post } from 'services/requests';
 
-export const getContext = () => get('/api/authentication/context');
+export function getContext() {
+  return get('/api/authentication/context');
+}
 
-export const postSignIn = (authentication) => post('/api/authentication/sign_in', {
-  authentication,
-});
+export function postSignIn(authentication) {
+  return post('/api/authentication/sign_in', {
+    authentication,
+  });
+}
 
-export const postSignOut = () => post('/api/authentication/sign_out');
+export function postSignOut() {
+  return post('/api/authentication/sign_out');
+}
 
-export const postSignUp = (user, company) => post('/api/authentication/sign_up', {
-  authentication: {
-    user,
-    company,
-  },
-});
+export function postSignUp(user, company) {
+  return post('/api/authentication/sign_up', {
+    authentication: {
+      user,
+      company,
+    },
+  });
+}

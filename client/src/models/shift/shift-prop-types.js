@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import { userPropTypes } from 'models/user';
 
 const shiftPropTypes = PropTypes.shape({

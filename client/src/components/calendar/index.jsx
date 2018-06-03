@@ -1,32 +1,35 @@
-import React from 'react';
-
-import PropTypes from 'prop-types';
-
-import Container from 'components/calendar/container';
-import MonthContainer from 'components/calendar/month-container';
 import MonthDays from 'components/calendar/month-days';
 import MonthHeader from 'components/calendar/month-header';
 import Navigation from 'components/calendar/navigation';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {
+  Container,
+  MonthContainer,
+} from 'components/calendar/styled-components';
+import { isSameDay } from 'models/time';
 
-class Calender extends React.Component {
+export default class Calender extends React.Component {
   static propTypes = {
     onDayClick: PropTypes.func.isRequired,
     selectedDay: PropTypes.instanceOf(Date).isRequired,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (isSameDay(prevState.currentMonth, nextProps.selectedDay)) {
+      return null;
+    }
+
+    return {
+      currentMonth: nextProps.selectedDay,
+    };
+  }
+
   state = {
     currentMonth: this.props.selectedDay,
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.selectedDay !== nextProps.selectedDay) {
-      this.setState({
-        currentMonth: nextProps.selectedDay,
-      });
-    }
-  }
-
-  onMonthChange = (newMonth) => () => {
+  onMonthChange = (newMonth) => {
     this.setState({
       currentMonth: newMonth,
     });
@@ -54,5 +57,3 @@ class Calender extends React.Component {
     );
   }
 }
-
-export default Calender;

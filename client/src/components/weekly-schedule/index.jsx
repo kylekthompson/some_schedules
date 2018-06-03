@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-
-import PropTypes from 'prop-types';
-
-import Container from 'components/weekly-schedule/container';
 import Header from 'components/weekly-schedule/header';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Row from 'components/weekly-schedule/row';
-import Scroller from 'components/weekly-schedule/scroller';
+import {
+  Container,
+  Scroller,
+} from 'components/weekly-schedule/styled-components';
 import {
   shiftPropTypes,
   shiftsForUserId,
@@ -16,7 +16,7 @@ import {
   userPropTypes,
 } from 'models/user';
 
-class WeeklySchedule extends Component {
+export default class WeeklySchedule extends Component {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
     shifts: PropTypes.arrayOf(shiftPropTypes).isRequired,
@@ -56,5 +56,3 @@ class WeeklySchedule extends Component {
     );
   }
 }
-
-export default WeeklySchedule;

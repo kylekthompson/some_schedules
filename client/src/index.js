@@ -1,12 +1,10 @@
+import EntryPoint from 'entry-point';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import { BrowserRouter } from 'react-router-dom';
-import { injectGlobal } from 'styled-components';
-
 import { Provider as AuthenticationProvider } from 'components/authentication';
 import { fonts } from 'models/styles';
-import EntryPoint from 'scenes/entry-point';
+import { injectGlobal } from 'styled-components';
 
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-light.css';
 import '@fortawesome/fontawesome-pro-webfonts/css/fa-regular.css';

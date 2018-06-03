@@ -5,7 +5,7 @@ import { header } from 'models/constants';
 
 export default function Logo({ theme }) {
   return (
-    <LogoLink theme={theme} href="/" to="/">
+    <LogoLink theme={theme} to="/">
       SomeSchedules
     </LogoLink>
   );

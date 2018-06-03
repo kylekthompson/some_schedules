@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import SignUpForm from 'components/sign-up-form';
-import { Container } from 'scenes/sign-up/components';
+import { Container } from 'scenes/overview/sign-up/styled-components';
 import { Redirect } from 'react-router-dom';
 import { authenticated } from 'components/authentication';
 import { postSignUp as signUp } from 'apis/authentication';
 import { redirectedFrom } from 'models/path';
 
-class SignUp extends React.Component {
+export class SignUp extends React.Component {
   static propTypes = {
     location: PropTypes.shape({
       state: PropTypes.shape({

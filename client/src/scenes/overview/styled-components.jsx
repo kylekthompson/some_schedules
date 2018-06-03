@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-
 import { colors } from 'models/styles';
 
-export default styled.div`
+export const Container = styled.div`
   background: ${colors.bahamaBlue()}
     linear-gradient(
       to right,
@@ -14,4 +13,9 @@ export default styled.div`
   flex-direction: column;
   min-height: 100vh;
   padding: 0 20px;
+`;
+
+export const HeaderLinksContainer = styled.div`
+  margin-left: auto;
+  font-size: 14px;
 `;

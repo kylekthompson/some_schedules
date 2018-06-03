@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import SignInForm from 'components/sign-in-form';
-import { Container } from 'scenes/sign-in/components';
+import { Container } from 'scenes/overview/sign-in/styled-components';
 import { Redirect } from 'react-router-dom';
 import { authenticated } from 'components/authentication';
 import { postSignIn as signIn } from 'apis/authentication';

@@ -1,9 +1,10 @@
 import Header from 'components/header';
+import HeaderLinks from 'scenes/app/header-links';
 import PrivateRoute from 'components/private-route';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Schedule from 'scenes/schedule';
-import { Container, HeaderContainer, HeaderLinks } from 'scenes/app/components';
+import Schedule from 'scenes/app/schedule';
+import { Container, HeaderContainer } from 'scenes/app/styled-components';
 import { Redirect, Switch } from 'react-router-dom';
 import { authenticated } from 'components/authentication';
 import { header } from 'models/constants';

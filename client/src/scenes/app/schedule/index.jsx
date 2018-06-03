@@ -1,18 +1,16 @@
-import React, { Component, Fragment } from 'react';
-
-import PropTypes from 'prop-types';
-
-import { getContext as getSchedulesContext } from 'apis/schedules';
 import Loading from 'components/loading';
-import WeeklySchedule from 'components/weekly-schedule';
+import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
 import ScheduleSidebar from 'components/schedule-sidebar';
 import ShiftCreationModal from 'components/shift-creation-modal';
-import { endOfWeek, format, startOfWeek } from 'models/time';
+import WeeklySchedule from 'components/weekly-schedule';
 import {
   Container,
   ContentContainer,
   SidebarContainer,
-} from 'scenes/schedule/components';
+} from 'scenes/app/schedule/styled-components';
+import { endOfWeek, format, startOfWeek } from 'models/time';
+import { getContext as getSchedulesContext } from 'apis/schedules';
 import {
   handleAddShift,
   handleCloseShiftCreationModal,
@@ -21,11 +19,12 @@ import {
   handleContextLoaded,
   handleContextLoading,
   initialState,
-} from 'scenes/schedule/state';
+} from 'scenes/app/schedule/state';
 
-class Schedule extends Component {
+export default class Schedule extends Component {
   static propTypes = {
     getSchedulesContext: PropTypes.func,
+    setHeaderLinks: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -117,5 +116,3 @@ class Schedule extends Component {
     );
   }
 }
-
-export default Schedule;

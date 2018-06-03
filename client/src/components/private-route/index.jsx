@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { authenticated } from 'components/authentication';
 
-export default class PrivateRoute extends React.Component {
+export class PrivateRoute extends React.Component {
   static propTypes = {
     component: PropTypes.func,
     isSignedIn: PropTypes.bool.isRequired,
@@ -39,3 +40,5 @@ export default class PrivateRoute extends React.Component {
     return <Route {...rest} render={this.renderComponentOrRedirect} />;
   }
 }
+
+export default authenticated(PrivateRoute);

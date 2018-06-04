@@ -9,6 +9,7 @@ import {
   ContentContainer,
   SidebarContainer,
 } from 'scenes/app/schedule/styled-components';
+import { changed } from 'models/comparisons';
 import { endOfWeek, format, startOfWeek } from 'models/time';
 import { getContext as getSchedulesContext } from 'apis/schedules';
 import {
@@ -38,7 +39,7 @@ export default class Schedule extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.selectedDay !== this.state.selectedDay) {
+    if (changed(prevState, this.state, 'selectedDay')) {
       this.loadViewer();
     }
   }

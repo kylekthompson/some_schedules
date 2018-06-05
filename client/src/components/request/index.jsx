@@ -109,15 +109,19 @@ export default class Request extends Component {
       error = err;
     }
 
-    if (this.currentRequest === request) {
-      const newState = {
-        data,
-        error,
-      };
-
-      this.props.afterRequest(newState);
-      this.setState(newState);
+    if (this.currentRequest !== request) {
+      return null;
     }
+
+    const newState = {
+      data,
+      error,
+    };
+
+    this.props.afterRequest(newState);
+    this.setState(newState);
+
+    return newState;
   }
 
   render() {

@@ -14,8 +14,3 @@ export const Container = styled.div`
   min-height: 100vh;
   padding: 0 20px;
 `;
-
-export const HeaderLinksContainer = styled.div`
-  margin-left: auto;
-  font-size: 14px;
-`;

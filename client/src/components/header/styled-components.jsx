@@ -31,3 +31,7 @@ export const LogoLink = styled(HeaderLink)`
   ${fonts.extraBold} flex: 0;
   font-size: 22px;
 `;
+
+export const HeaderLinksContainer = styled.div`
+  margin-left: auto;
+`;

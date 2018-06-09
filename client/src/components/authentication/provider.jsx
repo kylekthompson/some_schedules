@@ -1,16 +1,32 @@
 import Context from 'components/authentication/context';
 import PropTypes from 'prop-types';
-import React, { Component, createRef } from 'react';
-import Request from 'components/request';
+import React, { Component } from 'react';
+import { propTypes as requestPropTypes, withRequest } from 'components/request';
 import { cache } from 'models/authentication-context';
+import { compose } from 'models/function';
 import { getContext, postSignOut } from 'apis/authentication';
 
-export default class Provider extends Component {
+export class Provider extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    getContext: requestPropTypes.isRequired,
+    postSignOut: requestPropTypes.isRequired,
   };
 
-  signOut = createRef();
+  componentDidUpdate() {
+    if (this.props.getContext.data) {
+      this.handleGetContext();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      changed(prevProps, this.props, 'getContext.loading') &&
+      !this.props.getContext.loading
+    ) {
+      this.handleGetContext();
+    }
+  }
 
   handleSignIn = (context) => {
     cache.set(context);
@@ -23,7 +39,7 @@ export default class Provider extends Component {
     const {
       data: { error },
       error: networkError,
-    } = await this.signOut.current.sendRequest();
+    } = await this.props.postSignOut.sendRequest();
 
     if (error || networkError) {
       return;
@@ -43,7 +59,12 @@ export default class Provider extends Component {
     requestSignOut: this.handleSignOut,
   };
 
-  handleGetContext = ({ data: { context, error }, error: networkError }) => {
+  handleGetContext = async () => {
+    const {
+      data: { context, error },
+      error: networkError,
+    } = await this.props.postSignOut.sendRequest();
+
     if (error || networkError) {
       cache.clear();
       this.setState({
@@ -61,17 +82,25 @@ export default class Provider extends Component {
 
   render() {
     return (
-      <Request request={getContext} afterRequest={this.handleGetContext}>
-        {() => (
-          <Request ref={this.signOut} request={postSignOut} eager={false}>
-            {() => (
-              <Context.Provider value={this.state}>
-                {this.props.children}
-              </Context.Provider>
-            )}
-          </Request>
-        )}
-      </Request>
+      <Context.Provider value={this.state}>
+        {this.props.children}
+      </Context.Provider>
     );
   }
 }
+
+export default compose(
+  withRequest(
+    {
+      request: getContext,
+    },
+    'getContext',
+  ),
+  withRequest(
+    {
+      request: postSignOut,
+      eager: false,
+    },
+    'postSignOut',
+  ),
+)(Provider);

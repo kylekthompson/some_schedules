@@ -47,16 +47,6 @@ export default class Request extends Component {
     return hasNetworkError || hasBadStatus;
   }
 
-  get succeeded() {
-    const hasData = Boolean(this.state.data);
-
-    return !this.failed && hasData;
-  }
-
-  get requested() {
-    return this.state.loading || this.failed || this.succeeded;
-  }
-
   componentDidMount() {
     if (this.props.eager) {
       this.sendRequest();
@@ -95,9 +85,11 @@ export default class Request extends Component {
   }
 
   async sendRequest(args = this.props.arguments) {
-    this.setState({
-      loading: true,
-    });
+    this.loadingTimeout = window.setTimeout(() => {
+      this.setState({
+        loading: true,
+      });
+    }, 300);
 
     const { request } = this.props;
     let data = null;
@@ -109,11 +101,14 @@ export default class Request extends Component {
       error = err;
     }
 
+    window.clearTimeout(this.loadingTimeout);
+
     if (this.currentRequest !== request) {
       return null;
     }
 
     const newState = {
+      loading: false,
       data,
       error,
     };

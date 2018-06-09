@@ -11,7 +11,7 @@ export default function authenticated(Component) {
   }
 
   const name = Component.displayName || Component.name || 'Component';
-  AuthenticatedComponent.displayName = `authenticated${name}`;
+  AuthenticatedComponent.displayName = `authenticated(${name})`;
 
   return AuthenticatedComponent;
 }

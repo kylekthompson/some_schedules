@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  Container as HeaderLinksContainer,
+  HeaderLinksContainer,
   HeaderLink,
 } from 'components/header/styled-components';
 import { header } from 'models/constants';

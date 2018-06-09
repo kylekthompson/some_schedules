@@ -1,37 +1,51 @@
 import Context from 'components/authentication/context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { propTypes as requestPropTypes, withRequest } from 'components/request';
 import { cache } from 'models/authentication-context';
+import { compose } from 'models/function';
 import { getContext, postSignOut } from 'apis/authentication';
 
-export default class Provider extends Component {
+export class Provider extends Component {
   static propTypes = {
-    cache: PropTypes.shape({
-      clear: PropTypes.func.isRequired,
-      get: PropTypes.func.isRequired,
-      set: PropTypes.func.isRequired,
-    }),
     children: PropTypes.node.isRequired,
-    getContext: PropTypes.func,
-    postSignOut: PropTypes.func,
+    getContext: requestPropTypes.isRequired,
+    postSignOut: requestPropTypes.isRequired,
   };
 
-  static defaultProps = {
-    cache,
-    getContext,
-    postSignOut,
-  };
+  componentDidUpdate() {
+    if (this.props.getContext.data) {
+      this.handleGetContext();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      changed(prevProps, this.props, 'getContext.loading') &&
+      !this.props.getContext.loading
+    ) {
+      this.handleGetContext();
+    }
+  }
 
   handleSignIn = (context) => {
-    this.props.cache.set(context);
+    cache.set(context);
     this.setState({
       ...context,
     });
   };
 
-  handleSignOut = () => {
-    this.props.postSignOut();
-    this.props.cache.clear();
+  handleSignOut = async () => {
+    const {
+      data: { error },
+      error: networkError,
+    } = await this.props.postSignOut.sendRequest();
+
+    if (error || networkError) {
+      return;
+    }
+
+    cache.clear();
     this.setState({
       isAdmin: false,
       isSignedIn: false,
@@ -40,27 +54,26 @@ export default class Provider extends Component {
   };
 
   state = {
-    ...this.props.cache.get(),
+    ...cache.get(),
     requestSignIn: this.handleSignIn,
     requestSignOut: this.handleSignOut,
   };
 
-  componentDidMount() {
-    this.getContext();
-  }
+  handleGetContext = async () => {
+    const {
+      data: { context, error },
+      error: networkError,
+    } = await this.props.postSignOut.sendRequest();
 
-  getContext = async () => {
-    const { context, error } = await this.props.getContext();
-
-    if (error) {
-      this.props.cache.clear();
+    if (error || networkError) {
+      cache.clear();
       this.setState({
         isAdmin: false,
         isSignedIn: false,
         role: null,
       });
     } else {
-      this.props.cache.set(context);
+      cache.set(context);
       this.setState({
         ...context,
       });
@@ -75,3 +88,19 @@ export default class Provider extends Component {
     );
   }
 }
+
+export default compose(
+  withRequest(
+    {
+      request: getContext,
+    },
+    'getContext',
+  ),
+  withRequest(
+    {
+      request: postSignOut,
+      eager: false,
+    },
+    'postSignOut',
+  ),
+)(Provider);

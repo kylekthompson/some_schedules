@@ -7,10 +7,6 @@ export function handleAddShift(shift) {
       shiftCreationModal: {
         visible: false,
       },
-      context: {
-        ...state.context,
-        shifts: [...state.context.shifts, shift],
-      },
     };
   };
 }
@@ -20,28 +16,6 @@ export function handleCloseShiftCreationModal(state) {
     ...state,
     shiftCreationModal: {
       visible: false,
-    },
-  };
-}
-
-export function handleContextLoaded(context, error) {
-  return function(state) {
-    return {
-      ...state,
-      context: {
-        isLoaded: true,
-        error,
-        ...context,
-      },
-    };
-  };
-}
-
-export function handleContextLoading(state) {
-  return {
-    ...state,
-    context: {
-      isLoaded: false,
     },
   };
 }
@@ -75,11 +49,5 @@ export const initialState = {
   selectedDay: current(),
   shiftCreationModal: {
     visible: false,
-  },
-  context: {
-    error: null,
-    isLoaded: false,
-    shifts: null,
-    users: null,
   },
 };

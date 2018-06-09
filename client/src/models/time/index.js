@@ -13,6 +13,7 @@ export { default as isEqual } from 'models/time/is-equal';
 export { default as isSameDay } from 'models/time/is-same-day';
 export { default as isSameMinute } from 'models/time/is-same-minute';
 export { default as isSameMonth } from 'models/time/is-same-month';
+export { default as isSameWeek } from 'models/time/is-same-week';
 export { default as parseInput } from 'models/time/parse-input';
 export { default as setHours } from 'models/time/set-hours';
 export { default as setMinutes } from 'models/time/set-minutes';

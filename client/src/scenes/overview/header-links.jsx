@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { HeaderLink } from 'components/header/styled-components';
-import { HeaderLinksContainer } from 'scenes/overview/styled-components';
+import {
+  HeaderLink,
+  HeaderLinksContainer,
+} from 'components/header/styled-components';
 
 function SignedInLinks() {
   return (

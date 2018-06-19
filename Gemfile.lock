@@ -6,6 +6,24 @@ GIT
     shoulda-matchers (3.1.2)
       activesupport (>= 4.2.0)
 
+PATH
+  remote: engines/api
+  specs:
+    api (0.0.1)
+      core
+      domain
+
+PATH
+  remote: engines/core
+  specs:
+    core (0.0.1)
+
+PATH
+  remote: engines/domain
+  specs:
+    domain (0.0.1)
+      core
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -234,11 +252,14 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  api!
   bcrypt (~> 3.1.11)
   bullet
   byebug
   codecov
+  core!
   database_cleaner
+  domain!
   factory_bot_rails
   ffaker
   foreman

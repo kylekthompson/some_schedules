@@ -84,8 +84,8 @@ jobs:
           command: bin/rails db:setup
 
       - run:
-          name: rspec
-          command: bin/rspec
+          name: engine specs
+          command: bundle exec rake spec:engines
 
       - run:
           name: start rails server
@@ -156,8 +156,8 @@ jobs:
           command: bin/rails db:setup
 
       - run:
-          name: rspec
-          command: bin/rspec
+          name: engine specs
+          command: bundle exec rake spec:engines
 
       - run:
           name: start rails server

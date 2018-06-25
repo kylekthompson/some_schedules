@@ -3,7 +3,7 @@
 module API
   class ShiftsController < API::ApplicationController
     def create
-      result = Shifts::CreationService.create(current_user: current_user, params: shift_creation_params)
+      result = ::Shifts::CreationService.create(current_user: current_user, params: shift_creation_params)
 
       render json: {
         error: serialized(result.error),

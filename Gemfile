@@ -11,12 +11,6 @@ if ENV['ENGINE'].nil?
   end
 end
 
-# engines
-Dir.glob(File.expand_path('engines/*', __dir__)).each do |path|
-  engine = File.basename(path)
-  gem engine, path: "engines/#{engine}", require: (ENV['ENGINE'].nil? || ENV['ENGINE'] == engine)
-end
-
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
@@ -47,8 +41,6 @@ group :development do
   gem 'bullet'
   gem 'foreman', require: false
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
 end
 
@@ -59,4 +51,10 @@ group :test do
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'rails-5'
   gem 'timecop'
+end
+
+# engines
+Dir.glob(File.expand_path('engines/*', __dir__)).each do |path|
+  engine = File.basename(path)
+  gem engine, path: "engines/#{engine}", require: (ENV['ENGINE'].nil? || ENV['ENGINE'] == engine)
 end

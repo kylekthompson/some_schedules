@@ -2,8 +2,8 @@
 
 module API
   class InvitationsController < API::ApplicationController
-    def invite
-      result = Invitations::InviteService.invite(current_user: current_user, email: invite_params[:email])
+    def create
+      result = ::Invitations::CreationService.create(current_user: current_user, email: invite_params[:email])
 
       render json: {
         error: serialized(result.error),

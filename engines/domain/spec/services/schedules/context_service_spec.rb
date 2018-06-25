@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Schedules::ContextService, type: :model do
   describe '.build' do
-    let(:result) { described_class.build(user: user, params: { after: after, before: before }) }
+    let(:result) { described_class.build(user: user, after: after, before: before) }
     let(:user) { create(:user) }
 
     context 'when before is nil' do

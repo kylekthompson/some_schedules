@@ -4,13 +4,13 @@ module Schedules
   class ContextService
     attr_reader :after, :before, :user
 
-    def self.build(user:, params:)
-      new(user: user, params: params).result
+    def self.build(context_params)
+      new(context_params).result
     end
 
-    def initialize(user:, params:)
-      @after = parse_time(params[:after])
-      @before = parse_time(params[:before])
+    def initialize(user:, after:, before:)
+      @after = parse_time(after)
+      @before = parse_time(before)
       @user = user
     end
 

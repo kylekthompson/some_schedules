@@ -10,7 +10,7 @@ import {
   SidebarContainer,
 } from 'scenes/app/schedule/styled-components';
 import { endOfWeek, format, startOfWeek } from 'models/time';
-import { getContext as getSchedulesContext } from 'apis/schedules';
+import { getSchedule as getSchedulesContext } from 'apis/contexts';
 import {
   handleAddShift,
   handleCloseShiftCreationModal,

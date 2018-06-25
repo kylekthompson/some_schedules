@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module Invitations
-  class InviteService
+  class CreationService
     attr_accessor :current_user, :email
 
-    def self.invite(current_user:, email:)
+    def self.create(current_user:, email:)
       new(current_user: current_user, email: email).result
     end
 
@@ -30,7 +30,7 @@ module Invitations
 
     def unauthorized
       OpenStruct.new(
-        error: I18n.t!('services.invitations.invite.unauthorized', email: email),
+        error: I18n.t!('services.invitations.creation.unauthorized', email: email),
         status: :forbidden,
         success?: false
       )

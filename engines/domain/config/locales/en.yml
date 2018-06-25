@@ -9,7 +9,7 @@ en:
       sign_up:
         unauthorized: 'You are not authorized to create a company.'
     invitations:
-      invite:
+      creation:
         unauthorized: 'You are not authorized to invite "%{email}".'
     schedules:
       context:

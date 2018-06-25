@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe Invitations::InviteService, type: :model do
-  describe '.invite' do
-    let(:result) { described_class.invite(current_user: current_user, email: email) }
+RSpec.describe Invitations::CreationService, type: :model do
+  describe '.create' do
+    let(:result) { described_class.create(current_user: current_user, email: email) }
 
     context 'when there is no current_user' do
       let(:current_user) { nil }
@@ -15,7 +15,7 @@ RSpec.describe Invitations::InviteService, type: :model do
       end
 
       it 'returns the errors' do
-        expect(result.error).to eq(I18n.t!('services.invitations.invite.unauthorized', email: email))
+        expect(result.error).to eq(I18n.t!('services.invitations.creation.unauthorized', email: email))
       end
 
       it 'has the correct status' do
@@ -32,7 +32,7 @@ RSpec.describe Invitations::InviteService, type: :model do
       end
 
       it 'has the correct error' do
-        expect(result.error).to eq(I18n.t!('services.invitations.invite.unauthorized', email: email))
+        expect(result.error).to eq(I18n.t!('services.invitations.creation.unauthorized', email: email))
       end
 
       it 'has the correct status' do

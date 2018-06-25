@@ -1,9 +1,5 @@
 import { get, post } from 'services/requests';
 
-export function getContext() {
-  return get('/api/authentication/context');
-}
-
 export function postSignIn(authentication) {
   return post('/api/authentication/sign_in', {
     authentication,

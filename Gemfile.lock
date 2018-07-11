@@ -7,11 +7,25 @@ GIT
       activesupport (>= 4.2.0)
 
 PATH
+  remote: engines/accounts
+  specs:
+    accounts (0.0.1)
+      core
+
+PATH
   remote: engines/api
   specs:
     api (0.0.1)
+      accounts
+      authentication
       core
-      domain
+      schedules
+
+PATH
+  remote: engines/authentication
+  specs:
+    authentication (0.0.1)
+      accounts
 
 PATH
   remote: engines/core
@@ -19,9 +33,10 @@ PATH
     core (0.0.1)
 
 PATH
-  remote: engines/domain
+  remote: engines/schedules
   specs:
-    domain (0.0.1)
+    schedules (0.0.1)
+      accounts
       core
 
 GEM
@@ -248,15 +263,16 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  accounts!
   active_model_serializers
   api!
+  authentication!
   bcrypt (~> 3.1.11)
   bullet
   byebug
   codecov
   core!
   database_cleaner
-  domain!
   factory_bot_rails
   ffaker
   foreman
@@ -273,6 +289,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   rubocop-rspec
+  schedules!
   shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers!
   timecop

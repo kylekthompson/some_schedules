@@ -1,0 +1,8 @@
+en:
+  activemodel:
+    errors:
+      models:
+        api/authentication/sign_in_service:
+          attributes:
+            user:
+              invalid_email_or_password: 'email or password is invalid'

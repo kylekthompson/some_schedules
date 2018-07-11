@@ -22,6 +22,9 @@ Metrics/MethodLength:
   Exclude:
     - db/**/*
 
+RSpec/ExampleLength:
+  Enabled: false
+
 RSpec/NestedGroups:
   Max: 5
 
@@ -31,3 +34,15 @@ Style/BlockDelimiters:
 
 Style/Documentation:
   Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma

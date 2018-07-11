@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     namespace :authentication do
       resource :sign_in, only: :create
       resource :sign_out, only: :create
-      resource :sign_up, only: :create
     end
 
     namespace :contexts do
@@ -13,9 +12,10 @@ Rails.application.routes.draw do
       resource :schedule, only: :show
     end
 
+    resources :companies, only: :create
     resources :invitations, only: :create
 
-    resources :users, only: [] do
+    resources :users, only: :create do
       resources :shifts, only: :create
     end
   end

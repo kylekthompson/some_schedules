@@ -4,6 +4,8 @@ module API
   class ApplicationController < ActionController::API
     before_action :authenticate_user!
 
+    rescue_from API::Errors::NotAuthorizedError, with: :forbidden
+
     protected
 
     def authenticate_user!
@@ -12,20 +14,17 @@ module API
 
     def current_user
       return @current_user if @current_user.present?
-      result = Tokens::DecodeService.decode(token: session[:token])
+      result = ::Authentication::Tokens::DecodeService.decode(token: session[:token])
 
       return nil unless result.success?
 
-      @current_user = User.find_by(email: result.payload.email).tap do |user|
-        session[:token] = Tokens::EncodeService.encode(user: user).token
+      @current_user = User.find_by(email: result.email).tap do |user|
+        session[:token] = ::Authentication::Tokens::EncodeService.encode(user: user).token
       end
     end
 
-    def serialized(instance, options = {})
-      return nil unless instance.present?
-      "#{instance.class}Serializer".constantize.new(instance).serializable_hash(options)
-    rescue NameError
-      instance
+    def forbidden
+      head :forbidden
     end
   end
 end

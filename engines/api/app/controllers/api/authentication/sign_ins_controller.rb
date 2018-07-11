@@ -6,14 +6,10 @@ module API
       skip_before_action :authenticate_user!, only: %i[create]
 
       def create
-        result = ::Authentication::SignInService.sign_in(sign_in_params)
+        result = API::Authentication::SignInService.sign_in(sign_in_params)
 
-        session[:token] = result.token if result.success?
-
-        render json: {
-          context: serialized(result.authentication_context),
-          error: serialized(result.error)
-        }, status: result.status
+        session[:token] = result.token
+        render json: result.serialize, status: result.status
       end
 
       private

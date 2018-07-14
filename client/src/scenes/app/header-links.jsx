@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  Container as HeaderLinksContainer,
-  HeaderLink,
-} from 'components/header/styled-components';
+import { HeaderLink } from 'components/header/styled-components';
+import { HeaderLinksContainer } from 'scenes/app/styled-components';
 import { header } from 'models/constants';
 
 export default function HeaderLinks({ className, requestSignOut }) {

@@ -1,4 +1,4 @@
-import { get, post } from 'services/requests';
+import { post } from 'services/requests';
 
 export function postSignIn(authentication) {
   return post('/api/authentication/sign_in', {
@@ -8,13 +8,4 @@ export function postSignIn(authentication) {
 
 export function postSignOut() {
   return post('/api/authentication/sign_out');
-}
-
-export function postSignUp(user, company) {
-  return post('/api/authentication/sign_up', {
-    authentication: {
-      user,
-      company,
-    },
-  });
 }

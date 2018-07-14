@@ -2,14 +2,9 @@
 
 module API
   class InvitationsController < API::ApplicationController
-    def invite
-      result = Invitations::InviteService.invite(current_user: current_user, email: invite_params[:email])
-
-      render json: {
-        error: serialized(result.error),
-        errors: serialized(result.errors),
-        invitation: serialized(result.invitation)
-      }, status: result.status
+    def create
+      result = API::Invitations::CreationService.create(invite_params)
+      render json: result.serialize, status: result.status
     end
 
     private
@@ -18,7 +13,8 @@ module API
       params
         .require(:invitation)
         .permit(:email)
-        .to_h.deep_symbolize_keys
+        .merge(current_user: current_user)
+        .to_h.symbolize_keys
     end
   end
 end

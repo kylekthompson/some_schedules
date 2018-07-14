@@ -1,0 +1,8 @@
+en:
+  activemodel:
+    errors:
+      models:
+        api/schedules/context_service:
+          attributes:
+            after:
+              must_be_earlier_than_before: 'must be earlier than before'

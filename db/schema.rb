@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171205161445) do
+ActiveRecord::Schema.define(version: 2018_07_06_015956) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "pgcrypto"
+  enable_extension "plpgsql"
 
   create_table "companies", force: :cascade do |t|
     t.string "name", null: false
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(version: 20171205161445) do
   end
 
   create_table "invitations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "email", null: false
     t.boolean "accepted", default: false, null: false
     t.datetime "expires_at", default: -> { "(now() + '1 day'::interval)" }, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_invitations_on_user_id"
+    t.bigint "invited_by_id", null: false
+    t.index ["invited_by_id"], name: "index_invitations_on_invited_by_id"
   end
 
   create_table "shifts", force: :cascade do |t|
@@ -50,13 +50,12 @@ ActiveRecord::Schema.define(version: 20171205161445) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "company_id", null: false
-    t.integer "role", null: false
-    t.boolean "admin", default: false, null: false
+    t.bigint "company_id"
+    t.string "role", null: false
     t.index ["company_id"], name: "index_users_on_company_id"
   end
 
-  add_foreign_key "invitations", "users"
+  add_foreign_key "invitations", "users", column: "invited_by_id"
   add_foreign_key "shifts", "users"
   add_foreign_key "users", "companies"
 end

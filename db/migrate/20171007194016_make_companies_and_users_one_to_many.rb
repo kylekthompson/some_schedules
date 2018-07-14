@@ -10,7 +10,7 @@ class MakeCompaniesAndUsersOneToMany < ActiveRecord::Migration[5.1]
         CompanyUser.includes(:company, :user).all.find_each do |company_user|
           company_user.user.update!(
             role: CompanyUser.roles[company_user.role],
-            company_id: company_user.company.id
+            company_id: company_user.company.id,
           )
         end
       end
@@ -34,7 +34,7 @@ class MakeCompaniesAndUsersOneToMany < ActiveRecord::Migration[5.1]
           CompanyUser.create!(
             company_id: user.company_id,
             user_id: user.id,
-            role: user.role
+            role: user.role,
           )
         end
       end

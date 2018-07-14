@@ -2,28 +2,20 @@
 
 Rails.application.routes.draw do
   namespace :api do
-    resources :authentication, only: [] do
-      collection do
-        get :context
-        post :sign_in
-        post :sign_out
-        post :sign_up
-      end
+    namespace :authentication do
+      resource :sign_in, only: :create
+      resource :sign_out, only: :create
     end
 
-    resources :invitations, only: [] do
-      collection do
-        post :invite
-      end
+    namespace :contexts do
+      resource :authentication, only: :show
+      resource :schedule, only: :show
     end
 
-    resources :schedules, only: [] do
-      collection do
-        get :context
-      end
-    end
+    resources :companies, only: :create
+    resources :invitations, only: :create
 
-    resources :users, only: [] do
+    resources :users, only: :create do
       resources :shifts, only: :create
     end
   end

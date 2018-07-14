@@ -2,7 +2,7 @@
 
 class CreateInvitations < ActiveRecord::Migration[5.1]
   def change
-    enable_extension 'pgcrypto'
+    enable_extension "pgcrypto"
 
     create_table :invitations, id: :uuid do |t|
       t.references :user, foreign_key: true, null: false

@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe InvitationSerializer, type: :serializer do
   subject(:serializer) { described_class.new(invitation) }
 
-  describe 'serialization' do
+  describe "serialization" do
     let(:invitation) { build(:invitation) }
-    let(:expected_keys) { %i[id created_at email expires_at updated_at user] }
-    let(:expected_user_keys) { %i[id created_at updated_at] }
+    let(:expected_keys) { %i[id created_at email expires_at updated_at invited_by] }
+    let(:expected_invited_by_keys) { %i[id created_at updated_at] }
 
-    it 'serializes properly', :aggregate_failures do
+    it "serializes properly", :aggregate_failures do
       expect(serializer.serializable_hash.keys).to contain_exactly(*expected_keys)
-      expect(serializer.serializable_hash[:user].keys).to contain_exactly(*expected_user_keys)
+      expect(serializer.serializable_hash[:invited_by].keys).to contain_exactly(*expected_invited_by_keys)
     end
   end
 end

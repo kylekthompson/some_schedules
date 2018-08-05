@@ -2,15 +2,6 @@
 
 source "https://rubygems.org"
 
-if ENV["ENGINE"].nil?
-  if Dir.pwd.split("/")[-2] == "engines"
-    ENV["ENGINE"] = Dir.pwd.split("/").last
-  else
-    match = ARGV.map { |x| %r{engines/(\w+)/}.match(x) || %r{engines/(\w+)}.match(x) }.compact.first
-    ENV["ENGINE"] = match[1] if match
-  end
-end
-
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -51,10 +42,4 @@ group :test do
   gem "shoulda-callback-matchers", "~> 1.1.1"
   gem "shoulda-matchers", github: "thoughtbot/shoulda-matchers", branch: "rails-5"
   gem "timecop"
-end
-
-# engines
-Dir.glob(File.expand_path("engines/*", __dir__)).each do |path|
-  engine = File.basename(path)
-  gem engine, path: "engines/#{engine}", require: (ENV["ENGINE"].nil? || ENV["ENGINE"] == engine)
 end

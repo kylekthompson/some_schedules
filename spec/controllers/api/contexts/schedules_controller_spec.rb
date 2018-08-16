@@ -3,13 +3,14 @@
 require "rails_helper"
 
 RSpec.describe API::Contexts::SchedulesController, type: :request do
+  include_context "with headers"
   include_context "with parsed body"
 
   describe "GET #show" do
     let(:params) { { after: 1.day.ago.to_s, before: 1.day.from_now.to_s } }
 
     context "when unauthenticated" do
-      before { get("/api/contexts/schedule", params: params) }
+      before { get("/api/contexts/schedule", params: params, headers: headers) }
 
       it "is not successful" do
         expect(response).to have_http_status(:unauthorized)
@@ -21,7 +22,7 @@ RSpec.describe API::Contexts::SchedulesController, type: :request do
 
       before do
         sign_in
-        get("/api/contexts/schedule", params: params)
+        get("/api/contexts/schedule", params: params, headers: headers)
       end
 
       it "is successful" do

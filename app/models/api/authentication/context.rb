@@ -3,6 +3,8 @@
 module API
   module Authentication
     class Context
+      extend ActiveModel::Naming
+
       include ActiveModel::Serialization
 
       attr_reader :is_signed_in, :role

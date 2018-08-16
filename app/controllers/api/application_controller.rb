@@ -5,8 +5,9 @@ module API
     before_action :authenticate_user!
 
     rescue_from API::Errors::NotAuthorizedError, with: :forbidden
+    respond_to :json
 
-    protected
+    private
 
     def authenticate_user!
       head :unauthorized unless current_user.present?
@@ -14,17 +15,19 @@ module API
 
     def current_user
       return @current_user if @current_user.present?
-      result = ::Authentication::Tokens::DecodeService.decode(token: session[:token])
 
-      return nil unless result.success?
+      result = API::CurrentUserService.find(token: session[:token])
 
-      @current_user = User.find_by(email: result.email).tap do |user|
-        session[:token] = ::Authentication::Tokens::EncodeService.encode(user: user).token
-      end
+      session[:token] = result.token
+      @current_user = result.user
     end
 
     def forbidden
       head :forbidden
+    end
+
+    def respond_with(resource, **options)
+      super(resource, options.merge(location: nil))
     end
   end
 end

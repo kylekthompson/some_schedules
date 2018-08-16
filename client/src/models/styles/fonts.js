@@ -5,28 +5,23 @@ const shared = css`
 `;
 
 const light = css`
-  ${shared}
-  font-weight: 300;
+  ${shared} font-weight: 300;
 `;
 
 const regular = css`
-  ${shared}
-  font-weight: 400;
+  ${shared} font-weight: 400;
 `;
 
 const semiBold = css`
-  ${shared}
-  font-weight: 600;
+  ${shared} font-weight: 600;
 `;
 
 const bold = css`
-  ${shared}
-  font-weight: 700;
+  ${shared} font-weight: 700;
 `;
 
 const extraBold = css`
-  ${shared}
-  font-weight: 800;
+  ${shared} font-weight: 800;
 `;
 
 export default {

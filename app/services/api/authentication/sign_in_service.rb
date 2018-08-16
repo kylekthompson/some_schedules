@@ -3,60 +3,39 @@
 module API
   module Authentication
     class SignInService < Core::Service
-      def self.sign_in(params)
-        new(params)
-      end
+      static_facade :sign_in, %i[email! password!]
 
-      include API::Serialization
-      include ActiveModel::Validations
-
-      validates :email, presence: true
-      validates :password, presence: true
-      validate :user_is_authenticated
-
-      def initialize(email:, password:)
-        @email = email
-        @password = password
-
-        validate
-      end
-
-      def status
-        if valid?
-          :ok
-        else
-          :unauthorized
-        end
-      end
-
-      def serialize
-        if valid?
-          { context: serialized(context) }
-        else
-          { errors: serialized(errors) }
-        end
-      end
-
-      def token
-        return nil unless valid?
-        ::Authentication::Tokens::EncodeService.encode(user: user).token
+      def sign_in
+        return NilResult.new unless authenticated?
+        Result.new(user: user)
       end
 
       private
-
-      attr_reader :email, :password
-
-      def context
-        @context ||= Context.new(user: user)
-      end
 
       def user
         @user ||= ::Accounts::Users::LookupService.by(email: email)
       end
 
-      def user_is_authenticated
-        return if user.authenticate(password)
-        errors.add(:user, :invalid_email_or_password)
+      def authenticated?
+        user.authenticate(password)
+      end
+
+      class NilResult
+        attr_reader :token
+
+        def context
+          API::Authentication::Context.new(user: nil)
+        end
+      end
+
+      class Result
+        pattr_initialize [:user!]
+
+        delegate :token, to: :user
+
+        def context
+          @context ||= API::Authentication::Context.new(user: user)
+        end
       end
     end
   end

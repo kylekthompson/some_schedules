@@ -33,4 +33,22 @@ RSpec.describe NilUser, type: :model do
       expect(nil_user).not_to be_persisted
     end
   end
+
+  describe "#managerial?" do
+    it "is not managerial" do
+      expect(nil_user).not_to be_managerial
+    end
+  end
+
+  describe "#owner?" do
+    it "is not owner" do
+      expect(nil_user).not_to be_owner
+    end
+  end
+
+  describe "#token" do
+    it "is nil" do
+      expect(nil_user.token).to be_nil
+    end
+  end
 end

@@ -3,34 +3,10 @@
 module Accounts
   module Companies
     class CreationService < Core::Service
-      def self.create(params)
-        new(params)
-      end
+      def self.create(user:, **params)
+        raise API::Errors::NotAuthorizedError unless user.company.blank? && user.owner?
 
-      attr_reader :user, :params
-
-      delegate :errors, to: :company
-
-      def initialize(user:, **params)
-        @user = user
-        @params = params
-      end
-
-      def success?
-        company.valid? && company.persisted?
-      end
-
-      def company
-        @company ||= create_company
-      end
-
-      private
-
-      def create_company
-        Company.new(params).tap do |c|
-          c.users << user
-          c.save
-        end
+        Company.create(params.merge(users: [user]))
       end
     end
   end

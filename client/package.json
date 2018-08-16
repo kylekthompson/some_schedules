@@ -31,14 +31,12 @@
   "scripts": {
     "build": "NODE_PATH=src/ react-scripts build && mv build/* ../public",
     "eject": "NODE_PATH=src/ react-scripts eject",
-    "format":
-      "prettier --single-quote --trailing-comma all --arrow-parens always --write **/*.{js,jsx,json}",
+    "format": "prettier --single-quote --trailing-comma all --arrow-parens always --write **/*.{js,jsx,json}",
     "lint": "NODE_PATH=src/ eslint src/**/*.js*",
     "precommit": "lint-staged",
     "start": "NODE_PATH=src/ react-scripts start",
     "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
-    "test:debug":
-      "NODE_PATH=src/ react-scripts --inspect-brk test --env=jsdom --runInBand"
+    "test:debug": "NODE_PATH=src/ react-scripts --inspect-brk test --env=jsdom --runInBand"
   },
   "lint-staged": {
     "*.{js,jsx,json}": [

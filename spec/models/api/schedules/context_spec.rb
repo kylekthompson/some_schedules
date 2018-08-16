@@ -3,11 +3,51 @@
 require "rails_helper"
 
 RSpec.describe API::Schedules::Context, type: :model do
-  subject(:context) { described_class.new(after: after, before: before, user: user) }
+  subject(:context) { described_class.new(after: after_time, before: before_time, user: user) }
 
   let(:user) { create(:user) }
-  let(:after) { 1.day.ago }
-  let(:before) { 1.day.from_now }
+  let(:after_time) { 1.day.ago }
+  let(:before_time) { 1.day.from_now }
+
+  describe "validations" do
+    before { context.validate }
+
+    context "when after is nil" do
+      let(:after_time) { nil }
+      let(:before_time) { 1.day.from_now }
+
+      it "is not valid" do
+        expect(context.errors.details.fetch(:after)).to include(error: :blank)
+      end
+    end
+
+    context "when before is nil" do
+      let(:after_time) { 1.day.ago }
+      let(:before_time) { nil }
+
+      it "is not valid" do
+        expect(context.errors.details.fetch(:before)).to include(error: :blank)
+      end
+    end
+
+    context "when after is not earlier than before" do
+      let(:after_time) { 2.days.from_now }
+      let(:before_time) { 1.day.from_now }
+
+      it "is not valid" do
+        expect(context.errors.details.fetch(:after)).to include(error: :must_be_earlier_than_before)
+      end
+    end
+
+    context "when after and before are valid times" do
+      let(:after_time) { 1.days.ago }
+      let(:before_time) { 1.day.from_now }
+
+      it "is valid" do
+        expect(context).to be_valid
+      end
+    end
+  end
 
   describe "#users" do
     before do
@@ -33,8 +73,8 @@ RSpec.describe API::Schedules::Context, type: :model do
     end
 
     context "when the shifts returned by the scope are outside of the window" do
-      let(:after) { 1.day.from_now }
-      let(:before) { 2.days.from_now }
+      let(:after_time) { 1.day.from_now }
+      let(:before_time) { 2.days.from_now }
 
       it "returns nothing" do
         expect(context.shifts).to be_empty

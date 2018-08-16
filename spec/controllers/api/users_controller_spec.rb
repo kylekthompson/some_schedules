@@ -3,6 +3,7 @@
 require "rails_helper"
 
 RSpec.describe API::UsersController, type: :request do
+  include_context "with headers"
   include_context "with parsed body"
 
   describe "POST #create" do
@@ -10,16 +11,17 @@ RSpec.describe API::UsersController, type: :request do
     let(:user) { attributes_for(:user) }
 
     context "when unauthenticated" do
-      before { post("/api/users", params: params) }
+      before { post("/api/users", params: params, headers: headers) }
 
       it "is successful", :aggregate_failures do
         expect(response).to have_http_status(:created)
         expect(parsed_body[:errors]).to be_nil
         expect(parsed_body[:user][:name]).to eq(user[:name])
+        expect(User.last.role).to eq(User::Role::OWNER)
       end
 
       it "is signed in for future requests" do
-        get("/api/contexts/authentication")
+        get("/api/contexts/authentication", headers: headers)
         expect(parsed_body[:context][:is_signed_in]).to eq(true)
       end
     end
@@ -31,7 +33,7 @@ RSpec.describe API::UsersController, type: :request do
 
       before do
         sign_in
-        post("/api/users", params: params)
+        post("/api/users", params: params, headers: headers)
       end
 
       it "is forbidden" do

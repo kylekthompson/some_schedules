@@ -16,6 +16,8 @@ describe('sortUsersByLastNameThenFirstNameIncreasing()', () => {
       lastName: 'Jefferson',
     });
 
-    expect(sortUsersByLastNameThenFirstNameIncreasing([user2, user3, user1])).toEqual([user1, user2, user3]);
+    expect(
+      sortUsersByLastNameThenFirstNameIncreasing([user2, user3, user1]),
+    ).toEqual([user1, user2, user3]);
   });
 });

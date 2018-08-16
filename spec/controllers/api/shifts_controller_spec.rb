@@ -3,6 +3,7 @@
 require "rails_helper"
 
 RSpec.describe API::ShiftsController, type: :request do
+  include_context "with headers"
   include_context "with parsed body"
 
   describe "POST #create" do
@@ -11,7 +12,7 @@ RSpec.describe API::ShiftsController, type: :request do
     let(:shift_params) { attributes_for(:shift) }
 
     context "when unauthenticated" do
-      before { post("/api/users/#{user_for_shift.id}/shifts", params: params) }
+      before { post("/api/users/#{user_for_shift.id}/shifts", params: params, headers: headers) }
 
       it "is not successful" do
         expect(response).to have_http_status(:unauthorized)
@@ -26,7 +27,7 @@ RSpec.describe API::ShiftsController, type: :request do
 
       before do
         sign_in
-        post("/api/users/#{user_for_shift.id}/shifts", params: params)
+        post("/api/users/#{user_for_shift.id}/shifts", params: params, headers: headers)
       end
 
       context "when the params are valid" do
@@ -54,7 +55,7 @@ RSpec.describe API::ShiftsController, type: :request do
 
       before do
         sign_in
-        post("/api/users/#{user_for_shift.id}/shifts", params: params)
+        post("/api/users/#{user_for_shift.id}/shifts", params: params, headers: headers)
       end
 
       it "is not successful" do

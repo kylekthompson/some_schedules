@@ -4,35 +4,33 @@ require "rails_helper"
 
 RSpec.describe Accounts::Invitations::CreationService do
   describe ".create" do
-    let(:result) { described_class.create(invited_by: invited_by, email: email) }
+    let(:invitation) { described_class.create(params) }
+    let(:invited_by) { create(:user, :owner, :in_company) }
+    let(:params) { { email: "email@example.com", invited_by: invited_by } }
 
     context "when the params are valid" do
-      let(:invited_by) { create(:user) }
-      let(:email) { "some@email.com" }
-
-      it "is successful" do
-        expect(result).to be_success
-      end
-
-      it "builds the invitation" do
-        expect(result.invitation).to have_attributes(invited_by: invited_by)
-      end
-
-      it "does not have errors" do
-        expect(result.errors).to be_blank
+      it "creates the invitation", :aggregate_failures do
+        expect { invitation }.to change(Invitation, :count).by(1)
+        expect(invitation).to have_attributes(
+          invited_by: invited_by,
+          email: "email@example.com",
+        )
       end
     end
 
-    context "when there is no invited_by" do
-      let(:invited_by) { nil }
-      let(:email) { "some@email.com" }
+    context "when the inviter is not managerial" do
+      let(:invited_by) { create(:user, :employee, :in_company) }
 
-      it "is not successful" do
-        expect(result).not_to be_success
+      it "raises" do
+        expect { invitation }.to raise_error(API::Errors::NotAuthorizedError)
       end
+    end
 
-      it "has errors" do
-        expect(result.errors).to be_present
+    context "when the inviter is not in a company" do
+      let(:invited_by) { create(:user, :owner, company: nil) }
+
+      it "raises" do
+        expect { invitation }.to raise_error(API::Errors::NotAuthorizedError)
       end
     end
   end

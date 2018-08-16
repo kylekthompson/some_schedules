@@ -20,7 +20,9 @@ class User extends Factory {
   }
 
   withShifts(shifts = [], shiftCount = 1) {
-    this.shifts = ofSize(shiftCount).map((index) => new Shift(shifts[index] || {}));
+    this.shifts = ofSize(shiftCount).map(
+      (index) => new Shift(shifts[index] || {}),
+    );
     return this;
   }
 }

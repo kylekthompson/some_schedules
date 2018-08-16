@@ -5,7 +5,7 @@ module Core
     attr_reader :raw_time
 
     delegate_missing_to :coerced_time
-    delegate :blank?, :present?, :presence, to: :coerced_time
+    delegate :blank?, :nil?, :present?, :presence, to: :coerced_time
 
     def initialize(raw_time)
       @raw_time = raw_time

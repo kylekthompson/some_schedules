@@ -19,6 +19,10 @@ describe('sortShiftsByTimeIncreasing()', () => {
       startTime: format.fromServer(addHours(addDays(base, 1), 5)),
     });
 
-    expect(sortShiftsByTimeIncreasing([shift2, shift3, shift1])).toEqual([shift1, shift2, shift3]);
+    expect(sortShiftsByTimeIncreasing([shift2, shift3, shift1])).toEqual([
+      shift1,
+      shift2,
+      shift3,
+    ]);
   });
 });

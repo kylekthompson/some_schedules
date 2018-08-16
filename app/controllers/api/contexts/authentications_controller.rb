@@ -6,8 +6,7 @@ module API
       skip_before_action :authenticate_user!, only: %i[show]
 
       def show
-        result = API::Authentication::ContextService.build(user: current_user)
-        render json: result.serialize, status: result.status
+        respond_with(Authentication::Context.new(user: current_user), root: :context)
       end
     end
   end

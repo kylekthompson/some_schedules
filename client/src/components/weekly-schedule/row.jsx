@@ -48,7 +48,9 @@ export default class Row extends React.Component {
         onClick={onCellClick(user.id, day)}
         testId={`user-${user.id}-${getDayOfWeek(day)}`}
       >
-        {shiftsForToday.map((shift) => <Shift key={shift.id} shift={shift} />)}
+        {shiftsForToday.map((shift) => (
+          <Shift key={shift.id} shift={shift} />
+        ))}
       </Cell>
     );
   };

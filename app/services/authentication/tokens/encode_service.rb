@@ -3,22 +3,12 @@
 module Authentication
   module Tokens
     class EncodeService < Core::Service
-      def self.encode(user:)
-        new(user: user || NilUser.new)
-      end
+      static_facade :encode, [:user!]
 
-      attr_reader :user
+      def encode
+        return nil unless user.persisted?
 
-      def initialize(user:)
-        @user = user
-      end
-
-      def success?
-        user.persisted? && token.present?
-      end
-
-      def token
-        @token ||= JWT.encode(payload, secret_key_base, ALGORITHM)
+        JWT.encode(payload, secret_key_base, ALGORITHM)
       end
 
       private

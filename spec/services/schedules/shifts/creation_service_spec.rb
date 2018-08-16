@@ -4,33 +4,34 @@ require "rails_helper"
 
 RSpec.describe Schedules::Shifts::CreationService do
   describe ".create" do
-    let(:result) { described_class.create(params) }
-    let(:user) { create(:user) }
-    let(:params) { attributes_for(:shift).merge(user: user) }
+    let(:shift) { described_class.create(params) }
+    let(:params) { attributes_for(:shift).merge(user: user, current_user: current_user) }
 
-    context "when the params are valid" do
-      it "is successful" do
-        expect(result).to be_success
-      end
+    context "when the current user is not managerial" do
+      let(:user) { create(:user, :employee, :in_company) }
+      let(:current_user) { create(:user, :employee, :in_company) }
 
-      it "sets up the shift" do
-        expect(result.shift).to have_attributes(user: user)
-      end
-
-      it "has no errors" do
-        expect(result.errors).to be_blank
+      it "raises" do
+        expect { shift }.to raise_error(API::Errors::NotAuthorizedError)
       end
     end
 
-    context "when the params are invalid" do
-      let(:user) { nil }
+    context "when the current user is in a different company than the shift's user" do
+      let(:user) { create(:user, :employee, :in_company) }
+      let(:current_user) { create(:user, :owner, :in_company) }
 
-      it "is not successful" do
-        expect(result).not_to be_success
+      it "raises" do
+        expect { shift }.to raise_error(API::Errors::NotAuthorizedError)
       end
+    end
 
-      it "has errors" do
-        expect(result.errors).to be_present
+    context "when the params are valid" do
+      let(:user) { create(:user, :employee, :in_company) }
+      let(:current_user) { create(:user, :owner, company: user.company) }
+
+      it "creates the shift", :aggregate_failures do
+        expect { shift }.to change(Shift, :count).by(1)
+        expect(shift).to have_attributes(user: user)
       end
     end
   end

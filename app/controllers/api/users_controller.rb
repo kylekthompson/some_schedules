@@ -3,21 +3,26 @@
 module API
   class UsersController < API::ApplicationController
     skip_before_action :authenticate_user!, only: %i[create]
+    before_action :ensure_not_authenticated!, only: %i[create]
 
     def create
-      result = API::Users::CreationService.create(creation_params)
+      user = ::Accounts::Users::CreationService.create(creation_params)
 
-      session[:token] = result.token
-      render json: result.serialize, status: result.status
+      session[:token] = ::Authentication::Tokens::EncodeService.encode(user: user)
+      respond_with(user)
     end
 
     private
+
+    def ensure_not_authenticated!
+      raise API::Errors::NotAuthorizedError if current_user.present?
+    end
 
     def creation_params
       params
         .require(:user)
         .permit(:email, :first_name, :last_name, :password, :password_confirmation)
-        .merge(current_user: current_user)
+        .merge(role: User::Role::OWNER)
         .to_h.symbolize_keys
     end
   end

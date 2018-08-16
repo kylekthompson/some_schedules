@@ -13,7 +13,9 @@ class Company extends Factory {
   }
 
   withUsers(users = [], userCount = 1) {
-    this.users = ofSize(userCount).map((index) => new User(users[index] || {}).withShifts());
+    this.users = ofSize(userCount).map((index) =>
+      new User(users[index] || {}).withShifts(),
+    );
     this.shifts = [].concat(...this.users.map((u) => u.shifts));
     return this;
   }

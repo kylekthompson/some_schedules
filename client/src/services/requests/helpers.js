@@ -18,7 +18,7 @@ export const sharedOptionsFactory = () => ({
 
 const buildError = (status) => {
   if (status === 401) {
-    return 'Looks like you need to sign in again. Sorry about that! We\'ll redirect you over to the sign in page.';
+    return "Looks like you need to sign in again. Sorry about that! We'll redirect you over to the sign in page.";
   } else if (status >= 400) {
     return 'Looks like something went wrong... Sorry!';
   }
@@ -29,7 +29,8 @@ const buildError = (status) => {
 export const fetcher = async (request) => {
   const response = await window.fetch(request);
   const contentTypeHeader = response.headers.get('Content-Type');
-  const isJSON = contentTypeHeader && contentTypeHeader.includes('application/json');
+  const isJSON =
+    contentTypeHeader && contentTypeHeader.includes('application/json');
   const text = await response.text();
 
   let json = null;

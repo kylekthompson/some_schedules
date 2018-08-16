@@ -33,4 +33,8 @@ class User < ApplicationRecord
   def owner?
     role == Role::OWNER
   end
+
+  def token
+    ::Authentication::Tokens::EncodeService.encode(user: self)
+  end
 end

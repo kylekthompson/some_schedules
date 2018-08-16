@@ -4,6 +4,8 @@ export default class Validator {
   }
 
   run(formValues) {
-    return this.validations.map((validate) => validate(formValues)).filter(Boolean);
+    return this.validations
+      .map((validate) => validate(formValues))
+      .filter(Boolean);
   }
 }

@@ -3,8 +3,8 @@
 module API
   class ShiftsController < API::ApplicationController
     def create
-      result = API::Shifts::CreationService.create(creation_params)
-      render json: result.serialize, status: result.status
+      shift = ::Schedules::Shifts::CreationService.create(creation_params)
+      respond_with(shift)
     end
 
     private

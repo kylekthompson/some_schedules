@@ -3,17 +3,17 @@
 module API
   class InvitationsController < API::ApplicationController
     def create
-      result = API::Invitations::CreationService.create(invite_params)
-      render json: result.serialize, status: result.status
+      invitation = ::Accounts::Invitations::CreationService.create(creation_params)
+      respond_with(invitation)
     end
 
     private
 
-    def invite_params
+    def creation_params
       params
         .require(:invitation)
         .permit(:email)
-        .merge(current_user: current_user)
+        .merge(invited_by: current_user)
         .to_h.symbolize_keys
     end
   end

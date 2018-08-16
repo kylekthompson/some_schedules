@@ -13,7 +13,9 @@ describe('clear()', () => {
     cache.clear();
 
     expect(removeItem).toHaveBeenCalledTimes(1);
-    expect(removeItem).toHaveBeenCalledWith(constants.AUTHENTICATION_CONTEXT_KEY);
+    expect(removeItem).toHaveBeenCalledWith(
+      constants.AUTHENTICATION_CONTEXT_KEY,
+    );
   });
 });
 
@@ -45,6 +47,9 @@ describe('set()', () => {
     cache.set({});
 
     expect(setItem).toHaveBeenCalledTimes(1);
-    expect(setItem).toHaveBeenCalledWith(constants.AUTHENTICATION_CONTEXT_KEY, '{}');
+    expect(setItem).toHaveBeenCalledWith(
+      constants.AUTHENTICATION_CONTEXT_KEY,
+      '{}',
+    );
   });
 });

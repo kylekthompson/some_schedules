@@ -3,11 +3,12 @@
 require "rails_helper"
 
 RSpec.describe API::Contexts::AuthenticationsController, type: :request do
+  include_context "with headers"
   include_context "with parsed body"
 
   describe "GET #show" do
     context "when unauthenticated" do
-      before { get("/api/contexts/authentication") }
+      before { get("/api/contexts/authentication", headers: headers) }
 
       it "is successful" do
         expect(response).to have_http_status(:ok)
@@ -27,7 +28,7 @@ RSpec.describe API::Contexts::AuthenticationsController, type: :request do
 
       before do
         sign_in
-        get("/api/contexts/authentication")
+        get("/api/contexts/authentication", headers: headers)
       end
 
       it "is successful" do

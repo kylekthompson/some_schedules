@@ -4,7 +4,9 @@ import { fetcher, sharedOptionsFactory } from 'services/requests/helpers';
 
 const buildUrl = (urlString, params) => {
   const url = new URL(urlString.replace(/\/$/, ''), window.location.origin);
-  Object.keys(params).forEach((param) => url.searchParams.set(decamelizeKeys(param), params[param]));
+  Object.keys(params).forEach((param) =>
+    url.searchParams.set(decamelizeKeys(param), params[param]),
+  );
   return url;
 };
 

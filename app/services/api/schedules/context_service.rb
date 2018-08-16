@@ -3,54 +3,14 @@
 module API
   module Schedules
     class ContextService < Core::Service
-      def self.build(params)
-        new(params)
-      end
+      static_facade :build, %i[user! after! before!]
 
-      include ActiveModel::Validations
-      include API::Serialization
-
-      validates :user, presence: true
-      validates :after, presence: true
-      validates :before, presence: true
-      validate :after_earlier_than_before?
-
-      def initialize(user:, after:, before:)
-        @user = user
-        @after = Core::Time.new(after)
-        @before = Core::Time.new(before)
-
-        validate
-      end
-
-      def status
-        if valid?
-          :ok
-        else
-          :unprocessable_entity
-        end
-      end
-
-      def serialize
-        if valid?
-          { context: serialized(context) }
-        else
-          { errors: serialized(errors) }
-        end
-      end
-
-      private
-
-      attr_reader :user, :after, :before
-
-      def context
-        @context ||= API::Schedules::Context.new(user: user, after: after, before: before)
-      end
-
-      def after_earlier_than_before?
-        return unless after.present? && before.present?
-        return if after < before
-        errors.add(:after, :must_be_earlier_than_before)
+      def build
+        API::Schedules::Context.new(
+          user: user,
+          after: Core::Time.new(after),
+          before: Core::Time.new(before),
+        ).tap(&:validate)
       end
     end
   end

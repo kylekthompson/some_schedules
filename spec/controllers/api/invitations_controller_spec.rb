@@ -3,6 +3,7 @@
 require "rails_helper"
 
 RSpec.describe API::InvitationsController, type: :request do
+  include_context "with headers"
   include_context "with parsed body"
 
   describe "POST #create" do
@@ -10,7 +11,7 @@ RSpec.describe API::InvitationsController, type: :request do
     let(:email) { "some@email.com" }
 
     context "when unauthenticated" do
-      before { post("/api/invitations", params: params) }
+      before { post("/api/invitations", params: params, headers: headers) }
 
       it "is unauthorized" do
         expect(response).to have_http_status(:unauthorized)
@@ -20,11 +21,11 @@ RSpec.describe API::InvitationsController, type: :request do
     context "when authenticated as an owner" do
       include_context "with authentication"
 
-      let(:current_user) { create(:user, :owner) }
+      let(:current_user) { create(:user, :owner, :in_company) }
 
       before do
         sign_in
-        post("/api/invitations", params: params)
+        post("/api/invitations", params: params, headers: headers)
       end
 
       it "is successful", :aggregate_failures do
@@ -41,7 +42,7 @@ RSpec.describe API::InvitationsController, type: :request do
 
       before do
         sign_in
-        post("/api/invitations", params: params)
+        post("/api/invitations", params: params, headers: headers)
       end
 
       it "is forbidden" do

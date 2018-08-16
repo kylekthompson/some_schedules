@@ -13,4 +13,16 @@ class NilUser
   def persisted?
     false
   end
+
+  def managerial?
+    false
+  end
+
+  def owner?
+    false
+  end
+
+  def token
+    nil
+  end
 end

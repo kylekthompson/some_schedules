@@ -3,24 +3,10 @@
 module Accounts
   module Invitations
     class CreationService < Core::Service
-      def self.create(params)
-        new(params)
-      end
+      def self.create(invited_by:, **params)
+        raise API::Errors::NotAuthorizedError unless invited_by.managerial? && invited_by.company.present?
 
-      attr_reader :params
-
-      delegate :errors, to: :invitation
-
-      def initialize(params)
-        @params = params
-      end
-
-      def success?
-        invitation.valid? && invitation.persisted?
-      end
-
-      def invitation
-        @invitation ||= Invitation.create(params)
+        Invitation.create(params.merge(invited_by: invited_by))
       end
     end
   end

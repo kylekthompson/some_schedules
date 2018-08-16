@@ -3,8 +3,8 @@
 module API
   class CompaniesController < API::ApplicationController
     def create
-      result = API::Companies::CreationService.create(creation_params)
-      render json: result.serialize, status: result.status
+      company = ::Accounts::Companies::CreationService.create(creation_params)
+      respond_with(company)
     end
 
     private
@@ -13,7 +13,7 @@ module API
       params
         .require(:company)
         .permit(:name, :slug)
-        .merge(current_user: current_user)
+        .merge(user: current_user)
         .to_h.symbolize_keys
     end
   end

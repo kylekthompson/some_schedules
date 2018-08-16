@@ -77,4 +77,22 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#token" do
+    context "when persisted" do
+      subject(:user) { create(:user) }
+
+      it "has a token" do
+        expect(user.token).to be_present
+      end
+    end
+
+    context "when not persisted" do
+      subject(:user) { build(:user) }
+
+      it "has no token" do
+        expect(user.token).to be_nil
+      end
+    end
+  end
 end

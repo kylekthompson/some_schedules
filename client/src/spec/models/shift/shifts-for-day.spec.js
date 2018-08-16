@@ -14,6 +14,8 @@ describe('shiftsForDay()', () => {
       startTime: format.fromServer(addHours(day, 5)),
     });
 
-    expect(shiftsForDay([shiftOnDay, shiftOnOtherDay], day)).toEqual([shiftOnDay]);
+    expect(shiftsForDay([shiftOnDay, shiftOnOtherDay], day)).toEqual([
+      shiftOnDay,
+    ]);
   });
 });

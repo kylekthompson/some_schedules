@@ -1,4 +1,7 @@
-import { passwordValidator, passwordConfirmationValidator } from 'models/validations/password';
+import {
+  passwordValidator,
+  passwordConfirmationValidator,
+} from 'models/validations/password';
 
 describe('password validations', () => {
   describe('passwordValidator.run()', () => {
@@ -18,28 +21,34 @@ describe('password validations', () => {
   describe('passwordConfirmationValidator.run()', () => {
     describe('when it matches and is long enough', () => {
       it('returns no errors', () => {
-        expect(passwordConfirmationValidator.run({
-          password: 'password',
-          passwordConfirmation: 'password',
-        })).toHaveLength(0);
+        expect(
+          passwordConfirmationValidator.run({
+            password: 'password',
+            passwordConfirmation: 'password',
+          }),
+        ).toHaveLength(0);
       });
     });
 
     describe('when it matches and is not long enough', () => {
       it('returns no errors', () => {
-        expect(passwordConfirmationValidator.run({
-          password: 'pass',
-          passwordConfirmation: 'pass',
-        })).toHaveLength(1);
+        expect(
+          passwordConfirmationValidator.run({
+            password: 'pass',
+            passwordConfirmation: 'pass',
+          }),
+        ).toHaveLength(1);
       });
     });
 
     describe('when it does not match and is not long enough', () => {
       it('returns no errors', () => {
-        expect(passwordConfirmationValidator.run({
-          password: 'pass1',
-          passwordConfirmation: 'pass',
-        })).toHaveLength(2);
+        expect(
+          passwordConfirmationValidator.run({
+            password: 'pass1',
+            passwordConfirmation: 'pass',
+          }),
+        ).toHaveLength(2);
       });
     });
   });

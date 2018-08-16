@@ -3,24 +3,10 @@
 module Schedules
   module Shifts
     class CreationService < Core::Service
-      def self.create(params)
-        new(params)
-      end
+      def self.create(current_user:, user:, **params)
+        raise API::Errors::NotAuthorizedError unless current_user.managerial? && current_user.company == user.company
 
-      attr_reader :params
-
-      delegate :errors, to: :shift
-
-      def initialize(params)
-        @params = params
-      end
-
-      def success?
-        shift.valid? && shift.persisted?
-      end
-
-      def shift
-        @shift ||= Shift.create(params)
+        Shift.create(params.merge(user: user))
       end
     end
   end

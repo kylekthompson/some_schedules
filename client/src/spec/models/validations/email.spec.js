@@ -4,7 +4,9 @@ describe('email validations', () => {
   describe('emailValidator.run()', () => {
     describe('when valid', () => {
       it('returns no errors', () => {
-        expect(emailValidator.run({ email: 'email@email.com' })).toHaveLength(0);
+        expect(emailValidator.run({ email: 'email@email.com' })).toHaveLength(
+          0,
+        );
       });
     });
 

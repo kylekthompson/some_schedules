@@ -5,16 +5,17 @@ require "rails_helper"
 RSpec.describe API::Authentication::SignInService do
   describe ".sign_in" do
     let(:result) { described_class.sign_in(email: email, password: password) }
-    let(:serialized) { result.serialize }
 
     context "when the email is nil" do
       let(:email) { nil }
       let(:password) { "password" }
 
-      it "serializes properly", :aggregate_failures do
-        expect(result.status).to eq(:unauthorized)
-        expect(serialized.keys.count).to eq(1)
-        expect(serialized.fetch(:errors)).to include(:email)
+      it "has no token" do
+        expect(result.token).to be_nil
+      end
+
+      it "is not signed in" do
+        expect(result.context.is_signed_in).to eq(false)
       end
     end
 
@@ -22,10 +23,12 @@ RSpec.describe API::Authentication::SignInService do
       let(:email) { "some@email.com" }
       let(:password) { nil }
 
-      it "serializes properly", :aggregate_failures do
-        expect(result.status).to eq(:unauthorized)
-        expect(serialized.keys.count).to eq(1)
-        expect(serialized.fetch(:errors)).to include(:password)
+      it "has no token" do
+        expect(result.token).to be_nil
+      end
+
+      it "is not signed in" do
+        expect(result.context.is_signed_in).to eq(false)
       end
     end
 
@@ -33,10 +36,12 @@ RSpec.describe API::Authentication::SignInService do
       let(:email) { "some@email.com" }
       let(:password) { "password" }
 
-      it "serializes properly", :aggregate_failures do
-        expect(result.status).to eq(:unauthorized)
-        expect(serialized.keys.count).to eq(1)
-        expect(serialized.fetch(:errors)).to include(:user)
+      it "has no token" do
+        expect(result.token).to be_nil
+      end
+
+      it "is not signed in" do
+        expect(result.context.is_signed_in).to eq(false)
       end
     end
 
@@ -45,10 +50,12 @@ RSpec.describe API::Authentication::SignInService do
       let(:email) { user.email }
       let(:password) { "incorrect-password" }
 
-      it "serializes properly", :aggregate_failures do
-        expect(result.status).to eq(:unauthorized)
-        expect(serialized.keys.count).to eq(1)
-        expect(serialized.fetch(:errors)).to include(:user)
+      it "has no token" do
+        expect(result.token).to be_nil
+      end
+
+      it "is not signed in" do
+        expect(result.context.is_signed_in).to eq(false)
       end
     end
 
@@ -57,19 +64,13 @@ RSpec.describe API::Authentication::SignInService do
       let(:email) { user.email }
       let(:password) { "password" }
 
-      it "serializes properly", :aggregate_failures do
-        expect(result.status).to eq(:ok)
-        expect(serialized.keys.count).to eq(1)
-        expect(serialized.fetch(:context).keys.count).to eq(2)
-        expect(serialized.fetch(:context)).to include(
-          is_signed_in: true,
-          role: user.role,
-        )
+      it "is signed in" do
+        expect(result.context.is_signed_in).to eq(true)
       end
 
       it "has a valid token" do
-        decode_result = Authentication::Tokens::DecodeService.decode(token: result.token)
-        expect(decode_result.email).to eq(user.email)
+        decoded_payload = Authentication::Tokens::DecodeService.decode(token: result.token)
+        expect(decoded_payload.email).to eq(user.email)
       end
     end
   end

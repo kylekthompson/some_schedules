@@ -4,8 +4,8 @@ module API
   module Contexts
     class SchedulesController < API::ApplicationController
       def show
-        result = API::Schedules::ContextService.build(context_params)
-        render json: result.serialize, status: result.status
+        context = API::Schedules::ContextService.build(context_params)
+        respond_with(context, root: :context)
       end
 
       private

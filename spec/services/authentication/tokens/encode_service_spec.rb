@@ -4,27 +4,23 @@ require "rails_helper"
 
 RSpec.describe Authentication::Tokens::EncodeService do
   describe ".encode" do
-    let(:result) { described_class.encode(user: user) }
+    let(:token) { described_class.encode(user: user) }
 
     context "when the user is not persisted" do
       let(:user) { User.new }
 
-      it "is not successful" do
-        expect(result).not_to be_success
+      it "does not build a token" do
+        expect(token).to be_nil
       end
     end
 
-    context "when the user is passed" do
+    context "when the user is persisted" do
       let(:email) { "email@example.com" }
       let(:user) { instance_double(User, persisted?: true, email: email) }
-      let(:decode) { Authentication::Tokens::DecodeService.decode(token: result.token) }
 
-      it "is successful" do
-        expect(result).to be_success
-      end
-
-      it "returns a valid token for that user" do
-        expect(decode).to be_success
+      it "returns a valid token for that user", :aggregate_failures do
+        expect(token).to be_present
+        expect(Authentication::Tokens::DecodeService.decode(token: token).email).to eq(email)
       end
     end
   end

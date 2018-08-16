@@ -3,12 +3,13 @@
 require "rails_helper"
 
 RSpec.describe API::Authentication::SignInsController, type: :request do
+  include_context "with headers"
   include_context "with parsed body"
 
   describe "POST #create" do
     let(:params) { { authentication: { email: email, password: password } } }
 
-    before { post("/api/authentication/sign_in", params: params) }
+    before { post("/api/authentication/sign_in", params: params, headers: headers) }
 
     context "when the credentials are correct" do
       let!(:user) { create(:user, password: "password") }
@@ -21,7 +22,7 @@ RSpec.describe API::Authentication::SignInsController, type: :request do
       end
 
       it "is signed in for future requests" do
-        get("/api/contexts/authentication")
+        get("/api/contexts/authentication", headers: headers)
         expect(parsed_body[:context][:is_signed_in]).to eq(true)
       end
     end
@@ -32,7 +33,7 @@ RSpec.describe API::Authentication::SignInsController, type: :request do
 
       it "renders unauthorized", :aggregate_failures do
         expect(response).to have_http_status(:unauthorized)
-        expect(parsed_body[:errors]).to be_present
+        expect(parsed_body[:context][:is_signed_in]).to eq(false)
       end
     end
   end

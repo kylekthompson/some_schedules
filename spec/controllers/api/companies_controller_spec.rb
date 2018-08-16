@@ -3,6 +3,7 @@
 require "rails_helper"
 
 RSpec.describe API::CompaniesController, type: :request do
+  include_context "with headers"
   include_context "with parsed body"
 
   describe "POST #create" do
@@ -10,7 +11,7 @@ RSpec.describe API::CompaniesController, type: :request do
     let(:company) { attributes_for(:company) }
 
     context "when unauthenticated" do
-      before { post("/api/companies", params: params) }
+      before { post("/api/companies", params: params, headers: headers) }
 
       it "is unauthorized" do
         expect(response).to have_http_status(:unauthorized)
@@ -24,7 +25,7 @@ RSpec.describe API::CompaniesController, type: :request do
 
       before do
         sign_in
-        post("/api/companies", params: params)
+        post("/api/companies", params: params, headers: headers)
       end
 
       it "is successful", :aggregate_failures do
@@ -41,7 +42,7 @@ RSpec.describe API::CompaniesController, type: :request do
 
       before do
         sign_in
-        post("/api/companies", params: params)
+        post("/api/companies", params: params, headers: headers)
       end
 
       it "is forbidden" do
@@ -56,7 +57,7 @@ RSpec.describe API::CompaniesController, type: :request do
 
       before do
         sign_in
-        post("/api/companies", params: params)
+        post("/api/companies", params: params, headers: headers)
       end
 
       it "is forbidden" do

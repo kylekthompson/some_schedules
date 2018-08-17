@@ -1,4 +1,4 @@
-import EntryPoint from 'src/scenes/entry-point';
+import EntryPoint from 'src/components/entry-point';
 import React from 'react';
 import { render } from 'react-dom';
 

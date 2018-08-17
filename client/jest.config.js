@@ -1,5 +1,8 @@
 module.exports = {
   clearMocks: true,
+  coverageDirectory: './coverage/',
+  collectCoverage: true,
+  collectCoverageFrom: ['src/**/*.{js,jsx}'],
   restoreMocks: true,
   setupTestFrameworkScriptFile: './spec/setup-tests.js',
   testMatch: ['**/*-spec.js'],

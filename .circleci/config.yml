@@ -76,4 +76,4 @@ jobs:
 
       - run:
           name: yarn test
-          command: (cd client && yarn test)
+          command: (cd client && yarn test:ci)

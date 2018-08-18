@@ -1,10 +1,10 @@
-import Schedule from 'src/apps/schedule';
 import React from 'react';
+import Schedule from 'src/apps/schedule';
 import mount from 'spec/support/mount';
 
 describe('<Schedule />', () => {
-  it('renders', async () => {
-    const { getByText, waitForElement } = mount(<Schedule />);
-    await waitForElement(() => getByText('Schedule'));
+  it('renders', () => {
+    const { getByText } = mount(<Schedule />);
+    getByText('Schedule');
   });
 });

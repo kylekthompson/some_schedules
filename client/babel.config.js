@@ -4,8 +4,8 @@ module.exports = {
       plugins: ['dynamic-import-node'],
       presets: [
         ['@babel/preset-env', {
-          useBuiltIns: 'usage',
           modules: 'commonjs',
+          useBuiltIns: 'usage',
         }],
       ],
     },
@@ -14,18 +14,18 @@ module.exports = {
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
     ['module-resolver', {
-      root: ['.'],
       alias: {
-        src: './src',
         spec: './spec',
+        src: './src',
       },
+      root: ['.'],
     }],
   ],
   presets: [
     '@babel/preset-react',
     ['@babel/preset-env', {
-      useBuiltIns: 'usage',
       modules: false,
+      useBuiltIns: 'usage',
     }],
   ],
 };

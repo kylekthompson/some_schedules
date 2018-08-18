@@ -1,10 +1,10 @@
-import Marketing from 'src/apps/marketing';
+import EntryPoint from 'src/components/entry-point';
 import React from 'react';
 import mount from 'spec/support/mount';
 
-describe('<Marketing />', () => {
+describe('<EntryPoint />', () => {
   it('renders', () => {
-    const { getByText } = mount(<Marketing />);
+    const { getByText } = mount(<EntryPoint />);
     getByText(/description of someschedules/i);
   });
 });

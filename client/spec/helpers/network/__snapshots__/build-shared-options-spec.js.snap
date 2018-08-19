@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buildSharedOptions returns the shared options 1`] = `
+Object {
+  "credentials": "same-origin",
+  "headers": Headers {
+    "map": Object {
+      "accept": "application/json",
+      "content-type": "application/json",
+    },
+  },
+}
+`;

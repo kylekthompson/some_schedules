@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`performRequest when the request was any other 400 has the correct error 1`] = `"Looks like something went wrong... Sorry!"`;
+
+exports[`performRequest when the request was forbidden has the correct error 1`] = `"Sorry! Looks like you aren't allowed to do that..."`;
+
+exports[`performRequest when the request was unauthorized has the correct error 1`] = `"Looks like you need to sign in again. Sorry about that! We'll redirect you over to the sign in page."`;

@@ -1,7 +1,7 @@
 import React from 'react';
-import mount from 'spec/support/mount';
 import { Text } from 'src/components/style';
 import { colors } from 'src/models/styles';
+import { mount } from 'spec/support/mount';
 
 describe('<Text />', () => {
   describe('without any props', () => {

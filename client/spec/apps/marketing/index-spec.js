@@ -1,6 +1,6 @@
 import Marketing from 'src/apps/marketing';
 import React from 'react';
-import mount from 'spec/support/mount';
+import { mount } from 'spec/support/mount';
 
 describe('<Marketing />', () => {
   it('renders', () => {

@@ -1,8 +1,10 @@
+import React from 'react';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { fireEvent, render, wait, waitForElement, within } from 'react-testing-library';
 
-export default function mount(tree) {
+export function mount(tree, options = {}) {
   return {
-    ...render(tree),
+    ...render(tree, options),
     blur: (element) => fireEvent.blur(element),
     click: (element) => fireEvent.click(element),
     enterValue: (element, value) => fireEvent.input(element, {
@@ -16,4 +18,13 @@ export default function mount(tree) {
     waitForElement,
     within,
   };
+}
+
+export function mountWithRouter(tree, route = '/', options = {}) {
+  return render(
+    <Router initialEntries={[route]}>
+      {tree}
+    </Router>,
+    options,
+  );
 }

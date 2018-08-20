@@ -4,7 +4,7 @@ import React from 'react';
 import Schedule from 'src/apps/schedule';
 import SignIn from 'src/apps/sign-in';
 import SignUp from 'src/apps/sign-up';
-import { Router } from '@reach/router';
+import { Route, Switch } from 'react-router-dom';
 import { colors } from 'src/models/styles';
 import { injectGlobal } from 'styled-components';
 
@@ -31,12 +31,12 @@ injectGlobal`
 export default function EntryPoint() {
   return (
     <Container>
-      <Router>
-        <Marketing path="/" />
-        <SignIn path="/sign-in" />
-        <SignUp path="/sign-up" />
-        <Schedule path="/schedule" />
-      </Router>
+      <Switch>
+        <Route component={SignIn} path="/sign-in" />
+        <Route component={SignUp} path="/sign-up" />
+        <Route component={Schedule} path="/schedule" />
+        <Route component={Marketing} path="/" />
+      </Switch>
     </Container>
   );
 }

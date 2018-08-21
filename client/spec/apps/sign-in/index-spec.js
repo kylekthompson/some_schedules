@@ -5,6 +5,6 @@ import { mount } from 'spec/support/mount';
 describe('<SignIn />', () => {
   it('renders', () => {
     const { getByText } = mount(<SignIn />);
-    getByText('Sign In');
+    getByText('Sign In App');
   });
 });

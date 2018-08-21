@@ -21,7 +21,7 @@ export function mount(tree, options = {}) {
 }
 
 export function mountWithRouter(tree, route = '/', options = {}) {
-  return render(
+  return mount(
     <Router initialEntries={[route]}>
       {tree}
     </Router>,

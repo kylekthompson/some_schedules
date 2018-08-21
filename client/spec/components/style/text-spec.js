@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'src/components/style';
-import { colors } from 'src/models/styles';
+import { colors } from 'src/models/style';
 import { mount } from 'spec/support/mount';
 
 describe('<Text />', () => {

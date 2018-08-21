@@ -6,12 +6,12 @@ describe('<EntryPoint />', () => {
   describe('routing', () => {
     it('routes to /sign-in', () => {
       const { getByText } = mountWithRouter(<EntryPoint />, '/sign-in');
-      getByText('Sign In');
+      getByText('Sign In App');
     });
 
     it('routes to /sign-up', () => {
       const { getByText } = mountWithRouter(<EntryPoint />, '/sign-up');
-      getByText('Sign Up');
+      getByText('Sign Up App');
     });
 
     it('routes to /schedule', () => {

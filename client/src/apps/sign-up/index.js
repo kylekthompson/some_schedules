@@ -1,5 +1,8 @@
 import React from 'react';
+import { authenticated } from 'src/components/authentication';
 
-export default function SignUp() {
+export function SignUp() {
   return <p>Sign Up App</p>;
 }
+
+export default authenticated(SignUp);

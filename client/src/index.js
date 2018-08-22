@@ -1,13 +1,16 @@
 import EntryPoint from 'src/components/entry-point';
 import React from 'react';
+import { Provider as AuthenticationProvider } from 'src/components/authentication';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from 'react-dom';
 
 const root = document.getElementById('root');
 const tree = (
-  <Router>
-    <EntryPoint />
-  </Router>
+  <AuthenticationProvider>
+    <Router>
+      <EntryPoint />
+    </Router>
+  </AuthenticationProvider>
 );
 
 if (process.env.NODE_ENV === 'development') {

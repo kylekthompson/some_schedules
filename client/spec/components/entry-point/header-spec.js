@@ -1,7 +1,7 @@
 import Header from 'src/components/entry-point/header';
 import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
-import { mountWithRouter } from 'spec/support/mount';
+import { mountAsApp } from 'spec/support/mount';
 
 function App() {
   return (
@@ -17,7 +17,9 @@ function App() {
 describe('<Header />', () => {
   describe('the navigation links', () => {
     it('can navigate to /sign-in', () => {
-      const { click, getByText } = mountWithRouter(<App />, '/');
+      const { click, getByText } = mountAsApp(<App />, {
+        route: '/',
+      });
 
       click(getByText('Sign In'));
 
@@ -25,7 +27,9 @@ describe('<Header />', () => {
     });
 
     it('can navigate to /sign-up', () => {
-      const { click, getByText } = mountWithRouter(<App />, '/');
+      const { click, getByText } = mountAsApp(<App />, {
+        route: '/',
+      });
 
       click(getByText('Sign Up'));
 
@@ -35,7 +39,9 @@ describe('<Header />', () => {
 
   describe('the company name', () => {
     it('can navigate to /', () => {
-      const { click, getByText } = mountWithRouter(<App />, '/sign-in');
+      const { click, getByText } = mountAsApp(<App />, {
+        route: '/sign-in',
+      });
 
       click(getByText('SomeSchedules'));
 

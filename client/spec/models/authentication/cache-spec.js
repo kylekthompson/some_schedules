@@ -1,38 +1,25 @@
+import LocalStorage from 'spec/support/mocks/browser/local-storage';
 import { Cache } from 'src/models/authentication/cache';
-
-function buildStorage() {
-  const store = {};
-  return {
-    getItem: (key) => store[key],
-    removeItem: (key) => {
-      const value = store[key];
-      delete store[key];
-      return value;
-    },
-    setItem: (key, value) => store[key] = value,
-  };
-}
 
 describe('Cache', () => {
   describe('.get', () => {
     describe('when the cache is empty', () => {
       it('returns the default cache', () => {
-        const storage = buildStorage();
-        const cache = new Cache(storage);
+        const cache = new Cache(new LocalStorage());
 
-        expect(storage.getItem(Cache.AUTHENTICATION_CONTEXT_KEY)).toEqual(undefined);
         expect(cache.get()).toEqual(Cache.DEFAULT_AUTHENTICATION_CONTEXT);
       });
     });
 
     describe('when the cache is not empty', () => {
       it('returns the existing value', () => {
-        const storage = buildStorage();
-        const cache = new Cache(storage);
+        const storage = new LocalStorage({
+          [Cache.AUTHENTICATION_CONTEXT_KEY]: JSON.stringify({
+            foo: 'bar',
+          }),
+        });
 
-        storage.setItem(Cache.AUTHENTICATION_CONTEXT_KEY, JSON.stringify({
-          foo: 'bar',
-        }));
+        const cache = new Cache(storage);
 
         expect(cache.get()).toEqual({
           foo: 'bar',
@@ -44,16 +31,14 @@ describe('Cache', () => {
   describe('.set', () => {
     describe('when the cache is empty', () => {
       it('sets the cache to the right value', () => {
-        const storage = buildStorage();
+        const storage = new LocalStorage();
         const cache = new Cache(storage);
-
-        expect(storage.getItem(Cache.AUTHENTICATION_CONTEXT_KEY)).toEqual(undefined);
 
         cache.set({
           foo: 'bar',
         });
 
-        expect(storage.getItem(Cache.AUTHENTICATION_CONTEXT_KEY)).toEqual(JSON.stringify({
+        expect(storage.store[Cache.AUTHENTICATION_CONTEXT_KEY]).toEqual(JSON.stringify({
           foo: 'bar',
         }));
       });
@@ -61,18 +46,19 @@ describe('Cache', () => {
 
     describe('when the cache is not empty', () => {
       it('updates the value', () => {
-        const storage = buildStorage();
-        const cache = new Cache(storage);
+        const storage = new LocalStorage({
+          [Cache.AUTHENTICATION_CONTEXT_KEY]: JSON.stringify({
+            foo: 'bar',
+          }),
+        });
 
-        storage.setItem(Cache.AUTHENTICATION_CONTEXT_KEY, JSON.stringify({
-          foo: 'bar',
-        }));
+        const cache = new Cache(storage);
 
         cache.set({
           foo: 'baz',
         });
 
-        expect(storage.getItem(Cache.AUTHENTICATION_CONTEXT_KEY)).toEqual(JSON.stringify({
+        expect(storage.store[Cache.AUTHENTICATION_CONTEXT_KEY]).toEqual(JSON.stringify({
           foo: 'baz',
         }));
       });
@@ -82,29 +68,28 @@ describe('Cache', () => {
   describe('.clear', () => {
     describe('when the cache is empty', () => {
       it('stays empty', () => {
-        const storage = buildStorage();
+        const storage = new LocalStorage();
         const cache = new Cache(storage);
-
-        expect(storage.getItem(Cache.AUTHENTICATION_CONTEXT_KEY)).toEqual(undefined);
 
         cache.clear();
 
-        expect(storage.getItem(Cache.AUTHENTICATION_CONTEXT_KEY)).toEqual(undefined);
+        expect(storage.store[Cache.AUTHENTICATION_CONTEXT_KEY]).toEqual(undefined);
       });
     });
 
     describe('when the cache is not empty', () => {
       it('empties it', () => {
-        const storage = buildStorage();
-        const cache = new Cache(storage);
+        const storage = new LocalStorage({
+          [Cache.AUTHENTICATION_CONTEXT_KEY]: JSON.stringify({
+            foo: 'bar',
+          }),
+        });
 
-        storage.setItem(Cache.AUTHENTICATION_CONTEXT_KEY, JSON.stringify({
-          foo: 'bar',
-        }));
+        const cache = new Cache(storage);
 
         cache.clear();
 
-        expect(storage.getItem(Cache.AUTHENTICATION_CONTEXT_KEY)).toEqual(undefined);
+        expect(storage.store[Cache.AUTHENTICATION_CONTEXT_KEY]).toEqual(undefined);
       });
     });
   });

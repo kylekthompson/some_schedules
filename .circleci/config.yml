@@ -59,10 +59,6 @@ jobs:
           command: (cd client && yarn lint)
 
       - run:
-          name: yarn prettier
-          command: (cd client && yarn prettier --single-quote --trailing-comma all --arrow-parens always --list-different **/*.{js,jsx,json})
-
-      - run:
           name: wait for postgres
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
@@ -80,4 +76,4 @@ jobs:
 
       - run:
           name: yarn test
-          command: (cd client && yarn test)
+          command: (cd client && yarn test:ci)

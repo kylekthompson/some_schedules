@@ -1,40 +1,26 @@
-import EntryPoint from 'entry-point';
+import EntryPoint from 'src/components/entry-point';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider as AuthenticationProvider } from 'components/authentication';
-import { fonts } from 'models/styles';
-import { injectGlobal } from 'styled-components';
+import { Provider as AuthenticationProvider } from 'src/components/authentication';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { render } from 'react-dom';
 
-import '@fortawesome/fontawesome-pro-webfonts/css/fa-light.css';
-import '@fortawesome/fontawesome-pro-webfonts/css/fa-regular.css';
-import '@fortawesome/fontawesome-pro-webfonts/css/fontawesome.css';
-
-injectGlobal`
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
-
-  html * {
-    ${fonts.regular}
-  }
-
-  body {
-    margin: 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  a {
-    text-decoration: none;
-  }
-`;
-
-ReactDOM.render(
+const root = document.getElementById('root');
+const tree = (
   <AuthenticationProvider>
-    <BrowserRouter>
+    <Router>
       <EntryPoint />
-    </BrowserRouter>
-  </AuthenticationProvider>,
-  document.getElementById('root'),
+    </Router>
+  </AuthenticationProvider>
 );
+
+if (process.env.NODE_ENV === 'development') {
+  const RedBox = require('redbox-react').default;
+
+  try {
+    render(tree, root);
+  } catch (error) {
+    render(<RedBox error={error} />, root);
+  }
+} else {
+  render(tree, root);
+}

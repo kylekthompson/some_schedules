@@ -1,4 +1,4 @@
-import { post } from 'services/requests';
+import { post } from 'src/helpers/network';
 
 export function postSignIn(authentication) {
   return post('/api/authentication/sign_in', {

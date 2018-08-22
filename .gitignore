@@ -1,6 +1,7 @@
 .rspec_status
 client/node_modules
 client/build
+client/coverage
 public/*
 
 # Created by https://www.gitignore.io/api/vim,ruby,node,macos,linux,rails,windows

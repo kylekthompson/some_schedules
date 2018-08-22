@@ -1,4 +1,4 @@
-import { get } from 'services/requests';
+import { get } from 'src/helpers/network';
 
 export function getAuthentication() {
   return get('/api/contexts/authentication');

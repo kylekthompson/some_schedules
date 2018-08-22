@@ -1,7 +1,7 @@
-import { post } from 'services/requests';
+import { post } from 'src/helpers/network';
 
 export function postCreate(user) {
-  return post(`/api/users`, {
+  return post('/api/users', {
     user,
   });
 }

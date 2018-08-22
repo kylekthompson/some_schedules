@@ -1,4 +1,2 @@
-export { default as Provider } from 'components/authentication/provider';
-export {
-  default as authenticated,
-} from 'components/authentication/authenticated';
+export { default as Provider } from 'src/components/authentication/provider';
+export { default as authenticated } from 'src/components/authentication/authenticated';

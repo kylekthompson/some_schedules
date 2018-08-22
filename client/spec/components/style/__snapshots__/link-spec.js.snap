@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Link /> when passed overrides has the overrides 1`] = `
+.c0 {
+  padding: 5px 15px;
+  background-color: blue;
+}
+
+<a
+  class="c0"
+  href="/foo"
+  overrides="background-color: blue;"
+/>
+`;
+
+exports[`<Link /> without any props is an anchor with padding 1`] = `
+.c0 {
+  padding: 5px 15px;
+}
+
+<a
+  class="c0"
+  href="/foo"
+/>
+`;

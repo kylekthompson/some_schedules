@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Box /> when passed a flex has the specified flex 1`] = `
+exports[`<Container /> when passed a flex has the specified flex 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -19,7 +19,7 @@ exports[`<Box /> when passed a flex has the specified flex 1`] = `
 />
 `;
 
-exports[`<Box /> when passed a flexDirection has the specified flexDirection 1`] = `
+exports[`<Container /> when passed a flexDirection has the specified flexDirection 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -38,7 +38,7 @@ exports[`<Box /> when passed a flexDirection has the specified flexDirection 1`]
 />
 `;
 
-exports[`<Box /> when passed overrides has the overrides 1`] = `
+exports[`<Container /> when passed overrides has the overrides 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -58,7 +58,7 @@ exports[`<Box /> when passed overrides has the overrides 1`] = `
 />
 `;
 
-exports[`<Box /> without any props is a div with flex 1 and flex direction column 1`] = `
+exports[`<Container /> without any props is a div with flex 1 and flex direction column 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;

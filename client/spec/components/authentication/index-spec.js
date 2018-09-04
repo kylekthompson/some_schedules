@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { AuthenticationContext } from 'spec/support/factories';
-import { Provider, authenticated } from 'src/components/authentication';
-import { getAuthentication } from 'src/apis/contexts';
+import { Provider, authenticated } from 'components/authentication';
+import { getAuthentication } from 'apis/contexts';
 import { mount } from 'spec/support/mount';
-import { postSignOut } from 'src/apis/authentication';
+import { postSignOut } from 'apis/authentication';
 
-jest.mock('src/apis/authentication');
-jest.mock('src/apis/contexts');
+jest.mock('apis/authentication');
+jest.mock('apis/contexts');
 
 function Consumer({ isSignedIn, requestSignIn, requestSignOut, role }) {
   return (

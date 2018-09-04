@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors, fonts } from 'src/models/style';
+import { colors, fonts } from 'models/style';
 
 export default styled.input`
   ${fonts.regular}

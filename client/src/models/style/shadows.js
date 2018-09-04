@@ -1,4 +1,4 @@
-import colors from 'src/models/style/colors';
+import colors from 'models/style/colors';
 import { css } from 'styled-components';
 
 const hover = css`

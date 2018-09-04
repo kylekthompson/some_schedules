@@ -1,1 +1,1 @@
-export { default as pluralize } from 'src/helpers/string/pluralize';
+export { default as pluralize } from 'helpers/string/pluralize';

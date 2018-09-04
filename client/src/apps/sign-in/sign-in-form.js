@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Button, Text } from 'src/components/style';
-import { Errors, Form, Input, Separator } from 'src/components/form';
-import { colors } from 'src/models/style';
-import { emailValidation } from 'src/models/validations/email';
-import { passwordValidation } from 'src/models/validations/password';
+import { Button, Text } from 'components/style';
+import { Errors, Form, Input, Separator } from 'components/form';
+import { colors } from 'models/style';
+import { emailValidation } from 'models/validations/email';
+import { passwordValidation } from 'models/validations/password';
 
 const FIELDS = [
   {

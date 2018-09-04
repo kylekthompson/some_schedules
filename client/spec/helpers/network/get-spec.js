@@ -1,4 +1,4 @@
-import { buildURL } from 'src/helpers/network/get';
+import { buildURL } from 'helpers/network/get';
 
 describe('buildURL', () => {
   describe('when there is a trailing /', () => {

@@ -1,1 +1,1 @@
-export { default as cache } from 'src/models/authentication/cache';
+export { default as cache } from 'models/authentication/cache';

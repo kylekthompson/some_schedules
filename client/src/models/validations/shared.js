@@ -1,4 +1,4 @@
-import { pluralize } from 'src/helpers/string';
+import { pluralize } from 'helpers/string';
 
 export function occurenceCount(string, character) {
   return string.split('').filter((char) => char === character).length;

@@ -1,5 +1,5 @@
-import Validation from 'src/models/validations/validation';
-import { atLeastNCharacters } from 'src/models/validations/shared';
+import Validation from 'models/validations/validation';
+import { atLeastNCharacters } from 'models/validations/shared';
 
 function matches(password, passwordConfirmation) {
   if (password === passwordConfirmation) {

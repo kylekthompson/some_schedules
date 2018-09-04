@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Link, Text } from 'src/components/style';
-import { colors } from 'src/models/style';
+import { Container, Link, Text } from 'components/style';
+import { colors } from 'models/style';
 
 const StyledContainer = styled(Container)`
   align-items: center;

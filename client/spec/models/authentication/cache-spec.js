@@ -1,5 +1,5 @@
 import LocalStorage from 'spec/support/mocks/browser/local-storage';
-import { Cache } from 'src/models/authentication/cache';
+import { Cache } from 'models/authentication/cache';
 
 describe('Cache', () => {
   describe('.get', () => {

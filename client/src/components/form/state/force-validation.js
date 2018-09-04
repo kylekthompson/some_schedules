@@ -1,4 +1,4 @@
-import formValuesFromState from 'src/components/form/state/form-values-from-state';
+import formValuesFromState from 'components/form/state/form-values-from-state';
 
 export default function forceValidation(validations) {
   return function(state) {

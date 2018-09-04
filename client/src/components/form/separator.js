@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from 'src/models/style';
+import { colors } from 'models/style';
 
 export default styled.span`
   border: 0px solid ${colors.eerieBlack(.08)};

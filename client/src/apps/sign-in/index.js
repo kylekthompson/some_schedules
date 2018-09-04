@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import SignInForm from 'src/apps/sign-in/sign-in-form';
+import SignInForm from 'apps/sign-in/sign-in-form';
 import styled from 'styled-components';
-import { Card, Container, Text } from 'src/components/style';
+import { Card, Container, Text } from 'components/style';
 import { Redirect } from 'react-router-dom';
-import { Separator } from 'src/components/form';
-import { authenticated } from 'src/components/authentication';
-import { get } from 'src/helpers/object';
+import { Separator } from 'components/form';
+import { authenticated } from 'components/authentication';
+import { get } from 'helpers/object';
 
 const StyledContainer = styled(Container)`
   align-items: center;

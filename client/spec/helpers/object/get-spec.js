@@ -1,4 +1,4 @@
-import get from 'src/helpers/object/get';
+import get from 'helpers/object/get';
 
 describe('get', () => {
   describe('when the path is invalid', () => {

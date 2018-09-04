@@ -1,5 +1,5 @@
 import React from 'react';
-import { authenticated } from 'src/components/authentication';
+import { authenticated } from 'components/authentication';
 
 export function SignUp() {
   return <p>Sign Up App</p>;

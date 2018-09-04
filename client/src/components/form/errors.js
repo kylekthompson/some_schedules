@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Text } from 'src/components/style';
+import { Container, Text } from 'components/style';
 
 const StyledContainer = styled(Container)`
   align-self: flex-start;

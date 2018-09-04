@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
-import { Schedule } from 'src/apps/schedule';
+import { Schedule } from 'apps/schedule';
 import { mountAsApp } from 'spec/support/mount';
 
 function renderApp(props) {

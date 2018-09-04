@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors, shadows } from 'src/models/style';
+import { colors, shadows } from 'models/style';
 
 export default styled.button`
   ${shadows.normal}

@@ -1,6 +1,6 @@
-import Container from 'src/components/style/container';
+import Container from 'components/style/container';
 import styled from 'styled-components';
-import { colors, shadows } from 'src/models/style';
+import { colors, shadows } from 'models/style';
 
 export default styled(Container)`
   ${shadows.normal}

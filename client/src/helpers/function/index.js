@@ -1,1 +1,1 @@
-export { default as memoize } from 'src/helpers/function/memoize';
+export { default as memoize } from 'helpers/function/memoize';

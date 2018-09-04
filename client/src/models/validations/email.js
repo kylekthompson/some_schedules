@@ -1,5 +1,5 @@
-import Validation from 'src/models/validations/validation';
-import { occurenceCount } from 'src/models/validations/shared';
+import Validation from 'models/validations/validation';
+import { occurenceCount } from 'models/validations/shared';
 
 const EMAIL_REGEX = /^.+@.+\..+$/;
 

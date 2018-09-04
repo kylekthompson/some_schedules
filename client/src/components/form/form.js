@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import produce from 'immer';
 import styled from 'styled-components';
-import { memoize } from 'src/helpers/function';
+import { memoize } from 'helpers/function';
 
 const StyledForm = styled.form`
   display: flex;

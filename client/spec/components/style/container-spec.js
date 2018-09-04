@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'src/components/style';
+import { Container } from 'components/style';
 import { mount } from 'spec/support/mount';
 
 describe('<Container />', () => {

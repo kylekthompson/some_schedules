@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { colors, fonts } from 'src/models/style';
+import { colors, fonts } from 'models/style';
 
 const textComponents = {};
 

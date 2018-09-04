@@ -1,4 +1,4 @@
-import { post } from 'src/helpers/network';
+import { post } from 'helpers/network';
 
 export function postCreate(user) {
   return post('/api/users', {

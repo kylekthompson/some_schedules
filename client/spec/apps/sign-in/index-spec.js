@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { SignIn } from 'src/apps/sign-in';
+import { SignIn } from 'apps/sign-in';
 import { mountAsApp } from 'spec/support/mount';
 
 function renderApp(props, state = null) {

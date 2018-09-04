@@ -1,4 +1,4 @@
-import Header from 'src/components/entry-point/header';
+import Header from 'components/entry-point/header';
 import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import { mountAsApp } from 'spec/support/mount';

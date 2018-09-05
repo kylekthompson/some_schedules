@@ -1,16 +1,16 @@
 import Header from 'components/entry-point/header';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import { mountAsApp } from 'spec/support/mount';
 
 function App() {
   return (
-    <Fragment>
+    <>
       <Header />
       <Route path="/sign-in" render={() => <p>got sign in</p>} />
       <Route path="/sign-up" render={() => <p>got sign up</p>} />
       <Route path="/" render={() => <p>got home</p>} />
-    </Fragment>
+    </>
   );
 }
 

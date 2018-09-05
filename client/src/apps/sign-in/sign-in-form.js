@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Button, Text } from 'components/style';
 import { Errors, Form, Input, Separator } from 'components/form';
@@ -45,7 +45,7 @@ export default function SignInForm() {
       onSubmit={console.log}
     >
       {({ errorPropsForField, inputPropsForField, submitProps }) => (
-        <Fragment>
+        <>
           <Input
             autoComplete="email"
             autoFocus={true}
@@ -67,7 +67,7 @@ export default function SignInForm() {
               Submit
             </Text>
           </StyledButton>
-        </Fragment>
+        </>
       )}
     </StyledForm>
   );

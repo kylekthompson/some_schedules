@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { AuthenticationContext } from 'spec/support/factories';
 import { Provider, authenticated } from 'components/authentication';
 import { getAuthentication } from 'apis/contexts';
@@ -11,12 +11,12 @@ jest.mock('apis/contexts');
 
 function Consumer({ isSignedIn, requestSignIn, requestSignOut, role }) {
   return (
-    <Fragment>
+    <>
       <a onClick={() => requestSignOut()}>Request Sign Out</a>
       <a onClick={() => requestSignIn(new AuthenticationContext().signedIn())}>Request Sign In</a>
       <p>{isSignedIn ? 'Signed In' : 'Signed Out'}</p>
       <p>Role: {role ? role : 'No Role'}</p>
-    </Fragment>
+    </>
   );
 }
 

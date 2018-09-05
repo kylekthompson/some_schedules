@@ -9,7 +9,7 @@ function getTextComponent(component) {
   textComponents[component] = textComponents[component] || styled(component)`
     ${({ weight = 'regular' }) => fonts[weight]}
     ${({ size = 12 }) => css`font-size: ${size}px;`}
-    ${({ color = colors.black() }) => css`color: ${color};`}
+    ${({ color = colors.eerieBlack() }) => css`color: ${color};`}
   `;
 
   return textComponents[component];

@@ -27,6 +27,10 @@ injectGlobal`
   a {
     text-decoration: none;
   }
+
+  * {
+    box-sizing: border-box;
+  }
 `;
 
 export default function EntryPoint() {

@@ -10,11 +10,4 @@ describe('<Link />', () => {
       expect(container.firstChild).toMatchSnapshot();
     });
   });
-
-  describe('when passed overrides', () => {
-    it('has the overrides', () => {
-      const { container } = mountAsApp(<Link overrides={css`background-color: blue;`} to="/foo" />);
-      expect(container.firstChild).toMatchSnapshot();
-    });
-  });
 });

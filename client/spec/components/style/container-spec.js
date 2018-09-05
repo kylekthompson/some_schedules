@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from 'src/components/style';
-import { css } from 'styled-components';
 import { mount } from 'spec/support/mount';
 
 describe('<Container />', () => {
@@ -21,13 +20,6 @@ describe('<Container />', () => {
   describe('when passed a flexDirection', () => {
     it('has the specified flexDirection', () => {
       const { container } = mount(<Container flexDirection="row" />);
-      expect(container.firstChild).toMatchSnapshot();
-    });
-  });
-
-  describe('when passed overrides', () => {
-    it('has the overrides', () => {
-      const { container } = mount(<Container overrides={css`background-color: blue;`} />);
       expect(container.firstChild).toMatchSnapshot();
     });
   });

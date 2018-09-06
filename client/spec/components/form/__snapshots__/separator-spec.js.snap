@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Separator /> is styled correctly 1`] = `
+.c0 {
+  border: 0px solid rgba(12,27,42,0.08);
+  border-bottom-width: 1px;
+  margin: 10px 0;
+  width: 50%;
+}
+
+<span
+  class="c0"
+/>
+`;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'components/style';
-import { css } from 'styled-components';
 import { mountAsApp } from 'spec/support/mount';
 
 describe('<Link />', () => {

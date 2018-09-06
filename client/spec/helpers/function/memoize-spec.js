@@ -1,4 +1,4 @@
-import memoize from 'src/helpers/function/memoize';
+import memoize from 'helpers/function/memoize';
 
 describe('memoize', () => {
   it('only executes the function once per unique argument', () => {

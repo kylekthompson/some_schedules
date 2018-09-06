@@ -17,7 +17,7 @@ const StyledCard = styled(Card)`
   align-items: center;
 `;
 
-export function SignIn({ location, isSignedIn }) {
+export function SignIn({ location, isSignedIn, requestSignIn }) {
   const from = get(location, 'state.from', '/');
 
   if (isSignedIn) {
@@ -29,7 +29,7 @@ export function SignIn({ location, isSignedIn }) {
       <StyledCard>
         <Text size={20} weight="bold">Sign In</Text>
         <Separator />
-        <SignInForm />
+        <SignInForm onSubmit={requestSignIn} />
       </StyledCard>
     </StyledContainer>
   );
@@ -42,6 +42,7 @@ SignIn.propTypes = {
       from: PropTypes.string,
     }),
   }).isRequired,
+  requestSignIn: PropTypes.func.isRequired,
 };
 
 export default authenticated(SignIn);

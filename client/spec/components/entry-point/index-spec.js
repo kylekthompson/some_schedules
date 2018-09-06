@@ -6,11 +6,13 @@ import { mountAsApp } from 'spec/support/mount';
 describe('<EntryPoint />', () => {
   describe('routing', () => {
     it('routes to /sign-in', () => {
-      const { getByText } = mountAsApp(<EntryPoint />, {
+      const { getByPlaceholderText, getByText } = mountAsApp(<EntryPoint />, {
         authenticationContext: new AuthenticationContext().signedOut().withRequests(),
         route: '/sign-in',
       });
-      getByText('Sign In App');
+      getByText('Sign In');
+      getByPlaceholderText('Email');
+      getByPlaceholderText('Password');
     });
 
     it('routes to /sign-up', () => {

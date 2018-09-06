@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> when it is not valid renders all of them 1`] = `
+.c0 {
+  font-family: 'Open Sans',sans-serif;
+  font-weight: 400;
+  box-shadow: 0 0 0 1px rgba(244,96,54,0.35), 0 1px 1px rgba(12,27,42,0.08);
+  border: 0;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 6px 8px;
+  -webkit-transition: all .08s ease-in;
+  transition: all .08s ease-in;
+  width: 100%;
+}
+
+.c0:focus {
+  box-shadow: 0 0 0 1px rgba(244,96,54,0.25), 0 1px 1px rgba(12,27,42,0.08), 0 0 0 2px rgba(244,96,54,0.3);
+}
+
+<input
+  class="c0"
+/>
+`;
+
+exports[`<Input /> when it is valid is styled correctly 1`] = `
+.c0 {
+  font-family: 'Open Sans',sans-serif;
+  font-weight: 400;
+  box-shadow: 0 0 0 1px rgba(91,133,170,0.16), 0 1px 1px rgba(12,27,42,0.08);
+  border: 0;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 6px 8px;
+  -webkit-transition: all .08s ease-in;
+  transition: all .08s ease-in;
+  width: 100%;
+}
+
+.c0:focus {
+  box-shadow: 0 0 0 1px rgba(91,133,170,0.2), 0 1px 1px rgba(12,27,42,0.08), 0 0 0 2px rgba(91,133,170,0.25);
+}
+
+<input
+  class="c0"
+/>
+`;

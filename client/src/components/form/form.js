@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Validation from 'models/validations/validation';
 import produce from 'immer';
 import styled from 'styled-components';
 import { memoize } from 'helpers/function';
@@ -16,6 +17,7 @@ export default class Form extends Component {
     fields: PropTypes.arrayOf(PropTypes.shape({
       initialValue: PropTypes.any,
       name: PropTypes.string.isRequired,
+      validation: PropTypes.instanceOf(Validation),
     })).isRequired,
     onSubmit: PropTypes.func,
   };
@@ -57,6 +59,7 @@ export default class Form extends Component {
   });
 
   inputPropsForField = (field) => ({
+    isValid: this.formErrors()[field].length === 0,
     onBlur: this.handleBlur(field),
     onChange: this.handleChange(field),
     value: this.formValues()[field],
@@ -73,17 +76,17 @@ export default class Form extends Component {
     const { value } = event.currentTarget;
 
     this.setState(produce((state) => {
-      const isDirty = state[field].didBlur || Boolean(value);
+      const validation = this.props.fields.find(({ name }) => name === field).validation;
       let errors = [];
 
-      if (isDirty) {
-        errors = this.props.fields.find(({ name }) => name === field).validations.run({
+      if (validation) {
+        errors = validation.run({
           ...this.formValues(state),
           [field]: value,
         });
       }
 
-      state[field].didBlur = isDirty;
+      state[field].didBlur = true;
       state[field].errors = errors;
       state[field].isDirty = true;
       state[field].value = value;
@@ -94,10 +97,11 @@ export default class Form extends Component {
     const { value } = event.currentTarget;
 
     this.setState(produce((state) => {
+      const validation = this.props.fields.find(({ name }) => name === field).validation;
       let errors = [];
 
-      if (state[field].didBlur && state[field].isDirty) {
-        errors = this.props.fields.find(({ name }) => name === field).validations.run({
+      if (state[field].didBlur && state[field].isDirty && validation) {
+        errors = validation.run({
           ...this.formValues(state),
           [field]: value,
         });
@@ -112,8 +116,14 @@ export default class Form extends Component {
   forceValidation = (callback) => {
     this.setState(produce((state) => {
       this.props.fields.forEach((field) => {
+        let errors = [];
+
+        if (field.validation) {
+          errors = field.validation.run(this.formValues(state));
+        }
+
         state[field.name].didBlur = true;
-        state[field.name].errors = field.validations.run(this.formValues(state));
+        state[field.name].errors = errors;
         state[field.name].isDirty = true;
       });
     }), callback);

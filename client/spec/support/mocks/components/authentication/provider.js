@@ -1,4 +1,4 @@
-import Context from 'src/components/authentication/context';
+import Context from 'components/authentication/context';
 import PropTypes from 'prop-types';
 import React from 'react';
 

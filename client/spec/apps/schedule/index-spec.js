@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
-import { Schedule } from 'src/apps/schedule';
+import { Schedule } from 'apps/schedule';
 import { mountAsApp } from 'spec/support/mount';
 
 function renderApp(props) {
   return (
-    <Fragment>
+    <>
       <Route path="/sign-in" render={() => <p>got sign in</p>} />
       <Route path="/schedule" render={(renderProps) => <Schedule {...props} {...renderProps} />} />
-    </Fragment>
+    </>
   );
 }
 

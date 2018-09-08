@@ -1,2 +1,2 @@
-export { default as get } from 'src/helpers/network/get';
-export { default as post } from 'src/helpers/network/post';
+export { default as get } from 'helpers/network/get';
+export { default as post } from 'helpers/network/post';

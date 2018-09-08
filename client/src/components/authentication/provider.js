@@ -1,9 +1,9 @@
-import Context from 'src/components/authentication/context';
+import Context from 'components/authentication/context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { cache } from 'src/models/authentication';
-import { getAuthentication as getContext } from 'src/apis/contexts';
-import { postSignOut } from 'src/apis/authentication';
+import { cache } from 'models/authentication';
+import { getAuthentication as getContext } from 'apis/contexts';
+import { postSignOut } from 'apis/authentication';
 
 export default class Provider extends Component {
   static propTypes = {

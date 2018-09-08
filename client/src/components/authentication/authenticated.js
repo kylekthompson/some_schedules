@@ -1,4 +1,4 @@
-import Context from 'src/components/authentication/context';
+import Context from 'components/authentication/context';
 import React from 'react';
 
 export default function authenticated(Component) {

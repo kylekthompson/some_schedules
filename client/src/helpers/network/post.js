@@ -1,5 +1,5 @@
-import buildSharedOptions from 'src/helpers/network/build-shared-options';
-import performRequest from 'src/helpers/network/perform-request';
+import buildSharedOptions from 'helpers/network/build-shared-options';
+import performRequest from 'helpers/network/perform-request';
 import { decamelizeKeys } from 'humps';
 
 export default function post(url, body = {}) {

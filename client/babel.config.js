@@ -16,9 +16,8 @@ module.exports = {
     ['module-resolver', {
       alias: {
         spec: './spec',
-        src: './src',
       },
-      root: ['.'],
+      root: ['./src'],
     }],
   ],
   presets: [

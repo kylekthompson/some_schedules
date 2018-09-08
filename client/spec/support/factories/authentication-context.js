@@ -1,5 +1,5 @@
 import Factory from 'spec/support/factories/factory';
-import User from 'src/models/user';
+import User from 'models/user';
 
 export default class AuthenticationContext extends Factory {
   constructor(value = {}) {

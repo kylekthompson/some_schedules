@@ -1,12 +1,12 @@
-import Header from 'src/components/entry-point/header';
-import Marketing from 'src/apps/marketing';
+import Header from 'components/entry-point/header';
+import Marketing from 'apps/marketing';
 import React from 'react';
-import Schedule from 'src/apps/schedule';
-import SignIn from 'src/apps/sign-in';
-import SignUp from 'src/apps/sign-up';
-import { Box } from 'src/components/style';
+import Schedule from 'apps/schedule';
+import SignIn from 'apps/sign-in';
+import SignUp from 'apps/sign-up';
+import { Container } from 'components/style';
 import { Route, Switch } from 'react-router-dom';
-import { colors } from 'src/models/style';
+import { colors } from 'models/style';
 import { injectGlobal } from 'styled-components';
 
 injectGlobal`
@@ -27,11 +27,15 @@ injectGlobal`
   a {
     text-decoration: none;
   }
+
+  * {
+    box-sizing: border-box;
+  }
 `;
 
 export default function EntryPoint() {
   return (
-    <Box>
+    <Container>
       <Header />
       <Switch>
         <Route component={SignIn} path="/sign-in" />
@@ -39,6 +43,6 @@ export default function EntryPoint() {
         <Route component={Schedule} path="/schedule" />
         <Route component={Marketing} path="/" />
       </Switch>
-    </Box>
+    </Container>
   );
 }

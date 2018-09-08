@@ -1,4 +1,4 @@
-import Marketing from 'src/apps/marketing';
+import Marketing from 'apps/marketing';
 import React from 'react';
 import { mount } from 'spec/support/mount';
 

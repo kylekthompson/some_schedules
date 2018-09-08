@@ -1,6 +1,6 @@
-import EntryPoint from 'src/components/entry-point';
+import EntryPoint from 'components/entry-point';
 import React from 'react';
-import { Provider as AuthenticationProvider } from 'src/components/authentication';
+import { Provider as AuthenticationProvider } from 'components/authentication';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from 'react-dom';
 
@@ -14,12 +14,12 @@ const tree = (
 );
 
 if (process.env.NODE_ENV === 'development') {
-  const RedBox = require('redbox-react').default;
+  const RedContainer = require('redbox-react').default;
 
   try {
     render(tree, root);
   } catch (error) {
-    render(<RedBox error={error} />, root);
+    render(<RedContainer error={error} />, root);
   }
 } else {
   render(tree, root);

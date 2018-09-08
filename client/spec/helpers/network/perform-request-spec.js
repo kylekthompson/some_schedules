@@ -1,4 +1,4 @@
-import performRequest from 'src/helpers/network/perform-request';
+import performRequest from 'helpers/network/perform-request';
 
 function buildHeaders(contentType) {
   const headers = new Headers();

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { authenticated } from 'src/components/authentication';
+import { authenticated } from 'components/authentication';
 
 export function Schedule({ isSignedIn }) {
   if (!isSignedIn) {

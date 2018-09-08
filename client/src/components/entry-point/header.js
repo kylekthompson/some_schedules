@@ -1,46 +1,45 @@
 import React from 'react';
-import { Box, Link, Text } from 'src/components/style';
-import { colors } from 'src/models/style';
-import { css } from 'styled-components';
+import styled from 'styled-components';
+import { Container, Link, Text } from 'components/style';
+import { colors } from 'models/style';
+
+const StyledContainer = styled(Container)`
+  align-items: center;
+  padding: 10px;
+`;
+
+const StyledLink = styled(Link)`
+  &:hover {
+    & > p {
+      transform: translateY(-1px);
+      color: ${colors.portlandOrange()};
+    }
+  }
+
+  &:active {
+    & > p {
+      transform: translateY(0px);
+    }
+  }
+`;
 
 export default function Header() {
   return (
-    <Box flexDirection="row" overrides={styles.container}>
-      <Box flex={0}>
-        <Link overrides={styles.link} to="/">
+    <StyledContainer flexDirection="row">
+      <Container flex={0}>
+        <StyledLink to="/">
           <Text color={colors.rackleyBlue()} size={20} weight="bold">SomeSchedules</Text>
-        </Link>
-      </Box>
-      <Box flex={1} />
-      <Box flex="none" flexDirection="row">
-        <Link overrides={styles.link} to="/sign-up">
+        </StyledLink>
+      </Container>
+      <Container flex={1} />
+      <Container flex="none" flexDirection="row">
+        <StyledLink to="/sign-up">
           <Text color={colors.eerieBlack()}>Sign Up</Text>
-        </Link>
-        <Link overrides={styles.link} to="/sign-in">
+        </StyledLink>
+        <StyledLink to="/sign-in">
           <Text color={colors.eerieBlack()}>Sign In</Text>
-        </Link>
-      </Box>
-    </Box>
+        </StyledLink>
+      </Container>
+    </StyledContainer>
   );
 }
-
-const styles = {
-  container: css`
-    align-items: center;
-    padding: 10px;
-  `,
-  link: css`
-    &:hover {
-      & > p {
-        transform: translateY(-1px);
-        color: ${colors.portlandOrange()};
-      }
-    }
-
-    &:active {
-      & > p {
-        transform: translateY(0px);
-      }
-    }
-  `,
-};

@@ -34,7 +34,7 @@ RSpec.describe API::Contexts::SchedulesController, type: :request do
       end
 
       it "has the context" do
-        expect(parsed_body[:context][:users]).not_to be_nil
+        expect(parsed_body[:context][:users]).to be_present
       end
     end
   end

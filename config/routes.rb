@@ -8,12 +8,12 @@ Rails.application.routes.draw do
     end
 
     namespace :contexts do
-      resource :authentication, only: :show
       resource :schedule, only: :show
     end
 
     resources :companies, only: :create
     resources :invitations, only: :create
+    resource :me, only: :show
 
     resources :users, only: :create do
       resources :shifts, only: :create

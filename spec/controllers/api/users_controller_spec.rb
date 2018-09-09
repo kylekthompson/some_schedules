@@ -21,8 +21,8 @@ RSpec.describe API::UsersController, type: :request do
       end
 
       it "is signed in for future requests" do
-        get("/api/contexts/authentication", headers: headers)
-        expect(parsed_body[:context][:is_signed_in]).to eq(true)
+        get("/api/me", headers: headers)
+        expect(parsed_body[:me]).to be_present
       end
     end
 

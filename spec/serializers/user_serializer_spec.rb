@@ -6,11 +6,24 @@ RSpec.describe UserSerializer, type: :serializer do
   subject(:serializer) { described_class.new(user) }
 
   describe "serialization" do
-    let(:user) { build(:user) }
-    let(:expected_keys) { %i[id created_at email first_name last_name updated_at] }
+    let(:expected_keys) { %i[id company created_at email first_name last_name updated_at] }
 
-    it "serializes properly" do
-      expect(serializer.serializable_hash.keys).to contain_exactly(*expected_keys)
+    context "when the user is part of a company" do
+      let(:user) { create(:user) }
+
+      it "serializes properly", :aggregate_failures do
+        expect(serializer.serializable_hash.keys).to contain_exactly(*expected_keys)
+        expect(serializer.serializable_hash.fetch(:company)).to be_nil
+      end
+    end
+
+    context "when the user is not part of a company" do
+      let(:user) { create(:user, :in_company) }
+
+      it "serializes properly", :aggregate_failures do
+        expect(serializer.serializable_hash.keys).to contain_exactly(*expected_keys)
+        expect(serializer.serializable_hash.fetch(:company)).to be_present
+      end
     end
   end
 end

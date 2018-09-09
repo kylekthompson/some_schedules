@@ -7,14 +7,14 @@ describe('Cache', () => {
       it('returns the default cache', () => {
         const cache = new Cache(new LocalStorage());
 
-        expect(cache.get()).toEqual(Cache.DEFAULT_AUTHENTICATION_CONTEXT);
+        expect(cache.get()).toEqual(Cache.DEFAULT_USER);
       });
     });
 
     describe('when the cache is not empty', () => {
       it('returns the existing value', () => {
         const storage = new LocalStorage({
-          [Cache.AUTHENTICATION_CONTEXT_KEY]: JSON.stringify({
+          [Cache.USER_KEY]: JSON.stringify({
             foo: 'bar',
           }),
         });
@@ -38,7 +38,7 @@ describe('Cache', () => {
           foo: 'bar',
         });
 
-        expect(storage.store[Cache.AUTHENTICATION_CONTEXT_KEY]).toEqual(JSON.stringify({
+        expect(storage.store[Cache.USER_KEY]).toEqual(JSON.stringify({
           foo: 'bar',
         }));
       });
@@ -47,7 +47,7 @@ describe('Cache', () => {
     describe('when the cache is not empty', () => {
       it('updates the value', () => {
         const storage = new LocalStorage({
-          [Cache.AUTHENTICATION_CONTEXT_KEY]: JSON.stringify({
+          [Cache.USER_KEY]: JSON.stringify({
             foo: 'bar',
           }),
         });
@@ -58,7 +58,7 @@ describe('Cache', () => {
           foo: 'baz',
         });
 
-        expect(storage.store[Cache.AUTHENTICATION_CONTEXT_KEY]).toEqual(JSON.stringify({
+        expect(storage.store[Cache.USER_KEY]).toEqual(JSON.stringify({
           foo: 'baz',
         }));
       });
@@ -73,14 +73,14 @@ describe('Cache', () => {
 
         cache.clear();
 
-        expect(storage.store[Cache.AUTHENTICATION_CONTEXT_KEY]).toEqual(undefined);
+        expect(storage.store[Cache.USER_KEY]).toEqual(undefined);
       });
     });
 
     describe('when the cache is not empty', () => {
       it('empties it', () => {
         const storage = new LocalStorage({
-          [Cache.AUTHENTICATION_CONTEXT_KEY]: JSON.stringify({
+          [Cache.USER_KEY]: JSON.stringify({
             foo: 'bar',
           }),
         });
@@ -89,7 +89,7 @@ describe('Cache', () => {
 
         cache.clear();
 
-        expect(storage.store[Cache.AUTHENTICATION_CONTEXT_KEY]).toEqual(undefined);
+        expect(storage.store[Cache.USER_KEY]).toEqual(undefined);
       });
     });
   });

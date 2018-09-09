@@ -6,7 +6,7 @@ RSpec.describe UserSerializer, type: :serializer do
   subject(:serializer) { described_class.new(user) }
 
   describe "serialization" do
-    let(:expected_keys) { %i[id company created_at email first_name last_name updated_at] }
+    let(:expected_keys) { %i[id company created_at email first_name last_name role updated_at] }
 
     context "when the user is part of a company" do
       let(:user) { create(:user) }

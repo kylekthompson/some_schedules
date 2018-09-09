@@ -3,8 +3,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { authenticated } from 'components/authentication';
 
-export function Schedule({ isSignedIn }) {
-  if (!isSignedIn) {
+export function Schedule({ user }) {
+  if (!user) {
     return (
       <Redirect
         to={{
@@ -19,7 +19,7 @@ export function Schedule({ isSignedIn }) {
 }
 
 Schedule.propTypes = {
-  isSignedIn: PropTypes.bool.isRequired,
+  user: PropTypes.object,
 };
 
 export default authenticated(Schedule);

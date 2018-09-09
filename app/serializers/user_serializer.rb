@@ -3,5 +3,5 @@
 class UserSerializer < ApplicationSerializer
   belongs_to :company
 
-  attributes :email, :first_name, :last_name
+  attributes :email, :first_name, :last_name, :role
 end

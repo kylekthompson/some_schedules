@@ -1,31 +1,27 @@
 export class Cache {
-  static AUTHENTICATION_CONTEXT_KEY = 'some_schedules_authentication_context';
-  static DEFAULT_AUTHENTICATION_CONTEXT = {
-    isAdmin: false,
-    isSignedIn: false,
-    role: null,
-  };
+  static USER_KEY = 'some_schedules_user';
+  static DEFAULT_USER = null;
 
   constructor(storage = window.localStorage) {
     this.storage = storage;
   }
 
   clear = () => {
-    return this.storage.removeItem(Cache.AUTHENTICATION_CONTEXT_KEY);
+    return this.storage.removeItem(Cache.USER_KEY);
   }
 
   get = () => {
-    const cache = this.storage.getItem(Cache.AUTHENTICATION_CONTEXT_KEY);
+    const cache = this.storage.getItem(Cache.USER_KEY);
 
     if (cache) {
       return JSON.parse(cache);
     }
 
-    return Cache.DEFAULT_AUTHENTICATION_CONTEXT;
+    return Cache.DEFAULT_USER;
   }
 
-  set = (context) => {
-    return this.storage.setItem(Cache.AUTHENTICATION_CONTEXT_KEY, JSON.stringify(context));
+  set = (user) => {
+    return this.storage.setItem(Cache.USER_KEY, JSON.stringify(user));
   }
 }
 

@@ -17,10 +17,10 @@ const StyledCard = styled(Card)`
   align-items: center;
 `;
 
-export function SignIn({ location, isSignedIn, requestSignIn }) {
+export function SignIn({ location, requestSignIn, user }) {
   const from = get(location, 'state.from', '/');
 
-  if (isSignedIn) {
+  if (user) {
     return <Redirect to={from} />;
   }
 
@@ -36,13 +36,13 @@ export function SignIn({ location, isSignedIn, requestSignIn }) {
 }
 
 SignIn.propTypes = {
-  isSignedIn: PropTypes.bool.isRequired,
   location: PropTypes.shape({
     state: PropTypes.shape({
       from: PropTypes.string,
     }),
   }).isRequired,
   requestSignIn: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
 export default authenticated(SignIn);

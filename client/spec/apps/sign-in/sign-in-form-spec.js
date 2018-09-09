@@ -1,6 +1,6 @@
 import React from 'react';
 import SignInForm from 'apps/sign-in/sign-in-form';
-import { AuthenticationContext } from 'spec/support/factories';
+import { User } from 'spec/support/factories';
 import { mount } from 'spec/support/mount';
 import { postSignIn } from 'apis/authentication';
 
@@ -37,9 +37,9 @@ describe('<SignInForm />', () => {
       const onSubmit = jest.fn();
       const { enterValue, click, getByPlaceholderText, getByText, queryByText, wait } = mount(<SignInForm onSubmit={onSubmit} />);
 
-      const newContext = new AuthenticationContext().signedIn();
+      const user = new User();
       postSignIn.mockImplementationOnce(() => ({
-        context: newContext,
+        me: user,
         status: 200,
       }));
 
@@ -55,7 +55,7 @@ describe('<SignInForm />', () => {
       });
 
       await wait(() => expect(onSubmit).toHaveBeenCalledTimes(1));
-      expect(onSubmit).toHaveBeenCalledWith(newContext);
+      expect(onSubmit).toHaveBeenCalledWith(user);
 
       expect(queryByText('It looks like there was an issue with your email or password.')).toBeNull();
     });
@@ -66,9 +66,8 @@ describe('<SignInForm />', () => {
       const onSubmit = jest.fn();
       const { enterValue, click, getByPlaceholderText, getByText } = mount(<SignInForm onSubmit={onSubmit} />);
 
-      const newContext = new AuthenticationContext().signedOut();
       postSignIn.mockImplementationOnce(() => ({
-        context: newContext,
+        me: null,
         status: 401,
       }));
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import SignIn from 'apps/sign-in';
-import { AuthenticationContext } from 'spec/support/factories';
+import { AuthenticationContextValue, User } from 'spec/support/factories';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { mountAsApp } from 'spec/support/mount';
 import { postSignIn } from 'apis/authentication';
@@ -26,7 +26,7 @@ describe('<SignIn />', () => {
     describe('when from is passed through location state', () => {
       it('redirects to the from route', () => {
         const { getByText } = mountAsApp(renderApp({ from: '/from' }), {
-          authenticationContext: new AuthenticationContext().signedIn().withRequests(),
+          authenticationContextValue: new AuthenticationContextValue().signedIn(),
           route: '/starting-route',
         });
 
@@ -37,7 +37,7 @@ describe('<SignIn />', () => {
     describe('when from is not passed through location state', () => {
       it('redirects to the home route', () => {
         const { getByText } = mountAsApp(renderApp(), {
-          authenticationContext: new AuthenticationContext().signedIn().withRequests(),
+          authenticationContextValue: new AuthenticationContextValue().signedIn(),
           route: '/starting-route',
         });
 
@@ -49,15 +49,15 @@ describe('<SignIn />', () => {
   describe('when signed out', () => {
     describe('when the sign in is successful', () => {
       it('handles the sign in', async () => {
-        const authenticationContext = new AuthenticationContext().signedOut().withRequests();
+        const authenticationContextValue = new AuthenticationContextValue().signedOut();
         const { enterValue, click, getByPlaceholderText, getByText, wait } = mountAsApp(renderApp(), {
-          authenticationContext,
+          authenticationContextValue,
           route: '/starting-route',
         });
 
-        const newContext = new AuthenticationContext().signedIn();
+        const user = new User();
         postSignIn.mockImplementationOnce(() => ({
-          context: newContext,
+          me: user,
           status: 200,
         }));
 
@@ -72,22 +72,21 @@ describe('<SignIn />', () => {
           password: 'password',
         });
 
-        await wait(() => expect(authenticationContext.requestSignIn).toHaveBeenCalledTimes(1));
-        expect(authenticationContext.requestSignIn).toHaveBeenCalledWith(newContext);
+        await wait(() => expect(authenticationContextValue.requestSignIn).toHaveBeenCalledTimes(1));
+        expect(authenticationContextValue.requestSignIn).toHaveBeenCalledWith(user);
       });
     });
 
     describe('when the sign in is not successful', () => {
       it('does not handle the sign in', async () => {
-        const authenticationContext = new AuthenticationContext().signedOut().withRequests();
+        const authenticationContextValue = new AuthenticationContextValue().signedOut();
         const { enterValue, click, getByPlaceholderText, getByText } = mountAsApp(renderApp(), {
-          authenticationContext,
+          authenticationContextValue,
           route: '/starting-route',
         });
 
-        const newContext = new AuthenticationContext().signedOut();
         postSignIn.mockImplementationOnce(() => ({
-          context: newContext,
+          me: null,
           status: 401,
         }));
 
@@ -104,7 +103,7 @@ describe('<SignIn />', () => {
 
         await Promise.resolve(); // wait a tick for promises to resolve
 
-        expect(authenticationContext.requestSignIn).toHaveBeenCalledTimes(0);
+        expect(authenticationContextValue.requestSignIn).toHaveBeenCalledTimes(0);
       });
     });
   });

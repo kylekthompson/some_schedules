@@ -51,10 +51,10 @@ export default class SignInForm extends Component {
   };
 
   signIn = debounce(async (authentication) => {
-    const { context, status } = await postSignIn(authentication);
+    const { me, status } = await postSignIn(authentication);
 
     if (status !== 401) {
-      this.props.onSubmit(context);
+      this.props.onSubmit(me);
     } else {
       this.setState({
         errors: ['It looks like there was an issue with your email or password.'],

@@ -2,7 +2,7 @@ import Context from 'components/authentication/context';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { cache } from 'models/authentication';
-import { getAuthentication as getContext } from 'apis/contexts';
+import { getMe } from 'apis/me';
 import { postSignOut } from 'apis/authentication';
 
 export default class Provider extends Component {
@@ -10,10 +10,10 @@ export default class Provider extends Component {
     children: PropTypes.node.isRequired,
   };
 
-  handleSignIn = (context) => {
-    cache.set(context);
+  handleSignIn = (user) => {
+    cache.set(user);
     this.setState({
-      ...context,
+      user,
     });
   };
 
@@ -21,34 +21,32 @@ export default class Provider extends Component {
     postSignOut();
     cache.clear();
     this.setState({
-      isSignedIn: false,
-      role: null,
+      user: null,
     });
   };
 
   state = {
-    ...cache.get(),
     requestSignIn: this.handleSignIn,
     requestSignOut: this.handleSignOut,
+    user: cache.get(),
   };
 
   componentDidMount() {
-    this.getContext();
+    this.getMe();
   }
 
-  getContext = async () => {
-    const { context, error, errors } = await getContext();
+  getMe = async () => {
+    const { me, error } = await getMe();
 
-    if (errors || error) {
-      cache.clear();
+    if (!error) {
+      cache.set(me);
       this.setState({
-        isSignedIn: false,
-        role: null,
+        user: me,
       });
     } else {
-      cache.set(context);
+      cache.clear();
       this.setState({
-        ...context,
+        user: null,
       });
     }
   };

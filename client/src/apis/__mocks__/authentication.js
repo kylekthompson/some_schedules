@@ -1,7 +1,7 @@
-import { AuthenticationContext } from 'spec/support/factories';
+import { User } from 'spec/support/factories';
 
 export const postSignIn = jest.fn(() => ({
-  context: new AuthenticationContext().signedIn(),
+  me: new User(),
   status: 200,
 }));
 

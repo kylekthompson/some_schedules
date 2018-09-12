@@ -1,6 +1,6 @@
 import AuthenticationProvider from 'spec/support/mocks/components/authentication/provider';
 import React from 'react';
-import { AuthenticationContext } from 'spec/support/factories';
+import { AuthenticationContextValue } from 'spec/support/factories';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { fireEvent, render, wait, waitForElement, within } from 'react-testing-library';
 
@@ -23,11 +23,11 @@ export function mount(tree) {
 }
 
 export function mountAsApp(tree, options = {}) {
-  const authenticationContext = options.authenticationContext || new AuthenticationContext().signedIn().withRequests();
+  const authenticationContextValue = options.authenticationContextValue || new AuthenticationContextValue().signedIn();
   const route = options.route || '/';
 
   return mount(
-    <AuthenticationProvider value={authenticationContext}>
+    <AuthenticationProvider value={authenticationContextValue}>
       <Router initialEntries={[route]}>
         {tree}
       </Router>

@@ -21,21 +21,13 @@ module API
       end
 
       class NilResult
-        attr_reader :token
-
-        def context
-          API::Authentication::Context.new(user: nil)
-        end
+        attr_reader :token, :user
       end
 
       class Result
-        pattr_initialize [:user!]
+        rattr_initialize [:user!]
 
         delegate :token, to: :user
-
-        def context
-          @context ||= API::Authentication::Context.new(user: user)
-        end
       end
     end
   end

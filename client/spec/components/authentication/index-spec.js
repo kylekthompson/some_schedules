@@ -1,30 +1,29 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AuthenticationContext } from 'spec/support/factories';
 import { Provider, authenticated } from 'components/authentication';
-import { getAuthentication } from 'apis/contexts';
+import { User } from 'spec/support/factories';
+import { getMe } from 'apis/me';
 import { mount } from 'spec/support/mount';
 import { postSignOut } from 'apis/authentication';
 
 jest.mock('apis/authentication');
-jest.mock('apis/contexts');
+jest.mock('apis/me');
 
-function Consumer({ isSignedIn, requestSignIn, requestSignOut, role }) {
+function Consumer({ user, requestSignIn, requestSignOut }) {
   return (
     <>
       <a onClick={() => requestSignOut()}>Request Sign Out</a>
-      <a onClick={() => requestSignIn(new AuthenticationContext().signedIn())}>Request Sign In</a>
-      <p>{isSignedIn ? 'Signed In' : 'Signed Out'}</p>
-      <p>Role: {role ? role : 'No Role'}</p>
+      <a onClick={() => requestSignIn(new User())}>Request Sign In</a>
+      <p>{user ? 'Signed In' : 'Signed Out'}</p>
+      <p>Role: {user ? user.role : 'No Role'}</p>
     </>
   );
 }
 
 Consumer.propTypes = {
-  isSignedIn: PropTypes.bool.isRequired,
   requestSignIn: PropTypes.func.isRequired,
   requestSignOut: PropTypes.func.isRequired,
-  role: PropTypes.string,
+  user: PropTypes.object,
 };
 
 const AuthenticatedConsumer = authenticated(Consumer);
@@ -40,8 +39,8 @@ function App() {
 describe('<AuthenticationProvider />', () => {
   describe('when the context comes back as authenticated', () => {
     it('handles authentication concerns', async () => {
-      getAuthentication.mockImplementationOnce(() => ({
-        context: new AuthenticationContext().signedIn(),
+      getMe.mockImplementationOnce(() => ({
+        me: new User(),
         status: 200,
       }));
 
@@ -50,7 +49,7 @@ describe('<AuthenticationProvider />', () => {
       getByText('Signed Out');
       getByText('Role: No Role');
 
-      await wait(() => expect(getAuthentication).toHaveBeenCalledTimes(1));
+      await wait(() => expect(getMe).toHaveBeenCalledTimes(1));
 
       getByText('Signed In');
       getByText('Role: employee');
@@ -68,8 +67,8 @@ describe('<AuthenticationProvider />', () => {
 
   describe('when the context comes back as unauthenticated', () => {
     it('handles authentication concerns', async () => {
-      getAuthentication.mockImplementationOnce(() => ({
-        context: new AuthenticationContext().signedOut(),
+      getMe.mockImplementationOnce(() => ({
+        me: null,
         status: 200,
       }));
 
@@ -78,7 +77,7 @@ describe('<AuthenticationProvider />', () => {
       getByText('Signed Out');
       getByText('Role: No Role');
 
-      await wait(() => expect(getAuthentication).toHaveBeenCalledTimes(1));
+      await wait(() => expect(getMe).toHaveBeenCalledTimes(1));
 
       getByText('Signed Out');
       getByText('Role: No Role');

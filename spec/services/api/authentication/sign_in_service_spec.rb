@@ -15,7 +15,7 @@ RSpec.describe API::Authentication::SignInService do
       end
 
       it "is not signed in" do
-        expect(result.context.is_signed_in).to eq(false)
+        expect(result.user).to be_nil
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe API::Authentication::SignInService do
       end
 
       it "is not signed in" do
-        expect(result.context.is_signed_in).to eq(false)
+        expect(result.user).to be_nil
       end
     end
 
@@ -41,7 +41,7 @@ RSpec.describe API::Authentication::SignInService do
       end
 
       it "is not signed in" do
-        expect(result.context.is_signed_in).to eq(false)
+        expect(result.user).to be_nil
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe API::Authentication::SignInService do
       end
 
       it "is not signed in" do
-        expect(result.context.is_signed_in).to eq(false)
+        expect(result.user).to be_nil
       end
     end
 
@@ -65,7 +65,7 @@ RSpec.describe API::Authentication::SignInService do
       let(:password) { "password" }
 
       it "is signed in" do
-        expect(result.context.is_signed_in).to eq(true)
+        expect(result.user).to be_present
       end
 
       it "has a valid token" do

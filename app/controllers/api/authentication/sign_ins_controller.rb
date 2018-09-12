@@ -8,11 +8,11 @@ module API
       def create
         result = API::Authentication::SignInService.sign_in(sign_in_params)
 
-        if result.context.is_signed_in
+        if result.user
           session[:token] = result.token
-          respond_with(result.context, root: :context, status: :ok)
+          respond_with(result.user, root: :me, status: :ok)
         else
-          respond_with(result.context, root: :context, status: :unauthorized)
+          render json: { me: nil }, status: :unauthorized
         end
       end
 

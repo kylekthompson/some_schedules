@@ -9,9 +9,8 @@ export default function Provider({ children, value }) {
 Provider.propTypes = {
   children: PropTypes.node.isRequired,
   value: PropTypes.shape({
-    isSignedIn: PropTypes.bool.isRequired,
     requestSignIn: PropTypes.func.isRequired,
     requestSignOut: PropTypes.func.isRequired,
-    role: PropTypes.string,
+    user: PropTypes.object,
   }).isRequired,
 };

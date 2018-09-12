@@ -43,21 +43,30 @@ const StyledSeparator = styled(Separator)`
 
 export default class SignInForm extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    onSuccess: PropTypes.func.isRequired,
   };
 
   state = {
     errors: [],
+    isSigningIn: false,
   };
 
   signIn = debounce(async (authentication) => {
-    const { context, status } = await postSignIn(authentication);
+    this.setState({
+      isSigningIn: true,
+    });
+
+    const { me, status } = await postSignIn(authentication);
 
     if (status !== 401) {
-      this.props.onSubmit(context);
+      this.setState({
+        isSigningIn: false,
+      });
+      this.props.onSuccess(me);
     } else {
       this.setState({
         errors: ['It looks like there was an issue with your email or password.'],
+        isSigningIn: false,
       });
     }
   });
@@ -66,6 +75,7 @@ export default class SignInForm extends Component {
     return (
       <StyledForm
         fields={FIELDS}
+        isSubmitting={this.state.isSigningIn}
         onSubmit={this.signIn}
       >
         {({ errorPropsForField, inputPropsForField, submitProps }) => (
@@ -89,7 +99,7 @@ export default class SignInForm extends Component {
             <StyledSeparator />
             <StyledButton {...submitProps}>
               <Text color={colors.white()} size={14} weight="demiBold">
-                Submit
+                {this.state.isSigningIn ? 'Signing in...' : 'Sign in'}
               </Text>
             </StyledButton>
           </>

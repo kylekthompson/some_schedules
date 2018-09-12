@@ -1,13 +1,13 @@
 import EntryPoint from 'components/entry-point';
 import React from 'react';
-import { AuthenticationContext } from 'spec/support/factories';
+import { AuthenticationContextValue } from 'spec/support/factories';
 import { mountAsApp } from 'spec/support/mount';
 
 describe('<EntryPoint />', () => {
   describe('routing', () => {
     it('routes to /sign-in', () => {
       const { getByPlaceholderText, getByText } = mountAsApp(<EntryPoint />, {
-        authenticationContext: new AuthenticationContext().signedOut().withRequests(),
+        authenticationContextValue: new AuthenticationContextValue().signedOut(),
         route: '/sign-in',
       });
       getByText('Sign In');
@@ -17,15 +17,15 @@ describe('<EntryPoint />', () => {
 
     it('routes to /sign-up', () => {
       const { getByText } = mountAsApp(<EntryPoint />, {
-        authenticationContext: new AuthenticationContext().signedOut().withRequests(),
+        authenticationContextValue: new AuthenticationContextValue().signedOut(),
         route: '/sign-up',
       });
-      getByText('Sign Up App');
+      getByText('Sign Up - User');
     });
 
     it('routes to /schedule', () => {
       const { getByText } = mountAsApp(<EntryPoint />, {
-        authenticationContext: new AuthenticationContext().signedIn().withRequests(),
+        authenticationContextValue: new AuthenticationContextValue().signedIn(),
         route: '/schedule',
       });
       getByText('Schedule');

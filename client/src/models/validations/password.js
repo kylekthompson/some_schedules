@@ -11,6 +11,6 @@ function matches(password, passwordConfirmation) {
 
 export const passwordValidation = new Validation([({ password }) => atLeastNCharacters(password, 8)]);
 export const passwordConfirmationValidation = new Validation([
-  ({ password }) => atLeastNCharacters(password, 8),
+  ({ passwordConfirmation }) => atLeastNCharacters(passwordConfirmation, 8),
   ({ password, passwordConfirmation }) => matches(password, passwordConfirmation),
 ]);

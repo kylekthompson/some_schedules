@@ -18,12 +18,12 @@ RSpec.describe API::Authentication::SignInsController, type: :request do
 
       it "is successful", :aggregate_failures do
         expect(response).to have_http_status(:ok)
-        expect(parsed_body[:context][:role]).to eq(user.role)
+        expect(parsed_body[:me][:email]).to eq(user.email)
       end
 
       it "is signed in for future requests" do
-        get("/api/contexts/authentication", headers: headers)
-        expect(parsed_body[:context][:is_signed_in]).to eq(true)
+        get("/api/me", headers: headers)
+        expect(parsed_body[:me]).to be_present
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe API::Authentication::SignInsController, type: :request do
 
       it "renders unauthorized", :aggregate_failures do
         expect(response).to have_http_status(:unauthorized)
-        expect(parsed_body[:context][:is_signed_in]).to eq(false)
+        expect(parsed_body[:me]).to be_nil
       end
     end
   end

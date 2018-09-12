@@ -12,7 +12,7 @@ module API
     def creation_params
       params
         .require(:company)
-        .permit(:name, :slug)
+        .permit(:name)
         .merge(user: current_user)
         .to_h.symbolize_keys
     end

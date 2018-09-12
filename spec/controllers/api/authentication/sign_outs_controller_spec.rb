@@ -19,8 +19,8 @@ RSpec.describe API::Authentication::SignOutsController, type: :request do
     end
 
     it "signs out" do
-      get("/api/contexts/authentication", headers: headers)
-      expect(parsed_body[:context][:is_signed_in]).to eq(false)
+      get("/api/me", headers: headers)
+      expect(parsed_body[:me]).to be_nil
     end
   end
 end

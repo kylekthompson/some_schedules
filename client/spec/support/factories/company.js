@@ -5,7 +5,6 @@ export default class Company extends Factory {
     super({
       id: Math.floor(Math.random() * 100000000),
       name: 'Company',
-      slug: `company-${Math.floor(Math.random() * 100000000)}`,
       ...company,
     });
   }

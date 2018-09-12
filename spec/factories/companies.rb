@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :company do
     name { FFaker::Company.name }
-    slug { name&.gsub(/\W+/, "-") }
 
     trait :with_users do
       transient do

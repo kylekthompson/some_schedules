@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class CompanySerializer < ApplicationSerializer
-  attributes :name, :slug
+  attributes :name
 end

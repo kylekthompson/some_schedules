@@ -7,7 +7,7 @@ RSpec.describe CompanySerializer, type: :serializer do
 
   describe "serialization" do
     let(:company) { build(:company, :with_users) }
-    let(:expected_keys) { %i[id created_at name slug updated_at] }
+    let(:expected_keys) { %i[id created_at name updated_at] }
 
     it "serializes properly" do
       expect(serializer.serializable_hash.keys).to contain_exactly(*expected_keys)

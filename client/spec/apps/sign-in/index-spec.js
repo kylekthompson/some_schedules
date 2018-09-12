@@ -64,7 +64,7 @@ describe('<SignIn />', () => {
         enterValue(getByPlaceholderText('Email'), 'some@email.com');
         enterValue(getByPlaceholderText('Password'), 'password');
 
-        click(getByText('Submit').parentElement);
+        click(getByText('Sign in').parentElement);
 
         expect(postSignIn).toHaveBeenCalledTimes(1);
         expect(postSignIn).toHaveBeenCalledWith({
@@ -93,7 +93,7 @@ describe('<SignIn />', () => {
         enterValue(getByPlaceholderText('Email'), 'some@email.com');
         enterValue(getByPlaceholderText('Password'), 'password');
 
-        click(getByText('Submit').parentElement);
+        click(getByText('Sign in').parentElement);
 
         expect(postSignIn).toHaveBeenCalledTimes(1);
         expect(postSignIn).toHaveBeenCalledWith({

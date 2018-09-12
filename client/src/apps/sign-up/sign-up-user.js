@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import SignInForm from 'apps/sign-in/sign-in-form';
+import SignUpUserForm from 'apps/sign-up/sign-up-user-form';
 import styled from 'styled-components';
 import { Card, Container, Text } from 'components/style';
-import { Redirect } from 'react-router-dom';
 import { Separator } from 'components/form';
 import { authenticated } from 'components/authentication';
-import { get } from 'helpers/object';
 
 const StyledContainer = styled(Container)`
   align-items: center;
@@ -17,32 +15,21 @@ const StyledCard = styled(Card)`
   align-items: center;
 `;
 
-export function SignIn({ location, requestSignIn, user }) {
-  const from = get(location, 'state.from', '/');
-
-  if (user) {
-    return <Redirect to={from} />;
-  }
-
+export function SignUpUser({ requestSignIn }) {
   return (
     <StyledContainer>
       <StyledCard>
-        <Text size={20} weight="bold">Sign In</Text>
+        <Text size={20} weight="bold">Sign Up - User</Text>
         <Separator />
-        <SignInForm onSuccess={requestSignIn} />
+        <SignUpUserForm onSuccess={requestSignIn} />
       </StyledCard>
     </StyledContainer>
   );
 }
 
-SignIn.propTypes = {
-  location: PropTypes.shape({
-    state: PropTypes.shape({
-      from: PropTypes.string,
-    }),
-  }).isRequired,
+SignUpUser.propTypes = {
   requestSignIn: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 
-export default authenticated(SignIn);
+export default authenticated(SignUpUser);

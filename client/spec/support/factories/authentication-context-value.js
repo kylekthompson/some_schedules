@@ -11,8 +11,8 @@ export default class AuthenticationContextValue extends Factory {
     });
   }
 
-  signedIn() {
-    this.user = new User();
+  signedIn(user = new User()) {
+    this.user = user;
     return this;
   }
 

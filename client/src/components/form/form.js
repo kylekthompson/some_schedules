@@ -19,11 +19,14 @@ export default class Form extends Component {
       name: PropTypes.string.isRequired,
       validation: PropTypes.instanceOf(Validation),
     })).isRequired,
+    isSubmitting: PropTypes.bool,
     onSubmit: PropTypes.func,
+    serverErrors: PropTypes.object,
   };
 
   static defaultProps = {
     onSubmit: () => {},
+    serverErrors: {},
   };
 
   state = this.props.fields.reduce((state, field) => ({
@@ -51,11 +54,11 @@ export default class Form extends Component {
   }
 
   get isSubmitDisabled() {
-    return this.props.fields.some(({ name }) => this.state[name].errors.length > 0);
+    return this.props.isSubmitting || this.props.fields.some(({ name }) => this.state[name].errors.length > 0);
   }
 
   errorPropsForField = (field) => ({
-    errors: this.formErrors()[field],
+    errors: [...this.formErrors()[field], ...(this.props.serverErrors[field] || [])],
   });
 
   inputPropsForField = (field) => ({

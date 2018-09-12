@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { Container, Link, Text } from 'components/style';
+import { authenticated } from 'components/authentication';
 import { colors } from 'models/style';
 
 const StyledContainer = styled(Container)`
@@ -11,19 +13,12 @@ const StyledContainer = styled(Container)`
 const StyledLink = styled(Link)`
   &:hover {
     & > p {
-      transform: translateY(-1px);
       color: ${colors.portlandOrange()};
-    }
-  }
-
-  &:active {
-    & > p {
-      transform: translateY(0px);
     }
   }
 `;
 
-export default function Header() {
+export function Header({ requestSignOut, user }) {
   return (
     <StyledContainer flexDirection="row">
       <Container flex={0}>
@@ -33,13 +28,36 @@ export default function Header() {
       </Container>
       <Container flex={1} />
       <Container flex="none" flexDirection="row">
-        <StyledLink to="/sign-up">
-          <Text color={colors.eerieBlack()}>Sign Up</Text>
-        </StyledLink>
-        <StyledLink to="/sign-in">
-          <Text color={colors.eerieBlack()}>Sign In</Text>
-        </StyledLink>
+        {!user && (
+          <>
+            <StyledLink to="/sign-up">
+              <Text color={colors.eerieBlack()}>Sign Up</Text>
+            </StyledLink>
+            <StyledLink to="/sign-in">
+              <Text color={colors.eerieBlack()}>Sign In</Text>
+            </StyledLink>
+          </>
+        )}
+        {user && (
+          <>
+            {!user.company && (
+              <StyledLink to="/sign-up">
+                <Text color={colors.eerieBlack()}>Finish Sign Up</Text>
+              </StyledLink>
+            )}
+            <StyledLink onClick={requestSignOut} to="/">
+              <Text color={colors.eerieBlack()}>Sign Out</Text>
+            </StyledLink>
+          </>
+        )}
       </Container>
     </StyledContainer>
   );
 }
+
+Header.propTypes = {
+  requestSignOut: PropTypes.func.isRequired,
+  user: PropTypes.object,
+};
+
+export default authenticated(Header);

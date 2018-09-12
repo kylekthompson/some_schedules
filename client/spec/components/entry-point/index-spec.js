@@ -20,7 +20,7 @@ describe('<EntryPoint />', () => {
         authenticationContextValue: new AuthenticationContextValue().signedOut(),
         route: '/sign-up',
       });
-      getByText('Sign Up App');
+      getByText('Sign Up - User');
     });
 
     it('routes to /schedule', () => {

@@ -14,9 +14,9 @@ describe('password validations', () => {
     describe('a password that is improperly formatted', () => {
       it('has the correct errors', () => {
         expect(passwordConfirmationValidation.run({
-          password: 'pass',
+          password: 'password',
           passwordConfirmation: 'pass',
-        })).toEqual(['Looks like you need 4 more characters']);
+        })).toEqual(['Looks like you need 4 more characters', 'Make sure this matches your password!']);
       });
     });
 

@@ -110,4 +110,12 @@ describe('<Form />', () => {
       });
     });
   });
+
+  describe('when there are server errors', () => {
+    it('includes them in the field errors', () => {
+      const { getByText } = mount(<TestForm serverErrors={{ name: ['some server error about the name'] }} />);
+
+      getByText('some server error about the name');
+    });
+  });
 });

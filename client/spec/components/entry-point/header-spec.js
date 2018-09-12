@@ -1,12 +1,13 @@
-import Header from 'components/entry-point/header';
 import React from 'react';
+import { Company, User } from 'spec/support/factories';
+import { Header } from 'components/entry-point/header';
 import { Route } from 'react-router-dom';
 import { mountAsApp } from 'spec/support/mount';
 
-function App() {
+function App({ requestSignOut = jest.fn(), user = null }) {
   return (
     <>
-      <Header />
+      <Header requestSignOut={requestSignOut} user={user} />
       <Route path="/sign-in" render={() => <p>got sign in</p>} />
       <Route path="/sign-up" render={() => <p>got sign up</p>} />
       <Route path="/" render={() => <p>got home</p>} />
@@ -16,24 +17,90 @@ function App() {
 
 describe('<Header />', () => {
   describe('the navigation links', () => {
-    it('can navigate to /sign-in', () => {
-      const { click, getByText } = mountAsApp(<App />, {
-        route: '/',
+    describe('when there is a user', () => {
+      describe('when the user is part of a company', () => {
+        it('can sign out', () => {
+          const requestSignOut = jest.fn();
+          const { click, getByText } = mountAsApp(<App requestSignOut={requestSignOut} user={new User({ company: new Company() })} />, {
+            route: '/',
+          });
+
+          click(getByText('Sign Out'));
+
+          expect(requestSignOut).toHaveBeenCalledTimes(1);
+        });
+
+        it('cannot sign in or up', () => {
+          const { queryByText } = mountAsApp(<App user={new User({ company: new Company() })} />, {
+            route: '/',
+          });
+
+          expect(queryByText('Sign Up')).toBeNull();
+          expect(queryByText('Sign In')).toBeNull();
+          expect(queryByText('Finish Sign Up')).toBeNull();
+        });
       });
 
-      click(getByText('Sign In'));
+      describe('when the user is not part of a company', () => {
+        it('can sign out', () => {
+          const requestSignOut = jest.fn();
+          const { click, getByText } = mountAsApp(<App requestSignOut={requestSignOut} user={new User({ company: null })} />, {
+            route: '/',
+          });
 
-      getByText('got sign in');
+          click(getByText('Sign Out'));
+
+          expect(requestSignOut).toHaveBeenCalledTimes(1);
+        });
+
+        it('can finish sign up', () => {
+          const { click, getByText } = mountAsApp(<App user={new User({ company: null })} />, {
+            route: '/',
+          });
+
+          click(getByText('Finish Sign Up'));
+
+          getByText('got sign up');
+        });
+
+        it('cannot sign in', () => {
+          const { queryByText } = mountAsApp(<App user={new User({ company: null })} />, {
+            route: '/',
+          });
+
+          expect(queryByText('Sign In')).toBeNull();
+        });
+      });
     });
 
-    it('can navigate to /sign-up', () => {
-      const { click, getByText } = mountAsApp(<App />, {
-        route: '/',
+    describe('when there is not a user', () => {
+      it('can sign-in', () => {
+        const { click, getByText } = mountAsApp(<App user={null} />, {
+          route: '/',
+        });
+
+        click(getByText('Sign In'));
+
+        getByText('got sign in');
       });
 
-      click(getByText('Sign Up'));
+      it('can sign-up', () => {
+        const { click, getByText } = mountAsApp(<App user={null} />, {
+          route: '/',
+        });
 
-      getByText('got sign up');
+        click(getByText('Sign Up'));
+
+        getByText('got sign up');
+      });
+
+      it('cannot sign out', () => {
+        const { queryByText } = mountAsApp(<App user={null} />, {
+          route: '/',
+        });
+
+        expect(queryByText('Sign Out')).toBeNull();
+      });
     });
   });
 

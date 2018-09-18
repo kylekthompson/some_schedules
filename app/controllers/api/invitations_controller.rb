@@ -12,7 +12,7 @@ module API
     def creation_params
       params
         .require(:invitation)
-        .permit(:email)
+        .permit(:email, :role)
         .merge(invited_by: current_user)
         .to_h.symbolize_keys
     end

@@ -7,7 +7,7 @@ RSpec.describe InvitationSerializer, type: :serializer do
 
   describe "serialization" do
     let(:invitation) { build(:invitation) }
-    let(:expected_keys) { %i[id created_at email expires_at updated_at invited_by] }
+    let(:expected_keys) { %i[id created_at email expires_at updated_at invited_by role] }
     let(:expected_invited_by_keys) { %i[id created_at updated_at] }
 
     it "serializes properly", :aggregate_failures do

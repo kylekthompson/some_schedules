@@ -7,6 +7,7 @@ module API
 
       def sign_in
         return NilResult.new unless authenticated?
+
         Result.new(user: user)
       end
 

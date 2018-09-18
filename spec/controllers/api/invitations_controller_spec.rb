@@ -7,7 +7,8 @@ RSpec.describe API::InvitationsController, type: :request do
   include_context "with parsed body"
 
   describe "POST #create" do
-    let(:params) { { invitation: { email: email } } }
+    let(:params) { { invitation: { email: email, role: role } } }
+    let(:role) { User::Role::EMPLOYEE }
     let(:email) { "some@email.com" }
 
     context "when unauthenticated" do
@@ -32,6 +33,7 @@ RSpec.describe API::InvitationsController, type: :request do
         expect(response).to have_http_status(:created)
         expect(parsed_body[:errors]).to be_nil
         expect(parsed_body[:invitation][:email]).to eq(email)
+        expect(parsed_body[:invitation][:role]).to eq(role)
       end
     end
 

@@ -19,6 +19,7 @@ module Core
 
     def coerce_time
       return raw_time if raw_time.is_a?(::Time)
+
       ::Time.parse(raw_time.to_s)
     rescue ArgumentError
       nil

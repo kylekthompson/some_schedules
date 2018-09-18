@@ -9,12 +9,12 @@ end
 
 gem "active_model_serializers"
 gem "attr_extras"
-gem "bcrypt", "~> 3.1.11"
+gem "bcrypt", "~> 3.1"
 gem "jwt"
 gem "oj"
 gem "pg", "~> 1.0"
-gem "puma", "~> 3.11.4"
-gem "rails", "~> 5.2.0"
+gem "puma", "~> 3.11"
+gem "rails", "~> 5.2"
 gem "responders"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 

@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :invitation do
     association :invited_by, factory: :user
     email { FFaker::Internet.email }
-    accepted false
+    accepted { false }
+    role { User::Role::EMPLOYEE }
   end
 end

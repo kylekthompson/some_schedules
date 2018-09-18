@@ -6,7 +6,8 @@ RSpec.describe Accounts::Invitations::CreationService do
   describe ".create" do
     let(:invitation) { described_class.create(params) }
     let(:invited_by) { create(:user, :owner, :in_company) }
-    let(:params) { { email: "email@example.com", invited_by: invited_by } }
+    let(:role) { User::Role::EMPLOYEE }
+    let(:params) { { email: "email@example.com", invited_by: invited_by, role: role } }
 
     context "when the params are valid" do
       it "creates the invitation", :aggregate_failures do
@@ -14,6 +15,7 @@ RSpec.describe Accounts::Invitations::CreationService do
         expect(invitation).to have_attributes(
           invited_by: invited_by,
           email: "email@example.com",
+          role: role,
         )
       end
     end

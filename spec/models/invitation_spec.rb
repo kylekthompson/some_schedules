@@ -14,6 +14,8 @@ RSpec.describe Invitation, type: :model do
   it { is_expected.to allow_value("a@b.c").for(:email) }
   it { is_expected.to allow_value("a.b.c@d.e").for(:email) }
   it { is_expected.not_to allow_value("a.b").for(:email) }
+  it { is_expected.to validate_presence_of(:role) }
+  it { is_expected.to validate_inclusion_of(:role).in_array(User::Role::ALL) }
 
   it { is_expected.to belong_to(:invited_by) }
   it { is_expected.to have_one(:company).through(:invited_by) }

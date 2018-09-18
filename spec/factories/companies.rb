@@ -6,7 +6,7 @@ FactoryBot.define do
 
     trait :with_users do
       transient do
-        user_count 1
+        user_count { 1 }
       end
 
       users { build_list(:user, user_count) }

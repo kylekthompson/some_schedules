@@ -2,6 +2,6 @@
 
 module Core
   class Service
-    private_class_method :new
+    private_class_method :new # rubocop:disable Lint/UselessAccessModifier
   end
 end

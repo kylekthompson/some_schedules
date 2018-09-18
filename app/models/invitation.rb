@@ -11,6 +11,8 @@ class Invitation < ApplicationRecord
   validates :email, presence: true
   validates :email, uniqueness: true
   validates :email, format: Helpers::EmailFormatter::FORMAT
+  validates :role, presence: true
+  validates :role, inclusion: { in: User::Role::ALL }
 
   private
 

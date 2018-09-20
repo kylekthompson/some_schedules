@@ -9,13 +9,13 @@ const StyledContainer = styled(Container)`
   margin-bottom: 10px;
 `;
 
-export default function Errors({ errors }) {
+export default function Errors({ errors, id }) {
   if (errors.length === 0) {
     return null;
   }
 
   return (
-    <StyledContainer>
+    <StyledContainer aria-live="polite" id={id} role="alert">
       {errors.map((error) => <Text key={error} color={colors.portlandOrange(.8)}>{error}</Text>)}
     </StyledContainer>
   );
@@ -23,4 +23,5 @@ export default function Errors({ errors }) {
 
 Errors.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  id: PropTypes.string,
 };

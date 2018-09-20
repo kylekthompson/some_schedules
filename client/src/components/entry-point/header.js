@@ -18,6 +18,39 @@ const StyledLink = styled(Link)`
   }
 `;
 
+function SignedOutLinks() {
+  return (
+    <>
+      <StyledLink to="/sign-up">
+        <Text color={colors.eerieBlack()}>Sign Up</Text>
+      </StyledLink>
+      <StyledLink to="/sign-in">
+        <Text color={colors.eerieBlack()}>Sign In</Text>
+      </StyledLink>
+    </>
+  );
+}
+
+function SignedInLinks({ requestSignOut, user }) {
+  return (
+    <>
+      {!user.company && (
+        <StyledLink to="/sign-up">
+          <Text color={colors.eerieBlack()}>Complete Sign Up</Text>
+        </StyledLink>
+      )}
+      <StyledLink onClick={requestSignOut} to="/">
+        <Text color={colors.eerieBlack()}>Sign Out</Text>
+      </StyledLink>
+    </>
+  );
+}
+
+SignedInLinks.propTypes = {
+  requestSignOut: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
+
 export function Header({ requestSignOut, user }) {
   return (
     <StyledContainer flexDirection="row">
@@ -28,28 +61,8 @@ export function Header({ requestSignOut, user }) {
       </Container>
       <Container flex={1} />
       <Container flex="none" flexDirection="row">
-        {!user && (
-          <>
-            <StyledLink to="/sign-up">
-              <Text color={colors.eerieBlack()}>Sign Up</Text>
-            </StyledLink>
-            <StyledLink to="/sign-in">
-              <Text color={colors.eerieBlack()}>Sign In</Text>
-            </StyledLink>
-          </>
-        )}
-        {user && (
-          <>
-            {!user.company && (
-              <StyledLink to="/sign-up">
-                <Text color={colors.eerieBlack()}>Finish Sign Up</Text>
-              </StyledLink>
-            )}
-            <StyledLink onClick={requestSignOut} to="/">
-              <Text color={colors.eerieBlack()}>Sign Out</Text>
-            </StyledLink>
-          </>
-        )}
+        {!user && <SignedOutLinks />}
+        {user && <SignedInLinks requestSignOut={requestSignOut} user={user} />}
       </Container>
     </StyledContainer>
   );

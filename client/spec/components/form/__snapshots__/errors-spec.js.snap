@@ -29,7 +29,10 @@ exports[`<Errors /> when there are errors renders all of them 1`] = `
 }
 
 <div
+  aria-live="polite"
   class="c0 c1"
+  id="errors"
+  role="alert"
 >
   <p
     class="c2"

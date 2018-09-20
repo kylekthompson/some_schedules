@@ -1,6 +1,6 @@
 import Company from 'spec/support/factories/company';
 import Factory from 'spec/support/factories/factory';
-import UserModel from 'models/user';
+import { roles } from 'models/user';
 
 export default class User extends Factory {
   constructor(user = {}) {
@@ -10,7 +10,7 @@ export default class User extends Factory {
       firstName: 'Kyle',
       id: Math.floor(Math.random() * 100000000),
       lastName: 'Thompson',
-      role: UserModel.Role.EMPLOYEE,
+      role: roles.EMPLOYEE,
       ...user,
     });
   }

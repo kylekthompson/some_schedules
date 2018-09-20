@@ -37,7 +37,7 @@ describe('<Header />', () => {
 
           expect(queryByText('Sign Up')).toBeNull();
           expect(queryByText('Sign In')).toBeNull();
-          expect(queryByText('Finish Sign Up')).toBeNull();
+          expect(queryByText('Complete Sign Up')).toBeNull();
         });
       });
 
@@ -58,7 +58,7 @@ describe('<Header />', () => {
             route: '/',
           });
 
-          click(getByText('Finish Sign Up'));
+          click(getByText('Complete Sign Up'));
 
           getByText('got sign up');
         });

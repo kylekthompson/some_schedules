@@ -59,9 +59,11 @@ export default class Form extends Component {
 
   errorPropsForField = (field) => ({
     errors: [...this.formErrors()[field], ...(this.props.serverErrors[field] || [])],
+    id: `${field}-errors`,
   });
 
   inputPropsForField = (field) => ({
+    'aria-describedby': `${field}-errors`,
     isValid: this.formErrors()[field].length === 0,
     onBlur: this.handleBlur(field),
     onChange: this.handleChange(field),

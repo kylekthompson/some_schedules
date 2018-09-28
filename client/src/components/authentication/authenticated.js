@@ -1,16 +1,19 @@
 import Context from 'components/authentication/context';
-import React from 'react';
+import React, { Component } from 'react';
 
-export default function authenticated(Component) {
-  function AuthenticatedComponent(props) {
-    return (
-      <Context.Consumer>
-        {(authentication) => <Component {...props} {...authentication} />}
-      </Context.Consumer>
-    );
+export default function authenticated(WrappedComponent) {
+  class AuthenticatedComponent extends Component {
+    renderComponent = (authentication) => <WrappedComponent {...this.props} {...authentication} />;
+    render() {
+      return (
+        <Context.Consumer>
+          {this.renderComponent}
+        </Context.Consumer>
+      );
+    }
   }
 
-  const name = Component.displayName || Component.name || 'Component';
+  const name = WrappedComponent.displayName || WrappedComponent.name || 'Component';
   AuthenticatedComponent.displayName = `authenticated(${name})`;
 
   return AuthenticatedComponent;

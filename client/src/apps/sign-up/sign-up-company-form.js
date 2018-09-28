@@ -71,6 +71,25 @@ export default class SignUpCompanyForm extends Component {
     }
   });
 
+  renderForm = ({ errorPropsForField, inputPropsForField, submitProps }) => (
+    <>
+      <Input
+        autoFocus={true}
+        placeholder="Company Name"
+        type="text"
+        {...inputPropsForField('name')}
+      />
+      <Errors {...errorPropsForField('name')} />
+      <Errors errors={this.state.otherServerErrors} />
+      <StyledSeparator />
+      <StyledButton {...submitProps}>
+        <Text color={colors.white()} size={14} weight="demiBold">
+          {this.state.isSigningUp ? 'Submitting...' : 'Submit'}
+        </Text>
+      </StyledButton>
+    </>
+  );
+
   render() {
     return (
       <StyledForm
@@ -79,24 +98,7 @@ export default class SignUpCompanyForm extends Component {
         onSubmit={this.signUp}
         serverErrors={this.state.serverValidationErrors}
       >
-        {({ errorPropsForField, inputPropsForField, submitProps }) => (
-          <>
-            <Input
-              autoFocus={true}
-              placeholder="Company Name"
-              type="text"
-              {...inputPropsForField('name')}
-            />
-            <Errors {...errorPropsForField('name')} />
-            <Errors errors={this.state.otherServerErrors} />
-            <StyledSeparator />
-            <StyledButton {...submitProps}>
-              <Text color={colors.white()} size={14} weight="demiBold">
-                {this.state.isSigningUp ? 'Submitting...' : 'Submit'}
-              </Text>
-            </StyledButton>
-          </>
-        )}
+        {this.renderForm}
       </StyledForm>
     );
   }

@@ -93,6 +93,54 @@ export default class SignUpUserForm extends Component {
     }
   });
 
+  renderForm = ({ errorPropsForField, inputPropsForField, submitProps }) => (
+    <>
+      <Input
+        autoComplete="given-name"
+        autoFocus={true}
+        placeholder="First Name"
+        type="text"
+        {...inputPropsForField('firstName')}
+      />
+      <Errors {...errorPropsForField('firstName')} />
+      <Input
+        autoComplete="family-name"
+        placeholder="Last Name"
+        type="text"
+        {...inputPropsForField('lastName')}
+      />
+      <Errors {...errorPropsForField('lastName')} />
+      <Input
+        autoComplete="email"
+        placeholder="Email"
+        type="email"
+        {...inputPropsForField('email')}
+      />
+      <Errors {...errorPropsForField('email')} />
+      <Input
+        autoComplete="new-password"
+        placeholder="Password"
+        type="password"
+        {...inputPropsForField('password')}
+      />
+      <Errors {...errorPropsForField('password')} />
+      <Input
+        autoComplete="new-password"
+        placeholder="Password Confirmation"
+        type="password"
+        {...inputPropsForField('passwordConfirmation')}
+      />
+      <Errors {...errorPropsForField('passwordConfirmation')} />
+      <Errors errors={this.state.otherServerErrors} />
+      <StyledSeparator />
+      <StyledButton {...submitProps}>
+        <Text color={colors.white()} size={14} weight="demiBold">
+          {this.state.isSigningUp ? 'Submitting...' : 'Next'}
+        </Text>
+      </StyledButton>
+    </>
+  );
+
   render() {
     return (
       <StyledForm
@@ -101,53 +149,7 @@ export default class SignUpUserForm extends Component {
         onSubmit={this.signUp}
         serverErrors={this.state.serverValidationErrors}
       >
-        {({ errorPropsForField, inputPropsForField, submitProps }) => (
-          <>
-            <Input
-              autoComplete="given-name"
-              autoFocus={true}
-              placeholder="First Name"
-              type="text"
-              {...inputPropsForField('firstName')}
-            />
-            <Errors {...errorPropsForField('firstName')} />
-            <Input
-              autoComplete="family-name"
-              placeholder="Last Name"
-              type="text"
-              {...inputPropsForField('lastName')}
-            />
-            <Errors {...errorPropsForField('lastName')} />
-            <Input
-              autoComplete="email"
-              placeholder="Email"
-              type="email"
-              {...inputPropsForField('email')}
-            />
-            <Errors {...errorPropsForField('email')} />
-            <Input
-              autoComplete="new-password"
-              placeholder="Password"
-              type="password"
-              {...inputPropsForField('password')}
-            />
-            <Errors {...errorPropsForField('password')} />
-            <Input
-              autoComplete="new-password"
-              placeholder="Password Confirmation"
-              type="password"
-              {...inputPropsForField('passwordConfirmation')}
-            />
-            <Errors {...errorPropsForField('passwordConfirmation')} />
-            <Errors errors={this.state.otherServerErrors} />
-            <StyledSeparator />
-            <StyledButton {...submitProps}>
-              <Text color={colors.white()} size={14} weight="demiBold">
-                {this.state.isSigningUp ? 'Submitting...' : 'Next'}
-              </Text>
-            </StyledButton>
-          </>
-        )}
+        {this.renderForm}
       </StyledForm>
     );
   }

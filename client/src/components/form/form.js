@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Validation from 'models/validations/validation';
 import produce from 'immer';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-export default class Form extends Component {
+export default class Form extends PureComponent {
   static propTypes = {
     children: PropTypes.func.isRequired,
     className: PropTypes.string,

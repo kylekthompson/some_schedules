@@ -71,6 +71,33 @@ export default class SignInForm extends Component {
     }
   });
 
+  renderForm = ({ errorPropsForField, inputPropsForField, submitProps }) => (
+    <>
+      <Input
+        autoComplete="email"
+        autoFocus={true}
+        placeholder="Email"
+        type="email"
+        {...inputPropsForField('email')}
+      />
+      <Errors {...errorPropsForField('email')} />
+      <Input
+        autoComplete="current-password"
+        placeholder="Password"
+        type="password"
+        {...inputPropsForField('password')}
+      />
+      <Errors {...errorPropsForField('password')} />
+      <Errors errors={this.state.errors} />
+      <StyledSeparator />
+      <StyledButton {...submitProps}>
+        <Text color={colors.white()} size={14} weight="demiBold">
+          {this.state.isSigningIn ? 'Signing in...' : 'Sign in'}
+        </Text>
+      </StyledButton>
+    </>
+  );
+
   render() {
     return (
       <StyledForm
@@ -78,32 +105,7 @@ export default class SignInForm extends Component {
         isSubmitting={this.state.isSigningIn}
         onSubmit={this.signIn}
       >
-        {({ errorPropsForField, inputPropsForField, submitProps }) => (
-          <>
-            <Input
-              autoComplete="email"
-              autoFocus={true}
-              placeholder="Email"
-              type="email"
-              {...inputPropsForField('email')}
-            />
-            <Errors {...errorPropsForField('email')} />
-            <Input
-              autoComplete="current-password"
-              placeholder="Password"
-              type="password"
-              {...inputPropsForField('password')}
-            />
-            <Errors {...errorPropsForField('password')} />
-            <Errors errors={this.state.errors} />
-            <StyledSeparator />
-            <StyledButton {...submitProps}>
-              <Text color={colors.white()} size={14} weight="demiBold">
-                {this.state.isSigningIn ? 'Signing in...' : 'Sign in'}
-              </Text>
-            </StyledButton>
-          </>
-        )}
+        {this.renderForm}
       </StyledForm>
     );
   }

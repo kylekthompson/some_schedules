@@ -1,4 +1,4 @@
-import Header from 'components/entry-point/header';
+import Header from 'apps/entry-point/header';
 import Marketing from 'apps/marketing';
 import React from 'react';
 import Schedule from 'apps/schedule';

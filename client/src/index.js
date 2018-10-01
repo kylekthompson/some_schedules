@@ -1,4 +1,4 @@
-import EntryPoint from 'components/entry-point';
+import EntryPoint from 'apps/entry-point';
 import React from 'react';
 import { Provider as AuthenticationProvider } from 'components/authentication';
 import { BrowserRouter as Router } from 'react-router-dom';

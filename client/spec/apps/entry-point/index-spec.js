@@ -1,4 +1,4 @@
-import EntryPoint from 'components/entry-point';
+import EntryPoint from 'apps/entry-point';
 import React from 'react';
 import { AuthenticationContextValue } from 'spec/support/factories';
 import { mountAsApp } from 'spec/support/mount';

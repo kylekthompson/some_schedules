@@ -1,11 +1,13 @@
 import Header from 'apps/entry-point/header';
 import Marketing from 'apps/marketing';
+import PropTypes from 'prop-types';
 import React from 'react';
-import Schedule from 'apps/schedule';
 import SignIn from 'apps/sign-in';
 import SignUp from 'apps/sign-up';
+import SignedInEntryPoint from 'apps/signed-in-entry-point';
 import { Container } from 'components/style';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { authenticated } from 'components/authentication';
 import { colors } from 'models/style';
 import { injectGlobal } from 'styled-components';
 
@@ -33,16 +35,25 @@ injectGlobal`
   }
 `;
 
-export default function EntryPoint() {
+export function EntryPoint({ user }) {
   return (
     <Container>
       <Header />
       <Switch>
         <Route component={SignIn} path="/sign-in" />
         <Route component={SignUp} path="/sign-up" />
-        <Route component={Schedule} path="/schedule" />
-        <Route component={Marketing} path="/" />
+        {!user && <Route component={Marketing} path="/" />}
+        {user && !user.company && <Redirect from="/" to="/sign-up" />}
+        {user && user.company && <Route component={SignedInEntryPoint} path="/" />}
       </Switch>
     </Container>
   );
 }
+
+EntryPoint.propTypes = {
+  user: PropTypes.shape({
+    company: PropTypes.object,
+  }),
+};
+
+export default authenticated(EntryPoint);

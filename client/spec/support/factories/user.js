@@ -14,4 +14,14 @@ export default class User extends Factory {
       ...user,
     });
   }
+
+  asEmployee() {
+    this.role = roles.EMPLOYEE;
+    return this;
+  }
+
+  asOwner() {
+    this.role = roles.OWNER;
+    return this;
+  }
 }

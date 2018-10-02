@@ -6,5 +6,6 @@ export default styled(Container)`
   ${shadows.containers.normal}
   background-color: ${colors.white()};
   border-radius: 4px;
+  flex: none;
   padding: 10px;
 `;

@@ -1,6 +1,10 @@
 import React from 'react';
-import { Text } from 'components/style';
+import { Card, Text } from 'components/style';
 
 export default function Schedule() {
-  return <Text>Schedule</Text>;
+  return (
+    <Card>
+      <Text>Schedule App</Text>
+    </Card>
+  );
 }

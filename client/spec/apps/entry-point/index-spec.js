@@ -16,7 +16,7 @@ describe('<EntryPoint />', () => {
           });
 
           expect(queryByText('Sign In')).toBeNull();
-          getByText('Schedule');
+          getByText('Schedule App');
         });
 
         it('redirects from /sign-up to /schedule', () => {
@@ -26,7 +26,7 @@ describe('<EntryPoint />', () => {
           });
 
           expect(queryByText('Sign Up -')).toBeNull();
-          getByText('Schedule');
+          getByText('Schedule App');
         });
 
         it('routes to /schedule', () => {
@@ -35,7 +35,7 @@ describe('<EntryPoint />', () => {
             route: '/schedule',
           });
 
-          getByText('Schedule');
+          getByText('Schedule App');
         });
 
         it('redirects from / to /schedule', () => {
@@ -43,7 +43,7 @@ describe('<EntryPoint />', () => {
             route: '/',
           });
 
-          getByText('Schedule');
+          getByText('Schedule App');
         });
       });
 
@@ -75,7 +75,7 @@ describe('<EntryPoint />', () => {
             route: '/schedule',
           });
 
-          expect(queryByText('Schedule')).toBeNull();
+          expect(queryByText('Schedule App')).toBeNull();
           getByText('Sign Up - Company');
         });
 
@@ -118,7 +118,7 @@ describe('<EntryPoint />', () => {
           route: '/schedule',
         });
 
-        expect(queryByText('Schedule')).toBeNull();
+        expect(queryByText('Schedule App')).toBeNull();
       });
 
       it('routes to /', () => {

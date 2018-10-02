@@ -5,11 +5,11 @@ import React from 'react';
 import SignIn from 'apps/sign-in';
 import SignUp from 'apps/sign-up';
 import SignedInEntryPoint from 'apps/signed-in-entry-point';
+import styled, { injectGlobal } from 'styled-components';
 import { Container } from 'components/style';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { authenticated } from 'components/authentication';
 import { colors } from 'models/style';
-import { injectGlobal } from 'styled-components';
 
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
@@ -35,9 +35,13 @@ injectGlobal`
   }
 `;
 
+const StyledContainer = styled(Container)`
+  min-height: 100vh;
+`;
+
 export function EntryPoint({ user }) {
   return (
-    <Container>
+    <StyledContainer>
       <Header />
       <Switch>
         <Route component={SignIn} path="/sign-in" />
@@ -46,7 +50,7 @@ export function EntryPoint({ user }) {
         {user && !user.company && <Redirect from="/" to="/sign-up" />}
         {user && user.company && <Route component={SignedInEntryPoint} path="/" />}
       </Switch>
-    </Container>
+    </StyledContainer>
   );
 }
 

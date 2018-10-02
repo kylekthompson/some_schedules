@@ -7,6 +7,7 @@ import { colors } from 'models/style';
 
 const StyledContainer = styled(Container)`
   align-items: center;
+  flex: 0;
   padding: 10px;
 `;
 

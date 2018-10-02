@@ -13,6 +13,6 @@ describe('<Schedule />', () => {
       route: '/schedule',
     });
 
-    getByText('Schedule');
+    getByText('Schedule App');
   });
 });

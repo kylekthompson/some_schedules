@@ -1,4 +1,4 @@
-import Header from 'apps/entry-point/header';
+import Header from 'apps/entry-point/components/header';
 import Marketing from 'apps/marketing';
 import PropTypes from 'prop-types';
 import React from 'react';

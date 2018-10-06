@@ -1,5 +1,5 @@
 import React from 'react';
-import SignInForm from 'apps/sign-in/sign-in-form';
+import SignInForm from 'apps/sign-in/components/sign-in-form';
 import { User } from 'spec/support/factories';
 import { mount } from 'spec/support/mount';
 import { postSignIn } from 'apis/authentication';

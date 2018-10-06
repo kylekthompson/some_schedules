@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpUserForm from 'apps/sign-up/sign-up-user-form';
+import SignUpUserForm from 'apps/sign-up/components/sign-up-user-form';
 import { User } from 'spec/support/factories';
 import { mount } from 'spec/support/mount';
 import { postCreate } from 'apis/users';

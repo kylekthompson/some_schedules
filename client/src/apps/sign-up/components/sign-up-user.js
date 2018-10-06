@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import SignUpCompanyForm from 'apps/sign-up/sign-up-company-form';
+import SignUpUserForm from 'apps/sign-up/components/sign-up-user-form';
 import styled from 'styled-components';
 import { Card, Container, Text } from 'components/style';
 import { Separator } from 'components/form';
@@ -15,21 +15,21 @@ const StyledCard = styled(Card)`
   align-items: center;
 `;
 
-export function SignUpCompany({ requestSignIn, user }) {
+export function SignUpUser({ requestSignIn }) {
   return (
     <StyledContainer>
       <StyledCard>
-        <Text size={20} weight="bold">Sign Up - Company</Text>
+        <Text size={20} weight="bold">Sign Up - User</Text>
         <Separator />
-        <SignUpCompanyForm onSuccess={(company) => requestSignIn({ ...user, company })} />
+        <SignUpUserForm onSuccess={requestSignIn} />
       </StyledCard>
     </StyledContainer>
   );
 }
 
-SignUpCompany.propTypes = {
+SignUpUser.propTypes = {
   requestSignIn: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 
-export default authenticated(SignUpCompany);
+export default authenticated(SignUpUser);

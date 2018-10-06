@@ -1,4 +1,4 @@
-import Card from 'apps/company-settings/card';
+import Card from 'apps/company-settings/components/card';
 import React from 'react';
 import { Text } from 'components/style';
 

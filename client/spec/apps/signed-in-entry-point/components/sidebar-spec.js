@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from 'apps/signed-in-entry-point/sidebar';
+import Sidebar from 'apps/signed-in-entry-point/components/sidebar';
 import { User } from 'spec/support/factories';
 import { mountAsApp } from 'spec/support/mount';
 

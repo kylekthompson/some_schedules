@@ -1,6 +1,6 @@
 import React from 'react';
 import { Company, User } from 'spec/support/factories';
-import { Header } from 'apps/entry-point/header';
+import { Header } from 'apps/entry-point/components/header';
 import { Route } from 'react-router-dom';
 import { mountAsApp } from 'spec/support/mount';
 

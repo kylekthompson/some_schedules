@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpCompanyForm from 'apps/sign-up/sign-up-company-form';
+import SignUpCompanyForm from 'apps/sign-up/components/sign-up-company-form';
 import { Company } from 'spec/support/factories';
 import { mount } from 'spec/support/mount';
 import { postCreate } from 'apis/companies';

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import SignUpCompany from 'apps/sign-up/sign-up-company';
-import SignUpUser from 'apps/sign-up/sign-up-user';
+import SignUpCompany from 'apps/sign-up/components/sign-up-company';
+import SignUpUser from 'apps/sign-up/components/sign-up-user';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { authenticated } from 'components/authentication';
 

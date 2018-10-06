@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import SignInForm from 'apps/sign-in/sign-in-form';
+import SignInForm from 'apps/sign-in/components/sign-in-form';
 import styled from 'styled-components';
 import { Card, Container, Text } from 'components/style';
 import { Redirect } from 'react-router-dom';

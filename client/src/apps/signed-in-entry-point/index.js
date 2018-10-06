@@ -3,7 +3,7 @@ import NotFound from 'apps/not-found';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Schedule from 'apps/schedule';
-import Sidebar from 'apps/signed-in-entry-point/sidebar';
+import Sidebar from 'apps/signed-in-entry-point/components/sidebar';
 import styled from 'styled-components';
 import { Container } from 'components/style';
 import { Redirect, Route, Switch } from 'react-router-dom';

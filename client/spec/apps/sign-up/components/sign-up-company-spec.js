@@ -1,6 +1,6 @@
 import React from 'react';
 import { Company, User } from 'spec/support/factories';
-import { SignUpCompany } from 'apps/sign-up/sign-up-company';
+import { SignUpCompany } from 'apps/sign-up/components/sign-up-company';
 import { mount } from 'spec/support/mount';
 import { postCreate } from 'apis/companies';
 
